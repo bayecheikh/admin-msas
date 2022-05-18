@@ -1,0 +1,42 @@
+{
+  "role":"admin",
+  "homePage":"/dashboard",
+  "menuItems":[
+    {
+      "icon": "mdi-view-dashboard-outline",
+      "href": "/dashboard",
+      "title": "Tableau de bord",
+      "name":"voir_dashboard"
+    },
+    {
+      "icon": "mdi-home-lightning-bolt-outline",
+      "href": "/activites",
+      "title": "Activités",
+      "name": "gerer_activites"
+    },
+    {
+      "icon": "mdi-account-group-outline",
+      "href": "/utilisateurs",
+      "title": "Utilisateurs",
+      "name": "gerer_utilisateurs"
+    },
+    {
+      "icon": "mdi-account-lock-outline",
+      "href": "/roles",
+      "title": "Sécurité",
+      "name": "gerer_securite"
+    },
+    {
+      "icon": "mdi-chart-box-outline",
+      "href": "/statistiques",
+      "title": "Statistiques",
+      "name": "voir_statistique"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/parametres",
+      "title": "Paramétres",
+      "name": "gerer_parametres"
+    }
+  ]
+ }
