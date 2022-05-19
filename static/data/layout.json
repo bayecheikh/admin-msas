@@ -33,6 +33,18 @@
       "name": "gerer-permissions"
     },
     {
+      "icon": "mdi-google-maps",
+      "href": "/departements",
+      "title": "Departement",
+      "name": "gerer-departements"
+    },
+    {
+      "icon": "mdi-google-maps",
+      "href": "/regions",
+      "title": "Region",
+      "name": "gerer-regions"
+    },
+    {
       "icon": "mdi-chart-box-outline",
       "href": "/statistiques",
       "title": "Statistiques",
