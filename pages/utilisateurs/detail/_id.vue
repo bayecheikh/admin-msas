@@ -32,6 +32,11 @@ import ActionsUtilisateur from '@/components/utilisateurs/detail/ActionsUtilisat
       InfoUtilisateur,
       ActionsUtilisateur
     },
+    middleware: function ({redirect,$hasPermission}) {
+      if(!$hasPermission('gerer-utilisateurs')){
+        return redirect('/')
+      }
+    },
     data () {
       return {
         leftmenuItems: [

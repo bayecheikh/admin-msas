@@ -25,6 +25,11 @@ import FormUpdateRole from '@/components/roles/modifier/FormUpdateRole';
     mounted: function() {
       this.$store.dispatch('permissions/getList')
     },
+    middleware: function ({redirect,$hasPermission}) {
+      if(!$hasPermission('gerer-roles')){
+        return redirect('/')
+      }
+    },
     data () {
       return {
         leftmenuItems: [

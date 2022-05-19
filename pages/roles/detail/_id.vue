@@ -37,6 +37,11 @@ import ActionsRole from '@/components/roles/detail/ActionsRole';
       InfoRole,
       ActionsRole
     },
+    middleware: function ({redirect,$hasPermission}) {
+      if(!$hasPermission('gerer-roles')){
+        return redirect('/')
+      }
+    },
     data () {
       return {
         leftmenuItems: [

@@ -37,6 +37,11 @@ import ActionsPermission from '@/components/permissions/detail/ActionsPermission
       InfoPermission,
       ActionsPermission
     },
+    middleware: function ({redirect,$hasPermission}) {
+      if(!$hasPermission('gerer-permissions')){
+        return redirect('/')
+      }
+    },
     data () {
       return {
         leftmenuItems: [

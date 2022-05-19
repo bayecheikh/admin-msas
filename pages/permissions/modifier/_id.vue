@@ -20,6 +20,11 @@ import FormUpdatePermission from '@/components/permissions/modifier/FormUpdatePe
       PageHeader,
       FormUpdatePermission
     },
+    middleware: function ({redirect,$hasPermission}) {
+      if(!$hasPermission('gerer-permissions')){
+        return redirect('/')
+      }
+    },
     data () {
       return {
         leftmenuItems: [

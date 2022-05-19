@@ -17,7 +17,7 @@ import ListPermission from '@/components/permissions/ListPermission'
   export default {
     layout: "dashboard",
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-securite')){
+      if(!$hasPermission('gerer-permissions')){
         return redirect('/')
       }
     },

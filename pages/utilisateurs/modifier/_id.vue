@@ -21,6 +21,11 @@ import FormUpdateUser from '@/components/utilisateurs/modifier/FormUpdateUser';
       PageHeader,
       FormUpdateUser
     },
+    middleware: function ({redirect,$hasPermission}) {
+      if(!$hasPermission('gerer-utilisateurs')){
+        return redirect('/')
+      }
+    },
     mounted: function() {
       this.$store.dispatch('roles/getList')
       /* this.$store.dispatch('structures/getList')

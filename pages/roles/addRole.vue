@@ -21,6 +21,11 @@ import FormAddRole from '@/components/roles/FormAddRole';
       PageHeader,
       FormAddRole
     },
+    middleware: function ({redirect,$hasPermission}) {
+      if(!$hasPermission('gerer-roles')){
+        return redirect('/')
+      }
+    },
     mounted: function() {
       this.$store.dispatch('permissions/getList')
     },

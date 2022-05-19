@@ -21,6 +21,11 @@ import FormAddUser from '@/components/utilisateurs/FormAddUser';
       PageHeader,
       FormAddUser
     },
+    middleware: function ({redirect,$hasPermission}) {
+      if(!$hasPermission('gerer-utilisateurs')){
+        return redirect('/')
+      }
+    },
     mounted: function() {
       /* this.$store.dispatch('roles/getList')
       this.$store.dispatch('structures/getList')

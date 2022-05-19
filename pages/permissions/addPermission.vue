@@ -20,6 +20,11 @@ import FormAddPermission from '@/components/permissions/FormAddPermission';
       PageHeader,
       FormAddPermission
     },
+    middleware: function ({redirect,$hasPermission}) {
+      if(!$hasPermission('gerer-permissions')){
+        return redirect('/')
+      }
+    },
     data () {
       return {
         leftmenuItems: [
