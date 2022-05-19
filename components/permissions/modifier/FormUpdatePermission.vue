@@ -23,13 +23,13 @@
       <v-btn
       :loading="loading"
         :disabled="!valid"
+        depressed
         class="mr-4 text-white" color="#1B73E8"
         @click="submitForm"
       >
         Enregistrer
       </v-btn>
     </v-form>
-    <Notification :message="message" :color="color" v-if="message" class="my-5"/>
   </div>
 </template>
 

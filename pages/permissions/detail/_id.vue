@@ -1,5 +1,5 @@
 <template>
-  <v-container pl-0>
+  <div p-6 class="bg-title">
     <v-row>
       <v-col md="2" lg="2" sm="12" >
         <v-container pl-0>
@@ -20,7 +20,7 @@
           </v-row>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
   
 </template>
 

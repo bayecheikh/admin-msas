@@ -1,12 +1,12 @@
 <template>
-  <v-container p-6>
+  <div p-6 class="bg-title">
     <page-header :items="headerItems" class="pb-4"></page-header>
     <v-card class="mx-auto">  
       <v-container pl-10 pt-10 pb-10 pr-10>
         <form-add-role></form-add-role>
       </v-container>        
     </v-card>
-  </v-container>
+  </div>
   
 </template>
 

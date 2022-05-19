@@ -4,14 +4,15 @@
     <v-navigation-drawer
       v-model="drawer"
       app
-      color="grey lighten-4"
+      color="#fff"
     >
       <v-sheet
-        color="grey lighten-4"
-        class="pa-1"
+        color="#fff"
+        class="pa-2"
+        style="height:63px;"
       >
         <nuxt-link class="customTopNav flex text-sm-left" to="/">
-        <img src="@/static/logo.png" width="170" alt="Espace Senegal Service">
+        <img src="@/static/logo.png" width="180" alt="Espace Senegal Service">
       </nuxt-link>
       </v-sheet>
 
@@ -39,10 +40,10 @@
     </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar elevation="0" color="#fff" app>
+    <v-app-bar elevation="0" app color="#fff">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Plateforme de gestion des financements</v-toolbar-title>
+      <v-toolbar-title class="custom-top-title">PLATEFORME NUMERIQUE DE SUIVI DU FINANCEMENT DE LA SANTE AU SENEGAL</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-menu class="hidden-sm-and-down"
@@ -111,7 +112,7 @@
           </template>
       </v-menu>
     </v-app-bar>
-    <v-main>
+    <v-main class="bg-title">
       <!--  -->
       <nuxt/>
     </v-main>
@@ -188,12 +189,18 @@
 }
 .highlighted{
   color: #1976d2 !important;
-  background: #1976d22d;
+  background: rgb(221, 232, 242);
 }
 .highlighted .v-list-item__icon .v-icon{
   color: #1976d2 !important;
 }
 .text-menu{
   font-size: 13px !important;
+}
+.custom-top-title {
+  color: #9b9999;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: "Roboto";
 }
 </style>

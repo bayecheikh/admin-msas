@@ -1,13 +1,13 @@
 <template>
 
-  <v-container p-6>
+  <div p-6 class="bg-title">
     <page-header :items="headerItems" class="pb-4"></page-header>
     <v-card class="mx-auto">  
       <v-container>
         <list-user></list-user>
       </v-container>        
     </v-card>
-  </v-container>
+  </div>
   
 </template>
 
@@ -55,5 +55,8 @@ import { mapActions} from 'vuex'
 </script>
 
 <style scoped>
-
+.bg-title {
+  background-color: rgb(227, 235, 243) !important;
+  color: #6F96AA;
+}
 </style>
