@@ -1,14 +1,9 @@
 <template>
-  <v-container pl-0>
-    <v-row>
-      <v-col md="2" lg="2" sm="12" >
-        <v-container pl-0>
-          <left-menu :items="leftmenuItems"></left-menu>
-        </v-container>
-      </v-col>
 
-      <v-col md="10" lg="10" sm="12" class="full-height">
-          <page-header :items="headerItems"></page-header>
+  <v-container p-6>
+    <page-header :items="headerItems" class="pb-4"></page-header>
+    <v-card class="mx-auto">  
+      <v-container pl-10 pt-10 pb-10 pr-10>
           <v-row align="center"
             justify="center">
             <v-col cols="12" md="12" lg="12" sm="12">
@@ -18,8 +13,8 @@
               <actions-utilisateur></actions-utilisateur>
             </v-col>
           </v-row>
-      </v-col>
-    </v-row>
+      </v-container>        
+    </v-card>
   </v-container>
   
 </template>

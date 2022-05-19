@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-card-title class="col-4">
+  <v-card-title class="col-6">
     <v-text-field
         v-model="search"
         append-icon="mdi-magnify"

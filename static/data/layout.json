@@ -23,8 +23,14 @@
     {
       "icon": "mdi-account-lock-outline",
       "href": "/roles",
-      "title": "Sécurité",
-      "name": "gerer-securite"
+      "title": "Role",
+      "name": "gerer-roles"
+    },
+    {
+      "icon": "mdi-account-lock-outline",
+      "href": "/permissions",
+      "title": "Permissions",
+      "name": "gerer-permissions"
     },
     {
       "icon": "mdi-chart-box-outline",

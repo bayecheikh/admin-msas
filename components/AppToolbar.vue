@@ -79,7 +79,7 @@
                 tile
               >
               <v-card-actions v-if="isAuthenticate" class="py-0">
-                <v-btn flat color="white" deprmsased @click="logout" :loading="loading">
+                <v-btn text color="white" deprmsased @click="logout" :loading="loading" class="my-2">
                   <v-icon left>
                     mdi-logout
                   </v-icon>Deconnexion
@@ -92,7 +92,7 @@
               </v-card>
             </div>
           </template>
-        </v-menu>
+      </v-menu>
     
   </v-app-bar>
 </template>

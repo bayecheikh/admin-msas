@@ -1,16 +1,11 @@
 <template>
-  <v-container pl-0>
-    <v-row>
-      <v-col md="2" lg="2" sm="12">
-        <v-container pl-0>
-          <left-menu :items="leftmenuItems"></left-menu>
-        </v-container>
-      </v-col>
-      <v-col md="9" lg="9" sm="12" class="full-height">
-          <page-header :items="headerItems"></page-header>
-          <list-permission></list-permission>
-      </v-col>
-    </v-row>
+  <v-container p-6>
+    <page-header :items="headerItems" class="pb-4"></page-header>
+    <v-card class="mx-auto">  
+      <v-container>
+        <list-permission></list-permission>
+      </v-container>        
+    </v-card>
   </v-container>
   
 </template>

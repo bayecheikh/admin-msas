@@ -19,11 +19,11 @@
       <v-col md="6" lg="6" sm="12" class="mb-0 pb-0 d-flex">
         <v-text-field  
           ref="inputRef"
-          label="Rechercher un usager"
+          label="Rechercher un utilisateur"
           outlined dense
           v-model="model.dataSearch"
           :rules="rules.dataSearchRules"
-          placeholder="Téléphone, Email, Prénom, Nom"
+          placeholder="Email, Prénom, Nom"
           clearable
           :clear-icon-cb="onClearClicked"
           rounded

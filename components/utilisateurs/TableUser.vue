@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card-title class="col-4">
+    <v-card-title class="col-12">
       <recherche-user></recherche-user>
       <!-- <v-text-field
         v-model="search"

@@ -1,24 +1,12 @@
 <template>
-  <v-container pl-0>
-    <v-row>
-      <v-col md="2" lg="2" sm="12" >
-        <v-container pl-0>
-          <left-menu :items="leftmenuItems"></left-menu>
-        </v-container>
-      </v-col>
-
-      <v-col md="10" lg="10" sm="12" class="full-height">
-          <page-header :items="headerItems"></page-header>
-          <v-row align="center"
-            justify="center">
-            <v-col cols="6" md="6" lg="6" sm="12">
-              <form-update-permission></form-update-permission>
-            </v-col>
-          </v-row>
-      </v-col>
-    </v-row>
+  <v-container p-6>
+    <page-header :items="headerItems" class="pb-4"></page-header>
+    <v-card class="mx-auto">  
+      <v-container pl-10 pt-10 pb-10 pr-10>
+        <form-update-permission></form-update-permission>
+      </v-container>        
+    </v-card>
   </v-container>
-  
 </template>
 
 <script>
