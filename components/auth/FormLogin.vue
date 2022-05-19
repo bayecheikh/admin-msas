@@ -43,7 +43,7 @@
               </div>
             </v-card>
             <div class="layout column align-center py-5">
-              <span class="caption mr-1">&copy; {{ new Date().getFullYear() }} Sénégal Numérique, Tous droits réservés</span>
+              <span class="caption mr-1">&copy; {{ new Date().getFullYear() }} Ministrère de la santé et de l'action sociale, Tous droits réservés</span>
             </div> 
           </v-flex>
         </v-layout>

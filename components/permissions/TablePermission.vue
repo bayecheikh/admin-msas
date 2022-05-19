@@ -30,12 +30,6 @@
     <v-row class="mb-1 border-bottom-small">
       <v-col md="6" sm="12" lg="6" class="pb-0 pt-4">
         <div class="row"> 
-          <v-btn icon class="col-3" v-on:click="modifier()">
-            <v-icon left class="font-small">
-              mdi-square-edit-outline
-            </v-icon>
-            <span class="font-small">Modifier</span>
-          </v-btn> 
           <v-btn icon class="col-3" v-on:click="supprimer()">
             <v-icon left class="font-small">
               mdi-trash-can-outline
