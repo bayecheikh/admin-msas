@@ -140,7 +140,7 @@ import { mapMutations, mapGetters } from 'vuex'
         this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'}) 
         this.$msasApi.$delete('/regions/'+this.activeItem.id)
         .then(async (response) => { 
-            this.$store.dispatch('regions/deleteregion',this.activeItem.id)
+            this.$store.dispatch('regions/deleteRegion',this.activeItem.id)
             this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Suppression réussie'})
             }).catch((error) => {
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de la suppression'})

@@ -14,13 +14,13 @@
 <v-data-table
   v-model="selected"
   :headers="headers"
-  :items="tab=='tout'?listdepartements : listdepartements.filter(departement => departement.status === tab)"
+  :items="tab=='tout'?listdimensions : listdimensions.filter(dimension => dimension.status === tab)"
   :single-select="singleSelect"
   item-key="id"
   items-per-page="5"
   show-select
   class="flat pt-4"
-  :loading="listdepartements.length?false:true" 
+  :loading="listdimensions.length?false:true" 
   loading-text="Loading... Please wait"
   :rows-per-page-items="[10,20,30,40,50]"
   hide-default-footer
@@ -117,8 +117,8 @@
 import { mapMutations, mapGetters } from 'vuex'
   export default {
     computed: mapGetters({
-      listdepartements: 'departements/listdepartements',
-      headers: 'departements/headerdepartements'
+      listdimensions: 'dimensions/listdimensions',
+      headers: 'dimensions/headerdimensions'
     }),
     props: ['tab'],
     metaInfo () {
@@ -128,19 +128,19 @@ import { mapMutations, mapGetters } from 'vuex'
     },
     methods: {
       visualiserItem (item) {   
-        this.$store.dispatch('departements/getDetail',item)
-        this.$router.push('/departements/detail/'+item.id);
+        this.$store.dispatch('dimensions/getDetail',item)
+        this.$router.push('/dimensions/detail/'+item.id);
       },
       editItem (item) {   
-        this.$store.dispatch('departements/getDetail',item)
-        this.$router.push('/departements/modifier/'+item.id);
+        this.$store.dispatch('dimensions/getDetail',item)
+        this.$router.push('/dimensions/modifier/'+item.id);
       },
        deleteItem (item) {
         this.dialog=false   
         this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'}) 
-        this.$msasApi.$delete('/departements/'+this.activeItem.id)
+        this.$msasApi.$delete('/dimensions/'+this.activeItem.id)
         .then(async (response) => { 
-            this.$store.dispatch('departements/deleteDepartement',this.activeItem.id)
+            this.$store.dispatch('dimensions/deleteDimension',this.activeItem.id)
             this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Suppression réussie'})
             }).catch((error) => {
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de la suppression'})
@@ -158,18 +158,18 @@ import { mapMutations, mapGetters } from 'vuex'
         if(this.selected.length!=1)
         alert('Veuillez selectionner un element')
         else{
-          let departement = this.selected.map(function(value){ return value})[0]
-          this.$store.commit('departements/initdetail',departement)
-          this.$router.push('/departements/detail/'+departement.id);
+          let dimension = this.selected.map(function(value){ return value})[0]
+          this.$store.commit('dimensions/initdetail',dimension)
+          this.$router.push('/dimensions/detail/'+dimension.id);
         }
       },
       modifier(){
         if(this.selected.length!=1)
         alert('Veuillez selectionner un element')
         else{
-          let departement = this.selected.map(function(value){ return value})[0]
-          this.$store.commit('departements/initdetail',departement)
-          this.$router.push('/departements/modifier/'+departement.id);
+          let dimension = this.selected.map(function(value){ return value})[0]
+          this.$store.commit('dimensions/initdetail',dimension)
+          this.$router.push('/dimensions/modifier/'+dimension.id);
         }
       },
       supprimer(){

@@ -45,6 +45,18 @@
       "name": "gerer-regions"
     },
     {
+      "icon": "mdi-google-maps",
+      "href": "/dimensions",
+      "title": "Dimensions",
+      "name": "gerer-dimensions"
+    },
+    {
+      "icon": "mdi-google-maps",
+      "href": "/type-zones",
+      "title": "Type Zone",
+      "name": "gerer-type-zones"
+    },
+    {
       "icon": "mdi-chart-box-outline",
       "href": "/statistiques",
       "title": "Statistiques",
