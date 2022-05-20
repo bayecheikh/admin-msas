@@ -33,25 +33,25 @@
       "name": "gerer-permissions"
     },
     {
-      "icon": "mdi-google-maps",
+      "icon": "mdi-cog-outline",
       "href": "/departements",
       "title": "Departement",
       "name": "gerer-departements"
     },
     {
-      "icon": "mdi-google-maps",
+      "icon": "mdi-cog-outline",
       "href": "/regions",
       "title": "Region",
       "name": "gerer-regions"
     },
     {
-      "icon": "mdi-google-maps",
+      "icon": "mdi-cog-outline",
       "href": "/dimensions",
       "title": "Dimensions",
       "name": "gerer-dimensions"
     },
     {
-      "icon": "mdi-google-maps",
+      "icon": "mdi-cog-outline",
       "href": "/type-zones",
       "title": "Type Zone",
       "name": "gerer-type-zones"
