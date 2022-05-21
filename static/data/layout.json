@@ -15,6 +15,12 @@
       "name": "gerer_activites"
     },
     {
+      "icon": "mdi-home-city-outline",
+      "href": "/structures",
+      "title": "Structures",
+      "name": "gerer-structures"
+    },
+    {
       "icon": "mdi-account-group-outline",
       "href": "/utilisateurs",
       "title": "Utilisateurs",
