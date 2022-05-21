@@ -26,7 +26,6 @@
       </v-icon>
       Modifier les infos
     </v-btn>
-   
   </v-row>
 </template>
 
@@ -34,7 +33,7 @@
 import { mapMutations, mapGetters } from 'vuex'
   export default {
     computed: mapGetters({
-      detailpermission: 'permissions/detailpermission'
+      detailtypesource: 'typesources/detailtypesource'
     }),
     data: () => ({
 
@@ -44,10 +43,10 @@ import { mapMutations, mapGetters } from 'vuex'
         alert('Formulaire soumis')
       },
       retour(){       
-        this.$router.push('/permissions');
+        this.$router.push('/typesources');
       },
       modifier(){ 
-        this.$router.push('/permissions/modifier/'+this.detailpermission.id);      
+        this.$router.push('/typesources/modifier/'+this.detailtypesource.id);      
       },
       reinitialiser(){  
         alert('Réinitialiser mot de passe')     

@@ -57,6 +57,18 @@
       "name": "gerer-type-zones"
     },
     {
+      "icon": "mdi-cog-outline",
+      "href": "/typesources",
+      "title": "Type Source",
+      "name": "gerer-type-sources"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/sources",
+      "title": "Sources financement",
+      "name": "gerer-source-financement"
+    },
+    {
       "icon": "mdi-chart-box-outline",
       "href": "/statistiques",
       "title": "Statistiques",

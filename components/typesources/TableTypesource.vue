@@ -14,12 +14,13 @@
 <v-data-table
   v-model="selected"
   :headers="headers"
-  :items="tab=='tout'?listroles : listroles.filter(role => role.status === tab)"
+  :items="tab=='tout'?listtypesources : listtypesources.filter(typesource => typesource.status === tab)"
   :single-select="singleSelect"
   item-key="id"
+  items-per-page="5"
   show-select
   class="flat pt-4"
-  :loading="listroles.length?false:true" 
+  :loading="listtypesources.length?false:true" 
   loading-text="Loading... Please wait"
   :rows-per-page-items="[10,20,30,40,50]"
   hide-default-footer
@@ -29,12 +30,6 @@
     <v-row class="mb-1 border-bottom-small">
       <v-col md="6" sm="12" lg="6" class="pb-0 pt-4">
         <div class="row"> 
-          <!-- <v-btn icon class="col-3" v-on:click="modifier()">
-            <v-icon left class="font-small">
-              mdi-square-edit-outline
-            </v-icon>
-            <span class="font-small">Modifier</span>
-          </v-btn>  -->
           <v-btn icon class="col-3" v-on:click="supprimer()">
             <v-icon left class="font-small">
               mdi-trash-can-outline
@@ -76,26 +71,7 @@
     </div>
     </v-row>  
   </template> 
-  <template v-slot:[`item.status`]="{ item }">
-      <v-chip
-        :color="$getColore(item.status)"
-        outlined
-      >
-        {{ item.status }}
-      </v-chip>
-  </template>
-  <template v-slot:[`item.permissions`]="{ item }">
-      <v-chip
-        color="primary"
-        small
-        outlined
-        class="my-1 mr-1"
-        v-for="permission in item.permissions"  :key="permission.value"
-      >
-        {{ permission.description }}
-      </v-chip>
-  </template>
-  <template v-slot:[`item.actions`]="{ item }">
+ <template v-slot:[`item.actions`]="{ item }">
         <v-menu bottom left>
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="primary" icon v-bind="attrs" v-on="on">
@@ -141,8 +117,8 @@
 import { mapMutations, mapGetters } from 'vuex'
   export default {
     computed: mapGetters({
-      listroles: 'roles/listroles',
-      headers: 'roles/headerroles'
+      listtypesources: 'typesources/listtypesources',
+      headers: 'typesources/headertypesources'
     }),
     props: ['tab'],
     metaInfo () {
@@ -152,19 +128,19 @@ import { mapMutations, mapGetters } from 'vuex'
     },
     methods: {
       visualiserItem (item) {   
-        this.$store.dispatch('roles/getDetail',item)
-        this.$router.push('/roles/detail/'+item.id);
+        this.$store.dispatch('typesources/getDetail',item)
+        this.$router.push('/typesources/detail/'+item.id);
       },
       editItem (item) {   
-        this.$store.dispatch('roles/getDetail',item)
-        this.$router.push('/roles/modifier/'+item.id);
+        this.$store.dispatch('typesources/getDetail',item)
+        this.$router.push('/typesources/modifier/'+item.id);
       },
-      deleteItem (item) {
+       deleteItem (item) {
         this.dialog=false   
         this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'}) 
-        this.$msasApi.$delete('/roles/'+this.activeItem.id)
+        this.$msasApi.$delete('/type_sources/'+this.activeItem.id)
         .then(async (response) => { 
-            this.$store.dispatch('roles/deleteRole',this.activeItem.id)
+            this.$store.dispatch('typesources/deleteTypesource',this.activeItem.id)
             this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Suppression réussie'})
             }).catch((error) => {
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de la suppression'})
@@ -173,27 +149,27 @@ import { mapMutations, mapGetters } from 'vuex'
               
             console.log('Requette envoyé ')
         });
+        /* alert('Supprimer '+item.id) */
       },
       exporterItem (item) {
-        this.$store.dispatch('roles/getDetail')
         alert('Exporter '+item.id)
       },
       visualiser(){
         if(this.selected.length!=1)
         alert('Veuillez selectionner un element')
         else{
-          let role = this.selected.map(function(value){ return value})[0]
-          this.$store.dispatch('roles/getDetail',role)
-          this.$router.push('/roles/detail/'+role.id);
+          let typesource = this.selected.map(function(value){ return value})[0]
+          this.$store.commit('typesources/initdetail',typesource)
+          this.$router.push('/typesources/detail/'+typesource.id);
         }
       },
       modifier(){
         if(this.selected.length!=1)
         alert('Veuillez selectionner un element')
         else{
-          let role = this.selected.map(function(value){ return value})[0]
-          this.$store.dispatch('roles/getDetail',role)
-          this.$router.push('/roles/modifier/'+role.id);
+          let typesource = this.selected.map(function(value){ return value})[0]
+          this.$store.commit('typesources/initdetail',typesource)
+          this.$router.push('/typesources/modifier/'+typesource.id);
         }
       },
       supprimer(){
@@ -214,7 +190,7 @@ import { mapMutations, mapGetters } from 'vuex'
       },
     },
     data: () => ({
-      dialog: false,
+     dialog: false,
       progress:true,
       selected: [],
       search:'',

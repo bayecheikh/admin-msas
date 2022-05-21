@@ -14,12 +14,12 @@
 <v-data-table
   v-model="selected"
   :headers="headers"
-  :items="tab=='tout'?listroles : listroles.filter(role => role.status === tab)"
+  :items="tab=='tout'?listsources : listsources.filter(source => source.status === tab)"
   :single-select="singleSelect"
   item-key="id"
   show-select
   class="flat pt-4"
-  :loading="listroles.length?false:true" 
+  :loading="listsources.length?false:true" 
   loading-text="Loading... Please wait"
   :rows-per-page-items="[10,20,30,40,50]"
   hide-default-footer
@@ -76,23 +76,15 @@
     </div>
     </v-row>  
   </template> 
-  <template v-slot:[`item.status`]="{ item }">
-      <v-chip
-        :color="$getColore(item.status)"
-        outlined
-      >
-        {{ item.status }}
-      </v-chip>
-  </template>
-  <template v-slot:[`item.permissions`]="{ item }">
+  <template v-slot:[`item.type_sources`]="{ item }">
       <v-chip
         color="primary"
         small
         outlined
         class="my-1 mr-1"
-        v-for="permission in item.permissions"  :key="permission.value"
+        v-for="type_source in item.type_sources"  :key="type_source.value"
       >
-        {{ permission.description }}
+        {{ type_source.libelle_type_source }}
       </v-chip>
   </template>
   <template v-slot:[`item.actions`]="{ item }">
@@ -141,8 +133,8 @@
 import { mapMutations, mapGetters } from 'vuex'
   export default {
     computed: mapGetters({
-      listroles: 'roles/listroles',
-      headers: 'roles/headerroles'
+      listsources: 'sources/listsources',
+      headers: 'sources/headersources'
     }),
     props: ['tab'],
     metaInfo () {
@@ -152,19 +144,19 @@ import { mapMutations, mapGetters } from 'vuex'
     },
     methods: {
       visualiserItem (item) {   
-        this.$store.dispatch('roles/getDetail',item)
-        this.$router.push('/roles/detail/'+item.id);
+        this.$store.dispatch('sources/getDetail',item)
+        this.$router.push('/sources/detail/'+item.id);
       },
       editItem (item) {   
-        this.$store.dispatch('roles/getDetail',item)
-        this.$router.push('/roles/modifier/'+item.id);
+        this.$store.dispatch('sources/getDetail',item)
+        this.$router.push('/sources/modifier/'+item.id);
       },
       deleteItem (item) {
         this.dialog=false   
         this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'}) 
-        this.$msasApi.$delete('/roles/'+this.activeItem.id)
+        this.$msasApi.$delete('/source_financements/'+this.activeItem.id)
         .then(async (response) => { 
-            this.$store.dispatch('roles/deleteRole',this.activeItem.id)
+            this.$store.dispatch('sources/deleteSource',this.activeItem.id)
             this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Suppression réussie'})
             }).catch((error) => {
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de la suppression'})
@@ -175,25 +167,25 @@ import { mapMutations, mapGetters } from 'vuex'
         });
       },
       exporterItem (item) {
-        this.$store.dispatch('roles/getDetail')
+        this.$store.dispatch('sources/getDetail')
         alert('Exporter '+item.id)
       },
       visualiser(){
         if(this.selected.length!=1)
         alert('Veuillez selectionner un element')
         else{
-          let role = this.selected.map(function(value){ return value})[0]
-          this.$store.dispatch('roles/getDetail',role)
-          this.$router.push('/roles/detail/'+role.id);
+          let source = this.selected.map(function(value){ return value})[0]
+          this.$store.dispatch('sources/getDetail',source)
+          this.$router.push('/sources/detail/'+source.id);
         }
       },
       modifier(){
         if(this.selected.length!=1)
         alert('Veuillez selectionner un element')
         else{
-          let role = this.selected.map(function(value){ return value})[0]
-          this.$store.dispatch('roles/getDetail',role)
-          this.$router.push('/roles/modifier/'+role.id);
+          let source = this.selected.map(function(value){ return value})[0]
+          this.$store.dispatch('sources/getDetail',source)
+          this.$router.push('/sources/modifier/'+source.id);
         }
       },
       supprimer(){
