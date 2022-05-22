@@ -18,17 +18,16 @@
           sm="12"
         >
           <v-autocomplete
-              v-model="model.source_financements"
-              :items="listsources"
-              :rules="rules.fournisseur_services_idRules"
-              outlined
-              dense
-              small-chips
-              label="Source de financement"
-              item-text="libelle_source"
-              item-value="id"
-              return-object
-              @change="changeSource"
+            v-model="model.source_financements"
+            :items="listsources"
+            :rules="rules.fournisseur_services_idRules"
+            outlined
+            dense
+            label="Source de financement"
+            item-text="libelle_source"
+            item-value="id"
+            return-object
+            @change="changeSource"
             >
           </v-autocomplete>
         </v-col>
@@ -43,7 +42,6 @@
               :rules="this.showTypeSource==true?rules.fournisseur_services_idRules:null"
               outlined
               dense
-              small-chips
               label="Type"
               item-text="libelle_type_source"
               item-value="id"
@@ -61,12 +59,38 @@
           ></v-text-field>
         </v-col>
         <v-col md="4" lg="4" sm="12" v-if="showAccordSiege">
-          <v-text-field
-            label="Accord de siège"
-            outlined dense
-            v-model="model.accord_siege"
-            :rules="rules.avatar"
-          ></v-text-field>
+          <v-file-input
+              v-model="files"
+              color="deep-purple accent-4"
+              counter
+              label="Accord de siège"
+              multiple
+              placeholder=""
+              prepend-icon="mdi-paperclip"
+              outlined
+              :show-size="1000"
+              dense
+              v-on:change="handleFileUpload"
+            >
+              <template v-slot:selection="{ index, text }">
+                <v-chip
+                  v-if="index < 2"
+                  color="black"
+                  dark
+                  label
+                  small
+                >
+                  {{ text }}
+                </v-chip>
+
+                <span
+                  v-else-if="index === 2"
+                  class="text-overline grey--text text--darken-3 mx-2"
+                >
+                  +{{ files.length - 2 }} Fichier(s)
+                </span>
+              </template>
+          </v-file-input>
         </v-col>
         <v-col md="4" lg="4" sm="12" v-if="showNumAgrement">
           <v-text-field
@@ -174,7 +198,7 @@
           >
             <v-radio v-for="item in listtypezones" :key="item.id"
               :label="item.libelle_zone"
-              :value="item.id"
+              :value="item"
             ></v-radio>
           </v-radio-group> 
         </v-col>
@@ -186,7 +210,11 @@
             <v-expansion-panel   
             >
               <v-expansion-panel-header>
-                {{item.nom_region}}
+                <v-checkbox 
+                    v-model="selectedRegion"
+                    :label="item.nom_region"
+                    :value="item.id"
+                  ></v-checkbox>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
                 <div v-for="item in item.departements" :key="item.id">
@@ -316,10 +344,11 @@ import { mapMutations, mapGetters } from 'vuex'
       showAccordSiege: false,
       showNumAgrement: false,
       showAdresseStructure: false,
-      showRegion: true,
+      showRegion: false,
       message:null,
       selectedDimension: [],
       selectedDepartement: [],
+      selectedRegion: [],
       model: {
         type_zone_interventions:null,
         dimensions:null,
@@ -427,31 +456,21 @@ import { mapMutations, mapGetters } from 'vuex'
     methods: {
       handleFileUpload(e){         
         //Recupère le fichier
-        const input = this.$refs.file
-        const files = input.files
+        //const input = this.$refs.file
+        const files = this.files
 
         //Recupère l'extension
-        let idxDot = files[0].name.lastIndexOf(".") + 1;
-        let extFile = files[0].name.substr(idxDot, files[0].name.length).toLowerCase(); 
-        let size = files[0].size/1024/1024 //La taille en Mbit
+        let idxDot = files[0]?.name.lastIndexOf(".") + 1;
+        let extFile = files[0]?.name.substr(idxDot, files[0].name.length).toLowerCase(); 
+        let size = files[0]?.size/1024/1024 //La taille en Mbit
         console.log('Size-------------- ',size)
-
-        if (size <= 2 && (extFile=="jpg" || extFile=="jpeg" || extFile=="png")){
-          //Affecté le fichier image au model avatar
-          this.model.avatar = e.target.files[0];
-
-          //Prévisualise l'image
-          if (files && files[0]) {
-            const reader = new FileReader
-            reader.onload = e => {
-              this.imageData = e.target.result
-            }
-            reader.readAsDataURL(files[0])
-            this.$emit('input', files[0])
-          }
-        }else{
-          alert("Seul les images jpg/jpeg png et de taille inférieur à 2Mb sont acceptés!");
-        }  
+        if(files.length!=0){
+          if (size <= 5 && (extFile=="jpg" || extFile=="jpeg" || extFile=="png")){
+            this.model.accord_siege = files[0];
+          }else{
+            alert("Seul les images jpg/jpeg png et de taille inférieur à 2Mb sont acceptés!");
+          } 
+        } 
       },
       submitForm () {
         let validation = this.$refs.form.validate()
@@ -482,7 +501,9 @@ import { mapMutations, mapGetters } from 'vuex'
 
         console.log('Donées formulaire files ++++++: ',formData) */
 
-       validation && this.$msasFileApi.post('/structures',{...this.model})
+        
+
+       /* validation && this.$msasFileApi.post('/structures',{...this.model})
           .then((res) => {           
             console.log('Donées reçus ++++++: ',res.data)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message || 'Ajout réussi'})
@@ -494,7 +515,7 @@ import { mapMutations, mapGetters } from 'vuex'
           }).finally(() => {
             this.loading = false;
             console.log('Requette envoyé ')
-        });
+        }); */
       },
       resetForm () {
         this.$refs.form.reset()
@@ -584,75 +605,20 @@ import { mapMutations, mapGetters } from 'vuex'
         this.showTypeSource=false */
         console.log('************',source)
       },
-      async changeSTypeZone(zone) {
-        /* switch(source.libelle_type_zone){
-          case 'Nation' : {
-            console.log('************',this.showNumAutorisation)
-            this.showAdresseStructure=true
-
-            this.showNumAutorisation=false
-            this.showNumAgrement=false
-            this.showAccordSiege=false
-            this.showDebutIntervention=false
-            this.showFinIntervention=false
+      async changeTypeZone(e) {
+        console.log('************',e)
+        switch(e.libelle_zone){
+          case 'National' : {
+            this.showRegion=false
+            this.selectedDepartement = []
+            this.selectedRegion = []
           }
           break;
-          case 'SPS' : {
-            this.showNumAutorisation=true
-            this.showAdresseStructure=true
-
-            this.showNumAgrement=false
-            this.showAccordSiege=false
-            this.showDebutIntervention=false
-            this.showFinIntervention=false
+          case 'Régional' : {
+            this.showRegion=true
           }
           break;
-          case 'PTF' : {
-            this.showNumAgrement=true
-            this.showAccordSiege=true
-            this.showDebutIntervention=true
-            this.showFinIntervention=true
-            this.showAdresseStructure=true
-          }
-          break;
-          case 'ONG' : {
-            this.showNumAgrement=true
-            this.showAdresseStructure=true
-
-            this.showNumAutorisation=false
-            this.showAccordSiege=false
-            this.showDebutIntervention=false
-            this.showFinIntervention=false
-          }
-          break;
-          case 'RSE' : {
-            this.showAdresseStructure=true
-
-            this.showNumAutorisation=false
-            this.showNumAgrement=false
-            this.showAccordSiege=false
-            this.showDebutIntervention=false
-            this.showFinIntervention=false
-          }
-          break;
-          case 'CT' : {
-            this.showAdresseStructure=false
-
-            this.showNumAutorisation=false
-            this.showNumAgrement=false
-            this.showAccordSiege=false
-            this.showDebutIntervention=false
-            this.showFinIntervention=false
-          }
-          break;
-        } */
-        /* let checkSource = this.model.source_financements.filter(item => item.libelle_source === 'EPS').length;
-        if(checkRole==1){
-          this.showTypeSource=true
         }
-        else
-        this.showTypeSource=false */
-        console.log('************',zone)
       },
     },
     metaInfo () {
