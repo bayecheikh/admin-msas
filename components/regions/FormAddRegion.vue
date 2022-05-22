@@ -64,7 +64,7 @@
             :loading="listdepartements.length?false:true" 
             loading-text="Loading... Please wait"
             :single-select="singleSelect"
-            item-key="name"
+            item-key="nom_departement"
             show-select
             class="elevation-1"
             :search="search"

@@ -8,7 +8,6 @@
           outlined dense
           v-model="model.name"
           :rules="rules.nameRules"
-          readonly
         ></v-text-field>
       </v-col>
       <v-col md="6" lg="6" sm="12">

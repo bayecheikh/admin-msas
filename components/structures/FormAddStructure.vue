@@ -50,7 +50,7 @@
           ></v-radio>
         </v-radio-group> 
       </v-col>-->
-      <v-col md="6" lg="6" sm="12">
+      <v-col md="4" lg="4" sm="12">
         <v-text-field
           label="Dénomination"
           outlined dense
@@ -58,11 +58,167 @@
           :rules="rules.nom_structureRules"
         ></v-text-field>
       </v-col>
+      <v-col
+        lg="4"
+        md="4"
+        sm="12"
+      >
+        <v-autocomplete
+            v-model="model.source_financements"
+            :items="listsources"
+            :rules="rules.fournisseur_services_idRules"
+            outlined
+            dense
+            small-chips
+            label="Source de financement"
+            item-text="libelle_source"
+            item-value="id"
+            return-object
+            @change="changeSource"
+          >
+        </v-autocomplete>
+      </v-col>
+      <v-col
+        lg="4"
+        md="4"
+        sm="12"
+      >
+        <v-autocomplete
+            v-model="model.type_source"
+            :items="model.type_sources"
+            :rules="this.showTypeSource==true?rules.fournisseur_services_idRules:null"
+            outlined
+            dense
+            small-chips
+            label="Type"
+            item-text="libelle_type_source"
+            item-value="id"
+            return-object
+            v-if="showTypeSource"
+          >
+        </v-autocomplete>
+      </v-col>
+      <v-col md="6" lg="6" sm="12" v-if="showNumAutorisation">
+        <v-text-field
+          label="N° autorisation"
+          outlined dense
+          v-model="model.numero_autorisation"
+          :rules="rules.firstnameRules"
+        ></v-text-field>
+      </v-col>
+      <v-col md="6" lg="6" sm="12" v-if="showAccordSiege">
+        <v-text-field
+          label="Accord de siège"
+          outlined dense
+          v-model="model.accord_siege"
+          :rules="rules.avatar"
+        ></v-text-field>
+      </v-col>
+      <v-col md="6" lg="6" sm="12" v-if="showNumAgrement">
+        <v-text-field
+          label="N° agrément"
+          outlined dense
+          v-model="model.numero_agrement"
+          :rules="rules.firstnameRules"
+        ></v-text-field>
+      </v-col>
+      <v-col lg="6" sm="12" md="6" v-if="showDebutIntervention">
+        <v-menu
+          v-model="menu1"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="model.debut_intervention"
+              label="Dèbut de l'intervention"
+              append-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+              outlined dense
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="model.debut_intervention"
+            @input="menu1 = false"
+          ></v-date-picker>
+        </v-menu>
+      </v-col>
+      <v-col lg="6" sm="12" md="6" v-if="showFinIntervention">
+        <v-menu
+          v-model="menu2"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="model.fin_intervention"
+              label="Fin de l'intervention"
+              append-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+              outlined dense
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="model.fin_intervention"
+            @input="menu2 = false"
+          ></v-date-picker>
+        </v-menu>
+      </v-col>
+      <v-col md="6" lg="6" sm="12" v-if="showAdresseStructure">
+        <v-text-field
+          label="Adresse structure"
+          outlined dense
+          v-model="model.adresse_siege"
+          :rules="rules.firstnameRules"
+        ></v-text-field>
+      </v-col>
+      <v-col md="4" lg="4" sm="12">
+        <v-text-field
+          label="Téléphone structure"
+          outlined dense
+          v-model="model.telephone_structure"
+          :rules="rules.telephoneRules"
+        ></v-text-field>
+      </v-col>
       <v-col md="6" lg="6" sm="12">
         <v-text-field
-          label="Prénom et Nom responsable"
+          label="Email structure"
           outlined dense
-          v-model="model.name"
+          v-model="model.email_structure"
+          :rules="rules.emailRules"
+        ></v-text-field>
+      </v-col>
+      <v-col md="6" lg="6" sm="12">
+        <v-text-field
+          label="Fonction responsable"
+          outlined dense
+          v-model="model.fonction"
+          :rules="rules.firstnameRules"
+        ></v-text-field>
+      </v-col>
+      <v-col md="6" lg="6" sm="12">
+        <v-text-field
+          label="Prénom responsable"
+          outlined dense
+          v-model="model.firstname"
+          :rules="rules.firstnameRules"
+        ></v-text-field>
+      </v-col>
+      <v-col md="6" lg="6" sm="12">
+        <v-text-field
+          label="Nom responsable"
+          outlined dense
+          v-model="model.lastname"
           :rules="rules.firstnameRules"
         ></v-text-field>
       </v-col>
@@ -88,6 +244,14 @@
           outlined dense
           v-model="model.email"
           :rules="rules.emailRules"
+        ></v-text-field>
+      </v-col>
+      <v-col md="6" lg="6" sm="12">
+        <v-text-field
+          label="Téléphone responsable"
+          outlined dense
+          v-model="model.telephone"
+          :rules="rules.telephoneRules"
         ></v-text-field>
       </v-col>
       <!-- <v-col md="6" lg="6" sm="12">
@@ -264,12 +428,25 @@ import { mapMutations, mapGetters } from 'vuex'
       /* this.$store.dispatch('roles/getList') */
       /* this.$store.dispatch('structures/getList')
       this.$store.dispatch('fournisseurs/getList') */
+
+      this.model.type_zone_interventions = this.listtypezones
+      this.model.dimensions = this.dimensions
+      this.model.source_financements = this.listsources
+      this.model.type_sources = this.listsources.type_sources
+      this.model.regions = this.listregions
+      this.model.departements = this.listdepartements
     },
     computed: {
       ...mapGetters({
       /* listroles: 'roles/selectlistroles', */
       /* listfournisseurs: 'fournisseurs/selectlistfournisseurs',
       liststructures: 'structures/selectliststructures', */
+      listtypezones: 'type-zones/listtypezones', 
+      //listtypesources: 'typesources/listtypesources', 
+      listsources: 'sources/listsources', 
+      listregions: 'regions/listregions', 
+      listdepartements: 'departements/listdepartements', 
+      listdimensions: 'dimensions/listdimensions', 
     })},
     data: () => ({
       loading: false,
@@ -277,14 +454,33 @@ import { mapMutations, mapGetters } from 'vuex'
       color:null,
       valid: true,
       showFournisseur: false,
+      showTypeSource: false,
+      showNumAutorisation: false,
+      showAccordSiege: false,
+      showNumAgrement: false,
+      showAdresseStructure: false,
       message:null,
       model: {
+        type_zone_interventions:null,
+        dimensions:null,
+        source_financements:null,
+        type_sources:null,
+        regions:null,
+        departements:null,
+        numero_autorisation:'',
+        accord_siege:'',
+        numero_agrement:'',
+        adresse_structure:'',
+        debut_intervention:'',
+        fin_intervention:'',
+        telephone_structure:'',
+        email_structure:'',
         avatar:'',
         nom_structure:'',
         name:'',
-        firstname: 'Ababacar',
-        lastname: 'Syll',
-        email: 'syyl@msas.sn',
+        firstname: '',
+        lastname: '',
+        email: '',
         roles: null,
         fournisseur_services_id:null,
         country_code:'+221',
@@ -361,7 +557,10 @@ import { mapMutations, mapGetters } from 'vuex'
           v => !!v || 'Fonction est obligatoire'
         ]
       },
-
+      date1: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      date2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      menu1: false,
+      menu2: false,
       imageData:null,
     }),
     methods: {
@@ -450,6 +649,79 @@ import { mapMutations, mapGetters } from 'vuex'
         else
         this.showFournisseur=false
         console.log('************',checkRole)
+      },
+      async changeSource(source) {
+        this.showTypeSource=true
+        this.model.type_sources = source.type_sources
+
+        switch(source.libelle_source){
+          case 'EPS' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'SPS' : {
+            this.showNumAutorisation=true
+            this.showAdresseStructure=true
+
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'PTF' : {
+            this.showNumAgrement=true
+            this.showAccordSiege=true
+            this.showDebutIntervention=true
+            this.showFinIntervention=true
+            this.showAdresseStructure=true
+          }
+          break;
+          case 'ONG' : {
+            this.showNumAgrement=true
+            this.showAdresseStructure=true
+
+            this.showNumAutorisation=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'RSE' : {
+            this.showAdresseStructure=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'CT' : {
+            this.showAdresseStructure=false
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+        }
+        /* let checkSource = this.model.source_financements.filter(item => item.libelle_source === 'EPS').length;
+        if(checkRole==1){
+          this.showTypeSource=true
+        }
+        else
+        this.showTypeSource=false */
+        console.log('************',source)
       },
     },
     metaInfo () {
