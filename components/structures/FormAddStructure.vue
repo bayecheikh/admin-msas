@@ -1,411 +1,268 @@
 <template>
 <div>
-  <v-form class="text-sm-center" v-model="valid" ref="form" enctype="multipart/form-data"
+  <v-form class="" v-model="valid" ref="form" enctype="multipart/form-data"
     >
-    <!--<div >
-      <div class="headline">
-        <v-avatar v-if="imageData" size="100px">
-          <img :src="imageData" alt="Avatar"/>
-        </v-avatar>
-        <v-avatar size="100px" v-else>
-          <img src="@/static/avatar/default-structure.png" alt="Cheikh Gueye"/>
-        </v-avatar>
-      </div>
-    </div>
-    <div>
-      <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-            @click="$refs.file.click()"
-          >
-        <v-icon>mdi-upload-outline</v-icon>
-      </v-btn>
-      <input type="file" id="file" name="avatar" ref="file" v-on:change="handleFileUpload" style="display: none"/>
-      <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-            color="blue"
-            @click="$refs.file.click()"
-          >
-        <v-icon>mdi-camera-outline</v-icon>
-      </v-btn>
-    </div>
-    <span class="caption">Photo de profil png ou jpg max 2Mo</span>-->
-    <v-row>
-      <!-- <v-col md="12" lg="12" sm="12">
-        <v-radio-group
-          v-model="model.sexe"
-          :rules="rules.sexeRules"
-          row
+    <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+      <v-row >     
+        <v-col md="4" lg="4" sm="12">
+          <v-text-field
+            label="Dénomination"
+            outlined dense
+            v-model="model.nom_structure"
+            :rules="rules.nom_structureRules"
+          ></v-text-field>
+        </v-col>
+        <v-col
+          lg="4"
+          md="4"
+          sm="12"
         >
-          Sexe : &nbsp; &nbsp;<v-radio
-            label="Masculin"
-            value="Masculin"
-          ></v-radio>
-          <v-radio
-            label="Feminin"
-            value="Feminin"
-          ></v-radio>
-        </v-radio-group> 
-      </v-col>-->
-      <v-col md="4" lg="4" sm="12">
-        <v-text-field
-          label="Dénomination"
-          outlined dense
-          v-model="model.nom_structure"
-          :rules="rules.nom_structureRules"
-        ></v-text-field>
-      </v-col>
-      <v-col
-        lg="4"
-        md="4"
-        sm="12"
-      >
-        <v-autocomplete
-            v-model="model.source_financements"
-            :items="listsources"
-            :rules="rules.fournisseur_services_idRules"
-            outlined
-            dense
-            small-chips
-            label="Source de financement"
-            item-text="libelle_source"
-            item-value="id"
-            return-object
-            @change="changeSource"
-          >
-        </v-autocomplete>
-      </v-col>
-      <v-col
-        lg="4"
-        md="4"
-        sm="12"
-      >
-        <v-autocomplete
-            v-model="model.type_source"
-            :items="model.type_sources"
-            :rules="this.showTypeSource==true?rules.fournisseur_services_idRules:null"
-            outlined
-            dense
-            small-chips
-            label="Type"
-            item-text="libelle_type_source"
-            item-value="id"
-            return-object
-            v-if="showTypeSource"
-          >
-        </v-autocomplete>
-      </v-col>
-      <v-col md="6" lg="6" sm="12" v-if="showNumAutorisation">
-        <v-text-field
-          label="N° autorisation"
-          outlined dense
-          v-model="model.numero_autorisation"
-          :rules="rules.firstnameRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="6" lg="6" sm="12" v-if="showAccordSiege">
-        <v-text-field
-          label="Accord de siège"
-          outlined dense
-          v-model="model.accord_siege"
-          :rules="rules.avatar"
-        ></v-text-field>
-      </v-col>
-      <v-col md="6" lg="6" sm="12" v-if="showNumAgrement">
-        <v-text-field
-          label="N° agrément"
-          outlined dense
-          v-model="model.numero_agrement"
-          :rules="rules.firstnameRules"
-        ></v-text-field>
-      </v-col>
-      <v-col lg="6" sm="12" md="6" v-if="showDebutIntervention">
-        <v-menu
-          v-model="menu1"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          transition="scale-transition"
-          offset-y
-          min-width="auto"
+          <v-autocomplete
+              v-model="model.source_financements"
+              :items="listsources"
+              :rules="rules.fournisseur_services_idRules"
+              outlined
+              dense
+              small-chips
+              label="Source de financement"
+              item-text="libelle_source"
+              item-value="id"
+              return-object
+              @change="changeSource"
+            >
+          </v-autocomplete>
+        </v-col>
+        <v-col
+          lg="4"
+          md="4"
+          sm="12"
         >
-          <template v-slot:activator="{ on, attrs }">
-            <v-text-field
+          <v-autocomplete
+              v-model="model.type_source"
+              :items="model.type_sources"
+              :rules="this.showTypeSource==true?rules.fournisseur_services_idRules:null"
+              outlined
+              dense
+              small-chips
+              label="Type"
+              item-text="libelle_type_source"
+              item-value="id"
+              return-object
+              v-if="showTypeSource"
+            >
+          </v-autocomplete>
+        </v-col>
+        <v-col md="4" lg="4" sm="12" v-if="showNumAutorisation">
+          <v-text-field
+            label="N° autorisation"
+            outlined dense
+            v-model="model.numero_autorisation"
+            :rules="rules.firstnameRules"
+          ></v-text-field>
+        </v-col>
+        <v-col md="4" lg="4" sm="12" v-if="showAccordSiege">
+          <v-text-field
+            label="Accord de siège"
+            outlined dense
+            v-model="model.accord_siege"
+            :rules="rules.avatar"
+          ></v-text-field>
+        </v-col>
+        <v-col md="4" lg="4" sm="12" v-if="showNumAgrement">
+          <v-text-field
+            label="N° agrément"
+            outlined dense
+            v-model="model.numero_agrement"
+            :rules="rules.firstnameRules"
+          ></v-text-field>
+        </v-col>
+        <v-col lg="4" sm="12" md="4" v-if="showDebutIntervention">
+          <v-menu
+            v-model="menu1"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="auto"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="model.debut_intervention"
+                label="Dèbut de l'intervention"
+                append-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+                outlined dense
+              ></v-text-field>
+            </template>
+            <v-date-picker
               v-model="model.debut_intervention"
-              label="Dèbut de l'intervention"
-              append-icon="mdi-calendar"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-              outlined dense
-            ></v-text-field>
-          </template>
-          <v-date-picker
-            v-model="model.debut_intervention"
-            @input="menu1 = false"
-          ></v-date-picker>
-        </v-menu>
-      </v-col>
-      <v-col lg="6" sm="12" md="6" v-if="showFinIntervention">
-        <v-menu
-          v-model="menu2"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          transition="scale-transition"
-          offset-y
-          min-width="auto"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-text-field
+              @input="menu1 = false"
+            ></v-date-picker>
+          </v-menu>
+        </v-col>
+        <v-col lg="4" sm="12" md="4" v-if="showFinIntervention">
+          <v-menu
+            v-model="menu2"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="auto"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="model.fin_intervention"
+                label="Fin de l'intervention"
+                append-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+                outlined dense
+              ></v-text-field>
+            </template>
+            <v-date-picker
               v-model="model.fin_intervention"
-              label="Fin de l'intervention"
-              append-icon="mdi-calendar"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-              outlined dense
-            ></v-text-field>
-          </template>
-          <v-date-picker
-            v-model="model.fin_intervention"
-            @input="menu2 = false"
-          ></v-date-picker>
-        </v-menu>
-      </v-col>
-      <v-col md="6" lg="6" sm="12" v-if="showAdresseStructure">
-        <v-text-field
-          label="Adresse structure"
-          outlined dense
-          v-model="model.adresse_siege"
-          :rules="rules.firstnameRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="4" lg="4" sm="12">
-        <v-text-field
-          label="Téléphone structure"
-          outlined dense
-          v-model="model.telephone_structure"
-          :rules="rules.telephoneRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Email structure"
-          outlined dense
-          v-model="model.email_structure"
-          :rules="rules.emailRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Fonction responsable"
-          outlined dense
-          v-model="model.fonction"
-          :rules="rules.firstnameRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Prénom responsable"
-          outlined dense
-          v-model="model.firstname"
-          :rules="rules.firstnameRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Nom responsable"
-          outlined dense
-          v-model="model.lastname"
-          :rules="rules.firstnameRules"
-        ></v-text-field>
-      </v-col>
-      <!--<v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Prénom"
-          outlined dense
-          v-model="model.firstname"
-          :rules="rules.firstnameRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Nom"
-          outlined dense
-          v-model="model.lastname"
-          :rules="rules.lastnameRules"
-        ></v-text-field>
-      </v-col>-->
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Adresse Email responsable"
-          outlined dense
-          v-model="model.email"
-          :rules="rules.emailRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Téléphone responsable"
-          outlined dense
-          v-model="model.telephone"
-          :rules="rules.telephoneRules"
-        ></v-text-field>
-      </v-col>
-      <!-- <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Login"
-          outlined dense
-          v-model="model.structurename"
-          :rules="rules.structurenameRules"
-        ></v-text-field>
-      </v-col> -->
-     <!-- <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Fonction"
-          outlined dense
-          v-model="model.fonction"
-          :rules="rules.fonctionRules"
-        ></v-text-field>
-      </v-col>-->
-      <!-- <v-col lg="6" sm="12" md="6">
-        <v-menu
-          v-model="menu1"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          transition="scale-transition"
-          offset-y
-          min-width="auto"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-              v-model="model.date_of_birth"
-              label="Date de naissance"
-              append-icon="mdi-calendar"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-              outlined dense
-            ></v-text-field>
-          </template>
-          <v-date-picker
-            v-model="model.date_of_birth"
-            @input="menu1 = false"
-          ></v-date-picker>
-        </v-menu>
-      </v-col> -->
-      <!-- <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Lieu de naissance"
-          outlined dense
-          v-model="model.place_of_birth"
-          :rules="rules.place_of_birthRules"
-        ></v-text-field>
-      </v-col> -->
-     <!--  <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Adresse"
-          outlined dense
-          v-model="model.adresse"
-          :rules="rules.adresseRules"
-        ></v-text-field>
-      </v-col>-->
-      <!-- <v-col md="6" lg="6" sm="12">
-        <vue-tel-input-vuetify label="Téléphone"
-          outlined dense
-          v-model="model.telephone"
-          :rules="rules.telephoneRules">
-
-        </vue-tel-input-vuetify>
-      </v-col>
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Indicatif"
-          dense outlined
-          v-model="model.country_code"
-          :rules="rules.country_codeRules"
-        ></v-text-field>
-      </v-col> -->
-      <!--<v-col md="2" lg="2" sm="12">
-        <v-text-field
-          label="Indicatif"
-          dense outlined
-          v-model="model.country_code"
-          :rules="rules.country_codeRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="4" lg="4" sm="12">
-        <v-text-field
-          label="Téléphone"
-          outlined dense
-          v-model="model.telephone"
-          :rules="rules.telephoneRules"
-        ></v-text-field>
-      </v-col>-->
-      <!--<v-col
-        lg="6"
-        md="6"
-        sm="12"
-      >
-        <v-autocomplete
-            v-model="model.roles"
-            :items="listroles"
-            :rules="rules.rolesRules"
-            outlined
-            dense
-            multiple
-            small-chips
-            label="Role"
-            item-text="description"
-            item-value="id"
-            clearable
-            return-object
-            @change="changeRole"
+              @input="menu2 = false"
+            ></v-date-picker>
+          </v-menu>
+        </v-col> 
+      </v-row>
+    </v-card> 
+    <h2 class="mb-5">
+        Coordonnées siège
+    </h2>
+    <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+      <v-row>
+        <v-col md="4" lg="4" sm="12" v-if="showAdresseStructure">
+          <v-text-field
+            label="Adresse structure"
+            outlined dense
+            v-model="model.adresse_siege"
+            :rules="rules.firstnameRules"
+          ></v-text-field>
+        </v-col>
+        <v-col md="4" lg="4" sm="12">
+          <v-text-field
+            label="Téléphone structure"
+            outlined dense
+            v-model="model.telephone_structure"
+            :rules="rules.telephoneRules"
+          ></v-text-field>
+        </v-col>
+        <v-col md="4" lg="4" sm="12">
+          <v-text-field
+            label="Email structure"
+            outlined dense
+            v-model="model.email_structure"
+            :rules="rules.emailRules"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </v-card>
+    <h2 class="mb-5">
+        Zone d'intervention
+    </h2>
+    <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
+      <v-row>
+        <v-col md="12" lg="12" sm="12">
+          <v-radio-group 
+            :v-model="model.sexe"
+            :rules="rules.sexeRules" v-on:change="changeTypeZone"
+            row
           >
-        </v-autocomplete>
-      </v-col>-->
-      <!-- <v-col
-        lg="6"
-        md="6"
-        sm="12"
-      >
-        <v-autocomplete
-            v-model="model.structure_id"
-            :rules="rules.structure_idRules"
-            :items="liststructures"
-            outlined
-            dense
-            small-chips
-            label="Structure"
-            item-text="libelle"
-            item-value="id"
-            clearable
-          >
-        </v-autocomplete>
-      </v-col>
-      <v-col
-        lg="6"
-        md="6"
-        sm="12"
-      >
-        <v-autocomplete
-            v-model="model.fournisseur_services_id"
-            :items="listfournisseurs"
-            :rules="this.showFournisseur==true?rules.fournisseur_services_idRules:null"
-            outlined
-            dense
-            small-chips
-            label="Fournisseur de service"
-            item-text="libelle"
-            item-value="id"
-            clearable
-            v-if="showFournisseur"
-          >
-        </v-autocomplete>
-      </v-col> -->
-    </v-row>
+            <v-radio v-for="item in listtypezones" :key="item.id"
+              :label="item.libelle_zone"
+              :value="item.id"
+            ></v-radio>
+          </v-radio-group> 
+        </v-col>
+      </v-row>
+      <v-row v-if="showRegion">
+        <v-col md="12" lg="12" sm="12">
+          <v-expansion-panels v-for="(item,i) in listregions"
+              :key="i" class="mb-2">
+            <v-expansion-panel   
+            >
+              <v-expansion-panel-header>
+                {{item.nom_region}}
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <div v-for="item in item.departements" :key="item.id">
+                  <v-checkbox 
+                    v-model="selectedDepartement"
+                    :label="item.nom_departement"
+                    :value="item.id"
+                  ></v-checkbox> 
+                </div>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-col>
+      </v-row>
+    </v-card>
+    <h2 class="mb-5">
+        Dimensions
+    </h2>
+    <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
+      <v-row  class="d-flex justify-content-between">
+        <v-col md="4" lg="4" sm="12" v-for="item in listdimensions" :key="item.id">
+          <v-checkbox 
+            v-model="selectedDimension"
+            :label="item.libelle_dimension"
+            :value="item.id"
+          ></v-checkbox> 
+        </v-col>     
+      </v-row>
+    </v-card>
+    <h2 class="mb-5">
+        Personne responsable
+    </h2>
+    <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+      <v-row>
+        <v-col md="4" lg="4" sm="12">
+          <v-text-field
+            label="Fonction responsable"
+            outlined dense
+            v-model="model.fonction"
+            :rules="rules.firstnameRules"
+          ></v-text-field>
+        </v-col>
+        <v-col md="4" lg="4" sm="12">
+          <v-text-field
+            label="Prénom responsable"
+            outlined dense
+            v-model="model.firstname"
+            :rules="rules.firstnameRules"
+          ></v-text-field>
+        </v-col>
+        <v-col md="4" lg="4" sm="12">
+          <v-text-field
+            label="Nom responsable"
+            outlined dense
+            v-model="model.lastname"
+            :rules="rules.firstnameRules"
+          ></v-text-field>
+        </v-col>
+        <v-col md="4" lg="4" sm="12">
+          <v-text-field
+            label="Adresse Email responsable"
+            outlined dense
+            v-model="model.email"
+            :rules="rules.emailRules"
+          ></v-text-field>
+        </v-col>
+        <v-col md="4" lg="4" sm="12">
+          <v-text-field
+            label="Téléphone responsable"
+            outlined dense
+            v-model="model.telephone"
+            :rules="rules.telephoneRules"
+          ></v-text-field>
+        </v-col>
+      </v-row> 
+    </v-card>
 
     <v-btn
       :loading="loading"
@@ -459,7 +316,10 @@ import { mapMutations, mapGetters } from 'vuex'
       showAccordSiege: false,
       showNumAgrement: false,
       showAdresseStructure: false,
+      showRegion: true,
       message:null,
+      selectedDimension: [],
+      selectedDepartement: [],
       model: {
         type_zone_interventions:null,
         dimensions:null,
@@ -487,7 +347,8 @@ import { mapMutations, mapGetters } from 'vuex'
         telephone: '',
         adresse: '',
         fonction: '',
-        structure_id:null
+        structure_id:null,
+        sexe:1,
       },
       rules:{
         nom_structureRules: [
@@ -722,6 +583,76 @@ import { mapMutations, mapGetters } from 'vuex'
         else
         this.showTypeSource=false */
         console.log('************',source)
+      },
+      async changeSTypeZone(zone) {
+        /* switch(source.libelle_type_zone){
+          case 'Nation' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'SPS' : {
+            this.showNumAutorisation=true
+            this.showAdresseStructure=true
+
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'PTF' : {
+            this.showNumAgrement=true
+            this.showAccordSiege=true
+            this.showDebutIntervention=true
+            this.showFinIntervention=true
+            this.showAdresseStructure=true
+          }
+          break;
+          case 'ONG' : {
+            this.showNumAgrement=true
+            this.showAdresseStructure=true
+
+            this.showNumAutorisation=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'RSE' : {
+            this.showAdresseStructure=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'CT' : {
+            this.showAdresseStructure=false
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+        } */
+        /* let checkSource = this.model.source_financements.filter(item => item.libelle_source === 'EPS').length;
+        if(checkRole==1){
+          this.showTypeSource=true
+        }
+        else
+        this.showTypeSource=false */
+        console.log('************',zone)
       },
     },
     metaInfo () {

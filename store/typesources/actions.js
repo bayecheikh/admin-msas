@@ -1,5 +1,5 @@
 export default {
-    getList({commit}){
+    async getList({commit}){
       this.$msasApi.$get('/type_sources')
       .then(async (response) => { 
         console.log('Données reçu+++++++++++',response)
