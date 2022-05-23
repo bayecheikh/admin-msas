@@ -1,8 +1,18 @@
 <template>
-  <div>Dashboard</div>
+
+  <div p-6 class="bg-title">
+    <page-header :items="headerItems" class="pb-4"></page-header>
+    <v-card class="mx-auto pl-0 pt-0 pb-10 pr-0">  
+      <v-container>
+        <list-chart></list-chart>
+      </v-container>        
+    </v-card>
+  </div>
+  
 </template>
 
 <script>
+import ListChart from '@/components/statistiques/charts/ListChart';
 import NbrDemandeActe from '@/components/statistiques/ministatistiques/accueil/NbrDemandeActe';
 import LeftMenu from '@/components/LeftMenu';
 import Banner from '@/components/dashboard/admin/Banner';
@@ -30,7 +40,8 @@ import TicketHelpDesk from '@/components/dashboard/charge-clientel/TicketHelpDes
       NbrCompteUsager,
       NbrDossierDelivre,
       TicketHelpDesk,
-      NbrDemande
+      NbrDemande,
+      ListChart
     },
     mounted: function() {
       //!this.$hasRole('admin') && this.getDashboardData()

@@ -1,7 +1,13 @@
 <template>
-  <v-container grid-list-xl fluid>
-    <list-chart></list-chart>
-  </v-container>
+
+  <div p-6 class="bg-title">
+    <page-header :items="headerItems" class="pb-4"></page-header>
+    <v-card class="mx-auto pl-0 pt-0 pb-10 pr-0">  
+      <v-container>
+        <list-chart></list-chart>
+      </v-container>        
+    </v-card>
+  </div>
   
 </template>
 

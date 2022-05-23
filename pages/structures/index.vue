@@ -2,7 +2,7 @@
 
   <div p-6 class="bg-title">
     <page-header :items="headerItems" class="pb-4"></page-header>
-    <v-card class="mx-auto">  
+    <v-card class="mx-auto pl-0 pt-10 pb-10 pr-0">  
       <v-container>
         <list-structure></list-structure>
       </v-container>        
@@ -30,12 +30,6 @@ import { mapActions} from 'vuex'
       /* this.$store.dispatch('roles/getList')
       this.$store.dispatch('structures/getList')
       this.$store.dispatch('fournisseurs/getList') */
-      this.$store.dispatch('type-zones/getList')
-      this.$store.dispatch('typesources/getList')
-      this.$store.dispatch('sources/getList')
-      this.$store.dispatch('regions/getList')
-      this.$store.dispatch('departements/getList')
-      this.$store.dispatch('dimensions/getList')
     },
     data () {
       return {

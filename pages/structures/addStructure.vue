@@ -2,7 +2,7 @@
   <div p-6 class="bg-title">
     <page-header :items="headerItems" class="pb-4"></page-header>
      
-      <v-container pl-10 pt-2 pb-10 pr-10>
+      <v-container pl-0 pt-2 pb-10 pr-0>
         <form-add-structure></form-add-structure>
       </v-container>        
  

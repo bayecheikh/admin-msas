@@ -43,7 +43,7 @@
     <v-app-bar elevation="0" app color="#fff">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title class="custom-top-title lower-case">PLATEFORME NUMERIQUE DE SUIVI DU FINANCEMENT DE LA SANTE AU SENEGAL</v-toolbar-title>
+      <v-toolbar-title class="custom-top-title pl-12"><!--PLATEFORME NUMERIQUE DE SUIVI DU FINANCEMENT DE LA SANTE AU SENEGAL--></v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-menu class="hidden-sm-and-down"

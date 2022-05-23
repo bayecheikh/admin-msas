@@ -1,32 +1,74 @@
 <template>
   <v-container pl-0>
     <v-row>
-      <v-col md="2" lg="2" sm="12">
-        <v-container pl-0>
-          <left-menu :items="leftmenuItems"></left-menu>
-        </v-container>
-      </v-col>
-      <v-col md="9" lg="9" sm="12" class="full-height">
+      <v-col md="12" lg="12" sm="12" class="full-height">
           <page-header :items="headerItems"></page-header>
+          <v-row class="d-flex align-items-center border-bottom-solid mb-6">
+            <h2 class="mt-4 ml-6 card-title custom-font">Statistiques globales</h2><v-spacer></v-spacer>
+            <h3 class="mt-4 card-title custom-font">Période du </h3>
+            <v-col lg="4" sm="12" md="4">
+              <v-menu
+                v-model="menu1"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="model.debut"
+                    label=""
+                    append-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    outlined dense
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  v-model="model.debut"
+                  @input="menu1 = false"
+                ></v-date-picker>
+              </v-menu>
+            </v-col>
+            <h3 class="mt-4 card-title custom-font">au </h3>
+            <v-col lg="4" sm="12" md="4">
+              <v-menu
+                v-model="menu2"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="model.fin"
+                    label=""
+                    append-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    outlined dense
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  v-model="model.fin"
+                  @input="menu2 = false"
+                ></v-date-picker>
+              </v-menu>
+            </v-col> 
+          </v-row>
           <v-row>
-            <v-col md="6" lg="6" sm="12">
-                <BarChart :data="barChartData" :options="barChartOptions" :styles="{height: '400px', position: 'relative'}"/>
+            <v-col md="6" lg="6" sm="12" class="custom-bloc-chart border-right-chart">
+                <h4 class="card-title custom-font">Utilisateurs</h4 class="card-title custom-font">
+                <BarChart :data="utilisateurData" :options="barChartOptions" :styles="{height: '400px', position: 'relative'}"/>
             </v-col> 
-            <v-col md="6" lg="6" sm="12">
-                <BarChart :data="barChartData" :options="barChartOptions" :styles="{height: '400px', position: 'relative',width:'100%'}"/>
+            <v-col md="6" lg="6" sm="12" class="custom-bloc-chart">
+                <h4 class="card-title custom-font">Répartition des structures par region</h4 class="card-title custom-font">
+                <BarChart :data="enrolementParSiteData" :options="barChartOptions" :styles="{height: '400px', position: 'relative',width:'100%'}"/>
             </v-col>
-            <v-col md="6" lg="6" sm="12">
-                <BarChart :data="barChartData" :options="barChartOptions" :styles="{height: '400px', position: 'relative',width:'100%'}"/>
-            </v-col>
-            <v-col md="6" lg="6" sm="12">
-                <BarChart :data="barChartData" :options="barChartOptions" :styles="{height: '400px', position: 'relative',width:'100%'}"/>
-            </v-col>
-            <v-col md="6" lg="6" sm="12">
-                <BarChart :data="barChartData" :options="barChartOptions" :styles="{height: '400px', position: 'relative',width:'100%'}"/>
-            </v-col>
-            <v-col md="6" lg="6" sm="12">
-                <BarChart :data="barChartData" :options="barChartOptions" :styles="{height: '400px', position: 'relative',width:'100%'}"/>
-            </v-col> 
           </v-row>
       </v-col>
     </v-row>
@@ -56,33 +98,16 @@ import BarChart from "@/components/statistiques/charts/BarChart";
                 { text: 'Accueil', icon: 'mdi-home-outline',link:'/dashboard',position:1  },
                 { text: 'Demande', icon: 'mdi-file-document-outline',link:'/demandes',position:0 }
                 ],
+                 model: {                 
+                  debut:'',
+                  fin:'',
+                },
+                date1: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+                date2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+                menu1: false,
+                menu2: false,
                 siteUrl:process.env.siteUrl,
                 missions: [],
-                barChartData: {
-                    labels:['Dossier'],
-                    datasets: [
-                        {
-                            label: "Soumis",
-                            backgroundColor: "#0034CC",
-                            data: [3]
-                        },
-                        {
-                            label: "En traitement",
-                            backgroundColor: "yellow",
-                            data: [4]
-                        },
-                        {
-                            label: "Brouillon",
-                            backgroundColor: "#4eb7eb",
-                            data: [3]
-                        },
-                        {
-                            label: "Livré à domicile",
-                            backgroundColor: "#4eb7eb",
-                            data: [3]
-                        }
-                    ]
-                },
                 barChartOptions: {
                    scales: {
                         yAxes: [{
@@ -109,6 +134,121 @@ import BarChart from "@/components/statistiques/charts/BarChart";
                     },
                     responsive: true,
                     maintainAspectRatio: false
+                },
+                utilisateurData: {
+                    labels:['Utilisateurs'],
+                    datasets: [
+                        {
+                            label: "Actifs",
+                            borderWidth: 2,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            data: [3]
+                        },
+                        {
+                            label: "Innactifs",
+                            borderWidth: 2,
+                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                            data: [4]
+                        },
+                        {
+                            label: "Bloqués",
+                            borderWidth: 2,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            data: [3]
+                        }
+                    ]
+                },
+                dossierPreTraitementData: {
+                    labels:['Dossiers pré-traitement'],
+                    datasets: [
+                        {
+                            label: "Soumis",
+                            borderWidth: 2,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            data: [3]
+                        },
+                        {
+                            label: "En traitement",
+                            borderWidth: 2,
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            data: [4]
+                        },
+                        {
+                            label: "Brouillon",
+                            borderWidth: 2,
+                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                            data: [3]
+                        }
+                    ]
+                },
+                dossierPostTraitementData: {
+                    labels:['Dossier post-traitement'],
+                    datasets: [
+                        {
+                            label: "Soumis",
+                            borderWidth: 2,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            data: [3]
+                        },
+                        {
+                            label: "En traitement",
+                            borderWidth: 2,
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                            data: [4]
+                        },
+                        {
+                            label: "Brouillon",
+                            borderWidth: 2,
+                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                            data: [3]
+                        },
+                        {
+                            label: "Livré à domicile",
+                            borderWidth: 2,
+                            backgroundColor: "rgba(75, 192, 192, 0.2)",
+                            data: [3]
+                        }
+                    ]
+                },
+                enrolementParSiteData: {
+                    labels:['DAKAR','THIES','LOUGA'],
+                    datasets: [{
+                        label: 'Nombre de structure',
+                        borderWidth: 1,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        data: [40, 20, 12]
+                      }
+                    ]
+                },
+                demandeFinancementData: {
+                    labels:['ESS DAKAR','ESS THIES','ESS LOUGA'],
+                    datasets: [{
+                        label: 'Nombre de demandes',
+                        borderWidth: 1,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+                      }
+                    ]
+                },
+                demandeEmploiData: {
+                    labels:['ESS DAKAR','ESS THIES','ESS LOUGA'],
+                    datasets: [{
+                        label: 'Nombre de demandes',
+                        borderWidth: 1,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+                      }
+                    ]
+                },
+                demandeFormationData: {
+                    labels:['ESS DAKAR','ESS THIES','ESS LOUGA'],
+                    datasets: [{
+                        label: 'Nombre de demandes',
+                        borderWidth: 1,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+                      }
+                    ]
                 },
             }
         },
@@ -233,5 +373,12 @@ path:hover {
 }
 .bg-white{
     background-color: #fff;
+}
+.custom-bloc-chart{
+  padding: 26px;
+}
+.border-right-chart{
+  border-right: solid 1px #aeb4b7;
+  margin-bottom: 40px;
 }
 </style>
