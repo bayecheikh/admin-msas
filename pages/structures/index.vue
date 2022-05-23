@@ -27,7 +27,15 @@ import { mapActions} from 'vuex'
       ListStructure
     },
     mounted: function() {
-      /* this.$store.dispatch('structures/getList',1) */
+      /* this.$store.dispatch('roles/getList')
+      this.$store.dispatch('structures/getList')
+      this.$store.dispatch('fournisseurs/getList') */
+      this.$store.dispatch('type-zones/getList')
+      this.$store.dispatch('typesources/getList')
+      this.$store.dispatch('sources/getList')
+      this.$store.dispatch('regions/getList')
+      this.$store.dispatch('departements/getList')
+      this.$store.dispatch('dimensions/getList')
     },
     data () {
       return {
