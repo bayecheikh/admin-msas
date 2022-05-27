@@ -448,10 +448,10 @@ import { mapMutations, mapGetters } from 'vuex'
         let size = files[0]?.size/1024/1024 //La taille en Mbit
         console.log('Size-------------- ',size)
         if(files.length!=0){
-          if (size <= 5 && (extFile=="jpg" || extFile=="jpeg" || extFile=="png")){
+          if (size <= 5 && (extFile=="jpg" || extFile=="jpeg" || extFile=="png" || extFile=="pdf" || extFile=="doc" || extFile=="docx")){
             this.model.accord_siege = files[0];
           }else{
-            alert("Seul les images jpg/jpeg png et de taille inférieur à 2Mb sont acceptés!");
+            alert("Seul les fichiers jpg/jpeg/png/pdf/doc/docx et de taille inférieur à 5Mb sont acceptés!");
           }
         }
       },
@@ -460,12 +460,12 @@ import { mapMutations, mapGetters } from 'vuex'
 
         let validation = this.$refs.form.validate()
 
-        let source_financements = [this.selectedSource_financements?.id]
-        let type_sources = [this.selectedType_sources?.id]
+        let source_financements = this.selectedSource_financements?.id
+        let type_sources = this.selectedType_sources?.id
         let departements = this.selectedDepartements
         let regions = this.selectedRegions
         let dimensions = this.selectedDimensions
-        let type_zone_interventions = [this.selectedType_zone_interventions]
+        let type_zone_interventions = this.selectedType_zone_interventions
         
         let formData = new FormData();
 
@@ -511,8 +511,8 @@ import { mapMutations, mapGetters } from 'vuex'
        validation && this.$msasFileApi.post('/structures',formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
-            this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message || 'Ajout réussi'})
-            this.$router.push('/structures');
+            this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
+            //this.$router.push('/structures');
           })
           .catch((error) => {
               console.log('Code error ++++++: ', error)
@@ -617,7 +617,7 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       async changeType_zone_intervention(e) {
         console.log('************',e)
-        this.selectedType_zone_interventions = e
+        this.selectedType_zone_interventions = e.id
         switch(e.libelle_zone){
           case 'National' : {
             this.showRegion=false
