@@ -43,7 +43,7 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col md="4" lg="4" sm="12" v-if="showNumAutorisation">
+          <v-col md="6" lg="6" sm="12" v-if="showNumAutorisation">
             <v-text-field
               label="N° autorisation"
               outlined
@@ -52,35 +52,7 @@
               :rules="rules.firstnameRules"
             ></v-text-field>
           </v-col>
-          <v-col md="4" lg="4" sm="12" v-if="showAccordSiege">
-            <v-file-input
-              v-model="files"
-              color="deep-purple accent-4"
-              counter
-              label="Accord de siège"
-              multiple
-              placeholder=""
-              prepend-icon="mdi-paperclip"
-              outlined
-              :show-size="1000"
-              dense
-              v-on:change="handleFileUpload"
-            >
-              <template v-slot:selection="{ index, text }">
-                <v-chip v-if="index < 2" color="black" dark label small>
-                  {{ text }}
-                </v-chip>
-
-                <span
-                  v-else-if="index === 2"
-                  class="text-overline grey--text text--darken-3 mx-2"
-                >
-                  +{{ files.length - 2 }} Fichier(s)
-                </span>
-              </template>
-            </v-file-input>
-          </v-col>
-          <v-col md="4" lg="4" sm="12" v-if="showNumAgrement">
+           <v-col md="6" lg="6" sm="12" v-if="showNumAgrement">
             <v-text-field
               label="N° agrément"
               outlined
@@ -89,7 +61,28 @@
               :rules="rules.firstnameRules"
             ></v-text-field>
           </v-col>
-          <v-col lg="4" sm="12" md="4" v-if="showDebutIntervention">
+          <v-col md="6" lg="6" sm="12" v-if="showAccordSiege">
+            <v-flex>
+              <v-btn
+              color="grey"
+              class="white--text"
+              @click="$refs.file.click()"
+              depressed
+              >
+                Accord de siège
+                <v-icon
+                  right
+                  dark
+                >
+                  mdi-cloud-upload
+                </v-icon>
+              </v-btn>
+            </v-flex>
+            <v-flex>{{filename}}</v-flex>
+            <input type="file" id="file" name="accord_siege" ref="file" v-on:change="handleFileUpload" style="display: none"/>
+            
+          </v-col>
+          <v-col lg="6" sm="12" md="6" v-if="showDebutIntervention">
             <v-menu
               v-model="menu1"
               :close-on-content-click="false"
@@ -116,7 +109,7 @@
               ></v-date-picker>
             </v-menu>
           </v-col>
-          <v-col lg="4" sm="12" md="4" v-if="showFinIntervention">
+          <v-col lg="6" sm="12" md="6" v-if="showFinIntervention">
             <v-menu
               v-model="menu2"
               :close-on-content-click="false"
@@ -336,6 +329,7 @@ import { mapMutations, mapGetters } from 'vuex'
       listdimensions: 'dimensions/listdimensions',
     })},
     data: () => ({
+      filename : '',
       loading: false,
       message:null,
       color:null,
@@ -439,8 +433,8 @@ import { mapMutations, mapGetters } from 'vuex'
     methods: {
       handleFileUpload(e){
         //Recupère le fichier
-        //const input = this.$refs.file
-        const files = this.files
+        const input = this.$refs.file
+        const files = input.files
 
         //Recupère l'extension
         let idxDot = files[0]?.name.lastIndexOf(".") + 1;
@@ -450,6 +444,7 @@ import { mapMutations, mapGetters } from 'vuex'
         if(files.length!=0){
           if (size <= 5 && (extFile=="jpg" || extFile=="jpeg" || extFile=="png" || extFile=="pdf" || extFile=="doc" || extFile=="docx")){
             this.model.accord_siege = files[0];
+            this.filename = files[0].name
           }else{
             alert("Seul les fichiers jpg/jpeg/png/pdf/doc/docx et de taille inférieur à 5Mb sont acceptés!");
           }
@@ -512,7 +507,7 @@ import { mapMutations, mapGetters } from 'vuex'
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
-            //this.$router.push('/structures');
+            this.$router.push('/structures');
           })
           .catch((error) => {
               console.log('Code error ++++++: ', error)
@@ -567,6 +562,7 @@ import { mapMutations, mapGetters } from 'vuex'
           case 'PTF' : {
             this.showNumAgrement=true
             this.showAccordSiege=true
+            this.showNumAutorisation=false
             this.showDebutIntervention=true
             this.showFinIntervention=true
             this.showAdresseStructure=true
