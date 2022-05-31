@@ -1,6 +1,6 @@
 
   <template>
-    <v-card>
+    <v-card flat>
       <v-tabs
         v-model="tab"
         background-color="primary"
@@ -21,18 +21,58 @@
         </v-tab>
 
         <v-tab href="#tab-3">
-          Zones d'intervention
-          <v-icon>mdi-map</v-icon>
+          Financements
+          <v-icon>mdi-credit-card</v-icon>
         </v-tab>
       </v-tabs>
 
-      <v-tabs-items v-model="tab">
+      <v-tabs-items v-model="tab" class="pt-5">
         <v-tab-item
           value="tab-1"
         >
-          <v-card flat>
-            <v-card-text>this is</v-card-text>
-          </v-card>
+          <v-row>
+            <v-col md="3" sm="12" lg="3" v-if="detailstructure.users">
+              <stat-box 
+                :title="'Nombre total d\'utilisateurs actifs '"                
+                :icon="'mdi-account-group-outline'"
+                :nbr="detailstructure.users.length"
+                :colorIcon="'#00ac47'"
+                :colorText="'#00ac47'"
+                :class="'custom-card-user  border-user'"
+              >
+              </stat-box>
+            </v-col>
+            <v-col md="3" sm="12" lg="3" v-if="detailstructure.departements">
+              <stat-box 
+                :title="'Nombre total de departements intervenu'"  
+                :icon="'mdi-map'"
+                :nbr="detailstructure.departements.length"
+                :colorIcon="'#007cf6'"
+                :class="'custom-card-user  border-user'"
+              >
+              </stat-box>
+            </v-col>
+            <v-col md="3" sm="12" lg="3" v-if="detailstructure.regions">
+              <stat-box 
+                :title="'Nombre total de région intervenu'"
+                :icon="'mdi-map'"
+                :nbr="detailstructure.regions.length"
+                :colorIcon="'#007cf6'"
+                :class="'custom-card-user  border-user'"
+              >
+              </stat-box>
+            </v-col>
+            <v-col md="3" sm="12" lg="3">
+              <stat-box 
+                :title="'Nombre total de financement'"
+                :icon="'mdi-credit-card'"
+                :nbr="'245'"
+                :colorIcon="'#ffba00'"
+                :class="'custom-card-user  border-user'"
+              >
+              </stat-box>
+            </v-col>
+          </v-row>
         </v-tab-item>
       </v-tabs-items>
 
@@ -41,7 +81,7 @@
           value="tab-2"
         >
           <v-card flat>
-            <v-card-text>hello</v-card-text>
+            <v-card-text>Pièces jointes : </v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -51,7 +91,7 @@
           value="tab-3"
         >
           <v-card flat>
-            <v-card-text>how</v-card-text>
+            <v-card-text>Fiancements</v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -60,7 +100,11 @@
         
 <script>
 import { mapMutations, mapGetters } from 'vuex'
+import StatBox from '@/components/dashboard/admin/StatBox';
   export default {
+    components: {
+      StatBox
+    },
     mounted: function() {
       //this.getDetail(this.id)
     },

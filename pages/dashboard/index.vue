@@ -2,9 +2,51 @@
 
   <div p-6 class="bg-title">
     <page-header :items="headerItems" class="pb-4"></page-header>
-    <v-card class="mx-auto pl-0 pt-0 pb-10 pr-0">  
+    <v-card class="mx-auto">  
       <v-container>
-        <list-chart></list-chart>
+        <v-row>
+            <v-col md="6" sm="12" lg="6">
+              <stat-box 
+                :title="'Nombre total d\'utilisateurs actifs '"                
+                :icon="'mdi-account-group-outline'"
+                :nbr="'245'"
+                :colorIcon="'#00ac47'"
+                :colorText="'#00ac47'"
+                :class="'custom-card-user  border-user'"
+              >
+              </stat-box>
+            </v-col>
+            <v-col md="6" sm="12" lg="6" >
+              <stat-box 
+                :title="'Nombre total de departements intervenu'"  
+                :icon="'mdi-map'"
+                :nbr="'245'"
+                :colorIcon="'#007cf6'"
+                :class="'custom-card-user  border-user'"
+              >
+              </stat-box>
+            </v-col>
+            <v-col md="6" sm="12" lg="6">
+              <stat-box 
+                :title="'Nombre total de région intervenu'"
+                :icon="'mdi-map'"
+                :nbr="'245'"
+                :colorIcon="'#007cf6'"
+                :class="'custom-card-user  border-user'"
+              >
+              </stat-box>
+            </v-col>
+            <v-col md="6" sm="12" lg="6">
+              <stat-box 
+                :title="'Nombre total de financement'"
+                :icon="'mdi-credit-card'"
+                :nbr="'245'"
+                :colorIcon="'#ffba00'"
+                :class="'custom-card-user  border-user'"
+              >
+              </stat-box>
+            </v-col>
+          </v-row>
       </v-container>        
     </v-card>
   </div>
@@ -13,34 +55,14 @@
 
 <script>
 import ListChart from '@/components/statistiques/charts/ListChart';
-import NbrDemandeActe from '@/components/statistiques/ministatistiques/accueil/NbrDemandeActe';
 import LeftMenu from '@/components/LeftMenu';
-import Banner from '@/components/dashboard/admin/Banner';
-import NbrUserActif from '@/components/dashboard/admin/NbrUserActif';
-import ActiviteUser from '@/components/dashboard/admin/ActiviteUser';
-import ModuleGouvernance from '@/components/dashboard/admin/ModuleGouvernance';
-
-import MontantPayement from '@/components/dashboard/charge-clientel/MontantPayement';
-import NbrCompteUsager from '@/components/dashboard/charge-clientel/NbrCompteUsager';
-import NbrDemande from '@/components/dashboard/charge-clientel/NbrDemande';
-import NbrDossierDelivre from '@/components/dashboard/charge-clientel/NbrDossierDelivre';
-import TicketHelpDesk from '@/components/dashboard/charge-clientel/TicketHelpDesk';
+import StatBox from '@/components/dashboard/admin/StatBox';
 
   export default {
     layout: "dashboard",
     components: {
-      NbrDemandeActe,
+      StatBox,
       LeftMenu,
-      Banner,
-      NbrUserActif,
-      ActiviteUser,
-      ModuleGouvernance,
-
-      MontantPayement,
-      NbrCompteUsager,
-      NbrDossierDelivre,
-      TicketHelpDesk,
-      NbrDemande,
       ListChart
     },
     mounted: function() {

@@ -2,7 +2,7 @@
 <div>
   <div p-6 class="bg-title">
     <page-header :items="headerItems" class="pb-4"></page-header>
-    <v-card class="mx-auto">  
+    <v-card flat class="mx-auto">  
       <v-container pl-10 pt-10 pb-10 pr-10>
           <v-row align="center"
             justify="center">
@@ -15,7 +15,7 @@
           </v-row>
       </v-container>        
     </v-card>
-    <v-card class="mx-auto my-6">  
+    <v-card flat class="mx-auto my-6">  
       <v-container pl-10 pt-10 pb-10 pr-10>
           <v-row align="center"
             justify="center">
