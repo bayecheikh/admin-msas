@@ -52,7 +52,7 @@
               :rules="rules.firstnameRules"
             ></v-text-field>
           </v-col>
-           <v-col md="6" lg="6" sm="12" v-if="showNumAgrement">
+          <v-col md="6" lg="6" sm="12" v-if="showNumAgrement">
             <v-text-field
               label="N° agrément"
               outlined
@@ -64,23 +64,24 @@
           <v-col md="6" lg="6" sm="12" v-if="showAccordSiege">
             <v-flex>
               <v-btn
-              color="grey"
-              class="white--text"
-              @click="$refs.file.click()"
-              depressed
+                color="grey"
+                class="white--text"
+                @click="$refs.file.click()"
+                depressed
               >
                 Accord de siège
-                <v-icon
-                  right
-                  dark
-                >
-                  mdi-cloud-upload
-                </v-icon>
+                <v-icon right dark> mdi-cloud-upload </v-icon>
               </v-btn>
             </v-flex>
             <v-flex>{{filename}}</v-flex>
-            <input type="file" id="file" name="accord_siege" ref="file" v-on:change="handleFileUpload" style="display: none"/>
-            
+            <input
+              type="file"
+              id="file"
+              name="accord_siege"
+              ref="file"
+              v-on:change="handleFileUpload"
+              style="display: none"
+            />
           </v-col>
           <v-col lg="6" sm="12" md="6" v-if="showDebutIntervention">
             <v-menu
@@ -287,12 +288,7 @@
         </v-row>
       </v-card>
 
-      <v-btn
-        
-        class="mr-4 text-white"
-        color="#1B73E8"
-        @click="submitForm"
-      >
+      <v-btn class="mr-4 text-white" color="#1B73E8" @click="submitForm">
         Enregistrer
       </v-btn>
     </v-form>
@@ -461,7 +457,7 @@ import { mapMutations, mapGetters } from 'vuex'
         let regions = this.selectedRegions
         let dimensions = this.selectedDimensions
         let type_zone_interventions = this.selectedType_zone_interventions
-        
+
         let formData = new FormData();
 
         formData.append("nom_structure", this.model.nom_structure);

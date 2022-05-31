@@ -1,258 +1,298 @@
 <template>
-<div>
-  <v-form class="text-sm-center" v-model="valid" ref="form" enctype="multipart/form-data"
-    >
-    <!--<div >
-      <div class="headline">
-        <v-avatar v-if="imageData" size="100px">
-          <img :src="imageData" alt="Avatar"/>
-        </v-avatar>
-        <v-avatar size="100px" v-else>
-          <img src="@/static/avatar/default-structure.png" alt="Cheikh Gueye"/>
-        </v-avatar>
-      </div>
-    </div>
-    <div>
-      <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-            @click="$refs.file.click()"
-          >
-        <v-icon>mdi-upload-outline</v-icon>
-      </v-btn>
-      <input type="file" id="file" name="avatar" ref="file" v-on:change="handleFileUpload" style="display: none"/>
-      <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-            color="blue"
-            @click="$refs.file.click()"
-          >
-        <v-icon>mdi-camera-outline</v-icon>
-      </v-btn>
-    </div>
-    <span class="caption">Photo de profil png ou jpg max 2Mo</span>-->
-    <v-row>
-      <!-- <v-col md="12" lg="12" sm="12">
-        <v-radio-group
-          v-model="model.sexe"
-          :rules="rules.sexeRules"
-          row
-        >
-          Sexe : &nbsp; &nbsp;<v-radio
-            label="Masculin"
-            value="Masculin"
-          ></v-radio>
-          <v-radio
-            label="Feminin"
-            value="Feminin"
-          ></v-radio>
-        </v-radio-group> 
-      </v-col>-->
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Dénomination"
-          outlined dense
-          v-model="model.nom_structure"
-          :rules="rules.nom_structureRules"
-        ></v-text-field>
-      </v-col>
-      <!--<v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Prénom et Nom responsable"
-          outlined dense
-          v-model="model.name"
-          :rules="rules.firstnameRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Prénom"
-          outlined dense
-          v-model="model.firstname"
-          :rules="rules.firstnameRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Nom"
-          outlined dense
-          v-model="model.lastname"
-          :rules="rules.lastnameRules"
-        ></v-text-field>
-      </v-col>-->
-     <!--  <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Adresse Email responsable"
-          outlined dense
-          v-model="model.email"
-          :rules="rules.emailRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Login"
-          outlined dense
-          v-model="model.structurename"
-          :rules="rules.structurenameRules"
-        ></v-text-field>
-      </v-col> -->
-     <!-- <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Fonction"
-          outlined dense
-          v-model="model.fonction"
-          :rules="rules.fonctionRules"
-        ></v-text-field>
-      </v-col>-->
-      <!-- <v-col lg="6" sm="12" md="6">
-        <v-menu
-          v-model="menu1"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          transition="scale-transition"
-          offset-y
-          min-width="auto"
-        >
-          <template v-slot:activator="{ on, attrs }">
+  <div>
+    <v-form class="" v-model="valid" ref="form" enctype="multipart/form-data">
+      <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+        <v-row>
+          <v-col md="4" lg="4" sm="12">
             <v-text-field
-              v-model="model.date_of_birth"
-              label="Date de naissance"
-              append-icon="mdi-calendar"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-              outlined dense
+              label="Dénomination"
+              outlined
+              dense
+              v-model="this.model.nom_structure"
+              :rules="this.rules.nom_structureRules"
             ></v-text-field>
-          </template>
-          <v-date-picker
-            v-model="model.date_of_birth"
-            @input="menu1 = false"
-          ></v-date-picker>
-        </v-menu>
-      </v-col> -->
-      <!-- <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Lieu de naissance"
-          outlined dense
-          v-model="model.place_of_birth"
-          :rules="rules.place_of_birthRules"
-        ></v-text-field>
-      </v-col> -->
-     <!--  <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Adresse"
-          outlined dense
-          v-model="model.adresse"
-          :rules="rules.adresseRules"
-        ></v-text-field>
-      </v-col>-->
-      <!-- <v-col md="6" lg="6" sm="12">
-        <vue-tel-input-vuetify label="Téléphone"
-          outlined dense
-          v-model="model.telephone"
-          :rules="rules.telephoneRules">
+          </v-col>
+          <v-col lg="4" md="4" sm="12">
+            <v-autocomplete
+              v-model="selectedSource_financements"
+              :items="listsources"
+              :rules="rules.fournisseur_services_idRules"
+              outlined
+              dense
+              label="Source de financement"
+              item-text="libelle_source"
+              item-value="id"
+              return-object
+              @change="changeSource_financement"
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col lg="4" md="4" sm="12">
+            <v-autocomplete
+              v-model="selectedType_sources"
+              :items="this.model.listtypesources"
+              :rules="this.showTypeSource==true?rules.fournisseur_services_idRules:null"
+              outlined
+              dense
+              label="Type"
+              item-text="libelle_type_source"
+              item-value="id"
+              return-object
+              @change="changeType_source"
+              v-if="showTypeSource"
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col md="6" lg="6" sm="12" v-if="showNumAutorisation">
+            <v-text-field
+              label="N° autorisation"
+              outlined
+              dense
+              v-model="model.numero_autorisation"
+              :rules="rules.firstnameRules"
+            ></v-text-field>
+          </v-col>
+          <v-col md="6" lg="6" sm="12" v-if="showNumAgrement">
+            <v-text-field
+              label="N° agrément"
+              outlined
+              dense
+              v-model="model.numero_agrement"
+              :rules="rules.firstnameRules"
+            ></v-text-field>
+          </v-col>
+          <v-col md="6" lg="6" sm="12" v-if="showAccordSiege">
+            <v-flex>
+              <v-btn
+                color="grey"
+                class="white--text"
+                @click="$refs.file.click()"
+                depressed
+              >
+                Accord de siège
+                <v-icon right dark> mdi-cloud-upload </v-icon>
+              </v-btn>
+            </v-flex>
+            <v-flex>{{filename}}</v-flex>
+            <input
+              type="file"
+              id="file"
+              name="accord_siege"
+              ref="file"
+              v-on:change="handleFileUpload"
+              style="display: none"
+            />
+          </v-col>
+          <v-col lg="6" sm="12" md="6" v-if="showDebutIntervention">
+            <v-menu
+              v-model="menu1"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="model.debut_intervention"
+                  label="Dèbut de l'intervention"
+                  append-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                  outlined
+                  dense
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="model.debut_intervention"
+                @input="menu1 = false"
+              ></v-date-picker>
+            </v-menu>
+          </v-col>
+          <v-col lg="6" sm="12" md="6" v-if="showFinIntervention">
+            <v-menu
+              v-model="menu2"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="model.fin_intervention"
+                  label="Fin de l'intervention"
+                  append-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                  outlined
+                  dense
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="model.fin_intervention"
+                @input="menu2 = false"
+              ></v-date-picker>
+            </v-menu>
+          </v-col>
+        </v-row>
+      </v-card>
+      <h2 class="mb-5">Coordonnées siège</h2>
+      <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+        <v-row>
+          <v-col md="4" lg="4" sm="12" v-if="showAdresseStructure">
+            <v-text-field
+              label="Adresse structure"
+              outlined
+              dense
+              v-model="model.adresse_structure"
+              :rules="rules.firstnameRules"
+            ></v-text-field>
+          </v-col>
+          <v-col md="4" lg="4" sm="12">
+            <v-text-field
+              label="Téléphone structure"
+              outlined
+              dense
+              v-model="model.telephone_structure"
+              :rules="rules.telephoneRules"
+            ></v-text-field>
+          </v-col>
+          <v-col md="4" lg="4" sm="12">
+            <v-text-field
+              label="Email structure"
+              outlined
+              dense
+              v-model="model.email_structure"
+              :rules="rules.emailRules"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-card>
+      <h2 class="mb-5">Zone d'intervention</h2>
+      <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
+        <v-row>
+          <v-col md="12" lg="12" sm="12">
+            <v-radio-group
+              :v-model="this.model.type_zone_value"
+              :rules="rules.sexeRules"
+              @change="changeType_zone_intervention"
+              row
+            >
+              <v-radio
+                v-for="item in listtypezones"
+                :key="item.id"
+                :label="item.libelle_zone"
+                :value="item"
+              ></v-radio>
+            </v-radio-group>
+          </v-col>
+        </v-row>
+        <v-row v-if="showRegion">
+          <v-col md="12" lg="12" sm="12">
+            <v-expansion-panels
+              v-for="(item,i) in listregions"
+              :key="i"
+              class="mb-2"
+            >
+              <v-expansion-panel>
+                <v-expansion-panel-header>
+                  <v-checkbox
+                    v-model="selectedRegions"
+                    :label="item.nom_region"
+                    :value="item.id"
+                  ></v-checkbox>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <div v-for="item in item.departements" :key="item.id">
+                    <v-checkbox
+                      v-model="selectedDepartements"
+                      :label="item.nom_departement"
+                      :value="item.id"
+                    ></v-checkbox>
+                  </div>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-col>
+        </v-row>
+      </v-card>
+      <h2 class="mb-5">Dimensions</h2>
+      <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
+        <v-row class="d-flex justify-content-between">
+          <v-col
+            md="4"
+            lg="4"
+            sm="12"
+            v-for="item in listdimensions"
+            :key="item.id"
+          >
+            <v-checkbox
+              v-model="selectedDimensions"
+              :label="item.libelle_dimension"
+              :value="item.id"
+            ></v-checkbox>
+          </v-col>
+        </v-row>
+      </v-card>
+      <h2 class="mb-5">Personne responsable</h2>
+      <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+        <v-row>
+          <v-col md="4" lg="4" sm="12">
+            <v-text-field
+              label="Fonction responsable"
+              outlined
+              dense
+              v-model="model.fonction_responsable"
+              :rules="rules.firstnameRules"
+            ></v-text-field>
+          </v-col>
+          <v-col md="4" lg="4" sm="12">
+            <v-text-field
+              label="Prénom responsable"
+              outlined
+              dense
+              v-model="model.firstname_responsable"
+              :rules="rules.firstnameRules"
+            ></v-text-field>
+          </v-col>
+          <v-col md="4" lg="4" sm="12">
+            <v-text-field
+              label="Nom responsable"
+              outlined
+              dense
+              v-model="model.lastname_responsable"
+              :rules="rules.firstnameRules"
+            ></v-text-field>
+          </v-col>
+          <v-col md="4" lg="4" sm="12">
+            <v-text-field
+              label="Adresse Email responsable"
+              outlined
+              dense
+              v-model="model.email_responsable"
+              :rules="rules.emailRules"
+            ></v-text-field>
+          </v-col>
+          <v-col md="4" lg="4" sm="12">
+            <v-text-field
+              label="Téléphone responsable"
+              outlined
+              dense
+              v-model="model.telephone_responsable"
+              :rules="rules.telephoneRules"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-card>
 
-        </vue-tel-input-vuetify>
-      </v-col>
-      <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Indicatif"
-          dense outlined
-          v-model="model.country_code"
-          :rules="rules.country_codeRules"
-        ></v-text-field>
-      </v-col> -->
-      <!--<v-col md="2" lg="2" sm="12">
-        <v-text-field
-          label="Indicatif"
-          dense outlined
-          v-model="model.country_code"
-          :rules="rules.country_codeRules"
-        ></v-text-field>
-      </v-col>
-      <v-col md="4" lg="4" sm="12">
-        <v-text-field
-          label="Téléphone"
-          outlined dense
-          v-model="model.telephone"
-          :rules="rules.telephoneRules"
-        ></v-text-field>
-      </v-col>-->
-      <!--<v-col
-        lg="6"
-        md="6"
-        sm="12"
-      >
-        <v-autocomplete
-            v-model="model.roles"
-            :items="listroles"
-            :rules="rules.rolesRules"
-            outlined
-            dense
-            multiple
-            small-chips
-            label="Role"
-            item-text="description"
-            item-value="id"
-            clearable
-            return-object
-            @change="changeRole"
-          >
-        </v-autocomplete>
-      </v-col>-->
-      <!-- <v-col
-        lg="6"
-        md="6"
-        sm="12"
-      >
-        <v-autocomplete
-            v-model="model.structure_id"
-            :rules="rules.structure_idRules"
-            :items="liststructures"
-            outlined
-            dense
-            small-chips
-            label="Structure"
-            item-text="libelle"
-            item-value="id"
-            clearable
-          >
-        </v-autocomplete>
-      </v-col>
-      <v-col
-        lg="6"
-        md="6"
-        sm="12"
-      >
-        <v-autocomplete
-            v-model="model.fournisseur_services_id"
-            :items="listfournisseurs"
-            :rules="this.showFournisseur==true?rules.fournisseur_services_idRules:null"
-            outlined
-            dense
-            small-chips
-            label="Fournisseur de service"
-            item-text="libelle"
-            item-value="id"
-            clearable
-            v-if="showFournisseur"
-          >
-        </v-autocomplete>
-      </v-col> -->
-    </v-row>
-
-    <v-btn
-      :loading="loading"
-      :disabled="!valid"
-      class="mr-4 text-white" color="#1B73E8"
-      @click="submitForm"
-    >
-      Enregistrer
-    </v-btn>
-  </v-form>
-</div>
+      <v-btn class="mr-4 text-white" color="#1B73E8" @click="submitForm">
+        Enregistrer
+      </v-btn>
+    </v-form>
+  </div>
 </template>
 
 <script>
@@ -261,76 +301,73 @@ import { mapMutations, mapGetters } from 'vuex'
     components: {
     },
     mounted: function() {
-      this.model.id = this.detailstructure.id,
-      /* this.imageData = this.detailstructure.avatar, */
-      this.model.nom_structure= this.detailstructure.nom_structure,
-      this.model.name= this.detailstructure.name,
-      /* this.model.firstname= this.detailstructure.firstname,
-      this.model.lastname= this.detailstructure.lastname, */
-      this.model.email= this.detailstructure.email,
-      this.model.roles= this.detailstructure.roles,
-      /* this.model.fournisseur_services_id=this.detailstructure.fournisseur_services_id,
-      this.model.country_code=this.detailstructure.country_code,
-      this.model.telephone= this.detailstructure.telephone,
-      this.model.adresse= this.detailstructure.adresse,
-      this.model.fonction= this.detailstructure.fonction,
-      this.model.structure_id=this.detailstructure.structure_id
-      this.showFournisseur = this.model.roles.filter(item => item.name === 'agent_structure').length?true:false; */
-      console.log('--------------- detail structure ',this.detailstructure)
+      this.getDetail(this.$nuxt._route.params.id)
     },
     computed: 
       mapGetters({
       detailstructure:'structures/detailstructure',
-      listroles: 'roles/selectlistroles',
-      /* listfournisseurs: 'fournisseurs/selectlistfournisseurs',
-      liststructures: 'structures/selectliststructures', */
+      listtypezones: 'type-zones/listtypezones',
+      listsources: 'sources/listsources',
+      listregions: 'regions/listregions',
+      listdepartements: 'departements/listdepartements',
+      listdimensions: 'dimensions/listdimensions',
     }),
     data: () => ({
+      id : '',
+      filename : '',
       loading: false,
       message:null,
       color:null,
       valid: true,
       showFournisseur: false,
+      showTypeSource: false,
+      showNumAutorisation: false,
+      showAccordSiege: false,
+      showNumAgrement: false,
+      showAdresseStructure: false,
+      showRegion: false,
       message:null,
+      selectedSource_financements: [],
+      selectedType_sources: [],
+      selectedRegions: [],
+      selectedDepartements: [],
+      selectedDimensions: [],
+      selectedType_zone_interventions: [],
       model: {
-        avatar:'',
+        id : '',
         nom_structure:'',
-        name:'',
-        firstname: 'Ababacar',
-        lastname: 'Syll',
-        email: 'syyl@msas.sn',
-        roles: null,
-        fournisseur_services_id:null,
-        country_code:'+221',
-        telephone: '',
-        adresse: '',
-        fonction: '',
-        structure_id:null
+        numero_autorisation:'',
+        accord_siege:'',
+        numero_agrement:'',
+        adresse_structure:'',
+        debut_intervention:'',
+        fin_intervention:'',
+        telephone_structure:'',
+        email_structure:'',
+        firstname_responsable:'',
+        lastname_responsable:'',
+        email_responsable:'',
+        telephone_responsable:'',
+        fonction_responsable:'',
+        listtypesources:[],
+        type_zone_value:''
       },
-       rules:{
+      rules:{
         nom_structureRules: [
-          v => !!v || 'Dénomination est obligatoire',
-          v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
+          v => !!v || 'Dénomination est obligatoire'
         ],
         nameRules: [
-          v => !!v || 'Prénom est obligatoire',
-          v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
+          v => !!v || 'Champ obligatoire'
         ],
         firstnameRules: [
-          v => !!v || 'Prénom est obligatoire',
-          v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
+          v => !!v || 'Champ obligatoire'
         ],
         lastnameRules: [
-          v => !!v || 'Nom est obligatoire',
-          v => (v && v.length <= 50) || 'Nom doit etre inférieur à 10 caratères',
+          v => !!v || 'Champ obligatoire'
         ],
         emailRules: [
-          v => !!v || 'E-mail est obligatoire',
+          v => !!v || 'l\'E-mail est obligatoire',
           v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
-        ],
-        structurenameRules: [
-          v => !!v || 'Login est obligatoire',
-          v => (v && v.length <= 10) || 'Nom doit etre inférieur à 10 caratères',
         ],
         rolesRules: [
           v => (v && !!v.length) || 'Role est obligatoire',
@@ -375,68 +412,123 @@ import { mapMutations, mapGetters } from 'vuex'
           v => !!v || 'Fonction est obligatoire'
         ]
       },
-
+      date1: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      date2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      menu1: false,
+      menu2: false,
       imageData:null,
     }),
     methods: {
-      handleFileUpload(e){         
+      getDetail(id){
+          this.progress=true
+          this.$msasApi.$get('/structures/'+id)
+        .then(async (response) => {
+            console.log('Detail structure ++++++++++',response.data)
+            this.$store.dispatch('structures/getDetail',response.data)
+            this.model.nom_structure= response.data.nom_structure
+            this.selectedSource_financements= response.data.source_financements[0]
+            this.changeSource_financement(response.data.source_financements[0])
+            this.selectedType_sources = response.data.type_sources[0]
+            this.model.numero_agrement = response.data.numero_agrement
+            this.model.debut_intervention = response.data.debut_intervention
+            this.model.fin_intervention = response.data.fin_intervention
+            this.model.adresse_structure = response.data.adresse_structure
+            this.model.telephone_structure= response.data.telephone_structure
+            this.model.email_structure= response.data.email_structure
+            //this.selectedType_zone_interventions= response.data.type_zone_interventions[0]
+            this.model.type_zone_value = response.data.type_zone_interventions[0].libelle_zone
+            this.changeType_zone_intervention(response.data.type_zone_interventions[0])
+            //this.SelectedSource_financements= response.data.source_financements[0]
+        }).catch((error) => {
+             this.$toast.error(error?.response?.data?.message).goAway(3000)
+            console.log('Code error ++++++: ', error?.response?.data?.message)
+        }).finally(() => {
+            console.log('Requette envoyé ')
+        });
+        //console.log('total items++++++++++',this.paginationstructure)
+      },
+      handleFileUpload(e){
         //Recupère le fichier
         const input = this.$refs.file
         const files = input.files
 
         //Recupère l'extension
-        let idxDot = files[0].name.lastIndexOf(".") + 1;
-        let extFile = files[0].name.substr(idxDot, files[0].name.length).toLowerCase(); 
-        let size = files[0].size/1024/1024 //La taille en Mbit
+        let idxDot = files[0]?.name.lastIndexOf(".") + 1;
+        let extFile = files[0]?.name.substr(idxDot, files[0].name.length).toLowerCase();
+        let size = files[0]?.size/1024/1024 //La taille en Mbit
         console.log('Size-------------- ',size)
-
-        if (size <= 2 && (extFile=="jpg" || extFile=="jpeg" || extFile=="png")){
-          //Affecté le fichier image au model avatar
-          this.model.avatar = e.target.files[0];
-
-          //Prévisualise l'image
-          if (files && files[0]) {
-            const reader = new FileReader
-            reader.onload = e => {
-              this.imageData = e.target.result
-            }
-            reader.readAsDataURL(files[0])
-            this.$emit('input', files[0])
+        if(files.length!=0){
+          if (size <= 5 && (extFile=="jpg" || extFile=="jpeg" || extFile=="png" || extFile=="pdf" || extFile=="doc" || extFile=="docx")){
+            this.model.accord_siege = files[0];
+            this.filename = files[0].name
+          }else{
+            alert("Seul les fichiers jpg/jpeg/png/pdf/doc/docx et de taille inférieur à 5Mb sont acceptés!");
           }
-        }else{
-          alert("Seul les images jpg/jpeg png et de taille inférieur à 2Mb sont acceptés!");
-        }  
+        }
       },
       submitForm () {
+        this.loading = true
+
         let validation = this.$refs.form.validate()
-        //let selectedRoles = this.model.roles.map((item)=>{return item.id})
-       // this.model.roles=selectedRoles
-        this.loading = true;
 
-        /* let formData = new FormData();
-        formData.append("avatar", this.model.avatar);
+        let source_financements = this.selectedSource_financements?.id
+        let type_sources = this.selectedType_sources?.id
+        let departements = this.selectedDepartements
+        let regions = this.selectedRegions
+        let dimensions = this.selectedDimensions
+        let type_zone_interventions = this.selectedType_zone_interventions
+
+        let formData = new FormData();
+
         formData.append("id", this.model.id);
-        formData.append("firstname",this.model.firstname );
-        formData.append("lastname",this.model.lastname);
-        formData.append("email",this.model.email);
-        formData.append("roles",JSON.stringify(this.model.roles));
-        if(this.model.fournisseur_services_id != null){
-          formData.append("fournisseur_services_id",this.model.fournisseur_services_id);
-        }
-        formData.append("country_code",this.model.country_code),
-        formData.append("telephone",this.model.telephone),
-        formData.append("adresse",this.model.adresse),
-        formData.append("fonction",this.model.fonction),
-        formData.append("structure_id",this.model.structure_id) */
+        formData.append("nom_structure", this.model.nom_structure);
+        formData.append("numero_autorisation",this.model.numero_autorisation);
+        formData.append("accord_siege",this.model.accord_siege);
+        formData.append("numero_agrement",this.model.numero_agrement);
+        formData.append("adresse_structure",this.model.adresse_structure);
+        formData.append("debut_intervention",this.model.debut_intervention);
+        formData.append("fin_intervention",this.model.fin_intervention);
+        formData.append("telephone_structure",this.model.telephone_structure);
+        formData.append("email_structure",this.model.email_structure);
 
-        validation && this.$msasFileApi.put('/structures/'+this.model.id,{...this.model})
+        formData.append("source_financements",source_financements);
+        formData.append("type_sources",type_sources);
+        formData.append("departements",departements);
+        formData.append("regions",regions);
+        formData.append("dimensions",dimensions);
+        formData.append("type_zone_interventions",type_zone_interventions);
+
+        formData.append("firstname_responsable",this.model.firstname_responsable)
+        formData.append("lastname_responsable",this.model.lastname_responsable)
+        formData.append("email_responsable",this.model.email_responsable)
+        formData.append("telephone_responsable",this.model.telephone_responsable)
+        formData.append("fonction_responsable",this.model.fonction_responsable)
+
+        let data = {
+          ...this.model,
+          source_financements : source_financements,
+          type_sources : type_sources,
+          departements : departements,
+          regions : regions,
+          dimensions : dimensions,
+          type_zone_interventions : type_zone_interventions
+        }
+
+        console.log('Donées formulaire source financements ++++++: ',data)
+
+        console.log('FormData ++++++ : ',formData)
+
+
+
+       validation && this.$msasFileApi.post('/structures',formData)
           .then((res) => {
-            this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message || 'Modification réussi'})
+            console.log('Donées reçus ++++++: ',res)
+            this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
             this.$router.push('/structures');
           })
           .catch((error) => {
               console.log('Code error ++++++: ', error)
-              this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de la modification '})
+              this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de l\'ajout '})
           }).finally(() => {
             this.loading = false;
             console.log('Requette envoyé ')
@@ -456,6 +548,102 @@ import { mapMutations, mapGetters } from 'vuex'
         else
         this.showFournisseur=false
         console.log('************',checkRole)
+      },
+      async changeSource_financement(source) {
+        console.log('Source fin ************',source)
+        this.showTypeSource=true
+        this.selectedSource_financements = source
+        this.model.listtypesources = source.type_sources
+
+        switch(source.libelle_source){
+          case 'EPS' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'SPS' : {
+            this.showNumAutorisation=true
+            this.showAdresseStructure=true
+
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'PTF' : {
+            this.showNumAgrement=true
+            this.showAccordSiege=true
+            this.showNumAutorisation=false
+            this.showDebutIntervention=true
+            this.showFinIntervention=true
+            this.showAdresseStructure=true
+          }
+          break;
+          case 'ONG' : {
+            this.showNumAgrement=true
+            this.showAdresseStructure=true
+
+            this.showNumAutorisation=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'RSE' : {
+            this.showAdresseStructure=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+          case 'CT' : {
+            this.showAdresseStructure=false
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+          }
+          break;
+        }
+        /* let checkSource = this.model.source_financements.filter(item => item.libelle_source === 'EPS').length;
+        if(checkRole==1){
+          this.showTypeSource=true
+        }
+        else
+        this.showTypeSource=false */
+        console.log('************',source)
+      },
+      async changeType_source(type_source) {
+        this.selectedType_sources = type_source
+        console.log('************',type_source)
+      },
+      async changeType_zone_intervention(e) {
+        console.log('************',e)
+        this.selectedType_zone_interventions = e.id
+        switch(e.libelle_zone){
+          case 'National' : {
+            this.showRegion=false
+            this.selectedDepartement = []
+            this.selectedRegion = []
+          }
+          break;
+          case 'Régional' : {
+            this.showRegion=true
+          }
+          break;
+        }
       },
     },
     metaInfo () {
