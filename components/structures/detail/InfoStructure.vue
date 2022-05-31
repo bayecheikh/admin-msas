@@ -4,28 +4,31 @@
       <v-row>
         <v-col md="12" sm="12" lg="12" text-md-left>
           <div class="row">
-              <div class="col-md-6 my-0 py-0">
+              <div class="col-md-4 my-0 py-0">
                   <p class="info-profil"><span>Dénomination : </span>{{detailstructure.nom_structure}}</p>
               </div>
-              <div class="col-md-6 my-0 py-0" v-if="detailstructure.source_financements">
+              <div class="col-md-4 my-0 py-0" v-if="detailstructure.adresse_structure">
+                  <p class="info-profil"><span>Adresse : </span>{{detailstructure.adresse_structure}}</p>
+              </div>
+              <div class="col-md-4 my-0 py-0" v-if="detailstructure.source_financements">
                   <p class="info-profil"><span>Source de financement : </span>{{detailstructure.source_financements[0].libelle_source}}</p>
               </div>
-              <div class="col-md-6 my-0 py-0" v-if="detailstructure.type_sources">
+              <div class="col-md-4 my-0 py-0" v-if="detailstructure.type_sources">
                   <p class="info-profil"><span>Type source : </span>{{detailstructure.type_sources[0].libelle_type_source}}</p>
               </div>
-              <div class="col-md-6 my-0 py-0" v-if="detailstructure.numero_agrement">
+              <div class="col-md-4 my-0 py-0" v-if="detailstructure.numero_agrement">
                   <p class="info-profil"><span>Numéro agrément : </span>{{detailstructure.numero_agrement}}</p>
               </div>
-              <div class="col-md-6 my-0 py-0" v-if="detailstructure.numero_agrement">
+              <div class="col-md-4 my-0 py-0" v-if="detailstructure.numero_agrement">
                   <p class="info-profil"><span>Numéro autorisation : </span>{{detailstructure.numero_agrement}}</p>
               </div>
-              <div class="col-md-6 my-0 py-0" v-if="detailstructure.telephone_structure">
+              <div class="col-md-4 my-0 py-0" v-if="detailstructure.telephone_structure">
                   <p class="info-profil"><span>Téléphone : </span>{{detailstructure.telephone_structure}}</p>
               </div>
-              <div class="col-md-6 my-0 py-0" v-if="detailstructure.email_structure">
+              <div class="col-md-4 my-0 py-0" v-if="detailstructure.email_structure">
                   <p class="info-profil"><span>Email : </span>{{detailstructure.email_structure}}</p>
               </div>
-              <div class="col-md-6 my-0 py-0" v-if="detailstructure.type_zone_interventions">
+              <div class="col-md-4 my-0 py-0" v-if="detailstructure.type_zone_interventions">
                   <p class="info-profil"><span>Zone d'intervention : </span>{{detailstructure.type_zone_interventions[0].libelle_zone}}</p>
               </div>
           </div>
