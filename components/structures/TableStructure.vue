@@ -88,6 +88,28 @@
     </div>
         </v-row>
       </template>
+      <template v-slot:[`item.source_financements`]="{ item }">
+      <v-chip
+        color="primary"
+        small
+        outlined
+        class="my-1 mr-1"
+        v-for="source_financement in item.source_financements"  :key="source_financement.id"
+      >
+        {{ source_financement.libelle_source}}
+      </v-chip>
+  </template>
+  <template v-slot:[`item.type_sources`]="{ item }">
+      <v-chip
+        color="primary"
+        small
+        outlined
+        class="my-1 mr-1"
+        v-for="type_source in item.type_sources"  :key="type_source.id"
+      >
+        {{ type_source.libelle_type_source}}
+      </v-chip>
+  </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-menu bottom left>
           <template v-slot:activator="{ on, attrs }">

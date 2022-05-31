@@ -11,6 +11,10 @@ export default () => ({
         /* { text: 'Prénom', value: 'firstname' },
         { text: 'Nom', value: 'lastname' }, */
         { text: 'Nom', value: 'nom_structure' },
+        { text: 'Source de financement', value: 'source_financements'},
+        { text: 'Type', value: 'type_sources'},
+        { text: 'Téléphone', value: 'telephone_structure'},
+        { text: 'Email', value: 'email_structure'},
         /* { text: 'Telephone', value: 'telephone' }, */
         { text: 'Actions', value: 'actions', sortable: false },
     ],
