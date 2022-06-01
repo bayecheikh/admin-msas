@@ -33,7 +33,7 @@
           <v-row>
             <v-col md="3" sm="12" lg="3" v-if="detailstructure.users">
               <stat-box 
-                :title="'Nombre total d\'utilisateurs actifs '"                
+                :title="'Nombre d\'utilisateurs actifs '"                
                 :icon="'mdi-account-group-outline'"
                 :nbr="detailstructure.users.length"
                 :colorIcon="'#00ac47'"
@@ -42,9 +42,9 @@
               >
               </stat-box>
             </v-col>
-            <v-col md="3" sm="12" lg="3" v-if="detailstructure.departements">
+            <v-col md="3" sm="12" lg="3" v-if="detailstructure.departements.length!=0">
               <stat-box 
-                :title="'Nombre total de departements intervenu'"  
+                :title="'Nombre de departements d\'intervention'"  
                 :icon="'mdi-map'"
                 :nbr="detailstructure.departements.length"
                 :colorIcon="'#007cf6'"
@@ -52,9 +52,9 @@
               >
               </stat-box>
             </v-col>
-            <v-col md="3" sm="12" lg="3" v-if="detailstructure.regions">
+            <v-col md="3" sm="12" lg="3" v-if="detailstructure.regions.length!=0">
               <stat-box 
-                :title="'Nombre total de région intervenu'"
+                :title="'Nombre de régions d\'intervention'"
                 :icon="'mdi-map'"
                 :nbr="detailstructure.regions.length"
                 :colorIcon="'#007cf6'"
@@ -64,7 +64,7 @@
             </v-col>
             <v-col md="3" sm="12" lg="3">
               <stat-box 
-                :title="'Nombre total de financement'"
+                :title="'Nombre de financement'"
                 :icon="'mdi-credit-card'"
                 :nbr="'245'"
                 :colorIcon="'#ffba00'"

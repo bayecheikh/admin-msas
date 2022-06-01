@@ -8,8 +8,8 @@
               label="Dénomination"
               outlined
               dense
-              v-model="this.model.nom_structure"
-              :rules="this.rules.nom_structureRules"
+              v-model="model.nom_structure"
+              :rules="rules.nom_structureRules"
             ></v-text-field>
           </v-col>
           <v-col lg="4" md="4" sm="12">
@@ -30,8 +30,8 @@
           <v-col lg="4" md="4" sm="12">
             <v-autocomplete
               v-model="selectedType_sources"
-              :items="this.model.listtypesources"
-              :rules="this.showTypeSource==true?rules.fournisseur_services_idRules:null"
+              :items="model.listtypesources"
+              :rules="showTypeSource==true?rules.fournisseur_services_idRules:null"
               outlined
               dense
               label="Type"
@@ -176,7 +176,7 @@
         <v-row>
           <v-col md="12" lg="12" sm="12">
             <v-radio-group
-              :v-model="this.model.type_zone_value"
+              v-model="model.type_zone_value"
               :rules="rules.sexeRules"
               @change="changeType_zone_intervention"
               row
@@ -237,7 +237,7 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5">Personne responsable</h2>
+      <!--<h2 class="mb-5">Personne responsable</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <v-row>
           <v-col md="4" lg="4" sm="12">
@@ -286,7 +286,7 @@
             ></v-text-field>
           </v-col>
         </v-row>
-      </v-card>
+      </v-card>-->
 
       <v-btn class="mr-4 text-white" color="#1B73E8" @click="submitForm">
         Enregistrer
@@ -425,19 +425,24 @@ import { mapMutations, mapGetters } from 'vuex'
         .then(async (response) => {
             console.log('Detail structure ++++++++++',response.data)
             this.$store.dispatch('structures/getDetail',response.data)
+            this.model.id= response.data.id
             this.model.nom_structure= response.data.nom_structure
             this.selectedSource_financements= response.data.source_financements[0]
             this.changeSource_financement(response.data.source_financements[0])
             this.selectedType_sources = response.data.type_sources[0]
             this.model.numero_agrement = response.data.numero_agrement
+            this.model.numero_autorisation = response.data.numero_autorisation
             this.model.debut_intervention = response.data.debut_intervention
             this.model.fin_intervention = response.data.fin_intervention
             this.model.adresse_structure = response.data.adresse_structure
             this.model.telephone_structure= response.data.telephone_structure
             this.model.email_structure= response.data.email_structure
             //this.selectedType_zone_interventions= response.data.type_zone_interventions[0]
-            this.model.type_zone_value = response.data.type_zone_interventions[0].libelle_zone
+            this.model.type_zone_value = response.data.type_zone_interventions[0]
             this.changeType_zone_intervention(response.data.type_zone_interventions[0])
+            this.selectedRegions= response.data.regions.map((item)=>{return item.id})
+            this.selectedDepartements= response.data.departements.map((item)=>{return item.id})
+            this.selectedDimensions= response.data.dimensions.map((item)=>{return item.id})
             //this.SelectedSource_financements= response.data.source_financements[0]
         }).catch((error) => {
              this.$toast.error(error?.response?.data?.message).goAway(3000)
@@ -481,6 +486,7 @@ import { mapMutations, mapGetters } from 'vuex'
         let formData = new FormData();
 
         formData.append("id", this.model.id);
+        formData.append("_method", "put");
         formData.append("nom_structure", this.model.nom_structure);
         formData.append("numero_autorisation",this.model.numero_autorisation);
         formData.append("accord_siege",this.model.accord_siege);
@@ -498,11 +504,11 @@ import { mapMutations, mapGetters } from 'vuex'
         formData.append("dimensions",dimensions);
         formData.append("type_zone_interventions",type_zone_interventions);
 
-        formData.append("firstname_responsable",this.model.firstname_responsable)
+        /* formData.append("firstname_responsable",this.model.firstname_responsable)
         formData.append("lastname_responsable",this.model.lastname_responsable)
         formData.append("email_responsable",this.model.email_responsable)
         formData.append("telephone_responsable",this.model.telephone_responsable)
-        formData.append("fonction_responsable",this.model.fonction_responsable)
+        formData.append("fonction_responsable",this.model.fonction_responsable) */
 
         let data = {
           ...this.model,
@@ -520,7 +526,7 @@ import { mapMutations, mapGetters } from 'vuex'
 
 
 
-       validation && this.$msasFileApi.post('/structures',formData)
+       validation && this.$msasFileApi.post('/structures/'+this.model.id,formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
@@ -635,8 +641,8 @@ import { mapMutations, mapGetters } from 'vuex'
         switch(e.libelle_zone){
           case 'National' : {
             this.showRegion=false
-            this.selectedDepartement = []
-            this.selectedRegion = []
+            this.selectedDepartements = []
+            this.selectedRegions = []
           }
           break;
           case 'Régional' : {
