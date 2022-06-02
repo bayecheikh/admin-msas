@@ -81,6 +81,18 @@
       "name": "gerer-piliers"
     },
     {
+      "icon": "mdi-cog-outline",
+      "href": "/axes",
+      "title": "Axes",
+      "name": "gerer-axes"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/typelignes",
+      "title": "Type Ligne",
+      "name": "gerer-typelignes"
+    },
+    {
       "icon": "mdi-chart-box-outline",
       "href": "/statistiques",
       "title": "Statistiques",

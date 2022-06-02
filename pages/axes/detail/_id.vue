@@ -12,10 +12,10 @@
           <v-row align="center"
             justify="center">
             <v-col cols="12" md="12" lg="12" sm="12">
-              <info-pilier></info-pilier>
+              <info-axe></info-axe>
             </v-col>
             <v-col cols="12" md="12" lg="12" sm="12">
-              <actions-pilier></actions-pilier>
+              <actions-axe></actions-axe>
             </v-col>
           </v-row>
       </v-col>
@@ -27,38 +27,38 @@
 <script>
 import LeftMenu from '@/components/LeftMenu';
 import PageHeader from '@/components/PageHeader';
-import InfoPilier from '@/components/piliers/detail/InfoPilier';
-import ActionsPilier from '@/components/piliers/detail/ActionsPilier';
+import Infoaxe from '@/components/axes/detail/Infoaxe';
+import ActionsAxe from '@/components/axes/detail/ActionsAxe';
   export default {
     layout: "dashboard",
     components: {
       LeftMenu,
       PageHeader,
-      InfoPilier,
-      ActionsPilier
+      Infoaxe,
+      ActionsAxe
     },
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-piliers')){
+      if(!$hasPermission('gerer-axes')){
         return redirect('/')
       }
     },
     data () {
       return {
         leftmenuItems: [
-          { text: 'Piliers', icon: 'mdi-lock',link:'/piliers',position:1  },
-          { text: 'piliers', icon: 'mdi-lock',link:'/piliers',position:2  }
+          { text: 'Axes', icon: 'mdi-lock',link:'/axes',position:1  },
+          { text: 'axes', icon: 'mdi-lock',link:'/axes',position:2  }
         ],
         headerItems: [
         {
-          text: 'Piliers',
+          text: 'axes',
           disabled: false,
-          to: '/piliers',
+          to: '/axes',
           exact: true
         },
         {
-          text: 'Detail pilier',
+          text: 'Detail axe',
           disabled: true,
-          to: '/piliers/94',
+          to: '/axes/94',
           exact: true
         }
         

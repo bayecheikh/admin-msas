@@ -1,16 +1,15 @@
 export default () => ({
-    listpiliers: [],
+    listtypelignes: [],
 
-    headerpiliers : [
+    headertypelignes : [
         {
             text: 'Libelle',
             align: 'start',
             sortable: true,
-            value: 'nom_pilier',
+            value: 'libelle',
         },
-        { text: 'Axes', value: 'axes',sortable: false },
         /* { text: 'Status', value: 'status' }, */
         { text: 'Actions', value: 'actions', sortable: false },
     ],
-    detailpilier :{}
+    detailtypeligne :{}
 })

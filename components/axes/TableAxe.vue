@@ -14,13 +14,13 @@
 <v-data-table
   v-model="selected"
   :headers="headers"
-  :items="tab=='tout'?listpiliers : listpiliers.filter(pilier => pilier.status === tab)"
+  :items="tab=='tout'?listaxes : listaxes.filter(axe => axe.status === tab)"
   :single-select="singleSelect"
   item-key="id"
   items-per-page="5"
   show-select
   class="flat pt-4"
-  :loading="listpiliers.length?false:true" 
+  :loading="listaxes.length?false:true" 
   loading-text="Loading... Please wait"
   :rows-per-page-items="[10,20,30,40,50]"
   hide-default-footer
@@ -71,17 +71,6 @@
     </div>
     </v-row>  
   </template> 
-  <template v-slot:[`item.axes`]="{ item }">
-      <v-chip
-        color="primary"
-        small
-        outlined
-        class="my-1 mr-1"
-        v-for="axe in item.axes"  :key="axe.value"
-      >
-        {{ axe.nom_axe }}
-      </v-chip>
-  </template>
  <template v-slot:[`item.actions`]="{ item }">
         <v-menu bottom left>
           <template v-slot:activator="{ on, attrs }">
@@ -128,8 +117,8 @@
 import { mapMutations, mapGetters } from 'vuex'
   export default {
     computed: mapGetters({
-      listpiliers: 'piliers/listpiliers',
-      headers: 'piliers/headerpiliers'
+      listaxes: 'axes/listaxes',
+      headers: 'axes/headeraxes'
     }),
     props: ['tab'],
     metaInfo () {
@@ -139,19 +128,19 @@ import { mapMutations, mapGetters } from 'vuex'
     },
     methods: {
       visualiserItem (item) {   
-        this.$store.dispatch('piliers/getDetail',item)
-        this.$router.push('/piliers/detail/'+item.id);
+        this.$store.dispatch('axes/getDetail',item)
+        this.$router.push('/axes/detail/'+item.id);
       },
       editItem (item) {   
-        this.$store.dispatch('piliers/getDetail',item)
-        this.$router.push('/piliers/modifier/'+item.id);
+        this.$store.dispatch('axes/getDetail',item)
+        this.$router.push('/axes/modifier/'+item.id);
       },
        deleteItem (item) {
         this.dialog=false   
         this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'}) 
-        this.$msasApi.$delete('/piliers/'+this.activeItem.id)
+        this.$msasApi.$delete('/axes/'+this.activeItem.id)
         .then(async (response) => { 
-            this.$store.dispatch('piliers/deletepilier',this.activeItem.id)
+            this.$store.dispatch('axes/deleteaxe',this.activeItem.id)
             this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Suppression réussie'})
             }).catch((error) => {
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de la suppression'})
@@ -169,18 +158,18 @@ import { mapMutations, mapGetters } from 'vuex'
         if(this.selected.length!=1)
         alert('Veuillez selectionner un element')
         else{
-          let pilier = this.selected.map(function(value){ return value})[0]
-          this.$store.commit('piliers/initdetail',pilier)
-          this.$router.push('/piliers/detail/'+pilier.id);
+          let axe = this.selected.map(function(value){ return value})[0]
+          this.$store.commit('axes/initdetail',axe)
+          this.$router.push('/axes/detail/'+axe.id);
         }
       },
       modifier(){
         if(this.selected.length!=1)
         alert('Veuillez selectionner un element')
         else{
-          let pilier = this.selected.map(function(value){ return value})[0]
-          this.$store.commit('piliers/initdetail',pilier)
-          this.$router.push('/piliers/modifier/'+pilier.id);
+          let axe = this.selected.map(function(value){ return value})[0]
+          this.$store.commit('axes/initdetail',axe)
+          this.$router.push('/axes/modifier/'+axe.id);
         }
       },
       supprimer(){

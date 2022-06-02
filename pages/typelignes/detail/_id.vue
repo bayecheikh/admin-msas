@@ -12,10 +12,10 @@
           <v-row align="center"
             justify="center">
             <v-col cols="12" md="12" lg="12" sm="12">
-              <info-pilier></info-pilier>
+              <info-type-ligne></info-type-ligne>
             </v-col>
             <v-col cols="12" md="12" lg="12" sm="12">
-              <actions-pilier></actions-pilier>
+              <actions-type-ligne></actions-type-ligne>
             </v-col>
           </v-row>
       </v-col>
@@ -27,38 +27,38 @@
 <script>
 import LeftMenu from '@/components/LeftMenu';
 import PageHeader from '@/components/PageHeader';
-import InfoPilier from '@/components/piliers/detail/InfoPilier';
-import ActionsPilier from '@/components/piliers/detail/ActionsPilier';
+import InfoTypeLigne from '@/components/typelignes/detail/InfoTypeLigne';
+import ActionsTypeLigne from '@/components/typelignes/detail/ActionsTypeLigne';
   export default {
     layout: "dashboard",
     components: {
       LeftMenu,
       PageHeader,
-      InfoPilier,
-      ActionsPilier
+      InfoTypeLigne,
+      ActionsTypeLigne
     },
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-piliers')){
+      if(!$hasPermission('gerer-typelignes')){
         return redirect('/')
       }
     },
     data () {
       return {
         leftmenuItems: [
-          { text: 'Piliers', icon: 'mdi-lock',link:'/piliers',position:1  },
-          { text: 'piliers', icon: 'mdi-lock',link:'/piliers',position:2  }
+          { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
+          { text: 'typelignes', icon: 'mdi-lock',link:'/typelignes',position:2  }
         ],
         headerItems: [
         {
-          text: 'Piliers',
+          text: 'typelignes',
           disabled: false,
-          to: '/piliers',
+          to: '/typelignes',
           exact: true
         },
         {
-          text: 'Detail pilier',
+          text: 'Detail typeligne',
           disabled: true,
-          to: '/piliers/94',
+          to: '/typelignes/94',
           exact: true
         }
         

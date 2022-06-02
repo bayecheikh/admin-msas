@@ -3,7 +3,7 @@
     <page-header :items="headerItems" class="pb-4"></page-header>
     <v-card class="mx-auto">  
       <v-container>
-        <list-pilier></list-pilier>
+        <list-axe></list-axe>
       </v-container>        
     </v-card>
   </div>
@@ -13,34 +13,34 @@
 <script>
 import LeftMenu from '@/components/LeftMenu';
 import PageHeader from '@/components/PageHeader';
-import ListPilier from '@/components/piliers/ListPilier'
+import ListAxe from '@/components/axes/ListAxe'
   export default {
     layout: "dashboard",
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-piliers')){
+      if(!$hasPermission('gerer-axes')){
         return redirect('/')
       }
     },
     components: {
       LeftMenu,
       PageHeader,
-      ListPilier
+      ListAxe
     },
     mounted: function() {
-      this.$store.dispatch('piliers/getList')
+      this.$store.dispatch('axes/getList')
     },
     data () {
       return {
         selectedItem: 0,
         leftmenuItems: [
-          { text: 'Piliers', icon: 'mdi-lock',link:'/piliers',position:1  },
-          { text: 'piliers', icon: 'mdi-lock',link:'/piliers',position:2  }
+          { text: 'Axes', icon: 'mdi-lock',link:'/axes',position:1  },
+          { text: 'axes', icon: 'mdi-lock',link:'/axes',position:2  }
         ],
         headerItems: [
           {
-            text: 'Liste des piliers',
+            text: 'Liste des axes',
             disabled: true,
-            to: '/piliers',
+            to: '/axes',
             exact: true
           }
         ]

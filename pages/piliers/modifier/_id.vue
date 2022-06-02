@@ -23,10 +23,13 @@ import FormUpdatePilier from '@/components/piliers/modifier/FormUpdatePilier';
         return redirect('/')
       }
     },
+     mounted: function() {
+      this.$store.dispatch('axes/getList')
+    },
     data () {
       return {
         leftmenuItems: [
-          { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
+          { text: 'Piliers', icon: 'mdi-lock',link:'/piliers',position:1  },
           { text: 'piliers', icon: 'mdi-lock',link:'/piliers',position:2  }
         ],
         headerItems: [

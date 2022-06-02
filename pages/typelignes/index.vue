@@ -3,7 +3,7 @@
     <page-header :items="headerItems" class="pb-4"></page-header>
     <v-card class="mx-auto">  
       <v-container>
-        <list-pilier></list-pilier>
+        <list-type-ligne></list-type-ligne>
       </v-container>        
     </v-card>
   </div>
@@ -13,34 +13,30 @@
 <script>
 import LeftMenu from '@/components/LeftMenu';
 import PageHeader from '@/components/PageHeader';
-import ListPilier from '@/components/piliers/ListPilier'
+import ListTypeLigne from '@/components/typelignes/ListTypeLigne'
   export default {
     layout: "dashboard",
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-piliers')){
+      if(!$hasPermission('gerer-typelignes')){
         return redirect('/')
       }
     },
     components: {
       LeftMenu,
       PageHeader,
-      ListPilier
+      ListTypeLigne
     },
     mounted: function() {
-      this.$store.dispatch('piliers/getList')
+      this.$store.dispatch('typelignes/getList')
     },
     data () {
       return {
         selectedItem: 0,
-        leftmenuItems: [
-          { text: 'Piliers', icon: 'mdi-lock',link:'/piliers',position:1  },
-          { text: 'piliers', icon: 'mdi-lock',link:'/piliers',position:2  }
-        ],
         headerItems: [
           {
-            text: 'Liste des piliers',
+            text: 'Liste des typelignes',
             disabled: true,
-            to: '/piliers',
+            to: '/typelignes',
             exact: true
           }
         ]

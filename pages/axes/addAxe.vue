@@ -3,7 +3,7 @@
     <page-header :items="headerItems" class="pb-4"></page-header>
     <v-card class="mx-auto">  
       <v-container pl-10 pt-10 pb-10 pr-10>
-        <form-add-pilier></form-add-pilier>
+        <form-add-axe></form-add-axe>
       </v-container>        
     </v-card>
   </div>
@@ -11,38 +11,35 @@
 
 <script>
 import PageHeader from '@/components/PageHeader';
-import FormAddPilier from '@/components/piliers/FormAddPilier';
+import FormAddAxe from '@/components/axes/FormAddAxe';
   export default {
     layout: "dashboard",
     components: {
       PageHeader,
-      FormAddPilier
+      FormAddAxe
     },
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-piliers')){
+      if(!$hasPermission('gerer-axes')){
         return redirect('/')
       }
-    },
-    mounted: function() {
-      this.$store.dispatch('axes/getList')
     },
     data () {
       return {
         leftmenuItems: [
-          { text: 'Piliers', icon: 'mdi-lock',link:'/piliers',position:1  },
-          { text: 'piliers', icon: 'mdi-lock',link:'/piliers',position:2  }
+          { text: 'Axes', icon: 'mdi-lock',link:'/axes',position:1  },
+          { text: 'axes', icon: 'mdi-lock',link:'/axes',position:2  }
         ],
         headerItems: [
         {
-          text: 'piliers',
+          text: 'axes',
           disabled: false,
-          to: '/piliers',
+          to: '/axes',
           exact: true
         },
         {
-          text: 'Nouveau pilier',
+          text: 'Nouveau axe',
           disabled: false,
-          to: '/piliers/addPilier',
+          to: '/axes/addaxe',
           exact: true
         }
         
