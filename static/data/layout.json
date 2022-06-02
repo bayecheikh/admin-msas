@@ -75,6 +75,12 @@
       "name": "gerer-source-financement"
     },
     {
+      "icon": "mdi-cog-outline",
+      "href": "/piliers",
+      "title": "Piliers",
+      "name": "gerer-piliers"
+    },
+    {
       "icon": "mdi-chart-box-outline",
       "href": "/statistiques",
       "title": "Statistiques",
