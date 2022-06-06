@@ -93,6 +93,18 @@
       "name": "gerer-typelignes"
     },
     {
+      "icon": "mdi-cog-outline",
+      "href": "/annees",
+      "title": "Années",
+      "name": "gerer-annees"
+    },
+    {
+      "icon": "mdi-cog-outline",
+      "href": "/monnaies",
+      "title": "Monnaies",
+      "name": "gerer-monnaies"
+    },
+    {
       "icon": "mdi-chart-box-outline",
       "href": "/statistiques",
       "title": "Statistiques",
