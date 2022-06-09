@@ -89,26 +89,32 @@
         </v-row>
       </template>
       <template v-slot:[`item.annee`]="{ item }">
-      <v-chip
-        color="primary"
-        small
-        outlined
-        class="my-1 mr-1"
+      <div
         v-for="annee in item.annee"  :key="annee.id"
       >
         {{ annee.libelle}}
-      </v-chip>
+      </div>
   </template>
   <template v-slot:[`item.monnaie`]="{ item }">
-      <v-chip
-        color="primary"
-        small
-        outlined
-        class="my-1 mr-1"
+      <div
         v-for="monnaie in item.monnaie"  :key="monnaie.id"
       >
-        {{ type_source}}
-      </v-chip>
+        {{ monnaie.libelle}}
+      </div>
+  </template>
+  <template v-slot:[`item.region`]="{ item }">
+      <div
+        v-for="region in item.region"  :key="region.id"
+      >
+        {{ region.nom_region}}
+      </div>
+  </template>
+  <template v-slot:[`item.structure`]="{ item }">
+      <div
+        v-for="structure in item.structure"  :key="structure.id"
+      >
+        {{ structure.nom_structure}}
+      </div>
   </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-menu bottom left>

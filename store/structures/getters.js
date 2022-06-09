@@ -2,6 +2,9 @@ export default {
     liststructures (state) {
       return state.liststructures
     },
+    selectliststructures (state) {
+      return state.selectliststructures
+    },
     headerstructures (state) {
       return state.headerstructures
     },

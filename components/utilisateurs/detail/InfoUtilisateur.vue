@@ -37,7 +37,7 @@
                   <p class="info-profil mb-4"><span>Profession :
                       </span>{{ detailUtilisateur.fonction}}
                   </p>
-                  <p class="info-profil mb-4"><span>Date d'ajout : </span>{{ detailUtilisateur.date_of_birth}}</p> 
+                  <p class="info-profil mb-4"><span>Structure: </span>{{ detailUtilisateur.structure}}</p> 
                   <p class="info-profil mb-4"><span>Status : </span>
                     <v-chip
                       :color="$getColore(detailUtilisateur.active_account)"

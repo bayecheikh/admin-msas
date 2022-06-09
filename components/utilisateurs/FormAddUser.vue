@@ -2,63 +2,8 @@
 <div>
   <v-form class="text-sm-center" v-model="valid" ref="form" enctype="multipart/form-data"
     >
-    <!--<div >
-      <div class="headline">
-        <v-avatar v-if="imageData" size="100px">
-          <img :src="imageData" alt="Avatar"/>
-        </v-avatar>
-        <v-avatar size="100px" v-else>
-          <img src="@/static/avatar/default-user.png" alt="Cheikh Gueye"/>
-        </v-avatar>
-      </div>
-    </div>
-    <div>
-      <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-            @click="$refs.file.click()"
-          >
-        <v-icon>mdi-upload-outline</v-icon>
-      </v-btn>
-      <input type="file" id="file" name="avatar" ref="file" v-on:change="handleFileUpload" style="display: none"/>
-      <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-            color="blue"
-            @click="$refs.file.click()"
-          >
-        <v-icon>mdi-camera-outline</v-icon>
-      </v-btn>
-    </div>
-    <span class="caption">Photo de profil png ou jpg max 2Mo</span>-->
     <v-row>
-      <!-- <v-col md="12" lg="12" sm="12">
-        <v-radio-group
-          v-model="model.sexe"
-          :rules="rules.sexeRules"
-          row
-        >
-          Sexe : &nbsp; &nbsp;<v-radio
-            label="Masculin"
-            value="Masculin"
-          ></v-radio>
-          <v-radio
-            label="Feminin"
-            value="Feminin"
-          ></v-radio>
-        </v-radio-group> 
-      </v-col>-->
       <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Prénom et Nom"
-          outlined dense
-          v-model="model.name"
-          :rules="rules.firstnameRules"
-        ></v-text-field>
-      </v-col>
-      <!--<v-col md="6" lg="6" sm="12">
         <v-text-field
           label="Prénom"
           outlined dense
@@ -73,7 +18,7 @@
           v-model="model.lastname"
           :rules="rules.lastnameRules"
         ></v-text-field>
-      </v-col>-->
+      </v-col>
       <v-col md="6" lg="6" sm="12">
         <v-text-field
           label="Adresse Email"
@@ -82,14 +27,6 @@
           :rules="rules.emailRules"
         ></v-text-field>
       </v-col>
-      <!-- <v-col md="6" lg="6" sm="12">
-        <v-text-field
-          label="Login"
-          outlined dense
-          v-model="model.username"
-          :rules="rules.usernameRules"
-        ></v-text-field>
-      </v-col> -->
      <!-- <v-col md="6" lg="6" sm="12">
         <v-text-field
           label="Fonction"
@@ -163,15 +100,15 @@
           v-model="model.country_code"
           :rules="rules.country_codeRules"
         ></v-text-field>
-      </v-col>
-      <v-col md="4" lg="4" sm="12">
+      </v-col>-->
+      <v-col md="6" lg="6" sm="12">
         <v-text-field
           label="Téléphone"
           outlined dense
           v-model="model.telephone"
           :rules="rules.telephoneRules"
         ></v-text-field>
-      </v-col>-->
+      </v-col>
       <v-col
         lg="6"
         md="6"
@@ -194,45 +131,25 @@
           >
         </v-autocomplete>
       </v-col>
-      <!-- <v-col
-        lg="6"
-        md="6"
-        sm="12"
-      >
-        <v-autocomplete
-            v-model="model.structure_id"
-            :rules="rules.structure_idRules"
-            :items="liststructures"
-            outlined
-            dense
-            small-chips
-            label="Structure"
-            item-text="libelle"
-            item-value="id"
-            clearable
-          >
-        </v-autocomplete>
-      </v-col>
       <v-col
         lg="6"
         md="6"
         sm="12"
       >
         <v-autocomplete
-            v-model="model.fournisseur_services_id"
-            :items="listfournisseurs"
+            v-model="model.structure_id"
             :rules="this.showFournisseur==true?rules.fournisseur_services_idRules:null"
+            :items="liststructures"
             outlined
             dense
-            small-chips
-            label="Fournisseur de service"
-            item-text="libelle"
+            label="Structure"
+            item-text="nom_structure"
             item-value="id"
-            clearable
+            return-object
             v-if="showFournisseur"
           >
         </v-autocomplete>
-      </v-col> -->
+      </v-col>
     </v-row>
 
     <v-btn
@@ -257,12 +174,14 @@ import { mapMutations, mapGetters } from 'vuex'
     },
     mounted: function() {
       this.$store.dispatch('roles/getList')
+      this.$store.dispatch('structures/getSelectList')
       /* this.$store.dispatch('structures/getList')
       this.$store.dispatch('fournisseurs/getList') */
     },
     computed: {
       ...mapGetters({
       listroles: 'roles/selectlistroles',
+      liststructures: 'structures/selectliststructures'
       /* listfournisseurs: 'fournisseurs/selectlistfournisseurs',
       liststructures: 'structures/selectliststructures', */
     })},
@@ -274,18 +193,12 @@ import { mapMutations, mapGetters } from 'vuex'
       showFournisseur: false,
       message:null,
       model: {
-        avatar:'',
-        name:'',
-        firstname: 'Ababacar',
-        lastname: 'Syll',
-        email: 'syyl@msas.sn',
-        roles: null,
-        fournisseur_services_id:null,
-        country_code:'+221',
+        structure_id:'',
+        firstname: '',
+        lastname: '',
+        email: '',
+        roles: null,       
         telephone: '',
-        adresse: '',
-        fonction: '',
-        structure_id:null
       },
       rules:{
         firstnameRules: [
@@ -381,10 +294,10 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       submitForm () {
         let validation = this.$refs.form.validate()
-        let selectedRoles = this.model.roles.map((item)=>{return item.id})
+        let selectedRoles = this.model.roles && this.model.roles.map((item)=>{return item.id})
         this.model.roles=selectedRoles
         this.loading = true;
-        console.log('Donées formulaire++++++: ',{...this.model,roles:selectedRoles,...this.model.avatar})
+        console.log('Donées formulaire++++++: ',{...this.model,roles:selectedRoles})
 
 
         /* let formData = new FormData();
@@ -408,10 +321,13 @@ import { mapMutations, mapGetters } from 'vuex'
 
         console.log('Donées formulaire files ++++++: ',formData) */
 
-       validation && this.$msasFileApi.post('/users',{...this.model,roles:selectedRoles,...this.model.avatar})
+        //console.log('Données formulaire +++++',{...this.model,roles:selectedRoles,structure_id:this.model.structure_id?.id})
+        console.log('Données formulaire +++++',{...this.model,roles:selectedRoles,structure_id:this.model.structure_id?.id})
+
+       validation && this.$msasFileApi.post('/users',{...this.model,roles:selectedRoles,structure_id:this.model.structure_id?.id})
           .then((res) => {           
             console.log('Donées reçus ++++++: ',res.data)
-            this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message || 'Ajout réussi'})
+            this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
             this.$router.push('/utilisateurs');
           })
           .catch((error) => {
@@ -430,7 +346,7 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       async changeRole(role) {
 
-        let checkRole = this.model.roles.filter(item => item.name === 'agent_structure').length;
+        let checkRole = this.model.roles.filter(item => (item && item.name === 'point_focal' || item && item.name === 'admin_structure')).length;
         if(checkRole==1)
         this.showFournisseur=true
         else

@@ -323,7 +323,7 @@
         </template>
         
       </v-card>
-      <h2 class="mb-5">Mode de financement</h2>
+      <h2 class="mb-5">Fichiers</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
         <v-row v-for="(item,i) in fichiers"
               :key="item.id">
@@ -433,12 +433,12 @@ import { mapMutations, mapGetters } from 'vuex'
       LigneFinancementInputs:[],
       selectedPiliers0:[],
       selectedAxes0:[],
-      montantBienServicePrevus0:0,
-      montantBienServiceMobilises0:0,
-      montantBienServiceExecutes0:0,
-      montantInvestissementPrevus0:0,
-      montantInvestissementMobilises0:0,
-      montantInvestissementExecutes0:0,
+      montantBienServicePrevus0:'',
+      montantBienServiceMobilises0:'',
+      montantBienServiceExecutes0:'',
+      montantInvestissementPrevus0:'',
+      montantInvestissementMobilises0:'',
+      montantInvestissementExecutes0:'',
 
       selectedPiliers:[],
       selectedAxes:[],
@@ -561,24 +561,55 @@ import { mapMutations, mapGetters } from 'vuex'
         let montantAutreModeFinance = this.model.montantAutreModeFinance
         let autreMode = this.autreMode
 
+        let piliers = this.selectedPiliers?.map((item)=>{return item.id})
+        let axes = this.selectedAxes?.map((item)=>{return item.id})
+        console.log('++++++++piliers ',piliers)
+        console.log('++++++++axes ',axes)
+        let montantBienServicePrevus = this.montantBienServicePrevus
+        let montantBienServiceMobilises = this.montantBienServiceMobilises
+        let montantBienServiceExecutes = this.montantBienServiceExecutes
+        let montantInvestissementPrevus = this.montantInvestissementPrevus
+        let montantInvestissementMobilises = this.montantInvestissementMobilises
+        let montantInvestissementExecutes = this.montantInvestissementExecutes
+
         for(let i=0;i<=libelleModeFinancements.length;i++){
           this.LigneModeFinancement.push({libelle:libelleModeFinancements[i],montant:montantModeFinancements[i]})
         }
         if(autreMode){
-          this.LigneModeFinancement.push({libelle:libAutreModeFinance,montant:montantAutreModeFinance})
+          libelleModeFinancements.push(libAutreModeFinance)
+          montantModeFinancements.push(montantAutreModeFinance)
         }
-        let ligneModeFinancements = this.LigneModeFinancement
+        let ligneModeFinancements = JSON.stringify(this.LigneModeFinancement)
         let ligneFinancements = this.LigneFinancementInputs
         let fichiers = this.fichiers
+console.log('libelle mode+++++++++++++',libelleModeFinancements)
+        let formData = new FormData();
+        
+          formData.append("libelleModeFinancements",libelleModeFinancements);
+          formData.append("montantModeFinancements",montantModeFinancements);
+        
+        if(autreMode){
+          formData.append("libAutreModeFinance",libAutreModeFinance);
+          formData.append("montantAutreModeFinance",montantAutreModeFinance);
+        }
 
-        /* let formData = new FormData();
+        formData.append("piliers",piliers);
+        formData.append("axes",axes);
+        formData.append("montantBienServicePrevus",montantBienServicePrevus);
+        formData.append("montantBienServiceMobilises",montantBienServiceMobilises);
+        formData.append("montantBienServiceExecutes",montantBienServiceExecutes);
+        formData.append("montantInvestissementPrevus",montantInvestissementPrevus);
+        formData.append("montantInvestissementMobilises",montantInvestissementMobilises);
+        formData.append("montantInvestissementExecutes",montantInvestissementExecutes);
+
         formData.append("annee",annee);
         formData.append("monnaie",monnaie);
         formData.append("dimension",dimension);
         formData.append("region",region);
         formData.append("ligneModeFinancements",ligneModeFinancements);
         formData.append("ligneFinancements",ligneFinancements);
-        */
+        formData.append("fichiers",ligneFinancements);
+       
         let data = {
           annee : annee,
           monnaie : monnaie,
@@ -592,11 +623,11 @@ import { mapMutations, mapGetters } from 'vuex'
 
         console.log('Donées formulaire source financements ++++++: ',data)
 
-       /*  console.log('FormData ++++++ : ',formData)
+        console.log('FormData ++++++ : ',formData)
 
 
 
-       validation && this.$msasFileApi.post('/structures',formData)
+       validation && this.$msasFileApi.post('/investissements',formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
@@ -608,7 +639,7 @@ import { mapMutations, mapGetters } from 'vuex'
           }).finally(() => {
             this.loading = false;
             console.log('Requette envoyé ')
-        }); */
+        });
       },
       submitLigne () {
         this.counterrow += 1;
@@ -639,11 +670,21 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('Index---- ',index);
         console.log('LigneFinancementInputs---- ',this.LigneFinancementInputs);
         this.LigneFinancementInputs.splice(index,1);
+        this.selectedPiliers.splice(index,1);
+        this.selectedAxes.splice(index,1);
+        this.montantBienServicePrevus.splice(index,1);
+        this.montantBienServiceExecutes.splice(index,1);
+        this.montantInvestissementPrevus.splice(index,1);
+        this.montantInvestissementMobilises.splice(index,1);
+        this.montantInvestissementExecutes.splice(index,1);
       },
       deleteFindFichier: function(index) {
         console.log('Index---- ',index);
         console.log('LigneFinancementInputs---- ',this.fichiers);
         this.fichiers.splice(index,1);
+        this.libelle_fichiers.splice(index,1);
+        this.inputfichiers.splice(index,1);
+
       },
       submitLigneFichier () {
         this.counterrow_fichier += 1;

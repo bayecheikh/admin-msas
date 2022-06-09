@@ -1,5 +1,6 @@
 export default () => ({
     liststructures: [],
+    selectliststructures: [],
 
     headerstructures : [
         /* {

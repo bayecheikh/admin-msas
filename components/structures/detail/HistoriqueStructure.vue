@@ -42,7 +42,7 @@
               >
               </stat-box>
             </v-col>
-            <v-col md="3" sm="12" lg="3" v-if="detailstructure.departements.length!=0">
+            <v-col md="3" sm="12" lg="3" v-if="detailstructure.departements && detailstructure.departements.length!=0">
               <stat-box 
                 :title="'Nombre de departements d\'intervention'"  
                 :icon="'mdi-map'"
@@ -52,7 +52,7 @@
               >
               </stat-box>
             </v-col>
-            <v-col md="3" sm="12" lg="3" v-if="detailstructure.regions.length!=0">
+            <v-col md="3" sm="12" lg="3" v-if="detailstructure.regions && detailstructure.regions.length!=0">
               <stat-box 
                 :title="'Nombre de régions d\'intervention'"
                 :icon="'mdi-map'"

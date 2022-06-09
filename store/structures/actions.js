@@ -1,6 +1,18 @@
 import state from "./state";
 
 export default {
+    async getSelectList({commit}){
+        this.$msasApi.$get('selectstructures')
+        .then(async (response) => { 
+        console.log('Données reçu select list +++++++++++',response)
+            //await commit('initlist', response.data)
+            await commit('initSelectList', response.data)
+            }).catch((error) => {
+                console.log('Code error ++++++: ', error?.response?.data?.message)
+            }).finally(() => {
+            console.log('Requette envoyé ')
+        });        
+     },
     async getList({commit},payload){
        await commit('initlist', payload)        
     },

@@ -2,6 +2,9 @@ export default {
     initlist(state, newlist) {
         state.liststructures = newlist
     },
+    initSelectList(state, newlist) {
+        state.selectliststructures = newlist
+    },
     initheader(state, newlist) {
         state.headerstructures = newlist
     },
