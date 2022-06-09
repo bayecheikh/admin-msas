@@ -55,7 +55,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'msas.ip3dev.com/api-msas/public/api',
+    baseURL: 'https://msas.ip3dev.com/api-msas/public/api',
   },
   
   auth: {
@@ -122,6 +122,6 @@ export default {
   },
 
   env: {
-    baseUrl: 'msas.ip3dev.com/api-msas/public/api',
+    baseUrl: 'https://msas.ip3dev.com/api-msas/public/api',
   }
 }
