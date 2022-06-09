@@ -4,20 +4,20 @@
       <v-row>
         <v-col md="12" sm="12" lg="12" text-md-left>
           <div class="row">
-              <div class="col-md-4 my-0 py-0">
-                  <p class="info-profil"><span>Dénomination : </span>{{detailinvestissement.nom_investissement}}</p>
+              <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.annee">
+                  <p class="info-profil"><span>Année : </span>{{detailinvestissement.annee[0].libelle}}</p>
               </div>
-              <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.adresse_investissement">
-                  <p class="info-profil"><span>Adresse : </span>{{detailinvestissement.adresse_investissement}}</p>
+              <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.piliers">
+                  <p class="info-profil"><span>Structure : </span>{{detailinvestissement.structure[0].nom_structure}}</p>
               </div>
-              <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.source_financements">
-                  <p class="info-profil"><span>Source de financement : </span>{{detailinvestissement.source_financements[0].libelle_source}}</p>
+              <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.region">
+                  <p class="info-profil"><span>Région : </span>{{detailinvestissement.region[0].nom_region}}</p>
               </div>
-              <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.type_sources">
-                  <p class="info-profil"><span>Type source : </span>{{detailinvestissement.type_sources[0].libelle_type_source}}</p>
+              <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.monnaie">
+                  <p class="info-profil"><span>Monnaie : </span>{{detailinvestissement.monnaie[0].libelle}}</p>
               </div>
-              <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.numero_agrement">
-                  <p class="info-profil"><span>Numéro agrément : </span>{{detailinvestissement.numero_agrement}}</p>
+              <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.dimension">
+                  <p class="info-profil"><span>Dimension : </span>{{detailinvestissement.dimension[0].libelle_dimension}}</p>
               </div>
               <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.numero_agrement">
                   <p class="info-profil"><span>Numéro autorisation : </span>{{detailinvestissement.numero_agrement}}</p>
