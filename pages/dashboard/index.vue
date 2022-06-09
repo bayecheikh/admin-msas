@@ -5,42 +5,32 @@
     <v-card class="mx-auto">  
       <v-container>
         <v-row>
-            <v-col md="6" sm="12" lg="6">
+            <v-col md="4" sm="12" lg="4">
               <stat-box 
                 :title="'Nombre total d\'utilisateurs actifs '"                
                 :icon="'mdi-account-group-outline'"
-                :nbr="'245'"
+                :nbr="'0'"
                 :colorIcon="'#00ac47'"
                 :colorText="'#00ac47'"
                 :class="'custom-card-user  border-user'"
               >
               </stat-box>
             </v-col>
-            <v-col md="6" sm="12" lg="6" >
+            <v-col md="4" sm="12" lg="4">
               <stat-box 
-                :title="'Nombre total de departements intervenu'"  
+                :title="'Nombre total de région d\'intervention'"
                 :icon="'mdi-map'"
-                :nbr="'245'"
+                :nbr="'0'"
                 :colorIcon="'#007cf6'"
                 :class="'custom-card-user  border-user'"
               >
               </stat-box>
             </v-col>
-            <v-col md="6" sm="12" lg="6">
-              <stat-box 
-                :title="'Nombre total de région intervenu'"
-                :icon="'mdi-map'"
-                :nbr="'245'"
-                :colorIcon="'#007cf6'"
-                :class="'custom-card-user  border-user'"
-              >
-              </stat-box>
-            </v-col>
-            <v-col md="6" sm="12" lg="6">
+            <v-col md="4" sm="12" lg="4">
               <stat-box 
                 :title="'Nombre total de financement'"
                 :icon="'mdi-credit-card'"
-                :nbr="'245'"
+                :nbr="'0'"
                 :colorIcon="'#ffba00'"
                 :class="'custom-card-user  border-user'"
               >
