@@ -6,22 +6,13 @@
       <v-container pl-10 pt-10 pb-10 pr-10>
           <v-row align="center"
             justify="center">
-            <v-col cols="12" md="12" lg="12" sm="12">
-              <info-structure></info-structure>
+            <v-col cols="12" md="12" lg="12" sm="12" class="my-5">
+              <actions-investissement></actions-investissement>
             </v-col>
             <v-col cols="12" md="12" lg="12" sm="12">
-              <actions-structure></actions-structure>
+              <info-investissement></info-investissement>
             </v-col>
-          </v-row>
-      </v-container>        
-    </v-card>
-    <v-card flat class="mx-auto my-6">  
-      <v-container pl-10 pt-10 pb-10 pr-10>
-          <v-row align="center"
-            justify="center">
-            <v-col cols="12" md="12" lg="12" sm="12">
-              <historique-structure></historique-structure>
-            </v-col>
+            
           </v-row>
       </v-container>        
     </v-card>
@@ -33,19 +24,19 @@
 
 <script>
 import PageHeader from '@/components/PageHeader';
-import InfoStructure from '@/components/structures/detail/InfoStructure';
-import ActionsStructure from '@/components/structures/detail/ActionsStructure';
-import HistoriqueStructure from '@/components/structures/detail/HistoriqueStructure';
+import InfoInvestissement from '@/components/investissements/detail/InfoInvestissement';
+import ActionsInvestissement from '@/components/investissements/detail/ActionsInvestissement';
+import HistoriqueInvestissement from '@/components/investissements/detail/HistoriqueInvestissement';
   export default {
     layout: "dashboard",
     components: {
       PageHeader,
-      InfoStructure,
-      ActionsStructure,
-      HistoriqueStructure,
+      InfoInvestissement,
+      ActionsInvestissement,
+      HistoriqueInvestissement,
     },
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-structures')){
+      if(!$hasPermission('gerer-investissements')){
         return redirect('/')
       }
     },
@@ -54,15 +45,15 @@ import HistoriqueStructure from '@/components/structures/detail/HistoriqueStruct
         id : this.$nuxt._route.params.id,
         headerItems: [
         {
-          text: 'Structures',
+          text: 'investissements',
           disabled: false,
-          to: '/structures',
+          to: '/investissements',
           exact: true
         },
         {
-          text: 'Detail structure',
+          text: 'Detail investissement',
           disabled: true,
-          to: '/structures/94',
+          to: '/investissements/94',
           exact: true
         }
         
