@@ -27,14 +27,14 @@
 <script>
 import LeftMenu from '@/components/LeftMenu';
 import PageHeader from '@/components/PageHeader';
-import Infoaxe from '@/components/axes/detail/Infoaxe';
+import InfoAxe from '@/components/axes/detail/InfoAxe';
 import ActionsAxe from '@/components/axes/detail/ActionsAxe';
   export default {
     layout: "dashboard",
     components: {
       LeftMenu,
       PageHeader,
-      Infoaxe,
+      InfoAxe,
       ActionsAxe
     },
     middleware: function ({redirect,$hasPermission}) {

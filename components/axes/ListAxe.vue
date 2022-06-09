@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import TableAxe from '@/components/Axes/TableAxe'
+import TableAxe from '@/components/axes/TableAxe'
   export default {
     components: {
       TableAxe
