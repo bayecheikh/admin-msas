@@ -26,7 +26,7 @@
       hide-default-footer
       :search="search"
     >
-      <template v-slot:top="">
+      <template v-slot:top="{}">
         <v-row class="mb-1 border-bottom-small d-flex">
           <v-col md="6" sm="12" lg="6" class="pb-0 pt-4">
             <div class="row">

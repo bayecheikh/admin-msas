@@ -26,10 +26,11 @@
       hide-default-footer
       :search="search"
     >
-      <template v-slot:top="">
+      <template v-slot:top="{}">
         <v-row class="mb-1 border-bottom-small d-flex">
           <v-col md="6" sm="12" lg="6" class="pb-0 pt-4">
             <div class="row">
+
               <!-- <v-btn icon class="col-3" v-on:click="visualiser()">
             <v-icon left class="font-small">
               mdi-file-document-outline
@@ -137,19 +138,7 @@
                   </v-icon>Détail
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item @click="editItem(item)" link class="custom-v-list-action pl-2 pr-1">
-                <v-list-item-title> 
-                  <v-icon small class="mr-2"> mdi-pencil-outline </v-icon
-                  >Modifier
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-item v-if="$hasRole('super_admin')" @click="opendialog(item)" class="custom-v-list-action pl-2 pr-1">
-                <v-list-item-title>
-                  <v-icon small class="mr-2" v-bind="attrs" v-on="on">
-                    mdi-delete-outline </v-icon
-                  >Supprimer
-                </v-list-item-title>
-              </v-list-item>
+              
             </v-item-group>
           </v-list>
         </v-menu>
