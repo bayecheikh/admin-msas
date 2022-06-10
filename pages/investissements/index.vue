@@ -3,7 +3,7 @@
     <page-header :items="headerItems" class="pb-4"></page-header>
     <v-card class="mx-auto pl-0 pt-10 pb-10 pr-0">  
       <v-container>
-        <list-investissement></list-investissement>
+        <table-investissement></table-investissement>
       </v-container>        
     </v-card>
   </div> 
@@ -11,7 +11,7 @@
 
 <script>
 import PageHeader from '@/components/PageHeader';
-import ListInvestissement from '@/components/investissements/ListInvestissement'
+import TableInvestissement from '@/components/investissements/TableInvestissement'
 import { mapActions} from 'vuex'
   export default {
     layout: "dashboard",
@@ -22,7 +22,7 @@ import { mapActions} from 'vuex'
     },
     components: {
       PageHeader,
-      ListInvestissement
+      TableInvestissement
     },
     mounted: function() {
       /* this.$store.dispatch('roles/getList')

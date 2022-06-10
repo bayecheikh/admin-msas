@@ -26,7 +26,7 @@
       hide-default-footer
       :search="search"
     >
-      <template v-slot:top="">
+      <template v-slot:top="{}">
         <v-row class="mb-1 border-bottom-small d-flex">
           <v-col md="6" sm="12" lg="6" class="pb-0 pt-4">
             <div class="row">
@@ -176,7 +176,7 @@ import RechercheUser from '@/components/utilisateurs/RechercheUser';
           this.progress=true
           this.$msasApi.$get('/users?page='+page)
         .then(async (response) => {
-            
+            console.log('Données reçu utilisateurs ++++++: ', response.data.data)
             let totalPages = Math.ceil(response.data.total / response.data.per_page)
             this.$store.dispatch('utilisateurs/getTotalPage',totalPages)
             this.$store.dispatch('utilisateurs/getPerPage',response.data.per_page)

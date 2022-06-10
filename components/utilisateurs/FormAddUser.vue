@@ -346,7 +346,7 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       async changeRole(role) {
 
-        let checkRole = this.model.roles.filter(item => (item && item.name === 'point_focal' || item && item.name === 'admin_structure')).length;
+        let checkRole = this.model.roles.filter(item => (item && item.name === 'point_focal' || item && item.name === 'admin_structure' || item && item.name === 'directeur_eps')).length;
         if(checkRole==1)
         this.showFournisseur=true
         else

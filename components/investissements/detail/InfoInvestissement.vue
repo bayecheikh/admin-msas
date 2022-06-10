@@ -31,6 +31,9 @@
               <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.type_zone_interventions">
                   <p class="info-profil"><span>Zone d'intervention : </span>{{detailinvestissement.type_zone_interventions[0].libelle_zone}}</p>
               </div>
+              <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.source">
+                  <p class="info-profil"><span>Source de financement : </span>{{detailinvestissement.source[0].libelle_source}}</p>
+              </div>
           </div>
         </v-col>
       </v-row>

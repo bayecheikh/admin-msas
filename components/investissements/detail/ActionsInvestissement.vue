@@ -22,6 +22,7 @@
       outlined
       color="success"
       v-on:click="valider()"
+      v-if="$hasPermission(this.state)"
     >
       <v-icon left>
         mdi-check
@@ -45,10 +46,14 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex'
   export default {
+    mounted: function() {
+      this.state=this.detailinvestissement.state
+    },
     computed: mapGetters({
       detailinvestissement: 'investissements/detailinvestissement'
     }),
     data: () => ({
+      state:'',
       loading: false,
       message:null,
       color:null,
@@ -85,7 +90,8 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('Donées formulaire ++++++ : ',{id:this.detailinvestissement.id})
         
         this.$msasApi.post('/validation_investissement', {id:this.detailinvestissement.id})
-          .then((res) => {    
+          .then((res) => {  
+            this.state = res.data.data.state  
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message || 'Validation réussie !'})
             //this.$router.push('/investissements');
             
