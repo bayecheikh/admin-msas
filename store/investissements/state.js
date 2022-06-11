@@ -16,6 +16,7 @@ export default () => ({
         { text: 'Structure', value: 'structure'},
         { text: 'Source de financement', value: 'source'},
         { text: 'Etat', value: 'state'},
+        { text: 'Statut', value: 'status'},
         { text: 'Actions', value: 'actions', sortable: false },
     ],
     detailinvestissement :{},

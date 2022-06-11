@@ -144,6 +144,16 @@
                 {{ source.libelle_source}}
               </div>
             </template>
+            <template v-slot:[`item.status`]="{ item }">
+              <v-chip
+                :color="(item.status=='a_valider' && 'primary') || (item.status=='rejete' && 'error') || (item.status=='brouillon' && 'orange') || (item.status=='publie' && 'green')"
+                small
+                outlined
+                class="my-1 mr-1"
+              >
+                {{ (item.status=='a_valider' && 'A valider') || (item.status=='rejete' && 'Rejeté') || (item.status=='brouillon' && 'Brouillon') || (item.status=='publie' && 'Publié')}}
+              </v-chip>
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
               <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
@@ -163,6 +173,18 @@
                         <v-icon small class="mr-2">
                           mdi-information-outline </v-icon
                         >Détail
+                      </v-list-item-title>
+                    </v-list-item>
+                    <v-list-item
+                      @click="editItem(item)"
+                      link
+                      class="custom-v-list-action pl-2 pr-1"
+                      v-if="item.status=='brouillon' || item.status=='rejete'"
+                    >
+                      <v-list-item-title>
+                        <v-icon small class="mr-2">
+                          mdi-pencil-outline </v-icon
+                        >Modifier
                       </v-list-item-title>
                     </v-list-item>
                   </v-item-group>
@@ -185,8 +207,9 @@ import RechercheInvestissement from '@/components/investissements/RechercheInves
     mounted: function() {    
       this.$hasPermission('brouillon') && this.tabItems.push({title:'Brouillons',value:'brouillon'})
       this.$hasPermission('a_valider') && this.tabItems.push({title:'A valider',value:'a_valider'})
+      this.$hasPermission('rejete') && this.tabItems.push({title:'Rejetés',value:'rejete'})
       this.$hasPermission('publie') && this.tabItems.push({title:'Publiés',value:'publie'})
-
+      
       this.getList(1)
     },
     computed: mapGetters({

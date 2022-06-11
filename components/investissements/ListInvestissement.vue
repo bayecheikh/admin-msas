@@ -37,7 +37,7 @@ import TableInvestissement from '@/components/investissements/TableInvestissemen
     data: () => ({
       tab: null,
       tabItems: [
-        {title:'Tout',value:'tout'}, {title:'Actifs',value:true}, {title:'Inactifs',value:false},
+        {title:'Tous les investissements',value:'tout'}, {title:'Investissement à valider',value:true}
       ],
       selected: []
     }),

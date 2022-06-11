@@ -29,7 +29,7 @@ export default function ({store ,redirect}, inject) {
         let permissions = []
         getUserRoles()?.map((role)=>{permissions=[...permissions,...role.permissions]})
         let allPermissions = removeDuplicates(permissions)
-        console.log('All Permissions+++++++++++++++++++++',allPermissions)
+        //console.log('All Permissions+++++++++++++++++++++',allPermissions)
         return allPermissions
     }
     //Cette fonction permet de créer le menu a partir des permisions de l'utilisateur connecté

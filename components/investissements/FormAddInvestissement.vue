@@ -631,7 +631,7 @@ console.log('libelle mode+++++++++++++',libelleModeFinancements)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
-            this.$router.push('/investissements');
+           // this.$router.push('/investissements');
           })
           .catch((error) => {
               console.log('Code error ++++++: ', error)
