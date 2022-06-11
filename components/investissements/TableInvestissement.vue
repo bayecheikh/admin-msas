@@ -33,7 +33,7 @@
           </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="item.value=='a-valider'?listinvestissements.filter(investissement => $hasPermission(investissement.state)) : listinvestissements"
+            :items="item.value=='publie'?listinvestissements.filter(investissement => investissement.status=='publie'):listinvestissements.filter(investissement => (item.value==investissement.status & $hasPermission(investissement.state) & $hasPermission(investissement.status)))"
             :single-select="singleSelect"
             item-key="id"
             :items-per-page="perpage"
@@ -182,7 +182,11 @@ import RechercheInvestissement from '@/components/investissements/RechercheInves
     components: {
       RechercheInvestissement
     },
-    mounted: function() {
+    mounted: function() {    
+      this.$hasPermission('brouillon') && this.tabItems.push({title:'Brouillons',value:'brouillon'})
+      this.$hasPermission('a_valider') && this.tabItems.push({title:'A valider',value:'a_valider'})
+      this.$hasPermission('publie') && this.tabItems.push({title:'Publiés',value:'publie'})
+
       this.getList(1)
     },
     computed: mapGetters({
@@ -197,7 +201,7 @@ import RechercheInvestissement from '@/components/investissements/RechercheInves
           this.progress=true
           this.$msasApi.$get('/investissements?page='+page)
         .then(async (response) => {
-            console.log('total page ++++++++++',response)
+            console.log('list investissement ++++++++++',response)
             let totalPages = Math.ceil(response.data.total / response.data.per_page)
             this.$store.dispatch('investissements/getTotalPage',totalPages)
             this.$store.dispatch('investissements/getPerPage',response.data.per_page)
@@ -305,9 +309,7 @@ import RechercheInvestissement from '@/components/investissements/RechercheInves
     },
     data: () => ({
       tab: 'tout',
-      tabItems: [
-        {title:'En attente de validation',value:'a-valider'},{title:'Tous les investissements',value:'tout'}
-      ],
+      tabItems: [],
       selected: [],
       dialog: false,
       progress:true,
