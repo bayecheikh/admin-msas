@@ -105,8 +105,8 @@ import layoutchargeclientel from '@/static/data/layoutchargeclientel'
             this.$router.push('/dashboard');
           }).
           catch((error) => {
-              console.log('Code error ++++++: ', error)
-              /* this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de la connexion'}) */
+              console.log('Code error ++++++: ', error.response)
+              this.$store.dispatch('toast/getMessage',{type:'error',text:error.response.data.message || 'Echec de la connexion'})
           }).finally(() => {
             this.loading = false;
             console.log('Requette envoyé ')

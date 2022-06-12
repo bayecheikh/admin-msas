@@ -14,7 +14,7 @@ export default () => ({
         { text: 'Email', value: 'email' },
         /* { text: 'Telephone', value: 'telephone' }, */
         { text: 'Roles', value: 'roles' },
-        { text: 'Status', value: 'active_account' },
+        { text: 'Status', value: 'status' },
         { text: 'Actions', value: 'actions', sortable: false },
     ],
     detailutilisateur :{},

@@ -15,10 +15,9 @@
     <v-data-table
      v-model="selected"
       :headers="headers"
-      :items="tab=='tout'?listUsers : listUsers.filter(user => user.active_account === tab)"
+      :items="tab=='tout'?listUsers : listUsers.filter(user => user.status === tab)"
       :single-select="singleSelect"
       item-key="id"
-      show-select
       :items-per-page="perpage"
       class="flat pt-4"
       :loading="progress"
@@ -42,10 +41,10 @@
             </v-icon>
             <span class="font-small">Modifier</span>
           </v-btn>  -->
-              <v-btn icon class="col-3" v-on:click="supprimer()">
+              <!--<v-btn icon class="col-3" v-on:click="supprimer()">
                 <v-icon left class="font-small"> mdi-trash-can-outline </v-icon>
                 <span class="font-small">Supprimer</span>
-              </v-btn>
+              </v-btn>-->
               <!-- <v-btn icon class="col-3" v-on:click="exporter()">
             <v-icon left class="font-small">
               mdi-file-export-outline
@@ -88,10 +87,13 @@
     </div>
         </v-row>
       </template>
-      <template v-slot:[`item.active_account`]="{ item }">
-        <v-chip :color="$getColore(item.active_account)" outlined small>
-          {{ item.active_account?'Actif':'Inactif' }}
-        </v-chip>
+      <template v-slot:[`item.status`]="{item}">
+        <v-switch
+          :input-value="item.status=='actif'?true:false"
+          color="success"
+          hide-details
+          @change="actveDesactiveUser(item.id)"
+        ></v-switch>
       </template>
 
       <template v-slot:[`item.roles`]="{ item }">
@@ -211,6 +213,21 @@ import RechercheUser from '@/components/utilisateurs/RechercheUser';
              this.progress=false;
         });
       },
+      actveDesactiveUser(id) {
+        console.log('------------- user active',id)
+        this.dialog=false   
+        this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'})  
+        this.$msasApi.$get('/active_user/'+id)
+        .then(async (response) => {   
+          console.log('------------- reponse active',response)          
+            this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Désactivation réussie'})
+            }).catch((error) => {
+              this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Opération échoué'})
+              console.log('Code error ++++++: ',error)
+            }).finally(() => {              
+            console.log('Requette envoyé ')
+        });
+      },
       handlePageChange(value){
         console.log('-------------datasearch est',this.datasearch)
         if(this.datasearch ==null)
@@ -280,6 +297,7 @@ import RechercheUser from '@/components/utilisateurs/RechercheUser';
       }
     },
     data: () => ({
+      status:['actif','inactif'],
       dialog: false,
       progress:true,
       selected: [],
