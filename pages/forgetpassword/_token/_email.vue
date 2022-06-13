@@ -11,8 +11,11 @@ import FormForgetPassword from '@/components/auth/FormForgetPassword'
     },
     mounted() {
         let token = this.$route.params.token;
+        let email = this.$route.params.email;
         console.log('token temporaire : **************** : ',token)
+        console.log('email : **************** : ',email)
         this.$store.dispatch('forgetpassword/getToken',token)
+        this.$store.dispatch('forgetpassword/getEmail',email)
     },
     data: () => ({
     }),

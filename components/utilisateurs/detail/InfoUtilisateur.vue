@@ -37,7 +37,7 @@
                   <p class="info-profil mb-4" v-if="detailUtilisateur.fonction"><span>Profession :
                       </span>{{ detailUtilisateur.fonction}}
                   </p>
-                  <p class="info-profil mb-4" v-if="detailUtilisateur.structures[0]"><span>Structure: </span>{{ detailUtilisateur.structures[0].nom_structure}}</p>  
+                  <p class="info-profil mb-4" v-if="detailUtilisateur.structures.length"><span>Structure: </span>{{ detailUtilisateur.structures[0] && detailUtilisateur.structures[0].nom_structure}}</p>  
               </div>
           </div>
         </v-col>
@@ -49,18 +49,37 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex'
   export default {
+    mounted: function() {
+      this.getDetail(this.id)
+    },
     computed: mapGetters({
       detailUtilisateur: 'utilisateurs/detailutilisateur'
     }),
-    data: () => ({
-
-    }),
+    data () {
+      return {
+        id : this.$nuxt._route.params.id,
+      }
+    },
     methods: {
       submitForm(){
         alert('Formulaire soumis')
       },
       retour(){       
           this.$router.push('/utilisateurs');
+      },
+      getDetail(id){
+          this.progress=true
+          this.$msasApi.$get('/users/'+id)
+        .then(async (response) => {
+            console.log('Detail ++++++++++',response)
+            this.$store.dispatch('utilisateurs/getDetail',response.data)
+        }).catch((error) => {
+             this.$toast.error(error?.response?.data?.message).goAway(3000)
+            console.log('Code error ++++++: ', error?.response?.data?.message)
+        }).finally(() => {
+            console.log('Requette envoyé ')
+        });
+        //console.log('total items++++++++++',this.paginationstructure)
       },
     },
   }

@@ -12,8 +12,6 @@
                   <p class="flex my-8 custom-font-mark">Mot de passe oublié</p>
                 </div>
                 <v-form class="row text-align-center pt-0"  v-model="valid" ref="form" lazy-validation>
-                  <v-text-field class="col-md-12 col-lg-12 col-sm-12 pl-4 pr-4 pt-0" dense outlined append-icon="mdi-account-outline" name="login" label="Adresse e-mail" type="text"
-                                v-model="model.email" :rules="rules.emailRules"></v-text-field>
                   <v-text-field class="col-md-12 col-lg-12 col-sm-12 pl-4 pr-4 pt-0" dense outlined append-icon="mdi-lock-outline" name="password" label="Nouveau mot de passe" id="password" type="password"
                                 v-model="model.password" :rules="rules.passwordRules"></v-text-field>
                   <v-text-field class="col-md-12 col-lg-12 col-sm-12 pl-4 pr-4 pt-0" dense outlined append-icon="mdi-lock-outline" name="password_confirmation" label="Confirmer mot de passe" id="password_confirmation" type="password"
@@ -55,9 +53,13 @@ import { mapMutations, mapGetters } from 'vuex'
     components: {
       Notification
     },
+    mounted: function() {
+      this.model.email = this.emailTemporaire
+    },
     computed: {
       ...mapGetters({
-      tokenTemporaire:'forgetpassword/token'
+        tokenTemporaire:'forgetpassword/token',
+        emailTemporaire:'forgetpassword/email',
       }),
       confirm_passwordRules() {
         return [
@@ -97,7 +99,7 @@ import { mapMutations, mapGetters } from 'vuex'
 
         this.loading = true;
         
-        validation && this.$axios.post('/reset-password', {...this.model,token:this.tokenTemporaire})
+        validation && this.$axios.post('/update_password', {...this.model},{headers: {Authorization:'Bearer '+this.tokenTemporaire}})
           .then((res) => {    
             this.message = res.data.message
             this.color = 'success'

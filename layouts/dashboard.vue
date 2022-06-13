@@ -85,9 +85,9 @@
                   flat
                   tile
                 >
-                  <nuxt-link class="customTopNav pop-user-button flex text-sm-center" to="#">
-                  Parametres
-                  </nuxt-link>
+                  <v-btn text deprmsased @click="goToProfile" class="customTopNav pop-user-button flex text-sm-center">
+                    Parametres
+                  </v-btn> 
                 </v-card>
               </div>
               <v-card
@@ -100,7 +100,7 @@
                 <v-btn text color="#000" deprmsased @click="logout" :loading="loading">
                   <v-icon left>
                     mdi-logout
-                  </v-icon>Deconnexion
+                  </v-icon>Se déconnecter
                 </v-btn>               
               </v-card-actions>
               <!-- <v-card-actions>
@@ -173,6 +173,9 @@
           console.log(e)
           this.loading = false;
         }
+      },
+      goToProfile(){ 
+        this.$router.push('/utilisateurs/detail/'+this.loggedInUser.id);      
       },
     }
   }
