@@ -83,9 +83,9 @@ import layoutchargeclientel from '@/static/data/layoutchargeclientel'
         this.color="success"
         console.log('Donées formulaire ++++++ : ',{...this.model})
         
-        validation && this.$axios.post('/ess/auth/forgot-password',{...this.model})
+        validation && this.$axios.post('/forget_password',{...this.model})
           .then((res) => {    
-            this.$toast.success('Vérifiez votre boit de récéption').goAway(4000)
+            this.$toast.success(res.data.message || 'Vérifiez votre boite de récéption').goAway(4000)
             console.log('Donées reçus ++++++: ',res.data)
              setTimeout(() => {
               this.$router.push('/login');
