@@ -36,7 +36,7 @@
               </div>               
             </v-card>
             <div class="layout column align-center py-5">
-              <span class="caption mr-1">&copy; {{ new Date().getFullYear() }} Sénégal Services Plateforme, Tous droits réservés</span>
+              <span class="caption mr-1">&copy; {{ new Date().getFullYear() }} Ministère de la santé et de l'action sociale, Tous droits réservés</span>
             </div> 
           </v-flex>
         </v-layout>
@@ -97,7 +97,7 @@ import { mapMutations, mapGetters } from 'vuex'
 
         this.loading = true;
         
-        validation && this.$axios.post('/ess/auth/reset-password', {...this.model,token:this.tokenTemporaire})
+        validation && this.$axios.post('/reset-password', {...this.model,token:this.tokenTemporaire})
           .then((res) => {    
             this.message = res.data.message
             this.color = 'success'
