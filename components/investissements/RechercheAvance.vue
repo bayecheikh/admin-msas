@@ -5,6 +5,7 @@
         <v-row>
           <v-col lg="2" md="2" sm="12">
             <v-autocomplete
+            ref="inputRef"
               v-model="selectedAnnee"
               :items="listannees"
               
@@ -20,6 +21,7 @@
           </v-col>
           <v-col lg="2" md="2" sm="12">
             <v-autocomplete
+            ref="inputRef"
               v-model="SelectedMonnaie"
               :items="listmonnaies"
               outlined
@@ -34,6 +36,7 @@
           </v-col>
           <v-col lg="2" md="2" sm="12">
             <v-autocomplete
+            ref="inputRef"
               v-model="SelectedRegions"
               :items="listregions"
               
@@ -49,6 +52,7 @@
           </v-col>
           <v-col lg="4" md="4" sm="12">
               <v-autocomplete
+              ref="inputRef"
                 v-model="selectedPiliers"
                 :items="listpiliers"
                 
@@ -64,6 +68,7 @@
           </v-col>
           <v-col lg="2" md="2" sm="12" v-if="showAxes">
             <v-autocomplete
+            ref="inputRef"
               v-model="selectedAxes"
               :items="listAxes0"
               outlined
@@ -78,6 +83,7 @@
           </v-col>
           <v-col md="12" lg="12" sm="12">
             <v-radio-group
+            ref="inputRef"
               :v-model="selectedDimension"
               @change="changeDimension"
               row
@@ -90,10 +96,11 @@
               ></v-radio>
             </v-radio-group>
           </v-col>          
-          <v-col lg="2" md="2" sm="12">
+          <v-col lg="2" md="2" sm="12" class="d-flex">
             <v-btn :loading="loading" depressed class="mr-4 text-white" color="primary" @click="submitForm">
             Lancer la recherche
             </v-btn>
+            <v-btn text @click="onClearClicked" rounded color="red">Réinitialiser</v-btn>
           </v-col>
         </v-row>
       </v-card>
@@ -458,6 +465,36 @@ import { mapMutations, mapGetters } from 'vuex'
         this.selectedAxes0 = value         
         console.log('************',value)
 
+      },
+      onClearClicked () {
+        this.selectedAnnee = []
+        this.SelectedMonnaie= []
+        this.SelectedRegions= []
+        this.selectedDimension= []
+        this.selectedPiliers= []
+        this.selectedAxes= []
+        this.slectedDepartement= []
+        this.selectedStructure= []
+        this.selectedType_source= []
+        this.selectedSource= []
+
+       let data = {
+          page:1,
+          annee : null,
+          monnaie : null,
+          dimension : null,
+          region : null,
+          pilier: null,
+          axe: null ,
+          departement: null,
+          structure : null,
+          type_source: null,
+          source: null         
+        }
+
+        this.$store.commit('investissements/initdatasearch',{...data})
+       this.page=1
+       this.getResult(data)
       },
     },
     metaInfo () {
