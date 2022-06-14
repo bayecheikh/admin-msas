@@ -112,7 +112,7 @@
           </template>
       </v-menu>
     </v-app-bar>
-    <v-main class="bg-title">
+    <v-main class="bg-grey">
       <!--  -->
       <nuxt/>
     </v-main>
@@ -201,12 +201,15 @@
   font-size: 13px !important;
 }
 .custom-top-title {
-  color: #9b9999;
+  color: #fff;
   font-weight: 600;
   letter-spacing: 1px;
   font-family: "Roboto";
 }
 .lower-case{
   text-transform: capitalize; 
+}
+.bg-grey{
+  background-color: rgb(227, 235, 243) !important;
 }
 </style>

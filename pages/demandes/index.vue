@@ -1,18 +1,14 @@
 <template>
-  <v-container pl-0>
-    <v-row>
-      <v-col md="2" lg="2" sm="12">
-        <v-container pl-0>
-          <left-menu :items="leftmenuItems"></left-menu>
-        </v-container>
-      </v-col>
-      <v-col md="9" lg="9" sm="12" class="full-height">
-          <page-header :items="headerItems"></page-header>
-          <list-demande></list-demande>
-      </v-col>
-    </v-row>
-  </v-container>
-  
+  <div>
+  <div class="custom-container bg-title-grey">
+      <page-header :items="headerItems" class=""></page-header>  
+  </div> 
+  <div class="custom-container mt-5">
+    <v-card class="container" flat>  
+      <list-demande></list-demande>
+    </v-card>
+  </div> 
+</div>
 </template>
 
 <script>

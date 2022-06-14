@@ -1,11 +1,12 @@
 <template>
-  <div p-6 class="bg-title">
-    <page-header :items="headerItems" class="pb-4"></page-header>
-      <v-container pl-10 pt-10 pb-10 pr-10>
-        <form-update-structure></form-update-structure>
-      </v-container>        
-  </div>
-  
+  <div>
+  <div class="custom-container bg-title-grey">
+      <page-header :items="headerItems" class=""></page-header>  
+  </div> 
+  <div class="custom-container mt-5">
+      <form-update-structure></form-update-structure>
+  </div> 
+</div>
 </template>
 
 <script>

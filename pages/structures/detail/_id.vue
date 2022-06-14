@@ -1,10 +1,11 @@
 <template>
 <div>
-  <div p-6 class="bg-title">
-    <page-header :items="headerItems" class="pb-4"></page-header>
-    <v-card flat class="mx-auto">  
-      <v-container pl-10 pt-10 pb-10 pr-10>
-          <v-row align="center"
+  <div class="custom-container bg-title-grey">
+      <page-header :items="headerItems" class=""></page-header>  
+  </div> 
+  <div class="custom-container mt-5">
+    <v-card class="container pl-10 pt-10 pb-10 pr-10" flat>  
+      <v-row align="center"
             justify="center">
             <v-col cols="12" md="12" lg="12" sm="12">
               <info-structure></info-structure>
@@ -12,8 +13,7 @@
             <v-col cols="12" md="12" lg="12" sm="12">
               <actions-structure></actions-structure>
             </v-col>
-          </v-row>
-      </v-container>        
+          </v-row>  
     </v-card>
     <v-card flat class="mx-auto my-6">  
       <v-container pl-10 pt-10 pb-10 pr-10>
@@ -25,9 +25,8 @@
           </v-row>
       </v-container>        
     </v-card>
-  </div>
+  </div> 
 </div>
-  
   
 </template>
 

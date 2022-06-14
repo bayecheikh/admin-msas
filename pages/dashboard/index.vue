@@ -1,10 +1,11 @@
 <template>
-
-  <div p-6 class="bg-title">
-    <page-header :items="headerItems" class="pb-4"></page-header>
-    <v-card class="mx-auto">  
-      <v-container>
-        <v-row>
+<div>
+  <div class="custom-container bg-title-grey">
+      <page-header :items="headerItems" class=""></page-header>  
+  </div> 
+  <div class="custom-container mt-5">
+    <v-card class="container" flat>  
+       <v-row>
             <v-col md="4" sm="12" lg="4">
               <stat-box 
                 :title="'Nombre total d\'utilisateurs actifs '"                
@@ -37,10 +38,9 @@
               </stat-box>
             </v-col>
           </v-row>
-      </v-container>        
     </v-card>
-  </div>
-  
+  </div> 
+</div>
 </template>
 
 <script>

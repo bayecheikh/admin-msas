@@ -1,15 +1,12 @@
 <template>
-  <div p-6 class="bg-title">
-    <v-row>
-      <v-col md="2" lg="2" sm="12" >
-        <v-container pl-0>
-          <left-menu :items="leftmenuItems"></left-menu>
-        </v-container>
-      </v-col>
-
-      <v-col md="10" lg="10" sm="12" class="full-height">
-          <page-header :items="headerItems"></page-header>
-          <v-row align="center"
+  
+   <div>
+  <div class="custom-container bg-title-grey">
+      <page-header :items="headerItems" class=""></page-header>  
+  </div> 
+  <div class="custom-container mt-5">
+    <v-card class="container pl-10 pt-10 pb-10 pr-10" flat>  
+     <v-row align="center"
             justify="center">
             <v-col cols="12" md="12" lg="12" sm="12">
               <info-type-ligne></info-type-ligne>
@@ -17,11 +14,10 @@
             <v-col cols="12" md="12" lg="12" sm="12">
               <actions-type-ligne></actions-type-ligne>
             </v-col>
-          </v-row>
-      </v-col>
-    </v-row>
-  </div>
-  
+          </v-row>    
+    </v-card>
+  </div> 
+</div>
 </template>
 
 <script>

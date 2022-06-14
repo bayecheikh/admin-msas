@@ -1,13 +1,15 @@
 <template>
-  <div p-6 class="bg-title">
-    <page-header :items="headerItems" class="pb-4"></page-header>
-    <v-card class="mx-auto">  
-      <v-container>
-        <list-dimension></list-dimension>
-      </v-container>        
+
+  <div>
+  <div class="custom-container bg-title-grey">
+      <page-header :items="headerItems" class=""></page-header>  
+  </div> 
+  <div class="custom-container mt-5">
+    <v-card class="container" flat>  
+      <list-dimension></list-dimension>
     </v-card>
-  </div>
-  
+  </div> 
+</div>
 </template>
 
 <script>

@@ -50,7 +50,7 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5">Dimension du financement</h2>
+      <h2 class="mb-5 primary custom-title-h2">Dimension du financement</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
         <v-row>
           <v-col md="12" lg="12" sm="12">
@@ -98,7 +98,7 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5">Mode de financement</h2>
+      <h2 class="mb-5 primary custom-title-h2">Mode de financement</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
         <v-row>
             <v-col md="6" lg="6" sm="12" v-for="(item,i) in modeFinanceInputs"
@@ -148,7 +148,7 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5">Piliers et axes d'intervention</h2>
+      <h2 class="mb-5 primary custom-title-h2">Piliers et axes d'intervention</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <div class="custom-ligne-bloc">
           <v-row>

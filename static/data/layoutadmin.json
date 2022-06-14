@@ -3,36 +3,6 @@
   "homePage":"/dashboard",
   "menuItems":[
     {
-      "icon": "mdi-view-dashboard-outline",
-      "href": "/dashboard",
-      "title": "Tableau de bord",
-      "name":"voir_dashboard"
-    },
-    {
-      "icon": "mdi-home-lightning-bolt-outline",
-      "href": "/activites",
-      "title": "Activités",
-      "name": "gerer_activites"
-    },
-    {
-      "icon": "mdi-account-group-outline",
-      "href": "/utilisateurs",
-      "title": "Utilisateurs",
-      "name": "gerer-utilisateurs"
-    },
-    {
-      "icon": "mdi-home-city-outline",
-      "href": "/structures",
-      "title": "Structures",
-      "name": "gerer-structures"
-    },
-    {
-      "icon": "mdi-home-city-outline",
-      "href": "/investissements",
-      "title": "Investissements",
-      "name": "gerer-investissements"
-    },
-    {
       "icon": "mdi-account-lock-outline",
       "href": "/roles",
       "title": "Role",
@@ -109,36 +79,6 @@
       "href": "/monnaies",
       "title": "Monnaies",
       "name": "gerer-monnaies"
-    },
-    {
-      "icon": "mdi-chart-box-outline",
-      "href": "/statistiques",
-      "title": "Statistiques",
-      "name": "voir_statistique"
-    },
-    {
-      "icon": "mdi-cog-outline",
-      "href": "/parametres",
-      "title": "Paramétres",
-      "name": "gerer_parametres"
-    },
-    {
-      "icon": "mdi-file-document-outline",
-      "href": "/demandes",
-      "title": "Demandes",
-      "name":"gerer_dossiers"
-    },
-    {
-      "icon": "mdi-account-group-outline",
-      "href": "/usagers",
-      "title": "Usagers",
-      "name":"gerer_usagers"
-    },
-    {
-      "icon": "mdi-text",
-      "href": "/modules",
-      "title": "Modules",
-      "name":"gerer_modules"
     }
   ]
  }

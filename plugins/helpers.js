@@ -1,4 +1,5 @@
 import layout from '@/static/data/layout'
+import layoutadmin from '@/static/data/layoutadmin'
 export default function ({store ,redirect}, inject) { 
 
     const getToken = () => {
@@ -41,6 +42,17 @@ export default function ({store ,redirect}, inject) {
             menu=[...menu,item]
         })
         console.log('Menu+++++++++++++++++++++',menu)
+
+        return menu
+    }
+    //Cette fonction permet de créer le menu a partir des permisions de l'utilisateur connecté
+    const getParametreMenu = (array) => {
+        let layoutPrincipal = layoutadmin.menuItems
+        let menu = []
+        layoutPrincipal?.map((item)=>{
+            if(hasPermission(item.name))
+            menu=[...menu,item]
+        })
 
         return menu
     }
@@ -115,4 +127,5 @@ export default function ({store ,redirect}, inject) {
     inject('removeDuplicates', removeDuplicates)
     inject('getColore', getColore) 
     inject('getUserMenu', getUserMenu) 
+    inject('getParametreMenu', getParametreMenu) 
 }

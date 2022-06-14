@@ -37,7 +37,7 @@
                   <p class="info-profil mb-4" v-if="detailUtilisateur.fonction"><span>Profession :
                       </span>{{ detailUtilisateur.fonction}}
                   </p>
-                  <p class="info-profil mb-4" v-if="detailUtilisateur.structures.length"><span>Structure: </span>{{ detailUtilisateur.structures[0] && detailUtilisateur.structures[0].nom_structure}}</p>  
+                  <p class="info-profil mb-4" v-if="detailUtilisateur.structures && detailUtilisateur.structures.length"><span>Structure: </span>{{ detailUtilisateur.structures[0] && detailUtilisateur.structures[0].nom_structure}}</p>  
               </div>
           </div>
         </v-col>

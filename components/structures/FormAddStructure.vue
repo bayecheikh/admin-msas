@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-form class="" v-model="valid" ref="form" enctype="multipart/form-data">
-      <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+      <v-card flat class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <v-row>
           <v-col md="4" lg="4" sm="12">
             <v-text-field
@@ -139,8 +139,8 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5">Coordonnées siège</h2>
-      <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+      <h2 class="mb-5 primary custom-title-h2">Coordonnées siège</h2>
+      <v-card flat class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <v-row>
           <v-col md="4" lg="4" sm="12" v-if="showAdresseStructure">
             <v-text-field
@@ -171,8 +171,8 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5">Zone d'intervention</h2>
-      <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
+      <h2 class="mb-5 primary custom-title-h2">Zone d'intervention</h2>
+      <v-card flat class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
         <v-row>
           <v-col md="12" lg="12" sm="12">
             <v-radio-group
@@ -219,8 +219,8 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5">Dimensions</h2>
-      <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
+      <h2 class="mb-5 primary custom-title-h2">Dimensions</h2>
+      <v-card flat class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
         <v-row class="d-flex justify-content-between">
           <v-col
             md="4"
@@ -237,8 +237,8 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5">Personne responsable</h2>
-      <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
+      <h2 class="mb-5 primary custom-title-h2">Personne responsable</h2>
+      <v-card flat class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <v-row>
           <v-col md="4" lg="4" sm="12">
             <v-text-field
@@ -288,7 +288,7 @@
         </v-row>
       </v-card>
 
-      <v-btn class="mr-4 text-white" color="#1B73E8" @click="submitForm">
+      <v-btn class="mr-4 text-white" color="primary" @click="submitForm">
         Enregistrer
       </v-btn>
     </v-form>
