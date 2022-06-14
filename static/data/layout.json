@@ -6,7 +6,7 @@
       "icon": "mdi-view-dashboard-outline",
       "href": "/dashboard",
       "title": "Tableau de bord",
-      "name":"voir_dashboard"
+      "name":"voir-dashboard"
     },
     {
       "icon": "mdi-account-group-outline",
@@ -24,6 +24,12 @@
       "icon": "mdi-home-city-outline",
       "href": "/investissements",
       "title": "Investissements",
+      "name": "gerer-investissements"
+    },
+    {
+      "icon": "mdi-home-city-outline",
+      "href": "/investissements/traitement",
+      "title": "Traitement de données",
       "name": "gerer-investissements"
     },
     {

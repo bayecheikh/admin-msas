@@ -5,6 +5,9 @@ export default {
     headerinvestissements (state) {
       return state.headerinvestissements
     },
+    headerinvestissementavances (state) {
+      return state.headerinvestissementavances
+    },
     detailinvestissement (state) {
       return state.detailinvestissement
     },

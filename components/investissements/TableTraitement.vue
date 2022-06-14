@@ -1,30 +1,12 @@
 <template>
   <div>
-    <div class="d-flex border-bottom-solid">
-      <div>
-        <v-tabs v-model="tab">
-          <v-tab class="text-normal" v-for="(item,i) in tabItems" :key="i">
-            {{item.title}}</v-tab
-          >
-        </v-tabs>
-      </div>
-      <div class="ml-auto p-2" v-if="$hasPermission('ajouter_investissement')">
-        <v-btn depressed rounded color="primary" @click="goToAddinvestissement">
-          <v-icon left> mdi-plus </v-icon>
-          Ajouter un investissement
-        </v-btn>
-      </div>
-    </div>
-
-    <v-tabs-items v-model="tab">
-      <v-tab-item v-for="(item,i) in tabItems" :key="i">
         <div>
           <v-card-title class="col-12">
-            <!-- <recherche-investissement></recherche-investissement> -->
+            <recherche-avance></recherche-avance>
           </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="item.value=='publie'?listinvestissements.filter(investissement => investissement.status=='publie'):listinvestissements.filter(investissement => (item.value==investissement.status & $hasPermission(investissement.state) & $hasPermission(investissement.status)))"
+             :items="listinvestissements.filter(investissement => investissement.status=='publie')"
             :single-select="singleSelect"
             item-key="id"
             :items-per-page="perpage"
@@ -38,28 +20,18 @@
               <v-row class="mb-1 border-bottom-small d-flex">
                 <v-col md="6" sm="12" lg="6" class="pb-0 pt-4">
                   <div class="row">
-                    <!-- <v-btn icon class="col-3" v-on:click="visualiser()">
-            <v-icon left class="font-small">
-              mdi-file-document-outline
-            </v-icon>
-            <span class="font-small">Visualiser</span>
-          </v-btn> 
-          <v-btn icon class="col-3" v-on:click="modifier()">
-            <v-icon left class="font-small">
-              mdi-square-edit-outline
-            </v-icon>
-            <span class="font-small">Modifier</span>
-          </v-btn>  -->
-                    <!--<v-btn icon class="col-3" v-on:click="supprimer()">
-                <v-icon left class="font-small"> mdi-trash-can-outline </v-icon>
-                <span class="font-small">Supprimer</span>
-              </v-btn> -->
-                    <!--<v-btn icon class="col-3" v-on:click="exporter()">
-            <v-icon left class="font-small">
-              mdi-file-export-outline
-            </v-icon>
-            <span class="font-small">Exporter</span>
-          </v-btn>-->
+                    <v-btn class="col-md-3 col-lg-3 col-sm-12 ml-6 mr-2" v-on:click="exporter()">
+                      <v-icon left class="font-small">
+                        mdi-file-export-outline
+                      </v-icon>
+                      <span class="font-small">Exporter en PDF</span>
+                    </v-btn>
+                    <v-btn class="col-md-3 col-lg-3 col-sm-12" v-on:click="exporter()">
+                      <v-icon left class="font-small">
+                        mdi-file-export-outline
+                      </v-icon>
+                      <span class="font-small">Exporter en CSV</span>
+                    </v-btn>
                   </div>
                 </v-col>
                 <v-col
@@ -140,6 +112,11 @@
                 {{ dimension.libelle_dimension}}
               </div>
             </template>
+            <template v-slot:[`item.piliers`]="{ item }">
+              <div v-for="pilier in item.piliers" :key="pilier.id">
+                {{ pilier.nom_pilier}}
+              </div>
+            </template>
             <template v-slot:[`item.status`]="{ item }">
               <v-chip
                 :color="(item.status=='a_valider' && 'primary') || (item.status=='rejete' && 'error') || (item.status=='brouillon' && 'orange') || (item.status=='publie' && 'green')"
@@ -189,8 +166,6 @@
             </template>
           </v-data-table>
         </div>
-      </v-tab-item>
-    </v-tabs-items>
   </div>
 </template>
 <script>
@@ -212,7 +187,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
     },
     computed: mapGetters({
       listinvestissements: 'investissements/listinvestissements',
-      headers: 'investissements/headerinvestissements',
+      headers: 'investissements/headerinvestissementavances',
       totalpage: 'investissements/totalpage',
       perpage: 'investissements/perpage',
       datasearch: 'investissements/datasearch',

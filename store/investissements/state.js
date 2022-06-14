@@ -2,21 +2,22 @@ export default () => ({
     listinvestissements: [],
 
     headerinvestissements : [
-        /* {
-            text: 'Username',
-            align: 'start',
-            sortable: true,
-            value: 'username',
-        }, */
-        /* { text: 'Prénom', value: 'firstname' },
-        { text: 'Nom', value: 'lastname' }, */
         { text: 'Année', value: 'annee' },
         { text: 'Monnaie', value: 'monnaie'},
         { text: 'Région', value: 'region'},
         { text: 'Structure', value: 'structure'},
         { text: 'Source de financement', value: 'source'},
-        { text: 'Etat', value: 'state'},
         { text: 'Statut', value: 'status'},
+        { text: 'Actions', value: 'actions', sortable: false },
+    ],
+    headerinvestissementavances : [
+        { text: 'Année', value: 'annee' },
+        { text: 'Monnaie', value: 'monnaie'},
+        { text: 'Région', value: 'region'},
+        { text: 'Structure', value: 'structure'},
+        { text: 'Source de financement', value: 'source'},
+        { text: 'Dimension', value: 'dimension'},
+        { text: 'Pilier', value: 'piliers'},
         { text: 'Actions', value: 'actions', sortable: false },
     ],
     detailinvestissement :{},

@@ -5,6 +5,9 @@ export default {
     initheader(state, newlist) {
         state.headerinvestissements = newlist
     },
+    initheaderavance(state, newlist) {
+        state.headerinvestissementavances = newlist
+    },
     initdetail(state, newinvestissement) {
         state.detailinvestissement = newinvestissement
     },

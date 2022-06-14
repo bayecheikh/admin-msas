@@ -7,7 +7,7 @@
             <v-autocomplete
               v-model="selectedAnnee"
               :items="listannees"
-              :rules="rules.fournisseur_services_idRules"
+              
               outlined
               dense
               label="Année"
@@ -15,7 +15,6 @@
               item-value="id"
               return-object
               @change="changeAnnee"
-              clearable
             >
             </v-autocomplete>
           </v-col>
@@ -23,7 +22,6 @@
             <v-autocomplete
               v-model="SelectedMonnaie"
               :items="listmonnaies"
-              :rules="rules.fournisseur_services_idRules"
               outlined
               dense
               label="Monnaie"
@@ -38,7 +36,7 @@
             <v-autocomplete
               v-model="SelectedRegions"
               :items="listregions"
-              :rules="rules.fournisseur_services_idRules"
+              
               outlined
               dense
               label="Région"
@@ -53,7 +51,7 @@
               <v-autocomplete
                 v-model="selectedPiliers"
                 :items="listpiliers"
-                :rules="rules.fournisseur_services_idRules"
+                
                 outlined
                 dense
                 label="Piliers"
@@ -68,7 +66,6 @@
             <v-autocomplete
               v-model="selectedAxes"
               :items="listAxes0"
-              :rules="showAxes==true?rules.fournisseur_services_idRules:null"
               outlined
               dense
               label="Axe"
@@ -82,7 +79,6 @@
           <v-col md="12" lg="12" sm="12">
             <v-radio-group
               :v-model="selectedDimension"
-              :rules="rules.sexeRules"
               @change="changeDimension"
               row
             >
@@ -95,7 +91,7 @@
             </v-radio-group>
           </v-col>          
           <v-col lg="2" md="2" sm="12">
-            <v-btn depressed class="mr-4 text-white" color="primary" @click="submitForm">
+            <v-btn :loading="loading" depressed class="mr-4 text-white" color="primary" @click="submitForm">
             Lancer la recherche
             </v-btn>
           </v-col>
@@ -242,15 +238,15 @@ import { mapMutations, mapGetters } from 'vuex'
         country_codeRules: [
           v => !!v || 'L\'indicatif du pays est obligatoire',
         ],
-        fournisseur_services_idRules: [
-          v => (!!v) || 'Fournisseur est obligatoire',
+        selectRules: [
+          v => (v && v== 0) || 'Ce obligatoire',
         ],
         structure_idRules: [
           v => (!!v) || 'Structure est obligatoire',
         ],
         adresseRules: [
           v => !!v || 'Adresse est obligatoire',
-          v => (v && v.length <= 100) || 'Adresse doit etre inférieur à 50 caratères',
+          v => (v && v.length >= 1) || 'Adresse doit etre inférieur à 50 caratères',
         ],
         nationalityRules: [
           v => !!v || 'Nationalité est obligatoire',
