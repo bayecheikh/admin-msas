@@ -20,16 +20,8 @@
       <v-tab-item v-for="(item,i) in tabItems" :key="i">
         <div>
           <v-card-title class="col-12">
-            <recherche-investissement></recherche-investissement>
-            <!-- <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Rechercher"
-        outlined
-        rounded
-        dense
-        hide-details
-      ></v-text-field> -->
+            <!-- <recherche-investissement></recherche-investissement> -->
+            <recherche-avance></recherche-avance>
           </v-card-title>
           <v-data-table
             :headers="headers"
@@ -200,9 +192,11 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex'
 import RechercheInvestissement from '@/components/investissements/RechercheInvestissement';
+import RechercheAvance from '@/components/investissements/RechercheAvance';
   export default {
     components: {
-      RechercheInvestissement
+      RechercheInvestissement,
+      RechercheAvance
     },
     mounted: function() {    
       this.$hasPermission('brouillon') && this.tabItems.push({title:'Brouillons',value:'brouillon'})
