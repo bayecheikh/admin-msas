@@ -183,7 +183,21 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
       this.$hasPermission('rejete') && this.tabItems.push({title:'Rejetés',value:'rejete'})
       this.$hasPermission('publie') && this.tabItems.push({title:'Publiés',value:'publie'})
       
-      this.getList(1)
+      let data = {
+          page:1,
+          annee : null,
+          monnaie : null,
+          dimension : null,
+          region : null,
+          pilier: null,
+          axe: null ,
+          departement: null,
+          structure : null,
+          type_source: null,
+          source: null         
+        }
+        this.$store.commit('investissements/initdatasearch',data)
+      this.getResult(data)
     },
     computed: mapGetters({
       listinvestissements: 'investissements/listinvestissements',
@@ -213,31 +227,32 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
         });
         //console.log('total items++++++++++',this.paginationinvestissement)
       },
-       getResult(page,param){
+       getResult(param){
          this.progress=true
-         this.$msasApi.get('/investissement-multiple-search/'+param+'?page='+page)
+       
+         this.$msasFileApi.post('/recherche_avance_investissements',param)
           .then(async (response) => {
             console.log('Données reçus++++++++++++',response.data.data.data)
             await this.$store.dispatch('investissements/getList',response.data.data.data)
             let totalPages = Math.ceil(response.data.data.total / response.data.data.per_page)
             this.$store.dispatch('investissements/getTotalPage',totalPages)
             this.$store.dispatch('investissements/getPerPage',response.data.data.per_page)
-
+            
         }).catch((error) => {
              /* this.$toast.global.my_error().goAway(1500) */ //Using custom toast
-           // this.$toast.error(error?.response?.data?.message).goAway(3000)
+            this.$toast.error(error?.response?.data?.message).goAway(3000)
             console.log('Code error ++++++: ', error?.response?.data?.message)
         }).finally(() => {
             console.log('Requette envoyé')
              this.progress=false;
+             this.loading = false;
         });
       },
       handlePageChange(value){
         console.log('-------------datasearch est',this.datasearch)
-        if(this.datasearch ==null)
-        this.getList(value)
-        else
-        this.getResult(value,this.datasearch)
+        let data = {...this.datasearch,page:value}
+        this.$store.commit('investissements/initdatasearch',data)
+        this.getResult(data)
 
       },
       visualiserItem (item) {

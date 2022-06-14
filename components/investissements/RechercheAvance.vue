@@ -341,7 +341,6 @@ import { mapMutations, mapGetters } from 'vuex'
         validation && this.getResult(data)
       },
       getResult(param){
-         this.page=1
          this.progress=true
        
          this.$msasFileApi.post('/recherche_avance_investissements',param)
@@ -478,7 +477,7 @@ import { mapMutations, mapGetters } from 'vuex'
         this.selectedType_source= []
         this.selectedSource= []
 
-       let data = {
+        let data = {
           page:1,
           annee : null,
           monnaie : null,
@@ -492,8 +491,7 @@ import { mapMutations, mapGetters } from 'vuex'
           source: null         
         }
 
-        this.$store.commit('investissements/initdatasearch',{...data})
-       this.page=1
+       this.$store.commit('investissements/initdatasearch',data)
        this.getResult(data)
       },
     },
