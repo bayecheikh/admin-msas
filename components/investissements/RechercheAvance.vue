@@ -15,6 +15,7 @@
               item-value="id"
               return-object
               @change="changeAnnee"
+              clearable
             >
             </v-autocomplete>
           </v-col>
@@ -318,6 +319,7 @@ import { mapMutations, mapGetters } from 'vuex'
         let source = this.selectedSource?.id || null 
 
         let data = {
+          page:1,
           annee : annee,
           monnaie : monnaie,
           dimension : dimension,
@@ -330,33 +332,16 @@ import { mapMutations, mapGetters } from 'vuex'
           source: source         
         }
 
-        this.$store.commit('investissements/initdatasearch',data)
+        this.$store.commit('investissements/initdatasearch',{...data})
 
         console.log('Donées formulaire recherche ++++++: ',data)
-        validation && this.getResult(1,data)
+        validation && this.getResult(data)
       },
-      getResult(page,param){
+      getResult(param){
          this.page=1
          this.progress=true
-
-         let formData = new FormData();
-
-
-        
-
-        formData.append("annee",param.annee);
-        formData.append("monnaie",param.monnaie);
-        formData.append("dimension",param.dimension);
-        formData.append("region",param.region);
-        formData.append("pilier",param.pilier);
-        formData.append("axe",param.axe);
- 
-        formData.append("axe",param.departement);
-        formData.append("axe",param.structure);
-        formData.append("axe",param.type_source);
-        formData.append("axe",param.source);
        
-         this.$msasFileApi.post('/recherche_avance_investissements/?page='+page,formData)
+         this.$msasFileApi.post('/recherche_avance_investissements',param)
           .then(async (response) => {
             console.log('Données reçus++++++++++++',response.data.data.data)
             await this.$store.dispatch('investissements/getList',response.data.data.data)
