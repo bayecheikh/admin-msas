@@ -220,3 +220,7 @@ html {
   padding: 10px;
   color: #fff;
 }
+.v-navigation-drawer--fixed {
+  position: fixed;
+  border-right: solid #047486 !important;
+}
