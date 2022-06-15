@@ -228,8 +228,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
         //console.log('total items++++++++++',this.paginationinvestissement)
       },
        getResult(param){
-         this.progress=true
-       
+         this.progress=true      
          this.$msasFileApi.post('/recherche_avance_investissements',param)
           .then(async (response) => {
             console.log('Données reçus++++++++++++',response.data.data.data)
@@ -309,10 +308,30 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
         alert('Veuillez selectionner un element')
       },
       exporter(){
-        if(this.selected.length>=1)
-        alert('Exporter '+this.selected.map(function(value){ return value.id}))
-        else
-        alert('Veuillez selectionner un element')
+         this.progress=true    
+         console.log('Données formulaire++++++++++++',this.datasearch)  
+         this.$msasApi.post('/export_csv_investissements',this.datasearch)
+          .then(async (response) => {
+
+            console.log('Données reçus++++++++++++',response.data)
+            var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+            var fileLink = document.createElement('a');
+          
+            fileLink.href = fileURL;
+            fileLink.setAttribute('download', 'investissements.xlsx');
+            document.body.appendChild(fileLink);
+          
+            fileLink.click();
+            
+        }).catch((error) => {
+             /* this.$toast.global.my_error().goAway(1500) */ //Using custom toast
+            this.$toast.error(error?.response?.data?.message).goAway(3000)
+            console.log('Code error ++++++: ', error?.response?.data?.message)
+        }).finally(() => {
+            console.log('Requette envoyé')
+             this.progress=false;
+             this.loading = false;
+        });
       },
       goToAddinvestissement() {
         this.$router.push('/investissements/addInvestissement');
