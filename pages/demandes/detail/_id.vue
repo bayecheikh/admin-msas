@@ -35,10 +35,6 @@ import ActionsDemande from '@/components/demandes/detail/ActionsDemande';
     },
     data () {
       return {
-       leftmenuItems:[
-          { text: 'Accueil', icon: 'mdi-home',link:'/dashboard/charge-clientel',position:1  },
-          { text: 'Nouvelle demande', icon: 'mdi-account-plus-outline',link:'/demandes/addDemande',position:0 }
-        ],
         headerItems: [
         {
           text: 'Demandes',

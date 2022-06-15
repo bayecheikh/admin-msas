@@ -1,31 +1,22 @@
 <template>
-<div>
-<v-card-title class="col-3 pb-0">
-    <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Rechercher"
-        outlined
-        rounded
-        dense
-        hide-details
-      ></v-text-field>
-</v-card-title>
-<v-data-table
-      v-model="selected"
+  <div>
+    <v-card-title class="col-12">
+      <recherche-demande></recherche-demande>
+    </v-card-title>
+    <v-data-table
+     v-model="selected"
       :headers="headers"
-      :items="tab=='tout'?listDemandes : listDemandes.filter(demande => demande.etat_dossier === tab)"
+      :items="tab=='tout'?listdemandes : listdemandes.filter(demande => demande.status === tab)"
       :single-select="singleSelect"
       item-key="id"
-      show-select 
-      :items-per-page="15"
+      :items-per-page="perpage"
       class="flat pt-4"
       :loading="progress"
       loading-text="Loading... Please wait"
       hide-default-footer
       :search="search"
     >
-      <template v-slot:top="">
+      <template v-slot:top="{}">
         <v-row class="mb-1 border-bottom-small d-flex">
           <v-col md="6" sm="12" lg="6" class="pb-0 pt-4">
             <div class="row">
@@ -41,22 +32,22 @@
             </v-icon>
             <span class="font-small">Modifier</span>
           </v-btn>  -->
-              <v-btn icon v-if="$hasRole('admin')" class="col-3" v-on:click="supprimer()">
+              <!--<v-btn icon class="col-3" v-on:click="supprimer()">
                 <v-icon left class="font-small"> mdi-trash-can-outline </v-icon>
                 <span class="font-small">Supprimer</span>
-              </v-btn>
-              <v-btn icon class="col-3" v-on:click="exporter()">
+              </v-btn>-->
+              <!-- <v-btn icon class="col-3" v-on:click="exporter()">
             <v-icon left class="font-small">
               mdi-file-export-outline
             </v-icon>
             <span class="font-small">Exporter</span>
-          </v-btn>
+          </v-btn> -->
             </div>
           </v-col>
-         <v-col md="6" sm="12" lg="6" class="pt-0 pb-2 align-right-pagination">
+          <v-col md="6" sm="12" lg="6" class="pt-0 pb-2 align-right-pagination">
             <v-pagination
               v-model="page"
-              :length="totalPages"
+              :length="totalpage"
               total-visible="6"
               next-icon="mdi-menu-right"
               prev-icon="mdi-menu-left"
@@ -87,7 +78,27 @@
     </div>
         </v-row>
       </template>
+      <template v-slot:[`item.status`]="{item}">
+        <v-switch
+          :input-value="item.status=='actif'?true:false"
+          color="success"
+          hide-details
+          @change="actveDesactiveDemande(item.id)"
+        ></v-switch>
+      </template>
 
+      <template v-slot:[`item.profile`]="{ item }">
+        <v-chip
+          color="primary"
+          small
+          outlined
+          class="my-1 mr-1"
+          v-for="profile in item.profiles"
+          :key="profile.value"
+        >
+          {{ profile.libelle }}
+        </v-chip>
+      </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-menu bottom left>
           <template v-slot:activator="{ on, attrs }">
@@ -109,13 +120,7 @@
                   </v-icon>Détail
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item v-if="$hasRole('admin')" @click="editItem(item)" link class="custom-v-list-action pl-2 pr-1">
-                <v-list-item-title> 
-                  <v-icon small class="mr-2"> mdi-pencil-outline </v-icon
-                  >Modifier
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-item v-if="$hasRole('admin')" @click="opendialog(item)" class="custom-v-list-action pl-2 pr-1" >
+              <v-list-item v-if="$hasRole('super_admin')" @click="opendialog(item)" class="custom-v-list-action pl-2 pr-1">
                 <v-list-item-title>
                   <v-icon small class="mr-2" v-bind="attrs" v-on="on">
                     mdi-delete-outline </v-icon
@@ -127,18 +132,25 @@
         </v-menu>
       </template>
     </v-data-table>
-</div>
+    
+  </div>
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex'
+import Recherchedemande from '@/components/demandes/Recherchedemande';
   export default {
+    components: {
+      Recherchedemande
+    },
     mounted: function() {
       this.getList(1)
     },
     computed: mapGetters({
-      listDemandes: 'demandes/listdemandes',
+      listdemandes: 'demandes/listdemandes',
       headers: 'demandes/headerdemandes',
-      detailUsager: 'usagers/detailusager'
+      totalpage: 'demandes/totalpage',
+      perpage: 'demandes/perpage',
+      datasearch: 'demandes/datasearch',
     }),
     props: ['tab'],
     metaInfo () {
@@ -148,68 +160,95 @@ import { mapMutations, mapGetters } from 'vuex'
     },
     methods: {
       getList(page){
-          let idUsager = this.$route.params.id
-          let emailUsager = this.detailUsager.email
-          let url = ''
-
-          console.log('ID usager ++55555555555555555555555+++ : ', idUsager)
-          console.log('email usager ++55555555555555555555555+++ : ', emailUsager)
-
-          if(idUsager!=undefined & emailUsager!=undefined)
-          url = '/ess/dossiers/user/'+emailUsager+'?page='+page
-          else
-          url = '/ess/dossiers?page='+page
-
           this.progress=true
-          this.$essApi.$get(url)
+          this.$msasApi.$get('/demandes?page='+page)
         .then(async (response) => {
-          console.log('Reponse données reçu +++++ : ', response.data)
-          let totalPages = Math.ceil(response.meta.total / response.meta.per_page)
-          this.totalPages=totalPages
-          this.$store.dispatch('demandes/getList',response.data)
+            console.log('Données reçu demandes ++++++: ', response.data.data)
+            let totalPages = Math.ceil(response.data.total / response.data.per_page)
+            this.$store.dispatch('demandes/getTotalPage',totalPages)
+            this.$store.dispatch('demandes/getPerPage',response.data.per_page)
+            this.$store.dispatch('demandes/getList',response.data.data)
+            console.log('total page ++++++++++',response.data.total / response.data.per_page)
         }).catch((error) => {
-             /* this.$toast.global.my_error().goAway(1500) */ //Using custom toast
+            /* this.$toast.global.my_error().goAway(1500) */ //Using custom toast
              this.$toast.error(error?.response?.data?.message).goAway(3000)
             console.log('Code error ++++++: ', error?.response?.data?.message)
         }).finally(() => {
             console.log('Requette envoyé ')
             this.progress=false
         });
-        console.log('total items++++++++++',this.paginationusager)
+        //console.log('total items++++++++++',this.paginationdemande)
+      },
+       getResult(page,param){
+         this.progress=true
+         this.$msasApi.get('/demande-multiple-search/'+param+'?page='+page)
+          .then(async (response) => {
+            console.log('Données reçus++++++++++++',response.data.data.data)
+            await this.$store.dispatch('demandes/getList',response.data.data.data)
+            let totalPages = Math.ceil(response.data.data.total / response.data.data.per_page)
+            this.$store.dispatch('demandes/getTotalPage',totalPages)
+            this.$store.dispatch('demandes/getPerPage',response.data.data.per_page)
+            
+        }).catch((error) => {
+             /* this.$toast.global.my_error().goAway(1500) */ //Using custom toast
+           // this.$toast.error(error?.response?.data?.message).goAway(3000)
+            console.log('Code error ++++++: ', error?.response?.data?.message)
+        }).finally(() => {
+            console.log('Requette envoyé')
+             this.progress=false;
+        });
+      },
+      actveDesactiveDemande(id) {
+        console.log('------------- demande active',id)
+        this.dialog=false   
+        this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'})  
+        this.$msasApi.$get('/active_demande/'+id)
+        .then(async (response) => {   
+          console.log('------------- reponse active',response)          
+            this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Désactivation réussie'})
+            }).catch((error) => {
+              this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Opération échoué'})
+              console.log('Code error ++++++: ',error)
+            }).finally(() => {              
+            console.log('Requette envoyé ')
+        });
       },
       handlePageChange(value){
+        console.log('-------------datasearch est',this.datasearch)
+        if(this.datasearch ==null)
         this.getList(value)
+        else
+        this.getResult(value,this.datasearch)
+        
       },
-      visualiserItem (item) {   
+      visualiserItem (item) {
         this.$store.dispatch('demandes/getDetail',item)
         this.$router.push('/demandes/detail/'+item.id);
       },
-      editItem (item) {   
+      editItem (item) {
         this.$store.dispatch('demandes/getDetail',item)
         this.$router.push('/demandes/modifier/'+item.id);
       },
       async deleteItem () {
-        /* this.$toast.show('Supression en cours ...') */
         this.dialog=false   
-        /* this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'}) 
-        this.$essApi.$delete('/delete-users/'+this.activeItem.id)
-        .then(async (response) => { 
-            this.$store.dispatch('usagers/deleteUsager',this.activeItem.id)
-            this.$store.dispatch('toast/getMessage',{type:'success',text:response || 'Suppression réussie'})
+        this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'})  
+        this.$msasApi.$delete('/demandes/'+this.activeItem.id)
+        .then(async (response) => {             
+            this.$store.dispatch('demandes/deletedemande',this.activeItem.id)
+            this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Suppression réussie'})
             }).catch((error) => {
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Echec de la suppression'})
-              console.log('Code error ++++++: ', error)
-            }).finally(() => {
-              
+              console.log('Code error ++++++: ',error)
+            }).finally(() => {              
             console.log('Requette envoyé ')
-        }); */
+        });
       },
-      opendialog (item) {
+       opendialog (item) {
         this.dialog=true
         this.activeItem=item
       },
       exporterItem (item) {
-        alert('Exporter '+item.username)
+        alert('Exporter '+item.id)
       },
       visualiser(){
         if(this.selected.length!=1)
@@ -217,7 +256,7 @@ import { mapMutations, mapGetters } from 'vuex'
         else{
           let demande = this.selected.map(function(value){ return value})[0]
           this.$store.commit('demandes/initdetail',demande)
-          this.$router.push('/demandes/detail/'+demande.name);
+          this.$router.push('/demandes/detail/'+demande.id);
         }
       },
       modifier(){
@@ -226,23 +265,24 @@ import { mapMutations, mapGetters } from 'vuex'
         else{
           let demande = this.selected.map(function(value){ return value})[0]
           this.$store.commit('demandes/initdetail',demande)
-          this.$router.push('/demandes/modifier/'+demande.name);
+          this.$router.push('/demandes/modifier/'+demande.id);
         }
       },
       supprimer(){
         if(this.selected.length>=1)
-        alert('Supprimer '+this.selected.map(function(value){ return value.name}))
+        alert('Supprimer '+this.selected.map(function(value){ return value.id}))
         else
         alert('Veuillez selectionner un element')
       },
       exporter(){
         if(this.selected.length>=1)
-        alert('Exporter '+this.selected.map(function(value){ return value.name}))
+        alert('Exporter '+this.selected.map(function(value){ return value.id}))
         else
         alert('Veuillez selectionner un element')
       }
     },
     data: () => ({
+      status:['actif','inactif'],
       dialog: false,
       progress:true,
       selected: [],
@@ -261,7 +301,8 @@ import { mapMutations, mapGetters } from 'vuex'
   }
 </script>
 <style scoped>
-.border-bottom-small{
+.border-bottom-small {
   border-bottom: solid 1px #80808052;
 }
+
 </style>

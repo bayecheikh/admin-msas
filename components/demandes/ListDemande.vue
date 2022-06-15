@@ -6,19 +6,6 @@
           <v-tab class="text-normal" v-for="item in tabItems" :key="item.value"> {{item.title}}</v-tab>
         </v-tabs>
       </div>
-      <div class="ml-auto p-2">
-        <v-btn
-        depressed
-        rounded
-        color="primary"
-        @click="goToAddUsager"
-        >
-          <v-icon left>
-            mdi-plus
-          </v-icon>
-          Nouvelle demande
-        </v-btn>
-      </div>
     </div>
     
     <v-tabs-items v-model="tab">
@@ -37,7 +24,7 @@ import TableDemande from '@/components/demandes/TableDemande'
     data: () => ({
       tab: null,
       tabItems: [
-        {title:'Tout',value:'tout'},{title:'Brouillon',value:'brouillon'}, {title:'En cours',value:'encours'}, {title:'Livrés',value:'livre'}, {title:'Rejeté',value:'rejete'},
+        {title:'Tout',value:'tout'},{title:'Traitées',value:'traite'}, {title:'Non traitées',value:'non_traite'}, {title:'Transférées',value:'transfere'}
       ],
       selected: []
     }),

@@ -18,7 +18,7 @@
   export default {
     layout: "dashboard",
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer_dossiers')){
+      if(!$hasPermission('gerer-demandes')){
         return redirect('/')
       }
     },
@@ -30,10 +30,6 @@
     data () {
       return {
         selectedItem: 0,
-        leftmenuItems:[
-          { text: 'Accueil', icon: 'mdi-home-outline',link:'/dashboard',position:1  },
-          { text: 'Nouvelle demande', icon: 'mdi-account-plus-outline',link:'/demandes/addDemande',position:0 }
-        ],
         headerItems: [
           {
             text: 'Liste des demandes',

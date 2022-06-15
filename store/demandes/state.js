@@ -2,15 +2,14 @@ export default () => ({
     listdemandes: [],
     selectListDemandes: [],
     headerdemandes : [
-      {
-        text: 'Référence dossier',
-        align: 'start',
-        sortable: true,
-        value: 'ref_dossier',
-      },
-      { text: 'Status', value: 'status' },
-      { text: 'Date', value: 'date_of_deposit' },
-      { text: 'Actions', value: 'actions', sortable: false }
+        { text: 'Prénom', value: 'firstname' },
+        { text: 'Nom', value: 'lastname' },
+        { text: 'Profil', value: 'profil' },
+        { text: 'Email', value: 'email' },
+        { text: 'Telephone', value: 'telephone' },
+        { text: 'Sujet', value: 'subject' },
+        { text: 'Status', value: 'status' },
+        { text: 'Actions', value: 'actions', sortable: false },
     ],
     detaildemande :{}
 })

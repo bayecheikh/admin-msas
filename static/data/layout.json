@@ -33,6 +33,12 @@
       "name": "gerer-investissements"
     },
     {
+      "icon": "mdi-file-document-outline",
+      "href": "/demandes",
+      "title": "Demandes",
+      "name":"gerer-demandes"
+    },
+    {
       "icon": "mdi-cog-outline",
       "href": "/parametres",
       "title": "Paramétrage",
