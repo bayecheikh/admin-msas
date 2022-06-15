@@ -318,7 +318,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
             var fileLink = document.createElement('a');
           
             fileLink.href = fileURL;
-            fileLink.setAttribute('download', 'investissements.xlsx');
+            fileLink.setAttribute('download', 'investissements.csv');
             document.body.appendChild(fileLink);
           
             fileLink.click();
