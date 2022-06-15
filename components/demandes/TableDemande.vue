@@ -137,10 +137,10 @@
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex'
-import Recherchedemande from '@/components/demandes/Recherchedemande';
+import RechercheDemande from '@/components/demandes/RechercheDemande';
   export default {
     components: {
-      Recherchedemande
+      RechercheDemande
     },
     mounted: function() {
       this.getList(1)
