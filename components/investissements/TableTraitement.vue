@@ -6,7 +6,7 @@
           </v-card-title>
           <v-data-table
             :headers="headers"
-             :items="listinvestissements.filter(investissement => investissement.status=='publie')"
+             :items="listligneinvestissements.filter(ligneinvestissement => ligneinvestissement.investissement[0].status=='publie')"
             :single-select="singleSelect"
             item-key="id"
             :items-per-page="perpage"
@@ -20,13 +20,8 @@
               <v-row class="mb-1 border-bottom-small d-flex">
                 <v-col md="6" sm="12" lg="6" class="pb-0 pt-4">
                   <div class="row">
-                    <v-btn class="col-md-3 col-lg-3 col-sm-12 ml-6 mr-2" v-on:click="exporter()">
-                      <v-icon left class="font-small">
-                        mdi-file-export-outline
-                      </v-icon>
-                      <span class="font-small">Exporter en PDF</span>
-                    </v-btn>
-                    <v-btn class="col-md-3 col-lg-3 col-sm-12" v-on:click="exporter()">
+                    
+                    <v-btn class="col-md-3 col-lg-3 col-sm-12 ml-6" v-on:click="exporterCSV()">
                       <v-icon left class="font-small">
                         mdi-file-export-outline
                       </v-icon>
@@ -82,52 +77,8 @@
                 </div>
               </v-row>
             </template>
-            <template v-slot:[`item.annee`]="{ item }">
-              <div v-for="annee in item.annee" :key="annee.id">
-                {{ annee.libelle}}
-              </div>
-            </template>
-            <template v-slot:[`item.monnaie`]="{ item }">
-              <div v-for="monnaie in item.monnaie" :key="monnaie.id">
-                {{ monnaie.libelle}}
-              </div>
-            </template>
-            <template v-slot:[`item.region`]="{ item }">
-              <div v-for="region in item.region" :key="region.id">
-                {{ region.nom_region}}
-              </div>
-            </template>
-            <template v-slot:[`item.structure`]="{ item }">
-              <div v-for="structure in item.structure" :key="structure.id">
-                {{ structure.nom_structure}}
-              </div>
-            </template>
-            <template v-slot:[`item.source`]="{ item }">
-              <div v-for="source in item.source" :key="source.id">
-                {{ source.libelle_source}}
-              </div>
-            </template>
-            <template v-slot:[`item.dimension`]="{ item }">
-              <div v-for="dimension in item.dimension" :key="dimension.id">
-                {{ dimension.libelle_dimension}}
-              </div>
-            </template>
-            <template v-slot:[`item.piliers`]="{ item }">
-              <div v-for="pilier in item.piliers" :key="pilier.id">
-                {{ pilier.nom_pilier}}
-              </div>
-            </template>
-            <template v-slot:[`item.status`]="{ item }">
-              <v-chip
-                :color="(item.status=='a_valider' && 'primary') || (item.status=='rejete' && 'error') || (item.status=='brouillon' && 'orange') || (item.status=='publie' && 'green')"
-                small
-                outlined
-                class="my-1 mr-1"
-              >
-                {{ (item.status=='a_valider' && 'A valider') || (item.status=='rejete' && 'Rejeté') || (item.status=='brouillon' && 'Brouillon') || (item.status=='publie' && 'Publié')}}
-              </v-chip>
-            </template>
-            <template v-slot:[`item.actions`]="{ item }">
+           
+           <!-- <template v-slot:[`item.actions`]="{ item }">
               <v-menu bottom left>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn color="primary" icon v-bind="attrs" v-on="on">
@@ -138,7 +89,7 @@
                 <v-list shaped>
                   <v-item-group>
                     <v-list-item
-                      @click="visualiserItem(item)"
+                      @click="visualiserItem(item.investissement)"
                       link
                       class="custom-v-list-action pl-2 pr-1"
                     >
@@ -163,7 +114,7 @@
                   </v-item-group>
                 </v-list>
               </v-menu>
-            </template>
+            </template>-->
           </v-data-table>
         </div>
   </div>
@@ -196,15 +147,15 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
           type_source: null,
           source: null         
         }
-        this.$store.commit('investissements/initdatasearch',data)
+        this.$store.commit('ligneinvestissements/initdatasearch',data)
       this.getResult(data)
     },
     computed: mapGetters({
-      listinvestissements: 'investissements/listinvestissements',
-      headers: 'investissements/headerinvestissementavances',
-      totalpage: 'investissements/totalpage',
-      perpage: 'investissements/perpage',
-      datasearch: 'investissements/datasearch',
+      listligneinvestissements: 'ligneinvestissements/listligneinvestissements',
+      headers: 'ligneinvestissements/headerligneinvestissements',
+      totalpage: 'ligneinvestissements/totalpage',
+      perpage: 'ligneinvestissements/perpage',
+      datasearch: 'ligneinvestissements/datasearch',
     }),
     methods: {
       getList(page){
@@ -232,10 +183,10 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
          this.$msasFileApi.post('/recherche_avance_investissements',param)
           .then(async (response) => {
             console.log('Données reçus++++++++++++',response.data.data.data)
-            await this.$store.dispatch('investissements/getList',response.data.data.data)
+            await this.$store.dispatch('ligneinvestissements/getList',response.data.data.data)
             let totalPages = Math.ceil(response.data.data.total / response.data.data.per_page)
-            this.$store.dispatch('investissements/getTotalPage',totalPages)
-            this.$store.dispatch('investissements/getPerPage',response.data.data.per_page)
+            this.$store.dispatch('ligneinvestissements/getTotalPage',totalPages)
+            this.$store.dispatch('ligneinvestissements/getPerPage',response.data.data.per_page)
             
         }).catch((error) => {
              /* this.$toast.global.my_error().goAway(1500) */ //Using custom toast
@@ -307,7 +258,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
         else
         alert('Veuillez selectionner un element')
       },
-      exporter(){
+      exporterCSV(){
          this.progress=true    
          console.log('Données formulaire++++++++++++',this.datasearch)  
          this.$msasApi.post('/export_csv_investissements',this.datasearch)

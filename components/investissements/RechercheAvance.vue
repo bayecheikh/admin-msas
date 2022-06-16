@@ -346,10 +346,10 @@ import { mapMutations, mapGetters } from 'vuex'
          this.$msasFileApi.post('/recherche_avance_investissements',param)
           .then(async (response) => {
             console.log('Données reçus++++++++++++',response.data.data.data)
-            await this.$store.dispatch('investissements/getList',response.data.data.data)
+            await this.$store.dispatch('ligneinvestissements/getList',response.data.data.data)
             let totalPages = Math.ceil(response.data.data.total / response.data.data.per_page)
-            this.$store.dispatch('investissements/getTotalPage',totalPages)
-            this.$store.dispatch('investissements/getPerPage',response.data.data.per_page)
+            this.$store.dispatch('ligneinvestissements/getTotalPage',totalPages)
+            this.$store.dispatch('ligneinvestissements/getPerPage',response.data.data.per_page)
             
         }).catch((error) => {
              /* this.$toast.global.my_error().goAway(1500) */ //Using custom toast
