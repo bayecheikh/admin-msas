@@ -78,13 +78,13 @@
               </v-row>
             </template>
             <template v-slot:[`item.pilier`]="{ item }">
-              <div v-for="monnaie in item.pilier" :key="monnaie.id">
-                {{ monnaie.nom_pilier}}
+              <div v-for="pilier in item.pilier" :key="pilier.id">
+                {{ pilier.nom_pilier}}
               </div>
             </template>
             <template v-slot:[`item.axe`]="{ item }">
-              <div v-for="region in item.region" :key="region.id">
-                {{ region.nom_axe}}
+              <div v-for="axe in item.axe" :key="axe.id">
+                {{ axe.nom_axe}}
               </div>
             </template>
            
