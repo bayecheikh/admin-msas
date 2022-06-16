@@ -2,8 +2,8 @@ export default () => ({
     listligneinvestissements: [],
 
     headerligneinvestissements : [
-        { text: 'Pilier', value: 'pilier[0].nom_pilier'},
-        { text: 'Axe', value: 'axe[0].nom_axe'},
+        { text: 'Pilier', value: 'pilier'},
+        { text: 'Axe', value: 'axe'},
         { text: 'Montant Bien Service Prevus', value: 'montantBienServicePrevus'},
         { text: 'Montant Bien Service Mobilises', value: 'montantBienServiceMobilises'},
         { text: 'Montant Bien Service Executes', value: 'montantBienServiceExecutes'},
@@ -13,8 +13,8 @@ export default () => ({
         /* { text: 'Actions', value: 'actions', sortable: false }, */
     ],
     headerligneinvestissementavances : [
-        { text: 'Pilier', value: 'pilier[0].nom_pilier'},
-        { text: 'Axe', value: 'axe[0].nom_axe'},
+        { text: 'Pilier', value: 'pilier'},
+        { text: 'Axe', value: 'axe'},
         { text: 'Montant Bien Service Prevus', value: 'montantBienServicePrevus'},
         { text: 'Montant Bien Service Mobilises', value: 'montantBienServiceMobilises'},
         { text: 'Montant Bien Service Executes', value: 'montantBienServiceExecutes'},

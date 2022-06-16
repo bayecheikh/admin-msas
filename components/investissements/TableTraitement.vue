@@ -6,7 +6,7 @@
           </v-card-title>
           <v-data-table
             :headers="headers"
-             :items="listligneinvestissements.filter(ligneinvestissement => ligneinvestissement.investissement[0].status=='publie')"
+             :items="listligneinvestissements"
             :single-select="singleSelect"
             item-key="id"
             :items-per-page="perpage"
@@ -76,6 +76,16 @@
                   </v-dialog>
                 </div>
               </v-row>
+            </template>
+            <template v-slot:[`item.pilier`]="{ item }">
+              <div v-for="monnaie in item.pilier" :key="monnaie.id">
+                {{ monnaie.nom_pilier}}
+              </div>
+            </template>
+            <template v-slot:[`item.axe`]="{ item }">
+              <div v-for="region in item.region" :key="region.id">
+                {{ region.nom_axe}}
+              </div>
             </template>
            
            <!-- <template v-slot:[`item.actions`]="{ item }">

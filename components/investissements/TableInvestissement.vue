@@ -222,7 +222,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
           source: null         
         }
         this.$store.commit('investissements/initdatasearch',data)
-      this.getResult(data)
+      this.getList(1)
     },
     computed: mapGetters({
       listinvestissements: 'investissements/listinvestissements',
@@ -278,6 +278,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
         let data = {...this.datasearch,page:value}
         this.$store.commit('investissements/initdatasearch',data)
         this.getResult(data)
+        this.getList(value)
 
       },
       visualiserItem (item) {
