@@ -335,7 +335,7 @@ import { mapMutations, mapGetters } from 'vuex'
           source: source         
         }
 
-        this.$store.commit('investissements/initdatasearch',{...data})
+        this.$store.commit('ligneinvestissements/initdatasearch',{...data})
 
         console.log('Donées formulaire recherche ++++++: ',data)
         validation && this.getResult(data)

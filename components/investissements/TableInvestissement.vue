@@ -229,7 +229,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
       headers: 'investissements/headerinvestissements',
       totalpage: 'investissements/totalpage',
       perpage: 'investissements/perpage',
-      datasearch: 'investissements/datasearch',
+      datasearch: 'ligneinvestissements/datasearch',
     }),
     methods: {
       getList(page){
