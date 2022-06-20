@@ -280,7 +280,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
           .then(async (response) => {
 
             console.log('Données reçus++++++++++++',response.data)
-            var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+            var fileURL = window.URL.createObjectURL(new Blob(["\ufeff",response.data]));
             var fileLink = document.createElement('a');
           
             fileLink.href = fileURL;
