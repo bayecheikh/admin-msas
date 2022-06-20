@@ -19,11 +19,11 @@
       <v-col md="6" lg="6" sm="12" class="mb-0 pb-0 d-flex">
         <v-text-field  
           ref="inputRef"
-          label="Rechercher un demande"
+          label="Filtrer"
           outlined dense
           v-model="model.dataSearch"
           :rules="rules.dataSearchRules"
-          placeholder="Email, Prénom, Nom"
+          placeholder="Prénom,Nom, Email, Profil, etc."
           clearable
           :clear-icon-cb="onClearClicked"
           rounded
@@ -162,10 +162,10 @@
       <v-col md="6" lg="6" sm="12">
         <v-text-field
           v-show="false"
-          label="Structure ID"
+          label="demande ID"
           outlined dense
           desabled
-          v-model="model.structure_id"
+          v-model="model.demande_id"
         ></v-text-field>
       </v-col>-->
       <!-- <v-col
@@ -275,8 +275,7 @@ import { mapMutations, mapGetters } from 'vuex'
         place_of_birth: 'Dakar',
         type_identification: 'cin',
         numero_identification: '',
-        fonction: 'Devops',
-        structure_id:JSON.parse(localStorage.getItem('loggedIndemande')).id
+        fonction: 'Devops'
       },
        rules:{
          dataSearchRules: [
@@ -324,8 +323,8 @@ import { mapMutations, mapGetters } from 'vuex'
         fonctionRules: [
           v => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/ || 'Fonction incorrecte',
         ],
-        structure_idRules: [
-         v => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/ || 'Structure incorrecte',
+        demande_idRules: [
+         v => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/ || 'demande incorrecte',
         ]
       },
       date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),

@@ -8,8 +8,14 @@ export default () => ({
         { text: 'Email', value: 'email' },
         { text: 'Telephone', value: 'telephone' },
         { text: 'Sujet', value: 'subject' },
+        { text: 'Message', value: 'message' },
         { text: 'Status', value: 'status' },
         { text: 'Actions', value: 'actions', sortable: false },
     ],
-    detaildemande :{}
+    detaildemande :{},
+    paginationinvestissement :{},
+    totalPage :1,
+    perPage :15,
+    currentPage :1,
+    dataSearch :null
 })
