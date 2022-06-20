@@ -2,6 +2,7 @@ export default () => ({
     listligneinvestissements: [],
 
     headerligneinvestissements : [
+        { text: 'Structure', value: 'investissement'},
         { text: 'Pilier', value: 'pilier'},
         { text: 'Axe', value: 'axe'},
         { text: 'Montant Bien Service Prevus', value: 'montantBienServicePrevus'},
@@ -13,6 +14,7 @@ export default () => ({
         /* { text: 'Actions', value: 'actions', sortable: false }, */
     ],
     headerligneinvestissementavances : [
+        { text: 'Structure', value: 'investissement.structure'},
         { text: 'Pilier', value: 'pilier'},
         { text: 'Axe', value: 'axe'},
         { text: 'Montant Bien Service Prevus', value: 'montantBienServicePrevus'},

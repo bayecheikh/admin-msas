@@ -77,6 +77,11 @@
                 </div>
               </v-row>
             </template>
+            <template v-slot:[`item.investissement`]="{ item }">
+              <div v-for="investissement in item.investissement" :key="investissement.id">
+                <span v-for="structure in investissement.structure" :key="structure.id">{{ structure.nom_structure}}</span>
+              </div>
+            </template>
             <template v-slot:[`item.pilier`]="{ item }">
               <div v-for="pilier in item.pilier" :key="pilier.id">
                 {{ pilier.nom_pilier}}

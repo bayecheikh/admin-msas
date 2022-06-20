@@ -78,7 +78,44 @@ export default function ({ $axios, store ,redirect}, inject) {
         } */
     })
 
+    /** Api for Export ************************************************/
+
+    const msasExportApi = $axios.create({
+        baseURL: process.env.baseUrl,
+        headers : {
+            common: {
+            Accept: 'application/json'/* ,
+            Authorization: 'Bearer ' + token */
+            }
+        }
+    }        
+    )
+
+    msasFileApi.onRequest(config => {
+        //Ajoute le token avant chaque request
+        const token = localStorage.getItem('msasToken')
+        config.headers.common['Authorization'] = `Bearer ${token}`; 
+        config.headers.common['Content-Type'] = 'multipart/form-data'; 
+        config.headers.common['Response-Type'] = 'arraybuffer'; 
+        /* config.headers.common['Content-Type'] = `multipart/form-data`;  */
+    })
+
+    msasFileApi.onResponse((response) => {
+        /* if (response.status === 404) {
+            console.log('Page 404')
+        } */
+        console.log('Reponse ----- : ',response.data.mmsasage)
+    })
+
+    msasFileApi.onError(error => {
+        /* const code = parseInt(error.response && error.response.status)
+        if (code === 400) {
+        redirect('/400')
+        } */
+    })
+
     inject('msasApi', msasApi)
     inject('msasFileApi', msasFileApi)
+    inject('msasExportApi', msasFileApi)
     
 }
