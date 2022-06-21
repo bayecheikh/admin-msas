@@ -104,11 +104,12 @@
             <v-col md="6" lg="6" sm="12" v-for="(item,i) in modeFinanceInputs"
               :key="i" id="custom-input">
               <v-text-field
-              v-model="selectedModeFinancements[i]"
-              outlined
-              label=""
-              prepend-inner-icon="mdi-map-marker"
-              append-icon="mdi-map-marker"
+                v-model="selectedModeFinancements[i]"
+                outlined
+                label=""
+                prepend-inner-icon="mdi-map-marker"
+                append-icon="mdi-map-marker"
+                dense
               >
                 <template slot="prepend-inner">
                   <div>{{item.libelle}}</div>
@@ -119,34 +120,42 @@
               </v-text-field>
           </v-col>
         </v-row>
-        <v-checkbox
-          v-model="autreMode"
-          label="Autre"
-          :value="true"
-          @change="changeAutreMode"
-        ></v-checkbox>
-        <v-row v-if="showAutreMode">
-          <v-col md="6" lg="6" sm="12">
-              <v-text-field
-              v-model="model.libAutreModeFinance"
-              outlined
-              label="Précisez le mode de financement"              
-              >              
-              </v-text-field>
-          </v-col>
-          <v-col md="6" lg="6" sm="12" id="custom-input-2">
-              <v-text-field
-              v-model="model.montantAutreModeFinance"
-              outlined
-              label="Le montant"
-              append-icon="mdi-map-marker"
-              >
-              <template slot="append">
-                <div>{{devise}}</div>
-              </template>
-              </v-text-field>
-          </v-col>
+        <v-row v-for="(item,i) in modes"
+              :key="item.id">
+            <v-col md="5" lg="6" sm="12">
+                <v-select
+                  :items="autreModeFinanceInputs"
+                  v-model="model.libAutreModeFinance[i]"
+                  label="Précisez le mode de financement"
+                  return-value="libelle"
+                  outlined
+                  dense
+                ></v-select>
+            </v-col>
+            <v-col md="6" lg="6" sm="12" id="custom-input-2" class="d-flex align-items-center">
+                <v-text-field
+                v-model="model.montantAutreModeFinance[i]"
+                outlined
+                label="Le montant"
+                append-icon="mdi-map-marker"
+                dense
+                >
+                  <template slot="append">
+                    <div>{{devise}}</div>
+                  </template>
+                </v-text-field>
+                <v-icon @click="deleteFindMode(i)">mdi-close</v-icon>
+            </v-col>
         </v-row>
+        <v-btn
+          color="success"
+          class="white--text mb-5"
+          @click="submitLigneMode"
+          depressed
+          v-if="modeFinanceInputs.length"
+          >
+            Autres<v-icon right dark> mdi-plus </v-icon>
+        </v-btn>
       </v-card>
       <h2 class="mb-5 primary custom-title-h2">Piliers et axes d'intervention</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
@@ -372,7 +381,8 @@ import { mapMutations, mapGetters } from 'vuex'
     components: {
     },
     mounted: function() {
-      this.listPiliers=this.listpiliers
+      this.listPiliers=this.listiliers
+      this.listDimensions=this.listdimensions
     },
     computed: {
       ...mapGetters({
@@ -389,8 +399,10 @@ import { mapMutations, mapGetters } from 'vuex'
       inputfichiers:[],
       libelle_fichiers:[],
       fichiers:[],
+      modes:[],
       counterrow:1,
       counterrow_fichier:1,
+      counterrow_mode:1,
       filename : '',
       loading: false,
       message:null,
@@ -409,26 +421,9 @@ import { mapMutations, mapGetters } from 'vuex'
       devise:'',
       listPiliers:[],
       listAxes:[],
-      modeFinanceInputs:[{
-        id:1,
-        libelle:'Subvention',
-        description:'Le montant de la subvention'
-      },
-      {
-        id:2,
-        libelle:'Transfert',
-        description:'Le montant du transfert'
-      },
-      {
-        id:3,
-        libelle:'Recette',
-        description:'Le montant de la recette'
-      },
-      {
-        id:4,
-        libelle:'Don',
-        description:'Le montant du don'
-      }],
+      listDimensions:[],
+      modeFinanceInputs:[],
+      autreModeFinanceInputs:[],
       LigneModeFinancement:[],
       LigneFinancementInputs:[],
       selectedPiliers0:[],
@@ -456,8 +451,8 @@ import { mapMutations, mapGetters } from 'vuex'
       selectedModeFinancements: [],
       selectedStructure: [],
       model: {
-        libAutreModeFinance:'',
-        montantAutreModeFinance:''
+        libAutreModeFinance:[],
+        montantAutreModeFinance:[]
       },
       rules:{
         nom_structureRules: [
@@ -559,7 +554,7 @@ import { mapMutations, mapGetters } from 'vuex'
         let libelleModeFinancements = this.modeFinanceInputs?.map((item)=>{return item.libelle})
         let libAutreModeFinance = this.model.libAutreModeFinance
         let montantAutreModeFinance = this.model.montantAutreModeFinance
-        let autreMode = this.autreMode
+        let autreMode = this.modes
 
         let piliers = this.selectedPiliers?.map((item)=>{return item.id})
         let axes = this.selectedAxes?.map((item)=>{return item.id})
@@ -575,9 +570,13 @@ import { mapMutations, mapGetters } from 'vuex'
         for(let i=0;i<=libelleModeFinancements.length;i++){
           this.LigneModeFinancement.push({libelle:libelleModeFinancements[i],montant:montantModeFinancements[i]})
         }
-        if(autreMode){
-          libelleModeFinancements.push(libAutreModeFinance)
-          montantModeFinancements.push(montantAutreModeFinance)
+        if(autreMode.length){
+          for(let i=0;i<=autreMode.length;i++){
+            if(libAutreModeFinance[i] && montantAutreModeFinance[i]){
+              libelleModeFinancements.push(libAutreModeFinance[i])
+              montantModeFinancements.push(montantAutreModeFinance[i])
+            }
+          }
         }
         let ligneModeFinancements = JSON.stringify(this.LigneModeFinancement)
         let ligneFinancements = this.LigneFinancementInputs
@@ -585,13 +584,13 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('libelle mode+++++++++++++',libelleModeFinancements)
         let formData = new FormData();
         
-          formData.append("libelleModeFinancements",libelleModeFinancements);
-          formData.append("montantModeFinancements",montantModeFinancements);
+        formData.append("libelleModeFinancements",libelleModeFinancements);
+        formData.append("montantModeFinancements",montantModeFinancements);
         
-        if(autreMode){
+        /* if(autreMode){
           formData.append("libAutreModeFinance",libAutreModeFinance);
           formData.append("montantAutreModeFinance",montantAutreModeFinance);
-        }
+        } */
 
         formData.append("piliers",piliers);
         formData.append("axes",axes);
@@ -627,7 +626,7 @@ import { mapMutations, mapGetters } from 'vuex'
 
 
 
-       /* validation && this.$msasFileApi.post('/investissements',formData)
+       validation && this.$msasFileApi.post('/investissements',formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
@@ -639,7 +638,7 @@ import { mapMutations, mapGetters } from 'vuex'
           }).finally(() => {
             this.loading = false;
             console.log('Requette envoyé ')
-        }); */
+        });
       },
       submitLigne () {
         this.counterrow += 1;
@@ -686,10 +685,24 @@ import { mapMutations, mapGetters } from 'vuex'
         this.inputfichiers.splice(index,1);
 
       },
+      deleteFindMode: function(index) {
+        console.log('Index---- ',index);
+        console.log('LigneFinancementInputs---- ',this.modes);
+        this.modes.splice(index,1);
+        this.model.libAutreModeFinance.splice(index,1);
+        this.model.montantAutreModeFinance.splice(index,1);
+
+      },
       submitLigneFichier () {
         this.counterrow_fichier += 1;
         this.fichiers.push({id:this.counterrow_fichier,libelle_fichier:this.libelle_fichiers[this.counterrow_fichier],input_fichier:this.inputfichiers[this.counterrow_fichier]})
         console.log('Donées fichier row ++++++: ',this.fichiers)
+      },
+      submitLigneMode () {
+        this.counterrow_mode += 1;
+        this.modes.push({id:this.counterrow_mode,libelle_mode:this.model.libAutreModeFinance[this.counterrow_mode],input_mode:this.model.montantAutreModeFinance[this.counterrow_mode]})
+        console.log('Donées fichier row ++++++: ',this.model.libAutreModeFinance)
+        console.log('Donées fichier row ++++++: ',this.model.montantAutreModeFinance)
       },
       resetForm () {
         this.$refs.form.reset()
@@ -729,8 +742,15 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('************',monnaie)
       },
       async changeDimension(e) {
-        console.log('************',e)
-        this.selectedDimension = e
+        
+        let modeFinanceInputs = this.listdimensions.filter(item => item.id === e)
+        let predefModeFinanceInputs = modeFinanceInputs.length?modeFinanceInputs[0].ligne_modes:[]
+
+        this.modeFinanceInputs = predefModeFinanceInputs.length?predefModeFinanceInputs.filter(item => item.predefini === '1'):[]
+        this.autreModeFinanceInputs = predefModeFinanceInputs.length?predefModeFinanceInputs.filter(item => item.predefini === '0').map((item)=>{return item.libelle}):[]
+
+        console.log('************ dimension',this.modeFinanceInputs)
+        /*this.selectedDimension = e */
         
       },
       async changePilier(value) {
