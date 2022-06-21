@@ -25,6 +25,9 @@ import FormAddDimension from '@/components/dimensions/FormAddDimension';
         return redirect('/')
       }
     },
+    mounted: function() {
+      this.$store.dispatch('modefinancements/getList')
+    },
     data () {
       return {
         headerItems: [

@@ -1,6 +1,6 @@
 export default {
     getList({commit}){
-      this.$msasApi.$get('/mode_financements')
+      this.$msasApi.$get('/ligne_mode_investissements')
       .then(async (response) => { 
         console.log('Données reçu+++++++++++',response)
             await commit('initlist', response.data)

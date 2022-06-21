@@ -16,7 +16,7 @@
           <v-icon left>
             mdi-plus
           </v-icon>
-          Nouvelle modefinancement
+          Nouvel mode de financement
         </v-btn>
       </div>
     </div>

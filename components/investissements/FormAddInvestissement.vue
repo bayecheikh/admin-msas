@@ -582,7 +582,7 @@ import { mapMutations, mapGetters } from 'vuex'
         let ligneModeFinancements = JSON.stringify(this.LigneModeFinancement)
         let ligneFinancements = this.LigneFinancementInputs
         let fichiers = this.fichiers
-console.log('libelle mode+++++++++++++',libelleModeFinancements)
+        console.log('libelle mode+++++++++++++',libelleModeFinancements)
         let formData = new FormData();
         
           formData.append("libelleModeFinancements",libelleModeFinancements);
@@ -627,7 +627,7 @@ console.log('libelle mode+++++++++++++',libelleModeFinancements)
 
 
 
-       validation && this.$msasFileApi.post('/investissements',formData)
+       /* validation && this.$msasFileApi.post('/investissements',formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
@@ -639,7 +639,7 @@ console.log('libelle mode+++++++++++++',libelleModeFinancements)
           }).finally(() => {
             this.loading = false;
             console.log('Requette envoyé ')
-        });
+        }); */
       },
       submitLigne () {
         this.counterrow += 1;

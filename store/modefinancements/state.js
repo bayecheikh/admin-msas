@@ -8,7 +8,7 @@ export default () => ({
             sortable: true,
             value: 'libelle',
         },
-        { text: 'Description', value: 'montant' },
+        { text: 'Slug', value: 'slug' },
         /* { text: 'Status', value: 'status' }, */
         { text: 'Actions', value: 'actions', sortable: false },
     ],

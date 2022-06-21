@@ -26,6 +26,9 @@ import FormUpdateDimension from '@/components/dimensions/modifier/FormUpdateDime
         return redirect('/')
       }
     },
+    mounted: function() {
+      this.$store.dispatch('modefinancements/getList')
+    },
     data () {
       return {
         headerItems: [
