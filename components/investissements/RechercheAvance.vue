@@ -8,7 +8,6 @@
             ref="inputRef"
               v-model="selectedAnnee"
               :items="listannees"
-              multiple
               outlined
               dense
               label="Année"
