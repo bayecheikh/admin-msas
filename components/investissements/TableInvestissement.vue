@@ -24,7 +24,7 @@
           </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="item.value=='publie'?listinvestissements.filter(investissement => investissement.status=='publie'):listinvestissements.filter(investissement => (item.value==investissement.status & $hasPermission(investissement.state) & $hasPermission(investissement.status)))"
+            :items="item.value=='publie'?listinvestissements && listinvestissements.filter(investissement => investissement.status=='publie'):listinvestissements && listinvestissements.filter(investissement => (item.value==investissement.status & $hasPermission(investissement.state) & $hasPermission(investissement.status)))"
             :single-select="singleSelect"
             item-key="id"
             :items-per-page="perpage"

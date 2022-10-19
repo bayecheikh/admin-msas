@@ -55,14 +55,13 @@
         <v-row>
           <v-col md="12" lg="12" sm="12">
             <v-radio-group
+              :mandatory="true"
               :v-model="selectedDimension"
               :rules="rules.sexeRules"
               @change="changeDimension"
               row
             >
-              <v-radio
-                v-for="item in listdimensions"
-                :key="item.id"
+              <v-radio v-for="item in listdimensions" :key="item.id"
                 :label="item.libelle_dimension"
                 :value="item.id"
               ></v-radio>
@@ -607,7 +606,16 @@ import { mapMutations, mapGetters } from 'vuex'
         formData.append("region",region);
         formData.append("ligneModeFinancements",ligneModeFinancements);
         formData.append("ligneFinancements",ligneFinancements);
-        formData.append("fichiers",ligneFinancements);
+
+        var files = fichiers;
+        var totalfiles = files.length;
+        for (var index = 0; index < totalfiles; index++) {
+          formData.append("libelle_fichiers[]",files[index].libelle_fichier);
+        }
+        for (var index = 0; index < totalfiles; index++) {
+          formData.append("input_fichiers[]",files[index].input_fichier);
+        }
+        
        
         let data = {
           annee : annee,
@@ -630,7 +638,7 @@ import { mapMutations, mapGetters } from 'vuex'
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
-           this.$router.push('/investissements');
+           //this.$router.push('/investissements');
           })
           .catch((error) => {
               console.log('Code error ++++++: ', error)
@@ -742,14 +750,15 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('************',monnaie)
       },
       async changeDimension(e) {
-        
+        console.log('************ dimension',e)
+        this.selectedDimension = e
         let modeFinanceInputs = this.listdimensions.filter(item => item.id === e)
         let predefModeFinanceInputs = modeFinanceInputs.length?modeFinanceInputs[0].ligne_modes:[]
 
         this.modeFinanceInputs = predefModeFinanceInputs.length?predefModeFinanceInputs.filter(item => item.predefini === '1'):[]
         this.autreModeFinanceInputs = predefModeFinanceInputs.length?predefModeFinanceInputs.filter(item => item.predefini === '0').map((item)=>{return item.libelle}):[]
 
-        console.log('************ dimension',this.modeFinanceInputs)
+        console.log('************ mode de financement',this.modeFinanceInputs)
         /*this.selectedDimension = e */
         
       },
