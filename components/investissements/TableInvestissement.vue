@@ -25,14 +25,12 @@
           <v-data-table
             :headers="headers"
             :items="item.value=='publie'?listinvestissements && listinvestissements.filter(investissement => investissement.status=='publie'):listinvestissements && listinvestissements.filter(investissement => (item.value==investissement.status & $hasPermission(investissement.state) & $hasPermission(investissement.status)))"
-            :single-select="singleSelect"
             item-key="id"
             :items-per-page="perpage"
             class="flat pt-4"
             :loading="progress"
             loading-text="Loading... Please wait"
             hide-default-footer
-            :search="search"
           >
             <template v-slot:top="{}">
               <v-row class="mb-1 border-bottom-small d-flex">
@@ -244,7 +242,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
             console.log('total page ++++++++++',response.data.total / response.data.per_page)
         }).catch((error) => {
             /* this.$toast.global.my_error().goAway(1500) */ //Using custom toast
-             this.$toast.error(error?.response?.data?.message).goAway(3000)
+             //this.$toast.error(error?.response?.data?.message).goAway(3000)
             console.log('Code error ++++++: ', error?.response?.data?.message)
         }).finally(() => {
             console.log('Requette envoyé ')
@@ -265,7 +263,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
             
         }).catch((error) => {
              /* this.$toast.global.my_error().goAway(1500) */ //Using custom toast
-            this.$toast.error(error?.response?.data?.message).goAway(3000)
+           // this.$toast.error(error?.response?.data?.message).goAway(3000)
             console.log('Code error ++++++: ', error?.response?.data?.message)
         }).finally(() => {
             console.log('Requette envoyé')
@@ -275,10 +273,10 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
       },
       handlePageChange(value){
         console.log('-------------datasearch est',this.datasearch)
-        let data = {...this.datasearch,page:value}
-        this.$store.commit('investissements/initdatasearch',data)
-        this.getResult(data)
+        if(this.datasearch ==null)
         this.getList(value)
+        else
+        this.getResult(value,this.datasearch)
 
       },
       visualiserItem (item) {

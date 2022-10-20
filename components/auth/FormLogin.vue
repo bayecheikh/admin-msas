@@ -124,6 +124,9 @@ import layoutchargeclientel from '@/static/data/layoutchargeclientel'
     left: 0;
     content: "";
     z-index: 0;
+    background-image: url('@/static/background.png');
+    background-size: cover;
+    background-position: top;
   }
   .custom-font-mark{
     font-family: "MarkProBook";
