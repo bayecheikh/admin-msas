@@ -219,8 +219,8 @@ import RechercheUser from '@/components/utilisateurs/RechercheUser';
         this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'})  
         this.$msasApi.$get('/active_user/'+id)
         .then(async (response) => {   
-          console.log('------------- reponse active',response)          
-            this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Désactivation réussie'})
+          console.log('-----************-------- reponse active',response)          
+            this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Opération réussie'})
             }).catch((error) => {
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Opération échoué'})
               console.log('Code error ++++++: ',error)
