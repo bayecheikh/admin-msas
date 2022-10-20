@@ -1,6 +1,6 @@
 export default {
     getList({commit}){
-        this.$msasApi.$get('/roles').then(async (response) => { 
+        /* this.$msasApi.$get('/profils').then(async (response) => { 
             console.log('******Liste des profils*******: ',response.data)
               await commit('initSelectList', response.data)
               
@@ -8,6 +8,6 @@ export default {
                 console.log('Code error ++++++: ', error?.response?.data.message)
             }).finally(() => {
               console.log('Requette envoyé ')
-        });
+        }); */
     }
 }

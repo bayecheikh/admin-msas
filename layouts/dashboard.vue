@@ -78,9 +78,9 @@
                   tile
                 >
                   <div class=""><h5>{{loggedInUser && loggedInUser.name}}</h5> </div>
-                  <div class=""><p class="pb-0 mb-2">{{loggedInUser && loggedInUser.email}}</p></div>
+                  <div class=""><p class="pb-0 mb-1">{{loggedInUser && loggedInUser.email}}</p></div>
                 </v-card>
-                <v-card
+                <!--<v-card
                   class="d-flex align-center flex-column mt-1"
                   flat
                   tile
@@ -88,7 +88,7 @@
                   <v-btn text deprmsased @click="goToProfile" class="customTopNav pop-user-button flex text-sm-center">
                     Parametres
                   </v-btn> 
-                </v-card>
+                </v-card>-->
               </div>
               <v-card
                 class="d-flex align-center flex-column pt-0 pb-0"
@@ -175,7 +175,7 @@
         }
       },
       goToProfile(){ 
-        this.$router.push('/utilisateurs/detail/'+this.loggedInUser.id);      
+        this.$router.push('/profil/'+this.loggedInUser.id);   
       },
     }
   }
@@ -191,11 +191,11 @@
     background-color: white;
 }
 .highlighted{
-  color: #1976d2 !important;
-  background: rgb(221, 232, 242);
+  color: #047586 !important;
+  background: #04758617;
 }
 .highlighted .v-list-item__icon .v-icon{
-  color: #1976d2 !important;
+  color: #047586 !important;
 }
 .text-menu{
   font-size: 13px !important;

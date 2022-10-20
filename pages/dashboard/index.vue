@@ -1,46 +1,37 @@
 <template>
-<div>
-  <div class="custom-container bg-title-grey">
-      <page-header :items="headerItems" class=""></page-header>  
-  </div> 
-  <div class="custom-container mt-5">
-    <v-card class="container" flat>  
-       <v-row>
-            <v-col md="4" sm="12" lg="4">
-              <stat-box 
-                :title="'Nombre total d\'utilisateurs actifs '"                
-                :icon="'mdi-account-group-outline'"
-                :nbr="'0'"
-                :colorIcon="'#00ac47'"
-                :colorText="'#00ac47'"
-                :class="'custom-card-user  border-user'"
-              >
-              </stat-box>
-            </v-col>
-            <v-col md="4" sm="12" lg="4">
-              <stat-box 
-                :title="'Nombre total de région d\'intervention'"
-                :icon="'mdi-map'"
-                :nbr="'0'"
-                :colorIcon="'#007cf6'"
-                :class="'custom-card-user  border-user'"
-              >
-              </stat-box>
-            </v-col>
-            <v-col md="4" sm="12" lg="4">
-              <stat-box 
-                :title="'Nombre total de financement'"
-                :icon="'mdi-credit-card'"
-                :nbr="'0'"
-                :colorIcon="'#ffba00'"
-                :class="'custom-card-user  border-user'"
-              >
-              </stat-box>
-            </v-col>
-          </v-row>
-    </v-card>
-  </div> 
-</div>
+<div> 
+    <div class="custom-container mt-5">
+      <v-row class="d-flex justify-content-between">
+        <v-col md="3" sm="12" lg="3" class="">
+          <div class="bg-marron mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
+            <h4 class="">MONTANT TOTAL DE FINANCEMENT PRÉVU</h4>
+            <h1 class="">14.000.000 F</h1>
+          </div>
+        </v-col>
+        <v-col md="3" sm="12" lg="3" class="">
+          <div class="bg-marron mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
+            <h4 class="">MONTANT TOTAL DE FINANCEMENT MOBILISÉ</h4>
+            <h1 class="">13.000.000 F</h1>
+          </div>
+        </v-col>
+        <v-col md="3" sm="12" lg="3" class="">
+          <div class="bg-marron mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
+            <h4 class="">MONTANT TOTAL DE FINANCEMENT EXECUTÉ</h4>
+            <h1 class="">12.000.000 F</h1>
+          </div>
+        </v-col>
+        <v-col md="3" sm="12" lg="3" class="">
+          <div class="bg-marron pl-4 pr-5 pt-5 pb-5 text-sm-center">
+            <h4 class="color-yellow">NOMBRE TOTAL DE FINANCEMENT EXECUTÉ</h4>
+            <h1 class="color-yellow">174</h1>
+          </div>
+        </v-col>
+      </v-row>  
+    </div> 
+    <div class="custom-container mt-5 mr-8 ml-8 pl-4 pr-1 pt-5 pb-5">     
+      <list-chart></list-chart>    
+    </div> 
+  </div>
 </template>
 
 <script>
@@ -83,5 +74,22 @@ import StatBox from '@/components/dashboard/admin/StatBox';
 </script>
 
 <style scoped>
+.bg-marron {
+  background-color: #047486;
+  border-radius: 5px;
+  padding: 30px;
+  color: rgba(255, 255, 255, 0.941);
+}
+.bg-marron:hover {
+  background-color: #fff;
+  color: #045d86 !important;
+}
+.color-white{
+  color: #fff;
+}
+.border-right-solid{
+  border-right: solid 1px #ffffff59;
+  padding: 20px;
+}
 
 </style>

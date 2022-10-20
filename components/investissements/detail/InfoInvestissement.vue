@@ -1,5 +1,6 @@
 <template>
-  <v-card class="custom-card-user border-grey">                   
+  <div>
+    <v-card class="custom-card-user border-grey">                   
     <v-card-text>
       <v-row>
         <v-col md="12" sm="12" lg="12" text-md-left>
@@ -52,12 +53,31 @@
       </v-row>
     </v-card-text>
   </v-card>
+  <!--<v-card class="custom-card-user border-grey my-2">                   
+    <v-card-text>
+      <v-row>
+        <v-col md="12" sm="12" lg="12" text-md-left>
+          <div class="row">
+            <div class="col-md-4 border-left">
+                <h2 class="info-profil mb-4">Pièces jointes</h2>
+                <div class="filename d-flex justify-content-between" v-for="(item,i) in detailinvestissement && detailinvestissement.fichiers " :key="i">
+                  <v-icon>mdi-file-document-outline</v-icon><a :href="apiUrl+'/'+item.url" target="_blanc">{{item.name}}</a>
+                </div>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+    </v-card-text>
+  </v-card>-->
+  </div>
+ 
 </template>
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
   export default {
     mounted: function() {
+
       this.getDetail(this.id)
     },
     computed: mapGetters({
@@ -66,6 +86,7 @@ import { mapMutations, mapGetters } from 'vuex'
     data () {
       return {
         id : this.$nuxt._route.params.id,
+        apiUrl : process.env.baseUrl
       }
     },
     methods: {

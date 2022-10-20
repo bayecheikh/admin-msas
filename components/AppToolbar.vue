@@ -67,7 +67,7 @@
                   flat
                   tile
                 >
-                  <v-btn text color="white" deprmsased @click="goToProfile" class="customTopNav pop-user-button flex text-sm-center">
+                  <v-btn text  deprmsased @click="goToProfile" class="customTopNav pop-user-button flex text-sm-center">
                     Parametres
                   </v-btn> 
                 </v-card>
@@ -131,7 +131,7 @@
         }
       },
       goToProfile(){ 
-        this.$router.push('/utilisateurs/detail/'+this.loggedInUser.id);      
+        this.$router.push('/profil/'+this.loggedInUser.id);      
       },
     }
   }

@@ -46,7 +46,7 @@
 <style scoped>
 .highlighted{
   color: #fff !important;
-  background: rgba(7, 127, 147, 0.11) !important;;
+  background: #0475861c !important;;
 }
 .highlighted .v-list-item__icon .v-icon{
   color: #fff !important;

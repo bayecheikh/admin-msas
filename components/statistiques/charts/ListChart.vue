@@ -1,12 +1,12 @@
 <template>
   <v-container pl-0>
     <v-row>
-      <v-col md="12" lg="12" sm="12" class="full-height">
-          <page-header :items="headerItems"></page-header>
-          <v-row class="d-flex align-items-center border-bottom-solid mb-6">
-            <h2 class="mt-4 ml-6 card-title custom-font">Statistiques globales</h2><v-spacer></v-spacer>
-            <h3 class="mt-4 card-title custom-font">Période du </h3>
-            <v-col lg="4" sm="12" md="4">
+      <v-col md="12" lg="12" sm="12" class="">
+          <v-row class="d-flex align-items-center mb-6 bg-marron pl-6 py-6 pr-6 pb-0">
+            
+            
+            <v-col lg="5" sm="12" md="5" class="d-flex">
+              <h3 class="mt-1 mr-2 card-title custom-font">Période du </h3>
               <v-menu
                 v-model="menu1"
                 :close-on-content-click="false"
@@ -24,16 +24,19 @@
                     v-bind="attrs"
                     v-on="on"
                     outlined dense
+                    @keydown.enter.prevent="updateStat"
                   ></v-text-field>
                 </template>
                 <v-date-picker
                   v-model="model.debut"
                   @input="menu1 = false"
+                  @change="updateStat"
                 ></v-date-picker>
               </v-menu>
             </v-col>
-            <h3 class="mt-4 card-title custom-font">au </h3>
-            <v-col lg="4" sm="12" md="4">
+            
+            <v-col lg="5" sm="12" md="5" class="d-flex">
+              <h3 class="mt-1 mr-2 card-title custom-font">au </h3>
               <v-menu
                 v-model="menu2"
                 :close-on-content-click="false"
@@ -50,24 +53,40 @@
                     readonly
                     v-bind="attrs"
                     v-on="on"
-                    outlined dense
+                    outlined dense  
+                    @keydown.enter.prevent="updateStat"
                   ></v-text-field>
                 </template>
                 <v-date-picker
                   v-model="model.fin"
                   @input="menu2 = false"
+                  @change="updateStat"
                 ></v-date-picker>
               </v-menu>
             </v-col> 
+            <v-col lg="2" sm="12" md="2" class="d-flex">
+              <v-btn
+              :loading="loading"
+              color="primary"
+                v-bind="attrs"
+                v-on="on"
+                depressed
+                @click="updateStat"
+                
+              >
+              Filtrer
+              </v-btn> 
+              <v-btn text @click="onClearClicked" rounded color="red">Réinitialiser</v-btn> 
+            </v-col>
           </v-row>
-          <v-row>
-            <v-col md="6" lg="6" sm="12" class="custom-bloc-chart border-right-chart">
-                <h4 class="card-title custom-font">Utilisateurs</h4 class="card-title custom-font">
-                <BarChart :data="utilisateurData" :options="barChartOptions" :styles="{height: '400px', position: 'relative'}"/>
+          <v-row class="d-flex align-items-center mb-6 bg-marron pl-6 py-6 pr-6">
+            <v-col md="6" lg="6" sm="12" class="border-right-chart">
+                <h4 class="card-title custom-font">Répartition par dimension</h4 class="card-title custom-font">
+                <BarChart :data="dimensionData" :options="barChartOptions" :styles="{height: '400px', position: 'relative'}"/>
             </v-col> 
-            <v-col md="6" lg="6" sm="12" class="custom-bloc-chart">
-                <h4 class="card-title custom-font">Répartition des structures par region</h4 class="card-title custom-font">
-                <BarChart :data="enrolementParSiteData" :options="barChartOptions" :styles="{height: '400px', position: 'relative',width:'100%'}"/>
+            <v-col md="6" lg="6" sm="12" class="">
+                <h4 class="card-title custom-font">Répartition par région</h4 class="card-title custom-font">
+                <BarChart :data="regionData" :options="barChartOptions" :styles="{height: '400px', position: 'relative',width:'100%'}"/>
             </v-col>
           </v-row>
       </v-col>
@@ -99,8 +118,8 @@ import BarChart from "@/components/statistiques/charts/BarChart";
                 { text: 'Demande', icon: 'mdi-file-document-outline',link:'/demandes',position:0 }
                 ],
                  model: {                 
-                  debut:'',
-                  fin:'',
+                  debut:'2012-01-01',
+                  fin:'2022-10-20',
                 },
                 date1: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
                 date2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
@@ -135,121 +154,26 @@ import BarChart from "@/components/statistiques/charts/BarChart";
                     responsive: true,
                     maintainAspectRatio: false
                 },
-                utilisateurData: {
-                    labels:['Utilisateurs'],
-                    datasets: [
-                        {
-                            label: "Actifs",
-                            borderWidth: 2,
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            data: [3]
-                        },
-                        {
-                            label: "Innactifs",
-                            borderWidth: 2,
-                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                            data: [4]
-                        },
-                        {
-                            label: "Bloqués",
-                            borderWidth: 2,
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            data: [3]
-                        }
-                    ]
-                },
-                dossierPreTraitementData: {
-                    labels:['Dossiers pré-traitement'],
-                    datasets: [
-                        {
-                            label: "Soumis",
-                            borderWidth: 2,
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            data: [3]
-                        },
-                        {
-                            label: "En traitement",
-                            borderWidth: 2,
-                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                            data: [4]
-                        },
-                        {
-                            label: "Brouillon",
-                            borderWidth: 2,
-                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                            data: [3]
-                        }
-                    ]
-                },
-                dossierPostTraitementData: {
-                    labels:['Dossier post-traitement'],
-                    datasets: [
-                        {
-                            label: "Soumis",
-                            borderWidth: 2,
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            data: [3]
-                        },
-                        {
-                            label: "En traitement",
-                            borderWidth: 2,
-                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                            data: [4]
-                        },
-                        {
-                            label: "Brouillon",
-                            borderWidth: 2,
-                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                            data: [3]
-                        },
-                        {
-                            label: "Livré à domicile",
-                            borderWidth: 2,
-                            backgroundColor: "rgba(75, 192, 192, 0.2)",
-                            data: [3]
-                        }
-                    ]
-                },
-                enrolementParSiteData: {
-                    labels:['DAKAR','THIES','LOUGA'],
+                dimensionData: {
+                  labels:['Mobilisation de ressources','Mise en commun de ressources','Achat de services'],
                     datasets: [{
-                        label: 'Nombre de structure',
+                        label: 'Montant total des financements',
                         borderWidth: 1,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        data: [40, 20, 12]
+                        backgroundColor: '#097fb5ac',
+                        data: [20000000, 15000000, 17000000]
                       }
                     ]
                 },
-                demandeFinancementData: {
-                    labels:['ESS DAKAR','ESS THIES','ESS LOUGA'],
+                regionData: {
+                    labels:['DAKAR','THIES','LOUGA','FATICK','SAINT-LOUIS'],
                     datasets: [{
-                        label: 'Nombre de demandes',
+                        label: 'Montant total des financements',
                         borderWidth: 1,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+                        backgroundColor: '#047586c1',
+                        data: [20000000, 13000000, 10000000,11000000,9000000]
                       }
                     ]
-                },
-                demandeEmploiData: {
-                    labels:['ESS DAKAR','ESS THIES','ESS LOUGA'],
-                    datasets: [{
-                        label: 'Nombre de demandes',
-                        borderWidth: 1,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-                      }
-                    ]
-                },
-                demandeFormationData: {
-                    labels:['ESS DAKAR','ESS THIES','ESS LOUGA'],
-                    datasets: [{
-                        label: 'Nombre de demandes',
-                        borderWidth: 1,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-                      }
-                    ]
-                },
+                }
             }
         },
 
@@ -380,5 +304,9 @@ path:hover {
 .border-right-chart{
   border-right: solid 1px #aeb4b7;
   margin-bottom: 40px;
+}
+.bg-marron{
+  border-radius: 5px;
+  background-color: #fff;
 }
 </style>
