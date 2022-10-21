@@ -35,8 +35,9 @@ import FormUpdateInvestissement from '@/components/investissements/modifier/Form
       this.$store.dispatch('regions/getList')
       this.$store.dispatch('investissements/getList')
       this.$store.dispatch('modefinancements/getList')
-      this.$store.dispatch('piliers/getList')
       this.$store.dispatch('bailleurs/getList')
+      this.$store.dispatch('piliers/getList')
+      
     },
     data () {
       return {

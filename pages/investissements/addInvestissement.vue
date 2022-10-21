@@ -37,6 +37,7 @@ import FormAddInvestissement from '@/components/investissements/FormAddInvestiss
       this.$store.dispatch('regions/getList')
       this.$store.dispatch('structures/getList')
       this.$store.dispatch('modefinancements/getList')
+      this.$store.dispatch('bailleurs/getList')
       this.$store.dispatch('piliers/getList')
     },
     data () {

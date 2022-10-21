@@ -416,6 +416,7 @@ import { mapMutations, mapGetters } from 'vuex'
     },
     mounted: function() {
       this.listPiliers=this.listiliers
+      this.listBailleurs=this.listbailleurs
       this.listDimensions=this.listdimensions
     },
     computed: {
@@ -425,9 +426,10 @@ import { mapMutations, mapGetters } from 'vuex'
       listdimensions: 'dimensions/listdimensions',
       listregions: 'regions/listregions',
       listmodefinancements: 'modefinancements/listmodefinancements',
+      listbailleurs: 'bailleurs/listbailleurs',
       listpiliers: 'piliers/listpiliers',
       listaxes: 'axes/listaxes',
-      listbailleurs: 'bailleurs/listbailleurs',
+      
       
     })},
     data: () => ({
@@ -455,6 +457,7 @@ import { mapMutations, mapGetters } from 'vuex'
       autreMode:false,
       devise:'',
       listPiliers:[],
+      listBailleurs:[],
       listAxes:[],
       listDimensions:[],
       modeFinanceInputs:[],
