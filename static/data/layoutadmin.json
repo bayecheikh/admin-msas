@@ -47,13 +47,13 @@
     {
       "icon": "mdi-cog-outline",
       "href": "/typesources",
-      "title": "Type Source",
+      "title": "Sous Type de structure",
       "name": "gerer-type-sources"
     },
     {
       "icon": "mdi-cog-outline",
       "href": "/sources",
-      "title": "Sources financement",
+      "title": "Type de structure",
       "name": "gerer-source-financement"
     },
     {
