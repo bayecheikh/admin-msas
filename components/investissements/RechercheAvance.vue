@@ -49,7 +49,7 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col lg="4" md="4" sm="12">
+          <v-col lg="3" md="3" sm="12">
               <v-autocomplete
               ref="inputRef"
                 v-model="selectedPiliers"
@@ -62,6 +62,21 @@
                 item-value="id"
                 return-object
                 @change="(event) => changePilier(event)"
+              >
+              </v-autocomplete>
+          </v-col>
+          <v-col lg="3" md="3" sm="12">
+              <v-autocomplete
+              ref="inputRef"
+                v-model="selectedBailleurs"
+                :items="listbailleurs"           
+                outlined
+                dense
+                label="Bailleurs"
+                item-text="libelle"
+                item-value="id"
+                return-object
+                @change="(event) => changeBailleur(event)"
               >
               </v-autocomplete>
           </v-col>
@@ -118,9 +133,10 @@ import { mapMutations, mapGetters } from 'vuex'
       this.$store.dispatch('dimensions/getList')
       this.$store.dispatch('regions/getList')
       this.$store.dispatch('structures/getList')
-      this.$store.dispatch('modefinancements/getList')
-      this.$store.dispatch('piliers/getList')
+      this.$store.dispatch('bailleurs/getList')
+      this.$store.dispatch('piliers/getList')    
       this.listPiliers=this.listpiliers
+      this.listBailleurs=this.listbailleurs
     },
     computed: {
       ...mapGetters({
@@ -129,6 +145,7 @@ import { mapMutations, mapGetters } from 'vuex'
       listdimensions: 'dimensions/listdimensions',
       listregions: 'regions/listregions',
       listmodefinancements: 'modefinancements/listmodefinancements',
+      listbailleurs: 'bailleurs/listbailleurs',
       listpiliers: 'piliers/listpiliers',
       listaxes: 'axes/axes',
       
@@ -163,6 +180,7 @@ import { mapMutations, mapGetters } from 'vuex'
       message:null,
       autreMode:false,
       devise:'',
+      listBailleurs:[],
       listPiliers:[],
       listAxes:[],
       modeFinanceInputs:[{
@@ -188,6 +206,7 @@ import { mapMutations, mapGetters } from 'vuex'
       LigneModeFinancement:[],
       LigneFinancementInputs:[],
       selectedPiliers0:[],
+      selectedBailleurs0:[],
       selectedAxes0:[],
       montantBienServicePrevus0:'',
       montantBienServiceMobilises0:'',
@@ -196,6 +215,7 @@ import { mapMutations, mapGetters } from 'vuex'
       montantInvestissementMobilises0:'',
       montantInvestissementExecutes0:'',
 
+      selectedBailleurs:[],
       selectedPiliers:[],
       selectedAxes:[],
       montantBienServicePrevus:[],
@@ -313,6 +333,7 @@ import { mapMutations, mapGetters } from 'vuex'
         let monnaie = this.selectedMonnaie?.id || null
         let region = this.selectedRegion?.id || null
         let dimension = this.selectedDimension || null
+        let bailleurs = this.selectedBailleurs?.id || null
         let piliers = this.selectedPiliers?.id || null
         let axes = this.selectedAxes?.id || null
         let departement = this.slectedDepartement?.id || null
@@ -326,6 +347,7 @@ import { mapMutations, mapGetters } from 'vuex'
           monnaie : monnaie,
           dimension : dimension,
           region : region,
+          bailleur: bailleurs,
           pilier: piliers,
           axe: axes ,
           departement: departement,
@@ -362,6 +384,7 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       submitLigne () {
         this.counterrow += 1;
+        this.selectedBailleurs.push(this.selectedBailleurs0)
         this.selectedPiliers.push(this.selectedPiliers0)
         this.selectedAxes.push(this.selectedAxes0)
         this.montantBienServicePrevus.push(this.montantBienServicePrevus0)
@@ -373,6 +396,7 @@ import { mapMutations, mapGetters } from 'vuex'
 
         this.LigneFinancementInputs.push({
           id:this.counterrow,
+          bailleur:this.selectedBailleurs0,
           pilier:this.selectedPiliers0,
           axe:this.selectedAxes0,
           montantBienServicePrevus:this.montantBienServicePrevus0,
@@ -389,6 +413,7 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('Index---- ',index);
         console.log('LigneFinancementInputs---- ',this.LigneFinancementInputs);
         this.LigneFinancementInputs.splice(index,1);
+        this.selectedBailleurs.splice(index,1);
         this.selectedPiliers.splice(index,1);
         this.selectedAxes.splice(index,1);
         this.montantBienServicePrevus.splice(index,1);
@@ -452,6 +477,10 @@ import { mapMutations, mapGetters } from 'vuex'
         this.selectedDimension = e
         
       },
+      async changeBailleur(value) {
+        this.selectedBailleurs0= value
+        //console.log('************',i)
+      },
       async changePilier(value) {
         this.showAxes=true
         this.selectedPiliers0= value
@@ -469,6 +498,7 @@ import { mapMutations, mapGetters } from 'vuex'
         this.SelectedMonnaie= []
         this.SelectedRegions= []
         this.selectedDimension= []
+        this.selectedBailleurs= []
         this.selectedPiliers= []
         this.selectedAxes= []
         this.slectedDepartement= []
@@ -482,6 +512,7 @@ import { mapMutations, mapGetters } from 'vuex'
           monnaie : null,
           dimension : null,
           region : null,
+          bailleur: null,
           pilier: null,
           axe: null ,
           departement: null,
