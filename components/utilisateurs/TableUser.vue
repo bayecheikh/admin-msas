@@ -216,7 +216,7 @@ import RechercheUser from '@/components/utilisateurs/RechercheUser';
         });
       },
       actveDesactiveUser(id) {
-        /* console.log('------------- user active',id)
+        console.log('------------- user active',id)
         this.dialog=false   
         this.$store.dispatch('toast/getMessage',{type:'processing',text:'Traitement en cours ...'})  
         this.$msasApi.$get('/active_user/'+id)
@@ -228,7 +228,7 @@ import RechercheUser from '@/components/utilisateurs/RechercheUser';
               console.log('Code error ++++++: ',error)
             }).finally(() => {              
             console.log('Requette envoyé ')
-        }); */
+        }); 
       },
       handlePageChange(value){
         console.log('-------------datasearch est',this.datasearch)

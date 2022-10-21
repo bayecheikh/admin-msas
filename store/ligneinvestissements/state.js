@@ -3,6 +3,7 @@ export default () => ({
 
     headerligneinvestissements : [
         { text: 'Structure', value: 'investissement'},
+        { text: 'Bailleur', value: 'bailleur'},
         { text: 'Pilier', value: 'pilier'},
         { text: 'Axe', value: 'axe'},
         { text: 'Montant Bien Service Prevus', value: 'montantBienServicePrevus'},
@@ -15,6 +16,7 @@ export default () => ({
     ],
     headerligneinvestissementavances : [
         { text: 'Structure', value: 'investissement.structure'},
+        { text: 'Bailleur', value: 'bailleur'},
         { text: 'Pilier', value: 'pilier'},
         { text: 'Axe', value: 'axe'},
         { text: 'Montant Bien Service Prevus', value: 'montantBienServicePrevus'},
