@@ -1,24 +1,14 @@
 <template>
-  <v-container pl-0>
-    <v-row>
-      <v-col md="2" lg="2" sm="12" >
-        <v-container pl-0>
-          <left-menu :items="leftmenuItems"></left-menu>
-        </v-container>
-      </v-col>
-
-      <v-col md="10" lg="10" sm="12" class="full-height">
-          <page-header :items="headerItems"></page-header>
-          <v-row align="center"
-            justify="center">
-            <v-col cols="6" md="6" lg="6" sm="12">
-              <form-update-user></form-update-user>
-            </v-col>
-          </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
-  
+  <div>
+  <div class="custom-container bg-title-grey">
+      <page-header :items="headerItems" class=""></page-header>  
+  </div> 
+  <div class="custom-container mt-5">
+    <v-card class="container pl-10 pt-10 pb-10 pr-10" flat>  
+      <form-update-user></form-update-user>     
+    </v-card>
+  </div> 
+</div>
 </template>
 
 <script>
@@ -32,21 +22,27 @@ import FormUpdateUser from '@/components/profil/modifier/FormUpdateUser';
       PageHeader,
       FormUpdateUser
     },
+    middleware: function ({redirect,$hasPermission}) {
+      /* if(!$hasPermission('gerer-utilisateurs')){
+        return redirect('/')
+      } */
+    },
     mounted: function() {
-      /* this.$store.dispatch('roles/getList')
-      this.$store.dispatch('structures/getList')
+      this.$store.dispatch('roles/getList')
+      /* this.$store.dispatch('structures/getList')
       this.$store.dispatch('fournisseurs/getList') */
     },
     data () {
       return {
         leftmenuItems: [
-        { text: 'Accueil', icon: 'mdi-home-outline',link:'/dashboard',name:'voir_dashboard' },
+          { text: 'Ajouter un utilisateur', icon: 'mdi-account-plus-outline',link:'/utilisateurs/addUser',position:0 },
+          { text: 'Liste des utilisateurs', icon: 'mdi-account-group',link:'/utilisateurs',position:1  }
         ],
         headerItems: [
         {
-          text: 'Dashboard',
-          disabled: false,
-          to: '/',
+          text: 'Modification profil',
+          disabled: true,
+          to: '/utilisateurs/94',
           exact: true
         }
         

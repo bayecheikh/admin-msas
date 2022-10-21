@@ -13,7 +13,7 @@
       <v-icon left>
         mdi-arrow-left
       </v-icon>
-      Retour à la liste
+      Retour
     </v-btn>
     <v-btn
       flat
@@ -73,13 +73,6 @@ import { mapMutations, mapGetters } from 'vuex'
     computed: mapGetters({
       detailUtilisateur: 'utilisateurs/detailutilisateur'
     }),
-      confirm_passwordRules() {
-        return [
-          v => !!v || 'Confirmation mot de passe est obligatoire',
-          v => (v && v.length >= 8) || 'Mot de passe doit etre superieur ou égal à 8 caracteres',
-          v => v === this.model.password || 'Les mot de passe ne sont pas identiques',
-        ];
-      },
     data: () => ({
       loading:false,
       dialog: false,
@@ -102,11 +95,11 @@ import { mapMutations, mapGetters } from 'vuex'
     methods: {
      submitForm () {
         let validation = this.$refs.form.validate()
-        console.log('Donées formulaire++++++: ',{...this.model})
+        console.log('Donées formulaire++++++: ',{...this.model,token:this.tokenTemporaire})
 
         this.loading = true;
         
-        validation && this.$essApi.post('/update-profil-password', {...this.model})
+        validation && this.$msasApi.post('/update_password', {...this.model})
           .then((res) => {    
             this.message = res.data.message
             this.color = 'success'

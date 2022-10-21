@@ -160,6 +160,37 @@
       <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <div class="custom-ligne-bloc">
           <v-row>
+              
+            <!--<v-col lg="4" md="4" sm="12">
+              <v-autocomplete
+                v-model="selectedPiliers0"
+                :items="listpiliers"
+                :rules="rules.fournisseur_services_idRules"
+                outlined
+                dense
+                label="Bailleurs"
+                item-text="nom_pilier"
+                item-value="id"
+                return-object
+                @change="(event) => changePilier(event)"
+              >
+              </v-autocomplete>
+            </v-col>-->
+            <v-col lg="4" md="4" sm="12">
+              <v-autocomplete
+                v-model="selectedBailleurs0"
+                :items="listbailleurs"
+                :rules="rules.fournisseur_services_idRules"
+                outlined
+                dense
+                label="Bailleur"
+                item-text="libelle"
+                item-value="id"
+                return-object
+                @change="(event) => changeBailleur(event)"
+              >
+              </v-autocomplete>
+            </v-col>
             <v-col lg="4" md="4" sm="12">
               <v-autocomplete
                 v-model="selectedPiliers0"
@@ -281,6 +312,9 @@
               <thead>
                 <tr>
                   <th class="text-left">
+                    Bailleur
+                  </th>
+                  <th class="text-left">
                     Pilier
                   </th>
                   <th class="text-left">
@@ -314,6 +348,7 @@
                   v-for="(item,i) in LigneFinancementInputs"
                   :key="item.id"
                 >
+                  <td>{{item.bailleur && item.bailleur.libelle}}</td>
                   <td>{{item.pilier && item.pilier.nom_pilier}}</td>
                   <td>{{item.axe && item.axe.nom_axe}}</td>
                   <td>{{item.montantBienServicePrevus}}</td>
@@ -391,7 +426,8 @@ import { mapMutations, mapGetters } from 'vuex'
       listregions: 'regions/listregions',
       listmodefinancements: 'modefinancements/listmodefinancements',
       listpiliers: 'piliers/listpiliers',
-      listaxes: 'axes/axes',
+      listaxes: 'axes/listaxes',
+      listbailleurs: 'bailleurs/listbailleurs',
       
     })},
     data: () => ({
@@ -425,6 +461,7 @@ import { mapMutations, mapGetters } from 'vuex'
       autreModeFinanceInputs:[],
       LigneModeFinancement:[],
       LigneFinancementInputs:[],
+      selectedBailleurs0:[],
       selectedPiliers0:[],
       selectedAxes0:[],
       montantBienServicePrevus0:'',
@@ -434,6 +471,7 @@ import { mapMutations, mapGetters } from 'vuex'
       montantInvestissementMobilises0:'',
       montantInvestissementExecutes0:'',
 
+      selectedBailleurs:[],
       selectedPiliers:[],
       selectedAxes:[],
       montantBienServicePrevus:[],
@@ -555,6 +593,7 @@ import { mapMutations, mapGetters } from 'vuex'
         let montantAutreModeFinance = this.model.montantAutreModeFinance
         let autreMode = this.modes
 
+        let bailleurs = this.selectedBailleurs?.map((item)=>{return item.id})
         let piliers = this.selectedPiliers?.map((item)=>{return item.id})
         let axes = this.selectedAxes?.map((item)=>{return item.id})
         console.log('++++++++piliers ',piliers)
@@ -591,6 +630,7 @@ import { mapMutations, mapGetters } from 'vuex'
           formData.append("montantAutreModeFinance",montantAutreModeFinance);
         } */
 
+        formData.append("bailleurs",bailleurs);
         formData.append("piliers",piliers);
         formData.append("axes",axes);
         formData.append("montantBienServicePrevus",montantBienServicePrevus);
@@ -638,7 +678,7 @@ import { mapMutations, mapGetters } from 'vuex'
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
-           //this.$router.push('/investissements');
+           this.$router.push('/investissements');
           })
           .catch((error) => {
               console.log('Code error ++++++: ', error)
@@ -650,6 +690,7 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       submitLigne () {
         this.counterrow += 1;
+        this.selectedBailleurs.push(this.selectedBailleurs0)
         this.selectedPiliers.push(this.selectedPiliers0)
         this.selectedAxes.push(this.selectedAxes0)
         this.montantBienServicePrevus.push(this.montantBienServicePrevus0)
@@ -661,6 +702,7 @@ import { mapMutations, mapGetters } from 'vuex'
 
         this.LigneFinancementInputs.push({
           id:this.counterrow,
+          bailleur:this.selectedBailleurs0,
           pilier:this.selectedPiliers0,
           axe:this.selectedAxes0,
           montantBienServicePrevus:this.montantBienServicePrevus0,
@@ -677,6 +719,7 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('Index---- ',index);
         console.log('LigneFinancementInputs---- ',this.LigneFinancementInputs);
         this.LigneFinancementInputs.splice(index,1);
+        this.selectedBailleurs.splice(index,1);
         this.selectedPiliers.splice(index,1);
         this.selectedAxes.splice(index,1);
         this.montantBienServicePrevus.splice(index,1);
@@ -761,6 +804,11 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('************ mode de financement',this.modeFinanceInputs)
         /*this.selectedDimension = e */
         
+      },
+      async changeBailleur(value) {
+        this.selectedBailleurs0= value        
+        console.log('************',value)
+        //console.log('************',i)
       },
       async changePilier(value) {
         this.showAxes=true

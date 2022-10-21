@@ -58,6 +58,12 @@
     },
     {
       "icon": "mdi-cog-outline",
+      "href": "/bailleurs",
+      "title": "Bailleurs",
+      "name": "gerer-bailleurs"
+    },
+    {
+      "icon": "mdi-cog-outline",
       "href": "/piliers",
       "title": "Piliers",
       "name": "gerer-piliers"

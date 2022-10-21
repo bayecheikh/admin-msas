@@ -16,10 +16,10 @@
             <v-autocomplete
               v-model="SelectedSource_financements"
               :items="listsources"
-              :rules="rules.fournisseur_services_idRules"
+              :rules="rules.Structure_services_idRules"
               outlined
               dense
-              label="Source de financement"
+              label="Type de structure"
               item-text="libelle_source"
               item-value="id"
               return-object
@@ -31,10 +31,10 @@
             <v-autocomplete
               v-model="selectedType_sources"
               :items="selectedType_sources"
-              :rules="this.showTypeSource==true?rules.fournisseur_services_idRules:null"
+              :rules="this.showTypeSource==true?rules.Structure_services_idRules:null"
               outlined
               dense
-              label="Type"
+              label="Sous type"
               item-text="libelle_type_source"
               item-value="id"
               return-object
@@ -303,7 +303,7 @@ import { mapMutations, mapGetters } from 'vuex'
     mounted: function() {
       /* this.$store.dispatch('roles/getList') */
       /* this.$store.dispatch('structures/getList')
-      this.$store.dispatch('fournisseurs/getList') */
+      this.$store.dispatch('Structures/getList') */
 
       this.model.type_zone_interventions = this.listtypezones
       this.model.dimensions = this.dimensions
@@ -315,7 +315,7 @@ import { mapMutations, mapGetters } from 'vuex'
     computed: {
       ...mapGetters({
       /* listroles: 'roles/selectlistroles', */
-      /* listfournisseurs: 'fournisseurs/selectlistfournisseurs',
+      /* listStructures: 'Structures/selectlistStructures',
       liststructures: 'structures/selectliststructures', */
       listtypezones: 'type-zones/listtypezones',
       //listtypesources: 'typesources/listtypesources',
@@ -330,7 +330,7 @@ import { mapMutations, mapGetters } from 'vuex'
       message:null,
       color:null,
       valid: true,
-      showFournisseur: false,
+      showStructure: false,
       showTypeSource: false,
       showNumAutorisation: false,
       showAccordSiege: false,
@@ -374,7 +374,6 @@ import { mapMutations, mapGetters } from 'vuex'
           v => !!v || 'Champ obligatoire'
         ],
         emailRules: [
-          v => !!v || 'l\'E-mail est obligatoire',
           v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
         ],
         rolesRules: [
@@ -386,8 +385,8 @@ import { mapMutations, mapGetters } from 'vuex'
         country_codeRules: [
           v => !!v || 'L\'indicatif du pays est obligatoire',
         ],
-        fournisseur_services_idRules: [
-          v => (!!v) || 'Fournisseur est obligatoire',
+        Structure_services_idRules: [
+          v => (!!v) || 'Structure est obligatoire',
         ],
         structure_idRules: [
           v => (!!v) || 'Structure est obligatoire',
@@ -523,9 +522,9 @@ import { mapMutations, mapGetters } from 'vuex'
 
         let checkRole = this.model.roles.filter(item => item.name === 'agent_structure').length;
         if(checkRole==1)
-        this.showFournisseur=true
+        this.showStructure=true
         else
-        this.showFournisseur=false
+        this.showStructure=false
         console.log('************',checkRole)
       },
       async changeSource_financement(source) {

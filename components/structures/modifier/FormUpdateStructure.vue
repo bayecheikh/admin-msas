@@ -19,7 +19,7 @@
               :rules="rules.fournisseur_services_idRules"
               outlined
               dense
-              label="Source de financement"
+              label="Type de structure"
               item-text="libelle_source"
               item-value="id"
               return-object
@@ -34,7 +34,7 @@
               :rules="showTypeSource==true?rules.fournisseur_services_idRules:null"
               outlined
               dense
-              label="Type"
+              label="Sous type"
               item-text="libelle_type_source"
               item-value="id"
               return-object
@@ -185,7 +185,7 @@
                 v-for="item in listtypezones"
                 :key="item.id"
                 :label="item.libelle_zone"
-                :value="item"
+                :value="item.id"
               ></v-radio>
             </v-radio-group>
           </v-col>

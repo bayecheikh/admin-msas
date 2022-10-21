@@ -11,7 +11,7 @@
       <div class="ml-auto p-2" v-if="$hasPermission('ajouter_investissement')">
         <v-btn depressed rounded color="primary" @click="goToAddinvestissement">
           <v-icon left> mdi-plus </v-icon>
-          Ajouter un investissement
+          Ajouter un financement
         </v-btn>
       </div>
     </div>
@@ -203,7 +203,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
     mounted: function() {    
       this.$hasPermission('brouillon') && this.tabItems.push({title:'Brouillons',value:'brouillon'})
       this.$hasPermission('a_valider') && this.tabItems.push({title:'A valider',value:'a_valider'})
-      this.$hasPermission('rejete') && this.tabItems.push({title:'Rejetés',value:'rejete'})
+      this.$hasPermission('rejete') && this.tabItems.push({title:'A corriger',value:'rejete'})
       this.$hasPermission('publie') && this.tabItems.push({title:'Publiés',value:'publie'})
       
       let data = {

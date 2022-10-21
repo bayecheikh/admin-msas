@@ -5,40 +5,43 @@
   </div> 
   <div class="custom-container mt-5">
     <v-card class="container" flat>  
-      <table-investissement></table-investissement>
+      <list-bailleur></list-bailleur>
     </v-card>
   </div> 
 </div>
 </template>
 
 <script>
+import LeftMenu from '@/components/LeftMenu';
 import PageHeader from '@/components/PageHeader';
-import TableInvestissement from '@/components/investissements/TableInvestissement'
-import { mapActions} from 'vuex'
+import ListBailleur from '@/components/bailleurs/ListBailleur'
   export default {
     layout: "dashboard",
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-investissements')){
+      if(!$hasPermission('gerer-bailleurs')){
         return redirect('/')
       }
     },
     components: {
+      LeftMenu,
       PageHeader,
-      TableInvestissement
+      ListBailleur
     },
     mounted: function() {
-      /* this.$store.dispatch('roles/getList')
-      this.$store.dispatch('investissements/getList')
-      this.$store.dispatch('fournisseurs/getList') */
+      this.$store.dispatch('bailleurs/getList')
     },
     data () {
       return {
         selectedItem: 0,
+        leftmenuItems: [
+          { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
+          { text: 'bailleurs', icon: 'mdi-lock',link:'/bailleurs',position:2  }
+        ],
         headerItems: [
           {
-            text: 'Liste des financements',
+            text: 'Liste des bailleurs',
             disabled: true,
-            to: '/investissements',
+            to: '/bailleurs',
             exact: true
           }
         ]
@@ -49,8 +52,5 @@ import { mapActions} from 'vuex'
 </script>
 
 <style scoped>
-.bg-title {
-  background-color: rgb(227, 235, 243) !important;
-  color: #6F96AA;
-}
+
 </style>

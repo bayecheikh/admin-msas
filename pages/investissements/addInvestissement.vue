@@ -43,7 +43,7 @@ import FormAddInvestissement from '@/components/investissements/FormAddInvestiss
       return {
         headerItems: [
         {
-          text: 'investissements',
+          text: 'Financements',
           disabled: false,
           to: '/investissements',
           exact: true

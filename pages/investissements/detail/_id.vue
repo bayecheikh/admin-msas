@@ -44,7 +44,7 @@ import HistoriqueInvestissement from '@/components/investissements/detail/Histor
         id : this.$nuxt._route.params.id,
         headerItems: [
         {
-          text: 'investissements',
+          text: 'Financements',
           disabled: false,
           to: '/investissements',
           exact: true

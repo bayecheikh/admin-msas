@@ -165,6 +165,21 @@
           <v-row>
             <v-col lg="4" md="4" sm="12">
               <v-autocomplete
+                v-model="selectedBailleurs0"
+                :items="listbailleurs"
+                :rules="rules.fournisseur_services_idRules"
+                outlined
+                dense
+                label="Bailleurs"
+                item-text="libelle"
+                item-value="id"
+                return-object
+                @change="(event) => changeBailleur(event)"
+              >
+              </v-autocomplete>
+            </v-col>
+            <v-col lg="4" md="4" sm="12">
+              <v-autocomplete
                 v-model="selectedPiliers0"
                 :items="listpiliers"
                 :rules="rules.fournisseur_services_idRules"
@@ -284,10 +299,13 @@
               <thead>
                 <tr>
                   <th class="text-left">
-                    Référence Pilier
+                    Bailleur
                   </th>
                   <th class="text-left">
-                    Référence Axe
+                    Pilier
+                  </th>
+                  <th class="text-left">
+                    Axe
                   </th>
                   <th class="text-left">
                     Montant Biens et services prévu
@@ -317,6 +335,7 @@
                   v-for="(item,i) in LigneFinancementInputs"
                   :key="item.id"
                 >
+                  <td>{{item.bailleur?item.bailleur.libelle:findBailleurName(item.id_bailleur) && findBailleurName(item.id_bailleur).libelle }}</td>
                   <td>{{item.pilier?item.pilier.nom_pilier:findPilierName(item.id_pilier) && findPilierName(item.id_pilier).nom_pilier }}</td>
                   <td>{{item.pilier?item.axe.nom_axe:findAxeName(item.id_pilier,item.id_axe) && findAxeName(item.id_pilier,item.id_axe).nom_axe}}</td>
                   <td>{{item.montantBienServicePrevus}}</td>
@@ -384,7 +403,7 @@ import { mapMutations, mapGetters } from 'vuex'
     },
     mounted: async function() {
       await this.getDetail(this.$nuxt._route.params.id)
-      this.listPiliers=this.listiliers
+      this.listPiliers=this.listpiliers
       this.listDimensions=this.listdimensions
     },
     computed: {
@@ -396,6 +415,7 @@ import { mapMutations, mapGetters } from 'vuex'
       listregions: 'regions/listregions',
       listmodefinancements: 'modefinancements/listmodefinancements',
       listpiliers: 'piliers/listpiliers',
+      listbailleurs: 'bailleurs/listbailleurs',
       
     })},
     data: () => ({
@@ -432,6 +452,7 @@ import { mapMutations, mapGetters } from 'vuex'
       LigneModeFinancement:[],
       LigneFinancementInputs:[],
       selectedPiliers0:[],
+      selectedBailleurs0:[],
       selectedAxes0:[],
       montantBienServicePrevus0:'',
       montantBienServiceMobilises0:'',
@@ -441,6 +462,7 @@ import { mapMutations, mapGetters } from 'vuex'
       montantInvestissementExecutes0:'',
 
       selectedPiliers:[],
+      selectedBailleurs:[],
       selectedAxes:[],
       montantBienServicePrevus:[],
       montantBienServiceMobilises:[],
@@ -554,31 +576,7 @@ import { mapMutations, mapGetters } from 'vuex'
               this.selectedModeFinancementsLibelle.push(response.data.mode_financements[i].libelle)
               this.modes2.push({id:this.counterrow_mode2})
             }
-            
-            for(let i=0;i<=response.data.ligne_financements.length;i++){
-              this.counterrow += 1;
-              this.selectedPiliers.push(response.data.ligne_financements[i].id_pilier)
-              this.selectedAxes.push(response.data.ligne_financements[i].id_axe)
-              this.montantBienServicePrevus.push(response.data.ligne_financements[i].montantBienServicePrevus)
-              this.montantBienServiceMobilises.push(response.data.ligne_financements[i].montantBienServiceMobilises)
-              this.montantBienServiceExecutes.push(response.data.ligne_financements[i].montantBienServiceExecutes)
-              this.montantInvestissementPrevus.push(response.data.ligne_financements[i].montantInvestissementPrevus)
-              this.montantInvestissementMobilises.push(response.data.ligne_financements[i].montantInvestissementMobilises)
-              this.montantInvestissementExecutes.push(response.data.ligne_financements[i].montantInvestissementExecutes)
-
-              this.LigneFinancementInputs.push({
-                id:this.counterrow,
-                pilier:response.data.ligne_financements[i],
-                axe:response.data.ligne_financements[i],
-                montantBienServicePrevus:response.data.ligne_financements[i].montantBienServicePrevus,
-                montantBienServiceMobilises:response.data.ligne_financements[i].montantBienServiceMobilises,
-                montantBienServiceExecutes:response.data.ligne_financements[i].montantBienServiceExecutes,
-                montantInvestissementPrevus:response.data.ligne_financements[i].montantInvestissementPrevus,
-                montantInvestissementMobilises:response.data.ligne_financements[i].montantInvestissementMobilises,
-                montantInvestissementExecutes:response.data.ligne_financements[i].montantInvestissementExecutes
-              })
-              
-            }
+          
             /* this.model.nom_structure= response.data.nom_structure
             this.selectedSource_financements= response.data.source_financements[0]
             this.changeSource_financement(response.data.source_financements[0])
@@ -641,16 +639,15 @@ import { mapMutations, mapGetters } from 'vuex'
         let montantAutreModeFinance = this.model.montantAutreModeFinance
         let autreMode = this.modes
 
-        let piliers = this.selectedPiliers?.map((item)=>{return item.id})
-        let axes = this.selectedAxes?.map((item)=>{return item.id})
-        console.log('++++++++piliers ',piliers)
-        console.log('++++++++axes ',axes)
-        let montantBienServicePrevus = this.montantBienServicePrevus
-        let montantBienServiceMobilises = this.montantBienServiceMobilises
-        let montantBienServiceExecutes = this.montantBienServiceExecutes
-        let montantInvestissementPrevus = this.montantInvestissementPrevus
-        let montantInvestissementMobilises = this.montantInvestissementMobilises
-        let montantInvestissementExecutes = this.montantInvestissementExecutes
+        let bailleurs = []
+        let piliers = []
+        let axes = []
+        let montantBienServicePrevus = []
+        let montantBienServiceMobilises = []
+        let montantBienServiceExecutes = []
+        let montantInvestissementPrevus = []
+        let montantInvestissementMobilises = []
+        let montantInvestissementExecutes =[]
 
         if(autreMode.length){
           
@@ -678,6 +675,7 @@ import { mapMutations, mapGetters } from 'vuex'
             this.counterrow++
             let ligneObj = {
             id:this.counterrow,
+            bailleur:this.findBailleurName(this.LigneFinancementInputs[i].id_bailleur),
             pilier:this.findPilierName(this.LigneFinancementInputs[i].id_pilier),
             axe:this.findAxeName(this.LigneFinancementInputs[i].id_pilier,this.LigneFinancementInputs[i].id_axe),
             montantBienServicePrevus:this.LigneFinancementInputs[i].montantBienServicePrevus,
@@ -694,6 +692,7 @@ import { mapMutations, mapGetters } from 'vuex'
             this.counterrow++
             let ligneObj = {
             id:this.counterrow,
+            bailleur:this.LigneFinancementInputs[i].bailleur,
             pilier:this.LigneFinancementInputs[i].pilier,
             axe:this.LigneFinancementInputs[i].axe,
             montantBienServicePrevus:this.LigneFinancementInputs[i].montantBienServicePrevus,
@@ -708,6 +707,19 @@ import { mapMutations, mapGetters } from 'vuex'
           
           
         }
+        for(let i=0;i<ligneFinancements.length;i++){
+          bailleurs.push(ligneFinancements[i].bailleur)
+          piliers.push(ligneFinancements[i].pilier)
+          axes.push(ligneFinancements[i].axe)
+          montantBienServicePrevus.push(ligneFinancements[i].montantBienServicePrevus)
+          montantBienServiceMobilises.push(ligneFinancements[i].montantBienServiceMobilises)
+          montantBienServiceExecutes.push(ligneFinancements[i].montantBienServiceExecutes)
+          montantInvestissementPrevus.push(ligneFinancements[i].montantInvestissementPrevus)
+          montantInvestissementMobilises.push(ligneFinancements[i].montantInvestissementMobilises)
+          montantInvestissementExecutes.push(ligneFinancements[i].montantInvestissementExecutes)
+        }
+
+        
         //console.log('libelle mode+++++++++++++',libelleModeFinancements)
         let formData = new FormData();
         formData.append("id", this.model.id);
@@ -720,8 +732,10 @@ import { mapMutations, mapGetters } from 'vuex'
           formData.append("montantAutreModeFinance",montantAutreModeFinance);
         } */
 
-        formData.append("piliers",piliers);
-        formData.append("axes",axes);
+
+        formData.append("bailleurs",bailleurs?.map((item)=>{return item.id}));
+        formData.append("piliers",piliers?.map((item)=>{return item.id}));
+        formData.append("axes",axes?.map((item)=>{return item.id}));
         formData.append("montantBienServicePrevus",montantBienServicePrevus);
         formData.append("montantBienServiceMobilises",montantBienServiceMobilises);
         formData.append("montantBienServiceExecutes",montantBienServiceExecutes);
@@ -780,6 +794,7 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       submitLigne () {
         this.counterrow += 1;
+        this.selectedBailleurs.push(this.selectedBailleurs0)
         this.selectedPiliers.push(this.selectedPiliers0)
         this.selectedAxes.push(this.selectedAxes0)
         this.montantBienServicePrevus.push(this.montantBienServicePrevus0)
@@ -791,6 +806,7 @@ import { mapMutations, mapGetters } from 'vuex'
 
         this.LigneFinancementInputs.push({
           id:this.counterrow,
+          bailleur:this.selectedBailleurs0,
           pilier:this.selectedPiliers0,
           axe:this.selectedAxes0,
           montantBienServicePrevus:this.montantBienServicePrevus0,
@@ -807,6 +823,7 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('Index---- ',index);
         console.log('LigneFinancementInputs---- ',this.LigneFinancementInputs);
         this.LigneFinancementInputs.splice(index,1);
+        this.selectedBailleurs.splice(index,1);
         this.selectedPiliers.splice(index,1);
         this.selectedAxes.splice(index,1);
         this.montantBienServicePrevus.splice(index,1);
@@ -854,6 +871,9 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       resetValidationForm () {
         this.$refs.form.resetValidation()
+      },
+      findBailleurName (id) {
+        return this.listbailleurs.filter(item => item.id === parseInt(id))[0]
       },
       findPilierName (id) {
         return this.listpiliers.filter(item => item.id === parseInt(id))[0]
@@ -909,6 +929,10 @@ import { mapMutations, mapGetters } from 'vuex'
         this.selectedPiliers0= value
         this.listAxes0 = value.axes         
         console.log('************',value)
+        //console.log('************',i)
+      },
+      async changeBailleur(value) {
+        this.selectedBailleurs0= value
         //console.log('************',i)
       },
       async changeAxe(value) {

@@ -80,7 +80,7 @@
                   <div class=""><h5>{{loggedInUser && loggedInUser.name}}</h5> </div>
                   <div class=""><p class="pb-0 mb-1">{{loggedInUser && loggedInUser.email}}</p></div>
                 </v-card>
-                <!--<v-card
+                <v-card
                   class="d-flex align-center flex-column mt-1"
                   flat
                   tile
@@ -88,7 +88,7 @@
                   <v-btn text deprmsased @click="goToProfile" class="customTopNav pop-user-button flex text-sm-center">
                     Parametres
                   </v-btn> 
-                </v-card>-->
+                </v-card>
               </div>
               <v-card
                 class="d-flex align-center flex-column pt-0 pb-0"

@@ -16,7 +16,7 @@
           <v-icon left>
             mdi-plus
           </v-icon>
-          Ajouter un investissement
+          Ajouter un financement
         </v-btn>
       </div>
     </div>

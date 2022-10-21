@@ -2,7 +2,7 @@
   <div>
     <v-form class="text-sm-center" v-model="valid" ref="form" enctype="multipart/form-data"
       >
-      <div >
+      <!--<div >
         <div class="headline">
           <v-avatar v-if="imageData" size="100px">
             <img :src="imageData" alt="Avatar"/>
@@ -32,10 +32,10 @@
           <v-icon>mdi-camera-outline</v-icon>
         </v-btn>
       </div>
-      <span class="caption">Photo de profil png ou jpg max 2Mo</span>
+      <span class="caption">Photo de profil png ou jpg max 2Mo</span>-->
       <v-row>
-        <v-col md="12" lg="12" sm="12">
-          <!-- <v-radio-group
+        <!-- <v-col md="12" lg="12" sm="12">
+          <v-radio-group
             v-model="model.sexe"
             :rules="rules.sexeRules"
             row
@@ -48,11 +48,19 @@
               label="Feminin"
               value="Feminin"
             ></v-radio>
-          </v-radio-group> -->
-        </v-col>
+          </v-radio-group> 
+        </v-col>-->
         <v-col md="6" lg="6" sm="12">
           <v-text-field
-            label="Prénom *"
+            label="Prénom et Nom"
+            outlined dense
+            v-model="model.name"
+            :rules="rules.firstnameRules"
+          ></v-text-field>
+        </v-col>
+        <!--<v-col md="6" lg="6" sm="12">
+          <v-text-field
+            label="Prénom"
             outlined dense
             v-model="model.firstname"
             :rules="rules.firstnameRules"
@@ -60,21 +68,21 @@
         </v-col>
         <v-col md="6" lg="6" sm="12">
           <v-text-field
-            label="Nom *"
+            label="Nom"
             outlined dense
             v-model="model.lastname"
             :rules="rules.lastnameRules"
           ></v-text-field>
-        </v-col>
-        <!--<v-col md="6" lg="6" sm="12">
+        </v-col>-->
+        <v-col md="6" lg="6" sm="12">
           <v-text-field
-            label="Adresse Email *"
+            label="Adresse Email"
             outlined dense
             v-model="model.email"
             :rules="rules.emailRules"
           ></v-text-field>
         </v-col>
-       <v-col md="6" lg="6" sm="12">
+        <!-- <v-col md="6" lg="6" sm="12">
           <v-text-field
             label="Login"
             outlined dense
@@ -82,14 +90,14 @@
             :rules="rules.usernameRules"
           ></v-text-field>
         </v-col> -->
-        <v-col md="6" lg="6" sm="12">
+       <!-- <v-col md="6" lg="6" sm="12">
           <v-text-field
             label="Fonction"
             outlined dense
             v-model="model.fonction"
             :rules="rules.fonctionRules"
           ></v-text-field>
-        </v-col>
+        </v-col>-->
         <!-- <v-col lg="6" sm="12" md="6">
           <v-menu
             v-model="menu1"
@@ -124,14 +132,14 @@
             :rules="rules.place_of_birthRules"
           ></v-text-field>
         </v-col> -->
-        <v-col md="6" lg="6" sm="12">
+       <!--  <v-col md="6" lg="6" sm="12">
           <v-text-field
             label="Adresse"
             outlined dense
             v-model="model.adresse"
             :rules="rules.adresseRules"
           ></v-text-field>
-        </v-col>
+        </v-col>-->
         <!-- <v-col md="6" lg="6" sm="12">
           <vue-tel-input-vuetify label="Téléphone"
             outlined dense
@@ -147,23 +155,65 @@
             v-model="model.country_code"
             :rules="rules.country_codeRules"
           ></v-text-field>
-        </v-col> 
-        <v-col md="2" lg="2" sm="12">
+        </v-col> -->
+        <!--<v-col md="2" lg="2" sm="12">
           <v-text-field
             label="Indicatif"
             dense outlined
             v-model="model.country_code"
             :rules="rules.country_codeRules"
           ></v-text-field>
-        </v-col>-->
-        <v-col md="6" lg="6" sm="12">
+        </v-col>
+        <v-col md="4" lg="4" sm="12">
           <v-text-field
-            label="Téléphone *"
+            label="Téléphone"
             outlined dense
             v-model="model.telephone"
             :rules="rules.telephoneRules"
           ></v-text-field>
-        </v-col>       
+        </v-col>-->
+        <v-col
+          lg="6"
+          md="6"
+          sm="12"
+        >
+          <v-autocomplete
+              v-model="model.roles"
+              :items="listroles"
+              :rules="rules.rolesRules"
+              outlined
+              dense
+              multiple
+              small-chips
+              label="Role"
+              item-text="description"
+              item-value="id"
+              clearable
+              return-object
+              @change="changeRole"
+            >
+          </v-autocomplete>
+        </v-col>
+        <v-col
+        lg="6"
+        md="6"
+        sm="12"
+        >
+        <v-autocomplete
+            v-model="model.structure_id"
+            :rules="this.showFournisseur==true?rules.fournisseur_services_idRules:null"
+            :items="liststructures"
+            outlined
+            dense
+            label="Structure"
+            item-text="nom_structure"
+            item-value="id"
+            return-object
+            v-if="showFournisseur"
+          >
+        </v-autocomplete>
+      </v-col>
+      
       </v-row>
   
       <v-btn
@@ -171,12 +221,10 @@
         :disabled="!valid"
         class="mr-4 text-white" color="#1B73E8"
         @click="submitForm"
-        depressed
       >
         Enregistrer
       </v-btn>
     </v-form>
-    <Notification :message="message" :color="color" v-if="message" class="my-5"/>
   </div>
   </template>
   
@@ -186,15 +234,16 @@
       components: {
       },
       mounted: function() {
-        this.getDetail()
-        console.log('--------------- detail user ',this.detailutilisateur)
+        this.getDetail(this.$nuxt._route.params.id)
+        this.$store.dispatch('structures/getSelectList')
       },
       computed: 
         mapGetters({
         detailutilisateur:'utilisateurs/detailutilisateur',
         listroles: 'roles/selectlistroles',
-        /* listfournisseurs: 'fournisseurs/selectlistfournisseurs',*/
-        liststructures: 'structures/selectliststructures', 
+        liststructures: 'structures/selectliststructures'
+        /* listfournisseurs: 'fournisseurs/selectlistfournisseurs',
+        liststructures: 'structures/selectliststructures', */
       }),
       data: () => ({
         loading: false,
@@ -205,7 +254,7 @@
         message:null,
         model: {
           id:null,
-          avatar:null,
+          avatar:'',
           name: '',
           firstname: '',
           lastname: '',
@@ -219,98 +268,92 @@
           structure_id:null
         },
         rules:{
-        firstnameRules: [
-          v => !!v || 'Prénom est obligatoire',
-          v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
-        ],
-        lastnameRules: [
-          v => !!v || 'Nom est obligatoire',
-          v => (v && v.length <= 50) || 'Nom doit etre inférieur à 10 caratères',
-        ],
-        emailRules: [
-          v => !!v || 'E-mail est obligatoire',
-          v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
-        ],
-        usernameRules: [
-          v => !!v || 'Login est obligatoire',
-          v => (v && v.length <= 10) || 'Nom doit etre inférieur à 10 caratères',
-        ],
-        rolesRules: [
-          v => (v && !!v.length) || 'Role est obligatoire',
-        ],
-        telephoneRules: [
-          v => !!v || 'Téléphone est obligatoire',
-        ],
-        country_codeRules: [
-        v => (v==null || v?.length <= 20) || 'Indicatif doit etre inférieur à 20 caratères',
-        ],
-        fournisseur_services_idRules: [
-          //v => (!!v) || 'Fournisseur est obligatoire',
-        ],
-        structure_idRules: [
-          v => (!!v) || 'Structure est obligatoire',
-        ],
-        adresseRules: [
-          //v => !!v || 'Adresse est obligatoire',
-          v => (v && v.length <= 100) || 'Adresse doit etre inférieur à 100 caratères',
-        ],
-        nationalityRules: [
-          //v => !!v || 'Nationalité est obligatoire',
-          v => (v.length >= 50) || 'Nationalité doit etre inférieur à 50() caratères',
-        ],
-        date_of_birthRules: [
-          v => !!v || 'Date de naissance est obligatoire',
-        ],
-        place_of_birthRules: [
-          v => !!v || 'Lieu de naissance est obligatoire',
-          v => (v && v.length <= 50) || 'Lieu de naissance doit etre inférieur à 20 caratères',
-        ],
-        /* sexeRules: [
-          v => !!v || 'Civilité est obligatoire',
-        ], */
-        type_identificationRules: [
-          v => !!v || 'Type d\'identification est obligatoire',
-        ],
-        numero_identificationRules: [
-          v => !!v || 'Numéro d\'identification est obligatoire'
-        ],
-        fonctionRules: [
-        v => (v && v.length <= 100) || 'Adresse doit etre inférieur à 100 caratères',
-        ]
-      },
+          firstnameRules: [
+            v => !!v || 'Prénom est obligatoire',
+            v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
+          ],
+          lastnameRules: [
+            v => !!v || 'Nom est obligatoire',
+            v => (v && v.length <= 50) || 'Nom doit etre inférieur à 10 caratères',
+          ],
+          emailRules: [
+            v => !!v || 'E-mail est obligatoire',
+            v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
+          ],
+          usernameRules: [
+            v => !!v || 'Login est obligatoire',
+            v => (v && v.length <= 10) || 'Nom doit etre inférieur à 10 caratères',
+          ],
+          rolesRules: [
+            v => (v && !!v.length) || 'Role est obligatoire',
+          ],
+          telephoneRules: [
+            v => !!v || 'Téléphone est obligatoire',
+          ],
+          country_codeRules: [
+            v => !!v || 'L\'indicatif du pays est obligatoire',
+          ],
+          fournisseur_services_idRules: [
+            v => (!!v) || 'Fournisseur est obligatoire',
+          ],
+          structure_idRules: [
+            v => (!!v) || 'Structure est obligatoire',
+          ],
+          adresseRules: [
+            v => !!v || 'Adresse est obligatoire',
+            v => (v && v.length <= 100) || 'Adresse doit etre inférieur à 50 caratères',
+          ],
+          nationalityRules: [
+            v => !!v || 'Nationalité est obligatoire',
+            v => (v && v.length <= 50) || 'Nationalité doit etre inférieur à 15 caratères',
+          ],
+          date_of_birthRules: [
+            v => !!v || 'Date de naissance est obligatoire',
+          ],
+          place_of_birthRules: [
+            v => !!v || 'Lieu de naissance est obligatoire',
+            v => (v && v.length <= 50) || 'Lieu de naissance doit etre inférieur à 20 caratères',
+          ],
+          /* sexeRules: [
+            v => !!v || 'Civilité est obligatoire',
+          ], */
+          type_identificationRules: [
+            v => !!v || 'Type d\'identification est obligatoire',
+          ],
+          numero_identificationRules: [
+            v => !!v || 'Numéro d\'identification est obligatoire'
+          ],
+          fonctionRules: [
+            v => !!v || 'Fonction est obligatoire'
+          ]
+        },
   
         imageData:null,
       }),
       methods: {
-        getDetail(){
-            let id = this.$route.params.id
-            this.progress=true
-            this.$essApi.$get('/profil-backoffice-user/'+id)
-          .then(async (response) => {
-            console.log('Reponse données reçu +++++ : ', response.backoffice_user)
-            this.$store.commit('utilisateurs/initdetail',response.backoffice_user)
-            this.model.id = this.detailutilisateur.id,
-            this.imageData = this.detailutilisateur.avatar,
-            this.model.name= this.detailutilisateur.name,
-            this.model.firstname= this.detailutilisateur.firstname,
-            this.model.lastname= this.detailutilisateur.lastname,
-            this.model.email= this.detailutilisateur.email,
-            this.model.roles= this.detailutilisateur.roles,
-            this.model.fournisseur_services_id=this.detailutilisateur.fournisseur_services_id,
-            this.model.country_code=this.detailutilisateur.country_code,
-            this.model.telephone= this.detailutilisateur.telephone,
-            this.model.adresse= this.detailutilisateur.adresse,
-            this.model.fonction= this.detailutilisateur.fonction,
-            this.model.structure_id=this.detailutilisateur.structure
-            this.showFournisseur = this.model.roles.filter(item => item.name === 'agent_structure').length?true:false;
-            console.log('--------------- detail user ',this.detailutilisateur)
-          }).catch((error) => {
-              console.log('Code error ++++++: ', error?.response?.data?.message)
-          }).finally(() => {
-              console.log('Requette envoyé ')
-              this.progress=false
-          });
-        },
+        getDetail(id){
+          this.progress=true
+          this.$msasApi.$get('/users/'+id)
+        .then(async (response) => {
+            console.log('Detail ++++++++++',response)
+            this.$store.dispatch('utilisateurs/getDetail',response.data)
+            this.model.id = response.data.id
+            /* this.imageData = this.detailutilisateur.avatar, */
+            this.model.name= response.data.name
+            /* this.model.firstname= this.detailutilisateur.firstname,
+            this.model.lastname= this.detailutilisateur.lastname, */
+            this.model.email= response.data.email
+            this.model.roles= response.data.roles
+            this.model.structure_id = response.data.structures[0]?.id
+            await this.changeRole()
+        }).catch((error) => {
+             this.$toast.error(error?.response?.data?.message).goAway(3000)
+            console.log('Code error ++++++: ', error?.response?.data?.message)
+        }).finally(() => {
+            console.log('Requette envoyé ')
+        });
+        //console.log('total items++++++++++',this.paginationstructure)
+      },
         handleFileUpload(e){         
           //Recupère le fichier
           const input = this.$refs.file
@@ -341,48 +384,30 @@
         },
         submitForm () {
           let validation = this.$refs.form.validate()
-        let selectedRoles = this.model.roles.map((item)=>{return item.id})
-        this.model.roles=selectedRoles
-        this.loading = true;
-        console.log('Donées formulaire++++++: ',{...this.model,roles:selectedRoles,...this.model.avatar})
-
-
-        let formData = new FormData();
-
-        if(this.model.avatar != null)
-        {
-          formData.append("avatar", this.model.avatar);
-        }
-        formData.append("firstname",this.model.firstname );
-        formData.append("lastname",this.model.lastname);
-        //formData.append("email",this.model.email);
-        //formData.append("roles",JSON.stringify(this.model.roles));
-
-       /*  var roles = this.model.roles
-        var totalroles = roles.length;
-        for (var index = 0; index < totalroles; index++) {
-            formData.append("roles[]", roles[index]);
-        } */
-
-        /* if(this.model.fournisseur_services_id != null)
-        {
-          formData.append("fournisseur_services_id",this.model.fournisseur_services_id);
-        } */
-
-        //formData.append("country_code",this.model.country_code),
-        formData.append("telephone",this.model.telephone),
-        formData.append("adresse",this.model.adresse),
-        formData.append("fonction",this.model.fonction),
-        //formData.append("structure_id",this.model.structure_id.id)
-
-        //console.log('this.model.roles', this.model.roles);
-        //console.log('selectedRoles', selectedRoles);
-        //console.log('Donées formulaire files ++++++: ',formData)
+          let selectedRoles = this.model.roles.map((item)=>{return item.id})
+          this.model.roles=selectedRoles
+          this.loading = true;
   
-          validation && this.$essFileApi.post('/update-profil-backoffice-user/'+this.model.id,formData)
+          /* let formData = new FormData();
+          formData.append("avatar", this.model.avatar);
+          formData.append("id", this.model.id);
+          formData.append("firstname",this.model.firstname );
+          formData.append("lastname",this.model.lastname);
+          formData.append("email",this.model.email);
+          formData.append("roles",JSON.stringify(this.model.roles));
+          if(this.model.fournisseur_services_id != null){
+            formData.append("fournisseur_services_id",this.model.fournisseur_services_id);
+          }
+          formData.append("country_code",this.model.country_code),
+          formData.append("telephone",this.model.telephone),
+          formData.append("adresse",this.model.adresse),
+          formData.append("fonction",this.model.fonction),
+          formData.append("structure_id",this.model.structure_id) */
+  
+          validation && this.$msasFileApi.put('/users/'+this.model.id,{...this.model,roles:selectedRoles,...this.model.avatar})
             .then((res) => {
               this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message || 'Modification réussi'})
-              this.$router.push('/profil/'+this.model.id);
+              this.$router.push('/utilisateurs');
             })
             .catch((error) => {
                 console.log('Code error ++++++: ', error)
@@ -398,16 +423,16 @@
         resetValidationForm () {
           this.$refs.form.resetValidation()
         },
-        async changeRole(role) {
-  
-          let checkRole = this.model.roles.filter(item => item.name === 'agent_structure').length;
-          if(checkRole==1)
-          this.showFournisseur=true
-          else
-          this.showFournisseur=false
-          console.log('************',checkRole)
+        async changeRole() {
+
+        let checkRole = this.model.roles.filter(item => (item && item.name === 'point_focal' || item && item.name === 'admin_structure' || item && item.name === 'DGES' || item && item.name === 'directeur_eps')).length;
+        if(checkRole==1)
+        this.showFournisseur=true
+        else
+        this.showFournisseur=false
+        console.log('************',checkRole)
         },
-      },
+        },
       metaInfo () {
         return {
           items: this.items,

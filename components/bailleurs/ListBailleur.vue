@@ -11,28 +11,28 @@
         depressed
         rounded
         color="primary"
-        @click="goToAddTypesource"
+        @click="goToAddbailleur"
         >
           <v-icon left>
             mdi-plus
           </v-icon>
-          Nouveau  type de source
+          Nouveau bailleur
         </v-btn>
       </div>
     </div>
     
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="item in tabItems"  :key="item.value" >
-          <table-typesource :tab="item.value"></table-typesource> 
+          <table-bailleur :tab="item.value"></table-bailleur> 
       </v-tab-item>          
     </v-tabs-items>
   </div>
 </template>
 <script>
-import TableTypesource from '@/components/typesources/TableTypesource'
+import TableBailleur from '@/components/bailleurs/TableBailleur'
   export default {
     components: {
-      TableTypesource
+      TableBailleur
     },
     data: () => ({
       tab: null,
@@ -42,8 +42,8 @@ import TableTypesource from '@/components/typesources/TableTypesource'
       selected: []
     }),
     methods:{
-      goToAddTypesource() {      
-        this.$router.push('/typesources/addTypesource');
+      goToAddbailleur() {      
+        this.$router.push('/bailleurs/addbailleur');
       },
     }
   }
