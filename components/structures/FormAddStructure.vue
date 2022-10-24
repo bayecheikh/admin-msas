@@ -12,6 +12,16 @@
               :rules="rules.nom_structureRules"
             ></v-text-field>
           </v-col>
+          <v-col md="4" lg="4" sm="12">
+            <v-select
+              :items="itemsNatureStructure"
+              v-model="model.donneur_receveur_mixte"
+              :rules="rules.nom_structureRules"
+              label="Nature structure"
+              outlined
+              dense
+            ></v-select>
+          </v-col>
           <v-col lg="4" md="4" sm="12">
             <v-autocomplete
               v-model="SelectedSource_financements"
@@ -325,6 +335,7 @@ import { mapMutations, mapGetters } from 'vuex'
       listdimensions: 'dimensions/listdimensions',
     })},
     data: () => ({
+      itemsNatureStructure:['Donneur','Receveur','Mixte'],
       filename : '',
       loading: false,
       message:null,
@@ -346,6 +357,7 @@ import { mapMutations, mapGetters } from 'vuex'
       selectedType_zone_interventions: [],
       model: {
         nom_structure:'',
+        donneur_receveur_mixte:'',
         numero_autorisation:'',
         accord_siege:'',
         numero_agrement:'',
@@ -460,6 +472,7 @@ import { mapMutations, mapGetters } from 'vuex'
         let formData = new FormData();
 
         formData.append("nom_structure", this.model.nom_structure);
+        formData.append("donneur_receveur_mixte", this.model.donneur_receveur_mixte);
         formData.append("numero_autorisation",this.model.numero_autorisation);
         formData.append("accord_siege",this.model.accord_siege);
         formData.append("numero_agrement",this.model.numero_agrement);
