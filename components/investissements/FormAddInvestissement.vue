@@ -180,7 +180,7 @@
               <v-autocomplete
                 v-model="selectedStructureSources0"
                 :items="liststructures"
-                :rules="rules.fournisseur_services_idRules"
+                :rules="rules.textfieldRules"
                 outlined
                 dense
                 label="Source"
@@ -195,7 +195,7 @@
               <v-autocomplete
                 v-model="selectedStructureBeneficiaires0"
                 :items="liststructures"
-                :rules="rules.fournisseur_services_idRules"
+                :rules="rules.textfieldRules"
                 outlined
                 dense
                 label="Bénéficiaire"
@@ -210,7 +210,7 @@
               <v-autocomplete
                 v-model="selectedPiliers0"
                 :items="listpiliers"
-                :rules="rules.fournisseur_services_idRules"
+                :rules="rules.textfieldRules"
                 outlined
                 dense
                 label="Piliers"
@@ -225,7 +225,7 @@
               <v-autocomplete
                 v-model="selectedAxes0"
                 :items="listAxes0"
-                :rules="showAxes==true?rules.fournisseur_services_idRules:null"
+                :rules="showAxes==true?rules.textfieldRules:null"
                 outlined
                 dense
                 label="Axe"
@@ -249,7 +249,7 @@
                         outlined
                         dense
                         v-model="montantBienServicePrevus0"
-                        :rules="rules.firstnameRules"
+                        :rules="rules.textfieldRules"
                       ></v-text-field>
                     </v-col>
                     <v-col md="4" lg="4" sm="12">
@@ -258,7 +258,7 @@
                         outlined
                         dense
                         v-model="montantBienServiceMobilises0"
-                        :rules="rules.firstnameRules"
+                        :rules="rules.numberRules"
                       ></v-text-field>
                     </v-col>
                     <v-col md="4" lg="4" sm="12">
@@ -267,7 +267,7 @@
                         outlined
                         dense
                         v-model="montantBienServiceExecutes0"
-                        :rules="rules.firstnameRules"
+                        :rules="rules.numberRules"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -285,7 +285,7 @@
                         outlined
                         dense
                         v-model="montantInvestissementPrevus0"
-                        :rules="rules.firstnameRules"
+                        :rules="rules.numberRules"
                       ></v-text-field>
                     </v-col>
                     <v-col md="4" lg="4" sm="12">
@@ -294,7 +294,7 @@
                         outlined
                         dense
                         v-model="montantInvestissementMobilises0"
-                        :rules="rules.firstnameRules"
+                        :rules="rules.numberRules"
                       ></v-text-field>
                     </v-col>
                     <v-col md="4" lg="4" sm="12">
@@ -303,7 +303,7 @@
                         outlined
                         dense
                         v-model="montantInvestissementExecutes0"
-                        :rules="rules.firstnameRules"
+                        :rules="rules.numberRules"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -533,6 +533,13 @@ import { mapMutations, mapGetters } from 'vuex'
           v => !!v || 'l\'E-mail est obligatoire',
           v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
         ],
+        numberRules: [
+        v  => {
+          if (!v.trim() || v=='') return true;
+          if (!isNaN(parseFloat(v)) && v >= 0 ) return true;
+          return 'Veuillez saisir un chiffre valide';
+        },
+        ],
         rolesRules: [
           v => (v && !!v.length) || 'Role est obligatoire',
         ],
@@ -545,6 +552,7 @@ import { mapMutations, mapGetters } from 'vuex'
         fournisseur_services_idRules: [
           v => (!!v) || 'Fournisseur est obligatoire',
         ],
+        textfieldRules: [],
         structure_idRules: [
           v => (!!v) || 'Structure est obligatoire',
         ],
@@ -741,8 +749,20 @@ import { mapMutations, mapGetters } from 'vuex'
           montantInvestissementMobilises:this.montantInvestissementMobilises0,
           montantInvestissementExecutes:this.montantInvestissementExecutes0
         })
-
+        this.resetLigneFinancement()
         console.log('Donées LigneFinancementInputs ++++++: ',this.LigneFinancementInputs)
+      },
+      resetLigneFinancement () {
+        this.selectedStructureSources0 = ''
+        this.selectedStructureBeneficiaires0 = ''
+        this.selectedPiliers0 = ''
+        this.selectedAxes0 = ''
+        this.montantBienServicePrevus0 = ''
+        this.montantBienServiceMobilises0 = ''
+        this.montantBienServiceExecutes0 = ''
+        this.montantInvestissementPrevus0 = ''
+        this.montantInvestissementMobilises0 = ''
+        this.montantInvestissementExecutes0 = ''
       },
       deleteFind: function(index) {
         console.log('Index---- ',index);
