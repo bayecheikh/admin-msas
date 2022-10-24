@@ -163,22 +163,37 @@
       <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <div class="custom-ligne-bloc">
           <v-row>
-            <v-col lg="4" md="4" sm="12">
+            <v-col lg="6" md="6" sm="12">
               <v-autocomplete
-                v-model="selectedBailleurs0"
-                :items="listbailleurs"
+                v-model="selectedStructureSources0"
+                :items="liststructures"
                 :rules="rules.fournisseur_services_idRules"
                 outlined
                 dense
-                label="Bailleurs"
-                item-text="libelle"
+                label="Source"
+                item-text="nom_structure"
                 item-value="id"
                 return-object
-                @change="(event) => changeBailleur(event)"
+                @change="(event) => changeStructureSource(event)"
               >
               </v-autocomplete>
             </v-col>
-            <v-col lg="4" md="4" sm="12">
+            <v-col lg="6" md="6" sm="12">
+              <v-autocomplete
+                v-model="selectedStructureBeneficiaires0"
+                :items="liststructures"
+                :rules="rules.fournisseur_services_idRules"
+                outlined
+                dense
+                label="Bénéficiaire"
+                item-text="nom_structure"
+                item-value="id"
+                return-object
+                @change="(event) => changeStructureBeneficiaire(event)"
+              >
+              </v-autocomplete>
+            </v-col>
+            <v-col lg="6" md="6" sm="12">
               <v-autocomplete
                 v-model="selectedPiliers0"
                 :items="listpiliers"
@@ -193,7 +208,7 @@
               >
               </v-autocomplete>
             </v-col>
-            <v-col lg="4" md="4" sm="12" v-if="showAxes">
+            <v-col lg="6" md="6" sm="12" v-if="showAxes">
               <v-autocomplete
                 v-model="selectedAxes0"
                 :items="listAxes0"
@@ -299,7 +314,10 @@
               <thead>
                 <tr>
                   <th class="text-left">
-                    Bailleur
+                    Source
+                  </th>
+                  <th class="text-left">
+                    Bénéficiaire
                   </th>
                   <th class="text-left">
                     Pilier
@@ -335,7 +353,8 @@
                   v-for="(item,i) in LigneFinancementInputs"
                   :key="item.id"
                 >
-                  <td>{{item.bailleur?item.bailleur.libelle:findBailleurName(item.id_bailleur) && findBailleurName(item.id_bailleur).libelle }}</td>
+                  <td>{{item.structure_source?item.structure_source.nom_structure:findStructureName(item.id_structure_source) && findStructureName(item.id_structure_source).nom_structure }}</td>
+                  <td>{{item.structure_beneficiaire?item.structure_beneficiaire.nom_structure:findStructureName(item.id_structure_beneficiaire) && findStructureName(item.id_structure_beneficiaire).nom_structure }}</td>
                   <td>{{item.pilier?item.pilier.nom_pilier:findPilierName(item.id_pilier) && findPilierName(item.id_pilier).nom_pilier }}</td>
                   <td>{{item.pilier?item.axe.nom_axe:findAxeName(item.id_pilier,item.id_axe) && findAxeName(item.id_pilier,item.id_axe).nom_axe}}</td>
                   <td>{{item.montantBienServicePrevus}}</td>
@@ -416,6 +435,7 @@ import { mapMutations, mapGetters } from 'vuex'
       listmodefinancements: 'modefinancements/listmodefinancements',
       listpiliers: 'piliers/listpiliers',
       listbailleurs: 'bailleurs/listbailleurs',
+      liststructures: 'structures/selectliststructures',
       
     })},
     data: () => ({
@@ -453,6 +473,8 @@ import { mapMutations, mapGetters } from 'vuex'
       LigneFinancementInputs:[],
       selectedPiliers0:[],
       selectedBailleurs0:[],
+      selectedStructureSources0:[],
+      selectedStructureBeneficiaires0:[],
       selectedAxes0:[],
       montantBienServicePrevus0:'',
       montantBienServiceMobilises0:'',
@@ -463,6 +485,8 @@ import { mapMutations, mapGetters } from 'vuex'
 
       selectedPiliers:[],
       selectedBailleurs:[],
+      selectedstructuresources:[],
+      selectedstructurebeneficiaires:[],
       selectedAxes:[],
       montantBienServicePrevus:[],
       montantBienServiceMobilises:[],
@@ -640,6 +664,8 @@ import { mapMutations, mapGetters } from 'vuex'
         let autreMode = this.modes
 
         let bailleurs = []
+        let structure_sources = []
+        let structure_beneficiaires = []
         let piliers = []
         let axes = []
         let montantBienServicePrevus = []
@@ -675,7 +701,8 @@ import { mapMutations, mapGetters } from 'vuex'
             this.counterrow++
             let ligneObj = {
             id:this.counterrow,
-            bailleur:this.findBailleurName(this.LigneFinancementInputs[i].id_bailleur),
+            structure_source:this.findStructureName(this.LigneFinancementInputs[i]?.id_structure_source),
+            structure_beneficiaire:this.findStructureName(this.LigneFinancementInputs[i]?.id_structure_beneficiaire),
             pilier:this.findPilierName(this.LigneFinancementInputs[i].id_pilier),
             axe:this.findAxeName(this.LigneFinancementInputs[i].id_pilier,this.LigneFinancementInputs[i].id_axe),
             montantBienServicePrevus:this.LigneFinancementInputs[i].montantBienServicePrevus,
@@ -692,7 +719,8 @@ import { mapMutations, mapGetters } from 'vuex'
             this.counterrow++
             let ligneObj = {
             id:this.counterrow,
-            bailleur:this.LigneFinancementInputs[i].bailleur,
+            structure_source:this.LigneFinancementInputs[i].structure_source,
+            structure_beneficiaire:this.LigneFinancementInputs[i].structure_beneficiaire,
             pilier:this.LigneFinancementInputs[i].pilier,
             axe:this.LigneFinancementInputs[i].axe,
             montantBienServicePrevus:this.LigneFinancementInputs[i].montantBienServicePrevus,
@@ -708,7 +736,8 @@ import { mapMutations, mapGetters } from 'vuex'
           
         }
         for(let i=0;i<ligneFinancements.length;i++){
-          bailleurs.push(ligneFinancements[i].bailleur)
+          structure_sources.push(ligneFinancements[i].structure_source)
+          structure_beneficiaires.push(ligneFinancements[i].structure_beneficiaire)
           piliers.push(ligneFinancements[i].pilier)
           axes.push(ligneFinancements[i].axe)
           montantBienServicePrevus.push(ligneFinancements[i].montantBienServicePrevus)
@@ -733,7 +762,8 @@ import { mapMutations, mapGetters } from 'vuex'
         } */
 
 
-        formData.append("bailleurs",bailleurs?.map((item)=>{return item.id}));
+        formData.append("structure_sources",structure_sources?.map((item)=>{return item.id}));
+        formData.append("structure_beneficiaires",structure_beneficiaires?.map((item)=>{return item.id}));
         formData.append("piliers",piliers?.map((item)=>{return item.id}));
         formData.append("axes",axes?.map((item)=>{return item.id}));
         formData.append("montantBienServicePrevus",montantBienServicePrevus);
@@ -794,7 +824,9 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       submitLigne () {
         this.counterrow += 1;
-        this.selectedBailleurs.push(this.selectedBailleurs0)
+        this.selectedstructuresources.push(this.selectedStructureSources0)
+        this.selectedstructurebeneficiaires.push(this.selectedStructureBeneficiaires0)
+        console.log('SOurce Benef ++++++++ ,',this.selectedstructuresources)
         this.selectedPiliers.push(this.selectedPiliers0)
         this.selectedAxes.push(this.selectedAxes0)
         this.montantBienServicePrevus.push(this.montantBienServicePrevus0)
@@ -806,7 +838,8 @@ import { mapMutations, mapGetters } from 'vuex'
 
         this.LigneFinancementInputs.push({
           id:this.counterrow,
-          bailleur:this.selectedBailleurs0,
+          structure_source:this.selectedStructureSources0,
+          structure_beneficiaire:this.selectedStructureBeneficiaires0,
           pilier:this.selectedPiliers0,
           axe:this.selectedAxes0,
           montantBienServicePrevus:this.montantBienServicePrevus0,
@@ -823,7 +856,8 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('Index---- ',index);
         console.log('LigneFinancementInputs---- ',this.LigneFinancementInputs);
         this.LigneFinancementInputs.splice(index,1);
-        this.selectedBailleurs.splice(index,1);
+        this.selectedstructuresources.splice(index,1);
+        this.selectedstructurebeneficiaires.splice(index,1);
         this.selectedPiliers.splice(index,1);
         this.selectedAxes.splice(index,1);
         this.montantBienServicePrevus.splice(index,1);
@@ -872,8 +906,8 @@ import { mapMutations, mapGetters } from 'vuex'
       resetValidationForm () {
         this.$refs.form.resetValidation()
       },
-      findBailleurName (id) {
-        return this.listbailleurs.filter(item => item.id === parseInt(id))[0]
+      findStructureName (id) {
+        return this.liststructures.filter(item => item.id === parseInt(id))[0]
       },
       findPilierName (id) {
         return this.listpiliers.filter(item => item.id === parseInt(id))[0]
@@ -933,6 +967,16 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       async changeBailleur(value) {
         this.selectedBailleurs0= value
+        //console.log('************',i)
+      },
+      async changeStructureSource(value) {
+        this.selectedStructureSources0= value        
+        console.log('************',value)
+        //console.log('************',i)
+      },
+      async changeStructureBeneficiaire(value) {
+        this.selectedStructureBeneficiaires0= value        
+        console.log('************',value)
         //console.log('************',i)
       },
       async changeAxe(value) {

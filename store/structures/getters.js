@@ -14,10 +14,10 @@ export default {
     totalpage (state) {
       return state.totalPage
     },
-    perpapge (state) {
+    perpage (state) {
       return state.perPage
     },
-    currentpapge (state) {
+    currentpage (state) {
       return state.currentPage
     },
     datasearch (state) {
