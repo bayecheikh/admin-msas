@@ -22,11 +22,11 @@ import FormUpdateUser from '@/components/profil/modifier/FormUpdateUser';
       PageHeader,
       FormUpdateUser
     },
-    middleware: function ({redirect,$hasPermission}) {
-      /* if(!$hasPermission('gerer-utilisateurs')){
-        return redirect('/')
-      } */
-    },
+    middleware: function ({redirect,$hasPermission,$getUser}) {
+       /*  if($nuxt._route.params.id!=$getUser.id){
+          return redirect('/')
+        } */
+      },
     mounted: function() {
       this.$store.dispatch('roles/getList')
       /* this.$store.dispatch('structures/getList')

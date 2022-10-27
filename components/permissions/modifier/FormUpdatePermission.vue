@@ -2,7 +2,7 @@
   <div>
     <v-form class="text-sm-left" v-model="valid" ref="form">
       <v-row>
-        <v-col md="6" lg="6" sm="12">
+        <!--<v-col md="6" lg="6" sm="12">
           <v-text-field
             label="Nom"
             outlined dense
@@ -10,7 +10,7 @@
             :rules="rules.nameRules"
             readonly
           ></v-text-field>
-        </v-col>
+        </v-col>-->
         <v-col md="6" lg="6" sm="12">
           <v-text-field
             label="Description"

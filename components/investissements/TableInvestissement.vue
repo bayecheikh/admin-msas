@@ -118,9 +118,9 @@
                 {{ monnaie.libelle}}
               </div>
             </template>
-            <template v-slot:[`item.region`]="{ item }">
-              <div v-for="region in item.region" :key="region.id">
-                {{ region.nom_region}}
+            <template v-slot:[`item.dimension`]="{ item }">
+              <div v-for="dimension in item.dimension" :key="dimension.id">
+                {{ dimension.libelle_dimension}}
               </div>
             </template>
             <template v-slot:[`item.structure`]="{ item }">
@@ -131,11 +131,6 @@
             <template v-slot:[`item.source`]="{ item }">
               <div v-for="source in item.source" :key="source.id">
                 {{ source.libelle_source}}
-              </div>
-            </template>
-            <template v-slot:[`item.dimension`]="{ item }">
-              <div v-for="dimension in item.dimension" :key="dimension.id">
-                {{ dimension.libelle_dimension}}
               </div>
             </template>
             <template v-slot:[`item.status`]="{ item }">

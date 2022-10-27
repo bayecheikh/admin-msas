@@ -39,6 +39,21 @@ import HistoriqueInvestissement from '@/components/investissements/detail/Histor
         return redirect('/')
       }
     },
+    mounted: function() {
+      //this.$store.dispatch('roles/getList')
+      /* this.$store.dispatch('investissements/getList')
+      this.$store.dispatch('fournisseurs/getList') */
+      this.$store.dispatch('annees/getList')
+      this.$store.dispatch('monnaies/getList')
+      this.$store.dispatch('dimensions/getList')
+      this.$store.dispatch('regions/getList')
+      this.$store.dispatch('structures/getSelectList')
+      this.$store.dispatch('investissements/getList')
+      this.$store.dispatch('modefinancements/getList')
+      this.$store.dispatch('bailleurs/getList')
+      this.$store.dispatch('piliers/getList')
+      
+    },
     data () {
       return {
         id : this.$nuxt._route.params.id,

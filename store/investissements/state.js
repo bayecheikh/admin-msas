@@ -4,7 +4,8 @@ export default () => ({
     headerinvestissements : [
         { text: 'Année', value: 'annee' },
         { text: 'Monnaie', value: 'monnaie'},
-        { text: 'Région', value: 'region'},
+        /* { text: 'Région', value: 'region'}, */
+        { text: 'Dimension', value: 'dimension'},
         { text: 'Structure', value: 'structure'},
         { text: 'Source de financement', value: 'source'},
         { text: 'Statut', value: 'status'},
@@ -13,7 +14,8 @@ export default () => ({
     headerinvestissementavances : [
         { text: 'Année', value: 'annee' },
         { text: 'Monnaie', value: 'monnaie'},
-        { text: 'Région', value: 'region'},
+        /* { text: 'Région', value: 'region'}, */
+        { text: 'Dimension', value: 'dimension'},
         { text: 'Structure', value: 'structure'},
         { text: 'Source de financement', value: 'source'},
         { text: 'Dimension', value: 'dimension'},

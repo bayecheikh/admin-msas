@@ -33,7 +33,7 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col lg="4" md="4" sm="12">
+          <!--<v-col lg="4" md="4" sm="12" v-if="natureStructure=='Donneur' || natureStructure=='Mixte'">
             <v-autocomplete
               v-model="SelectedRegions"
               :items="listregions"
@@ -47,7 +47,7 @@
               @change="changeRegion"
             >
             </v-autocomplete>
-          </v-col>
+          </v-col>-->
         </v-row>
       </v-card>
       <h2 class="mb-5 primary custom-title-h2">Dimension du financement</h2>
@@ -176,7 +176,7 @@
               >
               </v-autocomplete>
             </v-col>-->
-            <v-col lg="6" md="6" sm="12">
+            <v-col lg="6" md="6" sm="12" v-if="natureStructure=='Receveur' || natureStructure=='Mixte'">
               <v-autocomplete
                 v-model="selectedStructureSources0"
                 :items="liststructures"
@@ -191,7 +191,7 @@
               >
               </v-autocomplete>
             </v-col>
-            <v-col lg="6" md="6" sm="12">
+            <v-col lg="6" md="6" sm="12" v-if="natureStructure=='Donneur' || natureStructure=='Mixte'">
               <v-autocomplete
                 v-model="selectedStructureBeneficiaires0"
                 :items="liststructures"
@@ -203,6 +203,21 @@
                 item-value="id"
                 return-object
                 @change="(event) => changeStructureBeneficiaire(event)"
+              >
+              </v-autocomplete>
+            </v-col>
+            <v-col lg="6" md="6" sm="12" v-if="natureStructure=='Donneur' || natureStructure=='Mixte'">
+              <v-autocomplete
+                v-model="selectedRegions0"
+                :items="listregions"
+                :rules="rules.textfieldRules"
+                outlined
+                dense
+                label="Région"
+                item-text="nom_region"
+                item-value="id"
+                return-object
+                @change="(event) => changeRegion2(event)"
               >
               </v-autocomplete>
             </v-col>
@@ -326,12 +341,16 @@
             <template v-slot:default>
               <thead>
                 <tr>
-                  <th class="text-left">
-                    Source
+                  <th class="text-left" >
+                    Région
                   </th>
-                  <th class="text-left">
+                  <th class="text-left" >
+                    Bailleur
+                  </th>
+                  <th class="text-left" >
                     Bénéficiaire
                   </th>
+                  
                   <th class="text-left">
                     Pilier
                   </th>
@@ -366,8 +385,10 @@
                   v-for="(item,i) in LigneFinancementInputs"
                   :key="item.id"
                 >
-                  <td>{{item.structuresource && item.structuresource.nom_structure}}</td>
-                  <td>{{item.structurebeneficiaire && item.structurebeneficiaire.nom_structure}}</td>
+                <td >{{item.region && item.region.nom_region}}</td>
+                  <td >{{item.structuresource && item.structuresource.nom_structure}}</td>
+                  <td >{{item.structurebeneficiaire && item.structurebeneficiaire.nom_structure}}</td>
+                  
                   <td>{{item.pilier && item.pilier.nom_pilier}}</td>
                   <td>{{item.axe && item.axe.nom_axe}}</td>
                   <td>{{item.montantBienServicePrevus}}</td>
@@ -434,12 +455,15 @@ import { mapMutations, mapGetters } from 'vuex'
     components: {
     },
     mounted: function() {
+      this.getDetail(this.$getUser()?.id)
+
       this.listPiliers=this.listiliers
       this.listStructures=this.liststructures
       this.listDimensions=this.listdimensions
     },
     computed: {
       ...mapGetters({
+      detailUtilisateur: 'utilisateurs/detailutilisateur',
       listannees: 'annees/listannees',
       listmonnaies: 'monnaies/listmonnaies',
       listdimensions: 'dimensions/listdimensions',
@@ -452,6 +476,8 @@ import { mapMutations, mapGetters } from 'vuex'
       
     })},
     data: () => ({
+      loggedInUser:'',
+      natureStructure:'',
       inputfichiers:[],
       libelle_fichiers:[],
       fichiers:[],
@@ -486,6 +512,7 @@ import { mapMutations, mapGetters } from 'vuex'
       LigneFinancementInputs:[],
       selectedStructureSources0:[],
       selectedStructureBeneficiaires0:[],
+      selectedRegions0:[],
       selectedPiliers0:[],
       selectedAxes0:[],
       montantBienServicePrevus0:'',
@@ -497,6 +524,7 @@ import { mapMutations, mapGetters } from 'vuex'
 
       selectedstructuresources:[],
       selectedstructurebeneficiaires:[],
+      selectedregions:[],
       selectedPiliers:[],
       selectedAxes:[],
       montantBienServicePrevus:[],
@@ -591,6 +619,21 @@ import { mapMutations, mapGetters } from 'vuex'
       imageData:null,
     }),
     methods: {
+      getDetail(id){
+          this.progress=true
+          this.$msasApi.$get('/users/'+id)
+        .then(async (response) => {
+            console.log('Detail user++++++++++',response.data)
+            this.$store.dispatch('utilisateurs/getDetail',response.data)
+            this.natureStructure = response.data?.structures[0]?.donneur_receveur_mixte
+        }).catch((error) => {
+             this.$toast.error(error?.response?.data?.message).goAway(3000)
+            console.log('Code error ++++++: ', error?.response?.data?.message)
+        }).finally(() => {
+            console.log('Requette envoyé ')
+        });
+        //console.log('total items++++++++++',this.paginationstructure)
+      },
       handleFileUpload(e){
         //Recupère le fichier
         const input = this.$refs.file
@@ -628,6 +671,7 @@ import { mapMutations, mapGetters } from 'vuex'
 
         let structuresources = this.selectedstructuresources?.map((item)=>{return item.id})
         let structurebeneficiaires = this.selectedstructurebeneficiaires?.map((item)=>{return item.id})
+        let regions = this.selectedregions?.map((item)=>{return item.id})
         let piliers = this.selectedPiliers?.map((item)=>{return item.id})
         let axes = this.selectedAxes?.map((item)=>{return item.id})
         console.log('++++++++piliers ',piliers)
@@ -666,6 +710,7 @@ import { mapMutations, mapGetters } from 'vuex'
 
         formData.append("structure_sources",structuresources);
         formData.append("structure_beneficiaires",structurebeneficiaires);
+        formData.append("regions",regions);
         formData.append("piliers",piliers);
         formData.append("axes",axes);
         formData.append("montantBienServicePrevus",montantBienServicePrevus);
@@ -713,7 +758,7 @@ import { mapMutations, mapGetters } from 'vuex'
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
-           this.$router.push('/investissements');
+            this.$router.push('/investissements');
           })
           .catch((error) => {
               console.log('Code error ++++++: ', error)
@@ -725,8 +770,30 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       submitLigne () {
         this.counterrow += 1;
-        this.selectedstructuresources.push(this.selectedStructureSources0)
-        this.selectedstructurebeneficiaires.push(this.selectedStructureBeneficiaires0)
+
+        if(this.natureStructure=='Donneur'){
+          this.selectedStructureSources0 = this.detailUtilisateur?.structures[0]
+          this.selectedstructuresources.push(this.detailUtilisateur?.structures[0])
+        }
+              
+        if(this.natureStructure=='Receveur'){
+          console.log('Detail Struct +++ ',this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
+          this.selectedStructureBeneficiaires0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)
+          this.selectedstructurebeneficiaires.push(this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
+          this.selectedRegions0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)?.regions[0]
+          this.selectedregions.push(this.findStructureName(this.detailUtilisateur?.structures[0]?.id)?.regions[0])
+        }
+        
+        if(this.natureStructure=='Mixte' || this.natureStructure=='Receveur'){
+          this.selectedstructuresources.push(this.selectedStructureSources0)
+        }
+        
+        if(this.natureStructure=='Mixte' || this.natureStructure=='Donneur'){
+          this.selectedstructurebeneficiaires.push(this.selectedStructureBeneficiaires0)
+          this.selectedregions.push(this.selectedRegions0)
+        }
+        
+
         this.selectedPiliers.push(this.selectedPiliers0)
         this.selectedAxes.push(this.selectedAxes0)
         this.montantBienServicePrevus.push(this.montantBienServicePrevus0)
@@ -740,6 +807,7 @@ import { mapMutations, mapGetters } from 'vuex'
           id:this.counterrow,
           structuresource:this.selectedStructureSources0,
           structurebeneficiaire:this.selectedStructureBeneficiaires0,
+          region:this.selectedRegions0,
           pilier:this.selectedPiliers0,
           axe:this.selectedAxes0,
           montantBienServicePrevus:this.montantBienServicePrevus0,
@@ -755,6 +823,7 @@ import { mapMutations, mapGetters } from 'vuex'
       resetLigneFinancement () {
         this.selectedStructureSources0 = ''
         this.selectedStructureBeneficiaires0 = ''
+        this.selectedRegions0 = ''
         this.selectedPiliers0 = ''
         this.selectedAxes0 = ''
         this.montantBienServicePrevus0 = ''
@@ -769,7 +838,7 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('LigneFinancementInputs---- ',this.LigneFinancementInputs);
         this.LigneFinancementInputs.splice(index,1);
         this.selectedstructuresources.splice(index,1);
-        this.selectedstructurebeneficiaires.splice(index,1);
+        this.selectedregions.splice(index,1);
         this.selectedPiliers.splice(index,1);
         this.selectedAxes.splice(index,1);
         this.montantBienServicePrevus.splice(index,1);
@@ -865,6 +934,11 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('************',value)
         //console.log('************',i)
       },
+      async changeRegion2(value) {
+        this.selectedRegions0= value        
+        console.log('************',value)
+        //console.log('************',i)
+      },
       async changePilier(value) {
         this.showAxes=true
         this.selectedPiliers0= value
@@ -876,6 +950,9 @@ import { mapMutations, mapGetters } from 'vuex'
         this.selectedAxes0 = value         
         console.log('************',value)
 
+      },
+      findStructureName (id) {
+        return this.liststructures.filter(item => item.id === parseInt(id))[0]
       },
     },
     metaInfo () {

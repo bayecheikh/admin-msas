@@ -34,10 +34,10 @@
         InfoUtilisateur,
         ActionsUtilisateur
       },
-      middleware: function ({redirect,$hasPermission}) {
-        /* if(!$hasPermission('gerer-utilisateurs')){
+      middleware: function ({redirect,$hasPermission,$getUser}) {
+        if($nuxt._route.params.id!=$getUser.id){
           return redirect('/')
-        } */
+        }
       },
       data () {
         return {
