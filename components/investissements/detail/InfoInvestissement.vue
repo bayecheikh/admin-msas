@@ -66,12 +66,11 @@
                     Région
                   </th>
                   <th class="text-left" >
-                    Bailleur
-                  </th>
-                  <th class="text-left" >
                     Bénéficiaire
                   </th>
-
+                  <th class="text-left" >
+                    Bailleur
+                  </th>
                   <th class="text-left">
                     Pilier
                   </th>
@@ -105,8 +104,8 @@
                   :key="item.id"
                 >
                   <td>{{item.region?item.region.nom_region:findRegionName(item.id_region) && findRegionName(item.id_region).nom_region }}</td>
-                  <td >{{item.structure_source?item.structure_source.nom_structure:findStructureName(item.id_structure_source) && findStructureName(item.id_structure_source).nom_structure }}</td>
-                  <td>{{item.structure_beneficiaire?item.structure_beneficiaire.nom_structure:findStructureName(item.id_structure_beneficiaire) && findStructureName(item.id_structure_beneficiaire).nom_structure }}</td>          
+                  <td>{{item.structure_beneficiaire?item.structure_beneficiaire.nom_structure:findStructureName(item.id_structure_beneficiaire) && findStructureName(item.id_structure_beneficiaire).nom_structure }}</td>
+                  <td >{{item.structure_source?item.structure_source.nom_structure:findStructureName(item.id_structure_source) && findStructureName(item.id_structure_source).nom_structure }}</td>            
                   <td>{{item.pilier?item.pilier.nom_pilier:findPilierName(item.id_pilier) && findPilierName(item.id_pilier).nom_pilier }}</td>
                   <td>{{item.pilier?item.axe.nom_axe:findAxeName(item.id_pilier,item.id_axe) && findAxeName(item.id_pilier,item.id_axe).nom_axe}}</td>
                   <td>{{item.montantBienServicePrevus}}</td>

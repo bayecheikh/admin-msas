@@ -345,12 +345,12 @@
                     Région
                   </th>
                   <th class="text-left" >
-                    Bailleur
-                  </th>
-                  <th class="text-left" >
                     Bénéficiaire
                   </th>
-                  
+                  <th class="text-left" >
+                    Bailleur
+                  </th>
+                                   
                   <th class="text-left">
                     Pilier
                   </th>
@@ -386,9 +386,8 @@
                   :key="item.id"
                 >
                 <td >{{item.region && item.region.nom_region}}</td>
-                  <td >{{item.structuresource && item.structuresource.nom_structure}}</td>
                   <td >{{item.structurebeneficiaire && item.structurebeneficiaire.nom_structure}}</td>
-                  
+                  <td >{{item.structuresource && item.structuresource.nom_structure}}</td>  
                   <td>{{item.pilier && item.pilier.nom_pilier}}</td>
                   <td>{{item.axe && item.axe.nom_axe}}</td>
                   <td>{{item.montantBienServicePrevus}}</td>
