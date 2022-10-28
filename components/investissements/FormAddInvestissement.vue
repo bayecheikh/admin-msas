@@ -183,7 +183,7 @@
                 :rules="rules.textfieldRules"
                 outlined
                 dense
-                label="Source"
+                label="Bailleur"
                 item-text="nom_structure"
                 item-value="id"
                 return-object

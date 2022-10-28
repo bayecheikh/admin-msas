@@ -9,7 +9,7 @@
                   <p class="info-profil"><span>Année : </span>{{detailinvestissement.annee[0].libelle}}</p>
               </div>
               <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.structure && detailinvestissement.structure[0]">
-                  <p class="info-profil"><span>Structure : </span>{{detailinvestissement.structure[0].nom_structure}}</p>
+                  <p class="info-profil"><span>Structure d'enregistrement: </span>{{detailinvestissement.structure[0].nom_structure}}</p>
               </div>
               <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.region && detailinvestissement.region[0]">
                   <p class="info-profil"><span>Région : </span>{{detailinvestissement.region[0].nom_region}}</p>
@@ -63,6 +63,15 @@
               <thead>
                 <tr>
                   <th class="text-left">
+                    Année
+                  </th>
+                  <th class="text-left">
+                    Monnaie
+                  </th>
+                  <th class="text-left">
+                    Dimension
+                  </th>
+                  <th class="text-left">
                     Région
                   </th>
                   <th class="text-left" >
@@ -70,6 +79,9 @@
                   </th>
                   <th class="text-left" >
                     Bailleur
+                  </th>
+                  <th class="text-left" >
+                    Type Structure Source
                   </th>
                   <th class="text-left">
                     Pilier
@@ -103,9 +115,13 @@
                   v-for="(item) in LigneFinancementInputs"
                   :key="item.id"
                 >
+                  <td>{{item.annee?item.annee.libelle:findAnneeName(item.id_annee) && findAnneeName(item.id_annee).libelle }}</td>
+                  <td>{{item.monnaie?item.monnaie.libelle:findMonnaieName(item.id_monnaie) && findMonnaieName(item.id_monnaie).libelle }}</td>
+                  <td>{{item.dimension?item.dimension.libelle_dimension:findDimensionName(item.id_dimension) && findDimensionName(item.id_dimension).libelle_dimension }}</td>
                   <td>{{item.region?item.region.nom_region:findRegionName(item.id_region) && findRegionName(item.id_region).nom_region }}</td>
                   <td>{{item.structure_beneficiaire?item.structure_beneficiaire.nom_structure:findStructureName(item.id_structure_beneficiaire) && findStructureName(item.id_structure_beneficiaire).nom_structure }}</td>
                   <td >{{item.structure_source?item.structure_source.nom_structure:findStructureName(item.id_structure_source) && findStructureName(item.id_structure_source).nom_structure }}</td>            
+                  <td >{{item.type_structure_source?item.type_structure_source.libelle_source:findTypeStructureName(item.id_type_structure_source) && findTypeStructureName(item.id_type_structure_source).libelle_source }}</td>            
                   <td>{{item.pilier?item.pilier.nom_pilier:findPilierName(item.id_pilier) && findPilierName(item.id_pilier).nom_pilier }}</td>
                   <td>{{item.pilier?item.axe.nom_axe:findAxeName(item.id_pilier,item.id_axe) && findAxeName(item.id_pilier,item.id_axe).nom_axe}}</td>
                   <td>{{item.montantBienServicePrevus}}</td>
@@ -163,6 +179,7 @@ import { mapMutations, mapGetters } from 'vuex'
       listpiliers: 'piliers/listpiliers',
       listbailleurs: 'bailleurs/listbailleurs',
       liststructures: 'structures/selectliststructures',
+      listsources: 'sources/listsources',
     }),
     data () {
       return {
@@ -193,8 +210,20 @@ import { mapMutations, mapGetters } from 'vuex'
       retour(){       
           this.$router.push('/investissements');
       },
+      findAnneeName (id) {
+        return this.listannees.filter(item => item.id === parseInt(id))[0]
+      },
+      findMonnaieName (id) {
+        return this.listmonnaies.filter(item => item.id === parseInt(id))[0]
+      },
+      findDimensionName (id) {
+        return this.listdimensions.filter(item => item.id === parseInt(id))[0]
+      },
       findStructureName (id) {
         return this.liststructures.filter(item => item.id === parseInt(id))[0]
+      },
+      findTypeStructureName (id) {
+        return this.listsources.filter(item => item.id === parseInt(id))[0]
       },
       findRegionName (id) {
         return this.listregions.filter(item => item.id === parseInt(id))[0]
