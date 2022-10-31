@@ -232,8 +232,8 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
         this.progress=true  
         let formData = new FormData();
         formData.append("structure_sources",param.structure_sources);
-        formData.append("structure_enregistrements",param.structure_sources);
-        formData.append("type_structure_sources",param.type_structure_enregistrements);
+        formData.append("structure_enregistrements",param.structure_enregistrements);
+        formData.append("type_structure_sources",param.type_structure_sources);
         formData.append("structure_beneficiaires",param.structure_beneficiaires);
         formData.append("regions",param.regions);
         formData.append("piliers",param.piliers);
@@ -329,8 +329,8 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
          console.log('Données formulaire++++++++++++',this.datasearch)  
          let formData = new FormData();
         formData.append("structure_sources",this.datasearch.structure_sources);
-        formData.append("structure_enregistrements",this.datasearch.structure_sources);
-        formData.append("type_structure_sources",this.datasearch.type_structure_enregistrements);
+        formData.append("structure_enregistrements",this.datasearch.structure_enregistrements);
+        formData.append("type_structure_sources",this.datasearch.type_structure_sources);
         formData.append("structure_beneficiaires",this.datasearch.structure_beneficiaires);
         formData.append("regions",this.datasearch.regions);
         formData.append("piliers",this.datasearch.piliers);
@@ -341,7 +341,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
         formData.append("dimensions",this.datasearch.dimensions);
         formData.append("regions",this.datasearch.regions);
 
-         this.$msasApi.post('/export_csv_investissements',formData)
+         this.$msasApi.post('/export_csv_ligne_financements',formData)
           .then(async (response) => {
 
             console.log('Données reçus++++++++++++',response.data)

@@ -48,7 +48,7 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col lg="3" md="3" sm="12">
+          <v-col lg="4" md="4" sm="12">
               <v-autocomplete
               ref="inputRef"
                 v-model="selectedPiliers"
@@ -131,7 +131,7 @@
               :items="liststructures"
               outlined
               dense
-              label="Bailleur"
+              label="Structure Bailleur"
               item-text="nom_structure"
               item-value="id"
               multiple
@@ -146,7 +146,7 @@
               :items="liststructures"
               outlined
               dense
-              label="Bénéficiaires"
+              label="Structure Bénéficiaires"
               item-text="nom_structure"
               item-value="id"
               multiple
