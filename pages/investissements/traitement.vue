@@ -26,10 +26,19 @@ import { mapActions} from 'vuex'
       PageHeader,
       TableTraitement
     },
-    mounted: function() {
-      /* this.$store.dispatch('roles/getList')
-      this.$store.dispatch('investissements/getList')
-      this.$store.dispatch('fournisseurs/getList') */
+    mounted: function() {     
+      this.$store.dispatch('annees/getList')
+      this.$store.dispatch('monnaies/getList')
+      this.$store.dispatch('dimensions/getList')
+      this.$store.dispatch('regions/getList')
+      this.$store.dispatch('structures/getList')
+      this.$store.dispatch('bailleurs/getList')
+      this.$store.dispatch('piliers/getList')    
+      this.$store.dispatch('sources/getList') 
+      this.$store.dispatch('structures/getSelectList')   
+      this.$store.dispatch('axes/getList')   
+      this.listPiliers=this.listpiliers
+      this.listBailleurs=this.listbailleurs
     },
     data () {
       return {

@@ -3,40 +3,40 @@
     <v-form class="" v-model="valid" ref="form" enctype="multipart/form-data">
       <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <v-row>
-          <v-col lg="2" md="2" sm="12">
+          <v-col lg="4" md="4" sm="12">
             <v-autocomplete
             ref="inputRef"
-              v-model="selectedAnnee"
+              v-model="selectedAnnees"
               :items="listannees"
               outlined
               dense
               label="Année"
               item-text="libelle"
               item-value="id"
-              return-object
+              multiple
               @change="changeAnnee"
             >
             </v-autocomplete>
           </v-col>
-          <v-col lg="2" md="2" sm="12">
+          <v-col lg="4" md="4" sm="12">
             <v-autocomplete
             ref="inputRef"
-              v-model="SelectedMonnaie"
+              v-model="selectedMonnaies"
               :items="listmonnaies"
               outlined
               dense
               label="Monnaie"
               item-text="libelle"
               item-value="id"
-              return-object
+              multiple
               @change="changeMonnaie"
             >
             </v-autocomplete>
           </v-col>
-          <v-col lg="2" md="2" sm="12">
+          <v-col lg="4" md="4" sm="12">
             <v-autocomplete
             ref="inputRef"
-              v-model="SelectedRegions"
+              v-model="selectedRegions"
               :items="listregions"
               
               outlined
@@ -44,8 +44,7 @@
               label="Région"
               item-text="nom_region"
               item-value="id"
-              return-object
-              @change="changeRegion"
+              multiple
             >
             </v-autocomplete>
           </v-col>
@@ -60,61 +59,107 @@
                 label="Piliers"
                 item-text="nom_pilier"
                 item-value="id"
-                return-object
-                @change="(event) => changePilier(event)"
+                multiple
+                
               >
               </v-autocomplete>
           </v-col>
-          <v-col lg="3" md="3" sm="12">
-              <v-autocomplete
-              ref="inputRef"
-                v-model="selectedBailleurs"
-                :items="listbailleurs"           
-                outlined
-                dense
-                label="Bailleurs"
-                item-text="libelle"
-                item-value="id"
-                return-object
-                @change="(event) => changeBailleur(event)"
-              >
-              </v-autocomplete>
-          </v-col>
-          <v-col lg="2" md="2" sm="12" v-if="showAxes">
+          <v-col lg="4" md="4" sm="12" >
             <v-autocomplete
             ref="inputRef"
               v-model="selectedAxes"
-              :items="listAxes0"
+              :items="listaxes"
               outlined
               dense
               label="Axe"
               item-text="nom_axe"
               item-value="id"
-              return-object
-              @change="(event) => changeAxe(event)"
+              multiple
+              
             >
             </v-autocomplete>
           </v-col>
-          <v-col md="12" lg="12" sm="12">
-            <v-radio-group
+          <v-col lg="4" md="4" sm="12">
+            <v-autocomplete
             ref="inputRef"
-              :v-model="selectedDimension"
-              @change="changeDimension"
-              row
+              v-model="selectedDimensions"
+              :items="listdimensions"
+              outlined
+              dense
+              label="Dimension"
+              item-text="libelle_dimension"
+              item-value="id"
+              multiple
+              
             >
-              <v-radio
-                v-for="item in listdimensions"
-                :key="item.id"
-                :label="item.libelle_dimension"
-                :value="item.id"
-              ></v-radio>
-            </v-radio-group>
-          </v-col>          
-          <v-col lg="2" md="2" sm="12" class="d-flex">
+            </v-autocomplete>
+          </v-col>
+          <v-col lg="4" md="4" sm="12">
+            <v-autocomplete
+            ref="inputRef"
+              v-model="selectedTypeStructureSources"
+              :items="listsources"
+              outlined
+              dense
+              label="Type Structure"
+              item-text="libelle_source"
+              item-value="id"
+              multiple
+              
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col lg="4" md="4" sm="12">
+            <v-autocomplete
+            ref="inputRef"
+              v-model="selectedStructureEnregistrements"
+              :items="liststructures"
+              outlined
+              dense
+              label="Structure d'enregistrement"
+              item-text="nom_structure"
+              item-value="id"
+              multiple
+              
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col lg="4" md="4" sm="12">
+            <v-autocomplete
+            ref="inputRef"
+              v-model="selectedStructureSources"
+              :items="liststructures"
+              outlined
+              dense
+              label="Bailleur"
+              item-text="nom_structure"
+              item-value="id"
+              multiple
+              
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col lg="4" md="4" sm="12">
+            <v-autocomplete
+            ref="inputRef"
+              v-model="selectedStructureBeneficiaires"
+              :items="liststructures"
+              outlined
+              dense
+              label="Bénéficiaires"
+              item-text="nom_structure"
+              item-value="id"
+              multiple
+              
+            >
+            </v-autocomplete>
+          </v-col>
+                  
+          <v-col lg="4" md="4" sm="12" class="d-flex">
             <v-btn :loading="loading" depressed class="mr-4 text-white" color="primary" @click="submitForm">
             Lancer la recherche
             </v-btn>
-            <v-btn text @click="onClearClicked" rounded color="red">Réinitialiser</v-btn>
+            
           </v-col>
         </v-row>
       </v-card>
@@ -127,17 +172,6 @@ import { mapMutations, mapGetters } from 'vuex'
   export default {
     components: {
     },
-    mounted: function() {     
-      this.$store.dispatch('annees/getList')
-      this.$store.dispatch('monnaies/getList')
-      this.$store.dispatch('dimensions/getList')
-      this.$store.dispatch('regions/getList')
-      this.$store.dispatch('structures/getList')
-      this.$store.dispatch('bailleurs/getList')
-      this.$store.dispatch('piliers/getList')    
-      this.listPiliers=this.listpiliers
-      this.listBailleurs=this.listbailleurs
-    },
     computed: {
       ...mapGetters({
       listannees: 'annees/listannees',
@@ -147,7 +181,9 @@ import { mapMutations, mapGetters } from 'vuex'
       listmodefinancements: 'modefinancements/listmodefinancements',
       listbailleurs: 'bailleurs/listbailleurs',
       listpiliers: 'piliers/listpiliers',
-      listaxes: 'axes/axes',
+      listaxes: 'axes/listaxes',
+      listsources: 'sources/listsources',
+      liststructures: 'structures/selectliststructures',
       
     })},
     data: () => ({
@@ -169,71 +205,19 @@ import { mapMutations, mapGetters } from 'vuex'
       message:null,
       color:null,
       valid: true,
-      showFournisseur: false,
-      showAutreMode: false,
-      showNumAutorisation: false,
-      showAccordSiege: false,
-      showNumAgrement: false,
-      showAdresseStructure: false,
-      showRegion: false,
-      showAxes:false,
-      message:null,
-      autreMode:false,
-      devise:'',
       listBailleurs:[],
       listPiliers:[],
       listAxes:[],
-      modeFinanceInputs:[{
-        id:1,
-        libelle:'Subvention',
-        description:'Le montant de la subvention'
-      },
-      {
-        id:2,
-        libelle:'Transfert',
-        description:'Le montant du transfert'
-      },
-      {
-        id:3,
-        libelle:'Recette',
-        description:'Le montant de la recette'
-      },
-      {
-        id:4,
-        libelle:'Don',
-        description:'Le montant du don'
-      }],
-      LigneModeFinancement:[],
-      LigneFinancementInputs:[],
-      selectedPiliers0:[],
-      selectedBailleurs0:[],
-      selectedAxes0:[],
-      montantBienServicePrevus0:'',
-      montantBienServiceMobilises0:'',
-      montantBienServiceExecutes0:'',
-      montantInvestissementPrevus0:'',
-      montantInvestissementMobilises0:'',
-      montantInvestissementExecutes0:'',
-
-      selectedBailleurs:[],
       selectedPiliers:[],
       selectedAxes:[],
-      montantBienServicePrevus:[],
-      montantBienServiceMobilises:[],
-      montantBienServiceExecutes:[],
-      montantInvestissementPrevus:[],
-      montantInvestissementMobilises:[],
-      montantInvestissementExecutes:[],
-
-      selectedAnnee: [],
-      selectedMonnaie: [],
-      selectedDimension: [],
+      selectedAnnees: [],
+      selectedMonnaies: [],
+      selectedDimensions: [],
       selectedRegions: [],
-      selectedModeFinancements: [],
-      selectedStructure: [],
-      slectedDepartement:[],
-      selectedType_source:[],
-      selectedSource:[],
+      selectedStructureEnregistrements: [],
+      selectedStructureSources: [],
+      selectedStructureBeneficiaires:[],
+      selectedTypeStructureSources:[],
       model: {
         libAutreModeFinance:'',
         montantAutreModeFinance:''
@@ -343,30 +327,44 @@ import { mapMutations, mapGetters } from 'vuex'
 
         let data = {
           page:1,
-          annee : annee,
-          monnaie : monnaie,
-          dimension : dimension,
-          region : region,
-          bailleur: bailleurs,
-          pilier: piliers,
-          axe: axes ,
-          departement: departement,
-          structure : structure,
-          type_source: type_source,
-          source: source         
+          annees : this.selectedAnnees,
+          monnaies : this.selectedMonnaies,
+          dimensions : this.selectedDimensions,
+          type_structure_sources : this.selectedTypeStructureSources,
+          structure_sources: this.selectedStructureSources,
+          structure_beneficiaires: this.selectedStructureBeneficiaires,
+          regions: this.selectedRegions ,
+          piliers: this.selectedPiliers,
+          axes : this.selectedAxes,
+          structure_enregistrements: this.selectedStructureEnregistrements,         
         }
 
-        this.$store.commit('ligneinvestissements/initdatasearch',{...data})
+       this.$store.commit('ligneinvestissements/initdatasearch',{...data})
 
         console.log('Donées formulaire recherche ++++++: ',data)
-        validation && this.getResult(data)
+        this.getResult(data)
       },
       getResult(param){
-         this.progress=true
-       
-         this.$msasFileApi.post('/recherche_avance_investissements',param)
+        this.progress=true  
+        let formData = new FormData();
+        formData.append("structure_sources",param.structure_sources);
+        formData.append("structure_enregistrements",param.structure_enregistrements);
+        formData.append("type_structure_sources",param.type_structure_sources);
+        formData.append("structure_beneficiaires",param.structure_beneficiaires);
+        formData.append("regions",param.regions);
+        formData.append("piliers",param.piliers);
+        formData.append("axes",param.axes);
+
+        formData.append("annees",param.annees);
+        formData.append("monnaies",param.monnaies);
+        formData.append("dimensions",param.dimensions);
+        formData.append("regions",param.regions);
+
+
+         console.log('données recherche ligne financements',param)    
+         this.$msasFileApi.post('/recherche_ligne_financements',formData)
           .then(async (response) => {
-            console.log('Données reçus++++++++++++',response.data.data.data)
+            console.log('Données lignes reçus++++++++++++',response)
             await this.$store.dispatch('ligneinvestissements/getList',response.data.data.data)
             let totalPages = Math.ceil(response.data.data.total / response.data.data.per_page)
             this.$store.dispatch('ligneinvestissements/getTotalPage',totalPages)
@@ -382,76 +380,11 @@ import { mapMutations, mapGetters } from 'vuex'
              this.loading = false;
         });
       },
-      submitLigne () {
-        this.counterrow += 1;
-        this.selectedBailleurs.push(this.selectedBailleurs0)
-        this.selectedPiliers.push(this.selectedPiliers0)
-        this.selectedAxes.push(this.selectedAxes0)
-        this.montantBienServicePrevus.push(this.montantBienServicePrevus0)
-        this.montantBienServiceMobilises.push(this.montantBienServiceMobilises0)
-        this.montantBienServiceExecutes.push(this.montantBienServiceExecutes0)
-        this.montantInvestissementPrevus.push(this.montantInvestissementPrevus0)
-        this.montantInvestissementMobilises.push(this.montantInvestissementMobilises0)
-        this.montantInvestissementExecutes.push(this.montantInvestissementExecutes0)
-
-        this.LigneFinancementInputs.push({
-          id:this.counterrow,
-          bailleur:this.selectedBailleurs0,
-          pilier:this.selectedPiliers0,
-          axe:this.selectedAxes0,
-          montantBienServicePrevus:this.montantBienServicePrevus0,
-          montantBienServiceMobilises:this.montantBienServiceMobilises0,
-          montantBienServiceExecutes:this.montantBienServiceExecutes0,
-          montantInvestissementPrevus:this.montantInvestissementPrevus0,
-          montantInvestissementMobilises:this.montantInvestissementMobilises0,
-          montantInvestissementExecutes:this.montantInvestissementExecutes0
-        })
-
-        console.log('Donées LigneFinancementInputs ++++++: ',this.LigneFinancementInputs)
-      },
-      deleteFind: function(index) {
-        console.log('Index---- ',index);
-        console.log('LigneFinancementInputs---- ',this.LigneFinancementInputs);
-        this.LigneFinancementInputs.splice(index,1);
-        this.selectedBailleurs.splice(index,1);
-        this.selectedPiliers.splice(index,1);
-        this.selectedAxes.splice(index,1);
-        this.montantBienServicePrevus.splice(index,1);
-        this.montantBienServiceExecutes.splice(index,1);
-        this.montantInvestissementPrevus.splice(index,1);
-        this.montantInvestissementMobilises.splice(index,1);
-        this.montantInvestissementExecutes.splice(index,1);
-      },
-      deleteFindFichier: function(index) {
-        console.log('Index---- ',index);
-        console.log('LigneFinancementInputs---- ',this.fichiers);
-        this.fichiers.splice(index,1);
-        this.libelle_fichiers.splice(index,1);
-        this.inputfichiers.splice(index,1);
-
-      },
-      submitLigneFichier () {
-        this.counterrow_fichier += 1;
-        this.fichiers.push({id:this.counterrow_fichier,libelle_fichier:this.libelle_fichiers[this.counterrow_fichier],input_fichier:this.inputfichiers[this.counterrow_fichier]})
-        console.log('Donées fichier row ++++++: ',this.fichiers)
-      },
       resetForm () {
         this.$refs.form.reset()
       },
       resetValidationForm () {
         this.$refs.form.resetValidation()
-      },
-      async changeRole(role) {
-
-        let checkRole = this.model.roles.filter(item => item.name === 'agent_structure').length;
-        if(checkRole==1)
-        this.showFournisseur=true
-        else
-        this.showFournisseur=false
-        console.log('************',checkRole)
-      },
-      async changeAutreMode(value) {
-        this.showAutreMode=value?true:false
       },
       async changeAnnee(annee) {
         //this.showAutreMode=true
@@ -477,10 +410,6 @@ import { mapMutations, mapGetters } from 'vuex'
         this.selectedDimension = e
         
       },
-      async changeBailleur(value) {
-        this.selectedBailleurs0= value
-        //console.log('************',i)
-      },
       async changePilier(value) {
         this.showAxes=true
         this.selectedPiliers0= value
@@ -494,31 +423,31 @@ import { mapMutations, mapGetters } from 'vuex'
 
       },
       onClearClicked () {
-        this.selectedAnnee = []
-        this.SelectedMonnaie= []
-        this.SelectedRegions= []
-        this.selectedDimension= []
-        this.selectedBailleurs= []
-        this.selectedPiliers= []
-        this.selectedAxes= []
-        this.slectedDepartement= []
-        this.selectedStructure= []
-        this.selectedType_source= []
-        this.selectedSource= []
+
+          this.page  = null
+          this.selectedAnnees = null
+          this.selectedMonnaies = null
+          this.selectedDimensions = null
+          this.selectedTypeStructureSources = null
+          this.selectedStructureSources = null
+          this.selectedStructureBeneficiaires = null
+          this.selectedRegions  = null
+          this.selectedPiliers = null
+          this.selectedAxes = null
+          this.selectedStructureEnregistrements   = null       
 
         let data = {
           page:1,
-          annee : null,
-          monnaie : null,
-          dimension : null,
-          region : null,
-          bailleur: null,
-          pilier: null,
-          axe: null ,
-          departement: null,
-          structure : null,
-          type_source: null,
-          source: null         
+          annees : null,
+          monnaies : null,
+          dimensions : null,
+          type_structure_sources : null,
+          structure_sources: null,
+          structure_beneficiaires: null,
+          regions: null ,
+          piliers: null,
+          axes : null,
+          structure_enregistrements: null,         
         }
 
        this.$store.commit('investissements/initdatasearch',data)

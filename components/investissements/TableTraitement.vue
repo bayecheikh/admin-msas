@@ -77,14 +77,24 @@
                 </div>
               </v-row>
             </template>
-            <template v-slot:[`item.investissement`]="{ item }">
-              <div v-for="investissement in item.investissement" :key="investissement.id">
-                <span v-for="structure in investissement.structure" :key="structure.id">{{ structure.nom_structure}}</span>
+            <template v-slot:[`item.structure`]="{ item }">
+              <div v-for="structure in item.structure" :key="structure.id">
+                {{ structure.nom_structure}}
               </div>
             </template>
-            <template v-slot:[`item.bailleur`]="{ item }">
-              <div v-for="bailleur in item.bailleur" :key="bailleur.id">
-                {{ bailleur.libelle}}
+            <template v-slot:[`item.annee`]="{ item }">
+              <div v-for="annee in item.annee" :key="annee.id">
+                {{ annee.libelle}}
+              </div>
+            </template>
+            <template v-slot:[`item.monnaie`]="{ item }">
+              <div v-for="monnaie in item.monnaie" :key="monnaie.id">
+                {{ monnaie.libelle}}
+              </div>
+            </template>
+            <template v-slot:[`item.dimension`]="{ item }">
+              <div v-for="dimension in item.dimension" :key="dimension.id">
+                {{ dimension.libelle_dimension}}
               </div>
             </template>
             <template v-slot:[`item.pilier`]="{ item }">
@@ -95,6 +105,26 @@
             <template v-slot:[`item.axe`]="{ item }">
               <div v-for="axe in item.axe" :key="axe.id">
                 {{ axe.nom_axe}}
+              </div>
+            </template>
+            <template v-slot:[`item.structure_source`]="{ item }">
+              <div v-for="structure_source in item.structure_source" :key="structure_source.id">
+                {{ structure_source.nom_structure}}
+              </div>
+            </template>
+            <template v-slot:[`item.structure_beneficiaire`]="{ item }">
+              <div v-for="structure_beneficiaire in item.structure_beneficiaire" :key="structure_beneficiaire.id">
+                {{ structure_beneficiaire.nom_structure}}
+              </div>
+            </template>
+            <template v-slot:[`item.type_structure_source`]="{ item }">
+              <div v-for="type_structure_source in item.type_structure_source" :key="type_structure_source.id">
+                {{ type_structure_source.libelle_source}}
+              </div>
+            </template>
+            <template v-slot:[`item.region`]="{ item }">
+              <div v-for="region in item.region" :key="region.id">
+                {{ region.nom_region}}
               </div>
             </template>
            
@@ -156,19 +186,18 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
       
       let data = {
           page:1,
-          annee : null,
-          monnaie : null,
-          dimension : null,
-          region : null,
-          bailleur: null,
-          pilier: null,
-          axe: null ,
-          departement: null,
-          structure : null,
-          type_source: null,
-          source: null         
+          annees : [],
+          monnaies : [],
+          dimensions : [],
+          type_structure_sources : [],
+          structure_sources: [],
+          structure_beneficiaires: [],
+          regions: [] ,
+          piliers: [],
+          axes : [],
+          structure_enregistrements: [],         
         }
-        this.$store.commit('ligneinvestissements/initdatasearch',data)
+        this.$store.commit('ligneinvestissements/initdatasearch',{...data})
       this.getResult(data)
     },
     computed: mapGetters({
@@ -181,14 +210,14 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
     methods: {
       getList(page){
           this.progress=true
-          this.$msasApi.$get('/investissements?page='+page)
+          this.$msasApi.$get('/recherche_avance_investissements?page='+page)
         .then(async (response) => {
-            console.log('list investissement ++++++++++',response)
-            let totalPages = Math.ceil(response.data.total / response.data.per_page)
-            this.$store.dispatch('investissements/getTotalPage',totalPages)
-            this.$store.dispatch('investissements/getPerPage',response.data.per_page)
-            this.$store.dispatch('investissements/getList',response.data.data)
-            console.log('total page ++++++++++',response.data.total / response.data.per_page)
+          console.log('Données reçus++++++++++++',response.data.data.data)
+            await this.$store.dispatch('ligneinvestissements/getList',response.data.data.data)
+            let totalPages = Math.ceil(response.data.data.total / response.data.data.per_page)
+            this.$store.dispatch('ligneinvestissements/getTotalPage',totalPages)
+            this.$store.dispatch('ligneinvestissements/getPerPage',response.data.data.per_page)
+            
         }).catch((error) => {
             /* this.$toast.global.my_error().goAway(1500) */ //Using custom toast
              this.$toast.error(error?.response?.data?.message).goAway(3000)
@@ -200,10 +229,26 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
         //console.log('total items++++++++++',this.paginationinvestissement)
       },
        getResult(param){
-         this.progress=true      
-         this.$msasFileApi.post('/recherche_avance_investissements',param)
+        this.progress=true  
+        let formData = new FormData();
+        formData.append("structure_sources",param.structure_sources);
+        formData.append("structure_enregistrements",param.structure_sources);
+        formData.append("type_structure_sources",param.type_structure_enregistrements);
+        formData.append("structure_beneficiaires",param.structure_beneficiaires);
+        formData.append("regions",param.regions);
+        formData.append("piliers",param.piliers);
+        formData.append("axes",param.axes);
+
+        formData.append("annees",param.annees);
+        formData.append("monnaies",param.monnaies);
+        formData.append("dimensions",param.dimensions);
+        formData.append("regions",param.regions);
+
+
+         console.log('données recherche ligne financements',param)    
+         this.$msasFileApi.post('/recherche_ligne_financements',formData)
           .then(async (response) => {
-            console.log('Données reçus++++++++++++',response.data.data.data)
+            console.log('Données lignes reçus++++++++++++',response)
             await this.$store.dispatch('ligneinvestissements/getList',response.data.data.data)
             let totalPages = Math.ceil(response.data.data.total / response.data.data.per_page)
             this.$store.dispatch('ligneinvestissements/getTotalPage',totalPages)
@@ -282,7 +327,21 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
       exporterCSV(){
          this.progress=true    
          console.log('Données formulaire++++++++++++',this.datasearch)  
-         this.$msasApi.post('/export_csv_investissements',this.datasearch)
+         let formData = new FormData();
+        formData.append("structure_sources",this.datasearch.structure_sources);
+        formData.append("structure_enregistrements",this.datasearch.structure_sources);
+        formData.append("type_structure_sources",this.datasearch.type_structure_enregistrements);
+        formData.append("structure_beneficiaires",this.datasearch.structure_beneficiaires);
+        formData.append("regions",this.datasearch.regions);
+        formData.append("piliers",this.datasearch.piliers);
+        formData.append("axes",this.datasearch.axes);
+
+        formData.append("annees",this.datasearch.annees);
+        formData.append("monnaies",this.datasearch.monnaies);
+        formData.append("dimensions",this.datasearch.dimensions);
+        formData.append("regions",this.datasearch.regions);
+
+         this.$msasApi.post('/export_csv_investissements',formData)
           .then(async (response) => {
 
             console.log('Données reçus++++++++++++',response.data)
