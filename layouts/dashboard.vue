@@ -142,6 +142,16 @@
       this.layout= this.$getUserMenu()
       this.isAuthenticate = this.$isLogged()
       this.loggedInUser = this.$getUser() 
+
+      this.$store.dispatch('annees/getList')
+      this.$store.dispatch('monnaies/getList')
+      this.$store.dispatch('dimensions/getList')
+      this.$store.dispatch('regions/getList')
+      this.$store.dispatch('structures/getSelectList')
+      this.$store.dispatch('modefinancements/getList')
+      this.$store.dispatch('bailleurs/getList')
+      this.$store.dispatch('piliers/getList')
+      this.getDashboardData()
     },
     data: () => ({
       layout:[],
@@ -177,6 +187,43 @@
       goToProfile(){ 
         this.$router.push('/profil/'+this.loggedInUser.id);   
       },
+      getDashboardData(){
+          this.$msasApi.$get('/allStats')
+          .then(async (response) => { 
+            console.log('Données reçu+++++++++++',response)
+  
+                let engagement = 0
+                let mobilisation = 0
+                let execution = 0
+                let total = response.data.data.length
+
+                
+                await response.data.data.map((item)=>{
+                  //Engagement
+                  let montantBienServicePrevus = parseInt(item.montantBienServicePrevus)
+                  let montantInvestissementPrevus = parseInt(item.montantInvestissementPrevus)
+                  engagement = engagement + montantBienServicePrevus + montantInvestissementPrevus
+
+                  //Mobilisation
+                  let montantBienServiceMobilises = parseInt(item.montantBienServiceMobilises)
+                  let montantInvestissementMobilises = parseInt(item.montantInvestissementMobilises)
+                  mobilisation = mobilisation + montantBienServiceMobilises + montantInvestissementMobilises
+
+                  //Execution
+                  let montantBienServiceExecutes = parseInt(item.montantBienServiceExecutes)
+                  let montantInvestissementExecutes = parseInt(item.montantInvestissementExecutes)
+                  execution = execution + montantBienServiceExecutes + montantInvestissementExecutes
+                })
+
+                let data = {financePrevus:engagement,financeMobilises:mobilisation,financeExecutes:execution,total:total}
+              //console.log('dashboard data +++++ ',data)
+              await this.$store.commit('dashboard/initdashboardData', data)
+          }).catch((error) => {
+              console.log('Code error ++++++: ', error?.response?.data?.message)
+          }).finally(() => {
+            console.log('Requette envoyé ')
+          });
+        }
     }
   }
 </script>

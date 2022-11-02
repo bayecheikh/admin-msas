@@ -98,19 +98,26 @@
 <script>
 import LeftMenu from '@/components/LeftMenu';
 import BarChart from "@/components/statistiques/charts/BarChart";
+import { mapMutations, mapGetters } from 'vuex'
     export default {
         components: { BarChart,LeftMenu, },
         mounted: function() {
             //this.getListMission()
         },
-        computed:{
-            styles: function(){
-                return {
-                    'left':this.x+'px',
-                    'top':this.y-70+'px'
-                }
-            }
-        },
+        computed: {
+        ...mapGetters({
+        dashboardData: 'dashboard/dashboardData',
+        loading : 'dashboard/loading', 
+        listannees: 'annees/listannees',
+        //listmonnaies: 'monnaies/listmonnaies',
+        listdimensions: 'dimensions/listdimensions',
+        listregions: 'regions/listregions',
+        //listmodefinancements: 'modefinancements/listmodefinancements',
+        listpiliers: 'piliers/listpiliers',
+        //listbailleurs: 'bailleurs/listbailleurs',
+        liststructures: 'structures/selectliststructures',
+        listsources: 'sources/listsources',   
+        })},
         data() {
             return {
                 leftmenuItems:[
@@ -177,22 +184,48 @@ import BarChart from "@/components/statistiques/charts/BarChart";
             }
         },
 
-        methods: {
-            getListMission(){
-                this.progress=true
-                this.$axios.$get('/api/missions?_format=json')
-                .then(async (response) => {
-                    //this.$toast.success(response.message).goAway(2000)
-                    console.log('Données Reçu ++++++: ', response)
-                    this.missions = response
+        methods:{
+        getDataByDimensionEtSource(){
+          this.$msasApi.$get('/allStats')
+          .then(async (response) => { 
+            console.log('Données reçu+++++++++++',response)
+                let dataFinancement = this.dashboardData
+                let labels = ["Etat", "PTF", "Collectivités territoriales(CT)","ONG et associations","Secteur privé sanitaire","Secteur privé non sanitaire"]
+                
+                let dataMobilisationRessource = this.dashboardData?.filter(investissement => investissement.dimension[0]?.libelle_dimension === 'Mobilisation de ressources')
+                
+                let engagement = 0
+                let mobilisation = 0
+                let execution = 0
 
-                }).catch((error) => {
-                    console.log('Code error ++++++: ', error?.response?.data?.message)
-                }).finally(() => {
-                    console.log('Requette envoyé ')
-                });
-            }
+                
+                await response.data.data.map((item)=>{
+                  //Engagement
+                  let montantBienServicePrevus = parseInt(item.montantBienServicePrevus)
+                  let montantInvestissementPrevus = parseInt(item.montantInvestissementPrevus)
+                  engagement = engagement + montantBienServicePrevus + montantInvestissementPrevus
+
+                  //Mobilisation
+                  let montantBienServiceMobilises = parseInt(item.montantBienServiceMobilises)
+                  let montantInvestissementMobilises = parseInt(item.montantInvestissementMobilises)
+                  mobilisation = mobilisation + montantBienServiceMobilises + montantInvestissementMobilises
+
+                  //Execution
+                  let montantBienServiceExecutes = parseInt(item.montantBienServiceExecutes)
+                  let montantInvestissementExecutes = parseInt(item.montantInvestissementExecutes)
+                  execution = execution + montantBienServiceExecutes + montantInvestissementExecutes
+                })
+
+                let data = {financePrevus:engagement,financeMobilises:mobilisation,financeExecutes:execution,total:total}
+              //console.log('dashboard data +++++ ',data)
+              await this.$store.commit('dashboard/initdashboardData', data)
+          }).catch((error) => {
+              console.log('Code error ++++++: ', error?.response?.data?.message)
+          }).finally(() => {
+            console.log('Requette envoyé ')
+          });
         }
+      }
     };
 </script>
 <style scoped>
