@@ -47,8 +47,12 @@ import StatBox from '@/components/dashboard/admin/StatBox';
       ListChart
     },
     mounted: function() {
-      //!this.$hasRole('admin') && this.getDashboardData()
+      this.getDashboardData()
     },
+    computed: mapGetters({
+      dashboardData: 'dashboard/dashboardData',
+      loading: 'dashboard/loading',
+    }),
     data () {
       return {
         leftmenuItems: [
@@ -59,9 +63,19 @@ import StatBox from '@/components/dashboard/admin/StatBox';
     },
     methods:{
       getDashboardData(){
-        this.$essApi.$get('/dashboard-employee')
+        this.$msasApi.$get('/allStats')
         .then(async (response) => { 
-          console.log('Données reçu+++++++++++',response)
+          console.log('Données statistiques reçu+++++++++++',response)
+              let total = response.data.data.lenght
+              let montantFinancePrevu = 0
+              let montantFinanceMobilise = 0
+              let montantFinanceExecute = 0
+              let montantInvestissementPrevu = 0
+              let montantInvestissementMobilise = 0
+              let montantInvestissementExecute = 0
+              for(let i=0; i<=total; i++){
+                montantFiancePrevu+=response.data.data[i].monta
+              }
               await this.$store.commit('dashboard/initdashboardData', response)
         }).catch((error) => {
             console.log('Code error ++++++: ', error?.response?.data?.message)
