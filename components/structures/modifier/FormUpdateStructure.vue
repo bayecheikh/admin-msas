@@ -12,16 +12,6 @@
               :rules="rules.nom_structureRules"
             ></v-text-field>
           </v-col>
-          <v-col md="4" lg="4" sm="12">
-            <v-select
-              :items="itemsNatureStructure"
-              v-model="model.donneur_receveur_mixte"
-              :rules="rules.nom_structureRules"
-              label="Nature structure"
-              outlined
-              dense
-            ></v-select>
-          </v-col>
           <v-col lg="4" md="4" sm="12">
             <v-autocomplete
               v-model="selectedSource_financements"
@@ -50,6 +40,34 @@
               return-object
               @change="changeType_source"
               v-if="showTypeSource"
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col lg="4" md="4" sm="12" v-if="showRegionMedical">
+            <v-autocomplete
+              :rules="rules.selectRules"
+              :items="listregions"
+              outlined
+              dense
+              label="Region"
+              item-text="nom_region"
+              item-value="id"
+           
+              return-object
+              @change="changeRegion"
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col lg="4" md="4" sm="12" v-if="showDistrict">
+            <v-autocomplete
+              v-model="selectedDepartements"
+              :rules="rules.selectRules"
+              :items="listDepartements"
+              outlined
+              dense
+              label="District"
+              item-text="nom_departement"
+              item-value="id"
             >
             </v-autocomplete>
           </v-col>
@@ -149,7 +167,7 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5 primary custom-title-h2">Coordonnées siège</h2>
+      <h2 class="mb-5">Coordonnées siège</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <v-row>
           <v-col md="4" lg="4" sm="12" v-if="showAdresseStructure">
@@ -181,12 +199,12 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5 primary custom-title-h2">Zone d'intervention</h2>
+      <h2 class="mb-5">Zone d'intervention</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
         <v-row>
           <v-col md="12" lg="12" sm="12">
             <v-radio-group
-              v-model="model.type_zone_value"
+              :v-model="selectedType_zone_interventions"
               :rules="rules.sexeRules"
               @change="changeType_zone_intervention"
               row
@@ -195,13 +213,13 @@
                 v-for="item in listtypezones"
                 :key="item.id"
                 :label="item.libelle_zone"
-                :value="item.id"
+                :value="item"
               ></v-radio>
             </v-radio-group>
           </v-col>
         </v-row>
         <v-row v-if="showRegion">
-          <v-col md="12" lg="12" sm="12">
+          <v-col md="13" lg="12" sm="12">
             <v-expansion-panels
               v-for="(item,i) in listregions"
               :key="i"
@@ -215,7 +233,7 @@
                     :value="item.id"
                   ></v-checkbox>
                 </v-expansion-panel-header>
-                <v-expansion-panel-content>
+                <!--<v-expansion-panel-content>
                   <div v-for="item in item.departements" :key="item.id">
                     <v-checkbox
                       v-model="selectedDepartements"
@@ -223,13 +241,13 @@
                       :value="item.id"
                     ></v-checkbox>
                   </div>
-                </v-expansion-panel-content>
+                </v-expansion-panel-content>-->
               </v-expansion-panel>
             </v-expansion-panels>
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5 primary custom-title-h2">Dimensions</h2>
+      <h2 class="mb-5">Dimensions</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
         <v-row class="d-flex justify-content-between">
           <v-col
@@ -298,7 +316,7 @@
         </v-row>
       </v-card>-->
 
-      <v-btn class="mr-4 text-white" color="#1B73E8" @click="submitForm" depressed>
+      <v-btn class="mr-4 text-white" color="#1B73E8" @click="submitForm">
         Enregistrer
       </v-btn>
     </v-form>
@@ -324,7 +342,6 @@ import { mapMutations, mapGetters } from 'vuex'
     }),
     data: () => ({
       id : '',
-      itemsNatureStructure:['Donneur','Receveur','Mixte'],
       filename : '',
       loading: false,
       message:null,
@@ -337,6 +354,9 @@ import { mapMutations, mapGetters } from 'vuex'
       showNumAgrement: false,
       showAdresseStructure: false,
       showRegion: false,
+      showRegionMedical: false,
+      showDistrict: false,
+      showZoneIntervention: false,
       message:null,
       selectedSource_financements: [],
       selectedType_sources: [],
@@ -438,7 +458,6 @@ import { mapMutations, mapGetters } from 'vuex'
             this.$store.dispatch('structures/getDetail',response.data)
             this.model.id= response.data.id
             this.model.nom_structure= response.data.nom_structure
-            this.model.donneur_receveur_mixte= response.data?.donneur_receveur_mixte
             this.selectedSource_financements= response.data.source_financements[0]
             this.changeSource_financement(response.data.source_financements[0])
             this.selectedType_sources = response.data.type_sources[0]
@@ -500,7 +519,6 @@ import { mapMutations, mapGetters } from 'vuex'
         formData.append("id", this.model.id);
         formData.append("_method", "put");
         formData.append("nom_structure", this.model.nom_structure);
-        formData.append("donneur_receveur_mixte", this.model.donneur_receveur_mixte);
         formData.append("numero_autorisation",this.model.numero_autorisation);
         formData.append("accord_siege",this.model.accord_siege);
         formData.append("numero_agrement",this.model.numero_agrement);
@@ -578,61 +596,80 @@ import { mapMutations, mapGetters } from 'vuex'
           case 'EPS' : {
             console.log('************',this.showNumAutorisation)
             this.showAdresseStructure=true
+            this.showRegionMedical=true
+            this.showDistrict=true
 
             this.showNumAutorisation=false
             this.showNumAgrement=false
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
+            this.showZoneIntervention=false
           }
           break;
           case 'SPS' : {
             this.showNumAutorisation=true
             this.showAdresseStructure=true
+            this.showZoneIntervention=true
 
             this.showNumAgrement=false
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
+            this.showRegionMedical=false
+            this.showDistrict=false
           }
           break;
           case 'PTF' : {
             this.showNumAgrement=true
             this.showAccordSiege=true
+            this.showZoneIntervention=true
             this.showNumAutorisation=false
             this.showDebutIntervention=true
             this.showFinIntervention=true
             this.showAdresseStructure=true
+
+            this.showRegionMedical=false
+            this.showDistrict=false
           }
           break;
           case 'ONG' : {
             this.showNumAgrement=true
             this.showAdresseStructure=true
+            this.showZoneIntervention=true
 
             this.showNumAutorisation=false
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
+            this.showRegionMedical=false
+            this.showDistrict=false
           }
           break;
           case 'RSE' : {
             this.showAdresseStructure=true
+            this.showZoneIntervention=true
 
             this.showNumAutorisation=false
             this.showNumAgrement=false
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
+            this.showRegionMedical=false
+            this.showDistrict=false
           }
           break;
           case 'CT' : {
             this.showAdresseStructure=false
+            this.showZoneIntervention=true
 
             this.showNumAutorisation=false
             this.showNumAgrement=false
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
+            this.showRegionMedical=false
+            this.showDistrict=false
           }
           break;
         }
@@ -648,8 +685,18 @@ import { mapMutations, mapGetters } from 'vuex'
         this.selectedType_sources = type_source
         console.log('************',type_source)
       },
+      async changeRegion(value) {
+        //this.selectedRegions= []
+        console.log('region id +++++ ',value)
+        console.log(' departements +++++ ',this.listdepartements)
+        //this.listdepartements = this.listdepartements.filter(item => item.region[0] === value);
+        this.listDepartements = value?.departements
+        this.selectedRegions=[value.id]
+        //this.selectedRegions.push(value.id)
+        
+      },
       async changeType_zone_intervention(e) {
-        console.log('************',e)
+        console.log('************',this.showZoneIntervention)
         this.selectedType_zone_interventions = e.id
         switch(e.libelle_zone){
           case 'National' : {
@@ -660,6 +707,7 @@ import { mapMutations, mapGetters } from 'vuex'
           break;
           case 'Régional' : {
             this.showRegion=true
+            this.showZoneIntervention=true
           }
           break;
         }
