@@ -43,7 +43,7 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col lg="6" md="6" sm="12" v-if="showRegionMedical">
+          <v-col lg="4" md="4" sm="12" v-if="showRegionMedical">
             <v-autocomplete
               :rules="rules.selectRules"
               :items="listregions"
@@ -58,7 +58,7 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col lg="6" md="6" sm="12" v-if="showDistrict">
+          <v-col lg="4" md="4" sm="12" v-if="showDistrict">
             <v-autocomplete
               v-model="selectedDepartements"
               :rules="rules.selectRules"
@@ -601,9 +601,6 @@ import { mapMutations, mapGetters } from 'vuex'
             this.showNumAgrement=false
             this.showAccordSiege=false
             this.showDebutIntervention=false
-            this.showFinIntervention=false
-            this.showRegionMedical=false
-            this.showDistrict=false
           }
           break;
           case 'PTF' : {
@@ -683,6 +680,7 @@ import { mapMutations, mapGetters } from 'vuex'
           break;
           case 'Régional' : {
             this.showRegion=true
+            this.showZoneIntervention=true
           }
           break;
         }
