@@ -43,6 +43,34 @@
             >
             </v-autocomplete>
           </v-col>
+          <v-col lg="6" md="6" sm="12" v-if="showRegionMedical">
+            <v-autocomplete
+              :rules="rules.selectRules"
+              :items="listregions"
+              outlined
+              dense
+              label="Region"
+              item-text="nom_region"
+              item-value="id"
+           
+              return-object
+              @change="changeRegion"
+            >
+            </v-autocomplete>
+          </v-col>
+          <v-col lg="6" md="6" sm="12" v-if="showDistrict">
+            <v-autocomplete
+              v-model="selectedDepartements"
+              :rules="rules.selectRules"
+              :items="listDepartements"
+              outlined
+              dense
+              label="District"
+              item-text="nom_departement"
+              item-value="id"
+            >
+            </v-autocomplete>
+          </v-col>
           <v-col md="6" lg="6" sm="12" v-if="showNumAutorisation">
             <v-text-field
               label="N° autorisation"
@@ -171,8 +199,8 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5 primary custom-title-h2">Zone d'intervention</h2>
-      <v-card flat class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
+      <h2 class="mb-5 primary custom-title-h2" v-if="showZoneIntervention">Zone d'intervention</h2>
+      <v-card flat class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5" v-if="showZoneIntervention">
         <v-row>
           <v-col md="12" lg="12" sm="12">
             <v-radio-group
@@ -191,7 +219,7 @@
           </v-col>
         </v-row>
         <v-row v-if="showRegion">
-          <v-col md="12" lg="12" sm="12">
+          <v-col md="13" lg="12" sm="12">
             <v-expansion-panels
               v-for="(item,i) in listregions"
               :key="i"
@@ -205,7 +233,7 @@
                     :value="item.id"
                   ></v-checkbox>
                 </v-expansion-panel-header>
-                <v-expansion-panel-content>
+                <!--<v-expansion-panel-content>
                   <div v-for="item in item.departements" :key="item.id">
                     <v-checkbox
                       v-model="selectedDepartements"
@@ -213,7 +241,7 @@
                       :value="item.id"
                     ></v-checkbox>
                   </div>
-                </v-expansion-panel-content>
+                </v-expansion-panel-content>-->
               </v-expansion-panel>
             </v-expansion-panels>
           </v-col>
@@ -325,6 +353,7 @@ import { mapMutations, mapGetters } from 'vuex'
       listdimensions: 'dimensions/listdimensions',
     })},
     data: () => ({
+      listDepartements:[],
       filename : '',
       loading: false,
       message:null,
@@ -336,6 +365,9 @@ import { mapMutations, mapGetters } from 'vuex'
       showAccordSiege: false,
       showNumAgrement: false,
       showAdresseStructure: false,
+      showRegionMedical: false,
+      showDistrict: false,
+      showZoneIntervention: false,
       showRegion: false,
       message:null,
       selectedSource_financements: [],
@@ -527,6 +559,20 @@ import { mapMutations, mapGetters } from 'vuex'
         this.showStructure=false
         console.log('************',checkRole)
       },
+      async changeRegion(value) {
+        //this.selectedRegions= []
+        console.log('region id +++++ ',value)
+        console.log(' departements +++++ ',this.listdepartements)
+        //this.listdepartements = this.listdepartements.filter(item => item.region[0] === value);
+        this.listDepartements = value?.departements
+        this.selectedRegions=[value.id]
+        //this.selectedRegions.push(value.id)
+        
+      },
+      async changeDepartement(value) {
+        
+        
+      },
       async changeSource_financement(source) {
         this.showTypeSource=true
         this.selectedSource_financements = source
@@ -536,61 +582,80 @@ import { mapMutations, mapGetters } from 'vuex'
           case 'EPS' : {
             console.log('************',this.showNumAutorisation)
             this.showAdresseStructure=true
+            this.showRegionMedical=true
+            this.showDistrict=true
 
             this.showNumAutorisation=false
             this.showNumAgrement=false
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
+            this.showZoneIntervention=false
           }
           break;
           case 'SPS' : {
             this.showNumAutorisation=true
             this.showAdresseStructure=true
+            this.showZoneIntervention=true
 
             this.showNumAgrement=false
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
+            this.showRegionMedical=false
+            this.showDistrict=false
           }
           break;
           case 'PTF' : {
             this.showNumAgrement=true
             this.showAccordSiege=true
+            this.showZoneIntervention=true
             this.showNumAutorisation=false
             this.showDebutIntervention=true
             this.showFinIntervention=true
             this.showAdresseStructure=true
+
+            this.showRegionMedical=false
+            this.showDistrict=false
           }
           break;
           case 'ONG' : {
             this.showNumAgrement=true
             this.showAdresseStructure=true
+            this.showZoneIntervention=true
 
             this.showNumAutorisation=false
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
+            this.showRegionMedical=false
+            this.showDistrict=false
           }
           break;
           case 'RSE' : {
             this.showAdresseStructure=true
+            this.showZoneIntervention=true
 
             this.showNumAutorisation=false
             this.showNumAgrement=false
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
+            this.showRegionMedical=false
+            this.showDistrict=false
           }
           break;
           case 'CT' : {
             this.showAdresseStructure=false
+            this.showZoneIntervention=true
 
             this.showNumAutorisation=false
             this.showNumAgrement=false
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
+            this.showRegionMedical=false
+            this.showDistrict=false
           }
           break;
         }
