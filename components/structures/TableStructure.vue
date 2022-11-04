@@ -13,12 +13,9 @@
       ></v-text-field> -->
     </v-card-title>
     <v-data-table
-     v-model="selected"
       :headers="headers"
       :items="tab=='tout'?liststructures : liststructures.filter(structure => structure.active_account === tab)"
-      :single-select="singleSelect"
       item-key="id"
-      show-select
       :items-per-page="perpage"
       class="flat pt-4"
       :loading="progress"
