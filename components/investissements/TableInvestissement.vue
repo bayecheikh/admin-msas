@@ -11,7 +11,7 @@
       <div class="ml-auto p-2" v-if="$hasPermission('ajouter_investissement')">
         <v-btn depressed rounded color="primary" @click="goToAddinvestissement">
           <v-icon left> mdi-plus </v-icon>
-          Ajouter un financement
+          Nouveau financement
         </v-btn>
       </div>
     </div>
