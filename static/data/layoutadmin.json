@@ -17,13 +17,13 @@
     {
       "icon": "mdi-cog-outline",
       "href": "/departements",
-      "title": "Departement",
+      "title": "Districts",
       "name": "gerer-departements"
     },
     {
       "icon": "mdi-cog-outline",
       "href": "/regions",
-      "title": "Region",
+      "title": "Regions",
       "name": "gerer-regions"
     },
     {
