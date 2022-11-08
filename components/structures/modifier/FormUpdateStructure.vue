@@ -167,7 +167,7 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5">Coordonnées siège</h2>
+      <h2 class="mb-5 primary custom-title-h2">Coordonnées siège</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
         <v-row>
           <v-col md="4" lg="4" sm="12" v-if="showAdresseStructure">
@@ -199,8 +199,8 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5">Zone d'intervention</h2>
-      <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
+      <h2 class="mb-5 primary custom-title-h2" v-if="showZoneIntervention">Zone d'intervention</h2>
+      <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5" v-if="showZoneIntervention">
         <v-row>
           <v-col md="12" lg="12" sm="12">
             <v-radio-group
@@ -247,7 +247,7 @@
           </v-col>
         </v-row>
       </v-card>
-      <h2 class="mb-5">Dimensions</h2>
+      <h2 class="mb-5 primary custom-title-h2">Dimensions</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
         <v-row class="d-flex justify-content-between">
           <v-col
@@ -688,7 +688,7 @@ import { mapMutations, mapGetters } from 'vuex'
       async changeRegion(value) {
         //this.selectedRegions= []
         console.log('region id +++++ ',value)
-        console.log(' departements +++++ ',this.listdepartements)
+        //console.log(' departements +++++ ',this.listdepartements)
         //this.listdepartements = this.listdepartements.filter(item => item.region[0] === value);
         this.listDepartements = value?.departements
         this.selectedRegions=[value.id]

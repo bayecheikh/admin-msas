@@ -63,8 +63,7 @@
               dense
               label="Region"
               item-text="nom_region"
-              item-value="id"
-           
+              item-value="id"          
               return-object
               @change="changeRegion"
             >
