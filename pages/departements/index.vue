@@ -39,7 +39,7 @@ import ListDepartement from '@/components/departements/ListDepartement'
         ],
         headerItems: [
           {
-            text: 'Liste des departements',
+            text: 'Liste des districts',
             disabled: true,
             to: '/departements',
             exact: true

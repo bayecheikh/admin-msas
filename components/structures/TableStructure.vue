@@ -38,11 +38,11 @@
               mdi-square-edit-outline
             </v-icon>
             <span class="font-small">Modifier</span>
-          </v-btn>  -->
+          </v-btn>  
               <v-btn icon class="col-3" v-on:click="supprimer()">
                 <v-icon left class="font-small"> mdi-trash-can-outline </v-icon>
                 <span class="font-small">Supprimer</span>
-              </v-btn>
+              </v-btn>-->
               <!-- <v-btn icon class="col-3" v-on:click="exporter()">
             <v-icon left class="font-small">
               mdi-file-export-outline
