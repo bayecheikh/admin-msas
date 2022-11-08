@@ -18,6 +18,8 @@
               v-model="model.donneur_receveur_mixte"
               :rules="rules.nom_structureRules"
               label="Nature structure"
+              item-text="libelle"
+              item-value="id"
               outlined
               dense
             ></v-select>
@@ -363,7 +365,7 @@ import { mapMutations, mapGetters } from 'vuex'
       listdimensions: 'dimensions/listdimensions',
     })},
     data: () => ({
-      itemsNatureStructure:['Donneur','Receveur','Mixte'],
+      itemsNatureStructure:[{id:'Donneur',libelle:'Bailleur'},{id:'Receveur',libelle:'Récipiendaire'},{id:'Mixte',libelle:'Mixte'}],
       listDepartements:[],
       filename : '',
       loading: false,
@@ -389,7 +391,7 @@ import { mapMutations, mapGetters } from 'vuex'
       selectedType_zone_interventions: [],
       model: {
         nom_structure:'',
-        donneur_receveur_mixte:'',
+        donneur_receveur_mixte:[],
         numero_autorisation:'',
         accord_siege:'',
         numero_agrement:'',

@@ -179,11 +179,11 @@
             <v-col lg="6" md="6" sm="12" v-if="natureStructure=='Receveur' || natureStructure=='Mixte'">
               <v-autocomplete
                 v-model="selectedStructureSources0"
-                :items="liststructures"
+                :items="liststructures.filter(structure => (structure.donneur_receveur_mixte=='Donneur' || structure.donneur_receveur_mixte=='Mixte' || structure.id==idStructure))"
                 :rules="rules.textfieldRules"
                 outlined
                 dense
-                label="Bailleur"
+                label="Bailleurs"
                 item-text="nom_structure"
                 item-value="id"
                 return-object
@@ -194,11 +194,11 @@
             <v-col lg="6" md="6" sm="12" v-if="natureStructure=='Donneur' || natureStructure=='Mixte'">
               <v-autocomplete
                 v-model="selectedStructureBeneficiaires0"
-                :items="liststructures"
+                :items="liststructures.filter(structure => (structure.donneur_receveur_mixte=='Receveur' || structure.donneur_receveur_mixte=='Mixte' ))"
                 :rules="rules.textfieldRules"
                 outlined
                 dense
-                label="Bénéficiaire"
+                label="Bénéficiaires"
                 item-text="nom_structure"
                 item-value="id"
                 return-object
@@ -336,9 +336,7 @@
             </v-col>
           </v-row>
         </div>
-        <template>
           <v-simple-table class="custom-ligne-bloc-2">
-            <template v-slot:default>
               <thead>
                 <tr>
                   <th class="text-left" >
@@ -400,10 +398,7 @@
                   
                 </tr>
               </tbody>
-            </template>
-          </v-simple-table>
-        </template>
-        
+          </v-simple-table>       
       </v-card>
       <h2 class="mb-5">Fichiers</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
@@ -477,6 +472,7 @@ import { mapMutations, mapGetters } from 'vuex'
     data: () => ({
       loggedInUser:'',
       natureStructure:'',
+      idStructure:'',
       inputfichiers:[],
       libelle_fichiers:[],
       fichiers:[],
@@ -624,6 +620,7 @@ import { mapMutations, mapGetters } from 'vuex'
         .then(async (response) => {
             console.log('Detail user++++++++++',response.data)
             this.$store.dispatch('utilisateurs/getDetail',response.data)
+            this.idStructure = response.data?.structures[0]?.id
             this.natureStructure = response.data?.structures[0]?.donneur_receveur_mixte
         }).catch((error) => {
              this.$toast.error(error?.response?.data?.message).goAway(3000)

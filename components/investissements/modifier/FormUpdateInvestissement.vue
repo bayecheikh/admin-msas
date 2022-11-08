@@ -166,7 +166,7 @@
             <v-col lg="6" md="6" sm="12" v-if="natureStructure=='Receveur' || natureStructure=='Mixte'">
               <v-autocomplete
                 v-model="selectedStructureSources0"
-                :items="liststructures"
+                :items="liststructures.filter(structure => (structure.donneur_receveur_mixte=='Donneur' || structure.donneur_receveur_mixte=='Mixte' || structure.id==idStructure))"
                 :rules="rules.textfieldRules"
                 outlined
                 dense
@@ -181,7 +181,7 @@
             <v-col lg="6" md="6" sm="12" v-if="natureStructure=='Donneur' || natureStructure=='Mixte'">
               <v-autocomplete
                 v-model="selectedStructureBeneficiaires0"
-                :items="liststructures"
+                :items="liststructures.filter(structure => (structure.donneur_receveur_mixte=='Receveur' || structure.donneur_receveur_mixte=='Mixte' ))"
                 :rules="rules.textfieldRules"
                 outlined
                 dense
@@ -461,6 +461,7 @@ import { mapMutations, mapGetters } from 'vuex'
     })},
     data: () => ({
       loggedInUser:'',
+      idStructure:'',
       natureStructure:'',
       inputfichiers:[],
       libelle_fichiers:[],
@@ -610,6 +611,7 @@ import { mapMutations, mapGetters } from 'vuex'
         .then(async (response) => {
             console.log('Detail user++++++++++',response.data)
             this.$store.dispatch('utilisateurs/getDetail',response.data)
+            this.idStructure = response.data?.structures[0]?.id
             this.natureStructure = response.data?.structures[0]?.donneur_receveur_mixte
         }).catch((error) => {
              this.$toast.error(error?.response?.data?.message).goAway(3000)
