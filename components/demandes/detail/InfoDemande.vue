@@ -2,20 +2,9 @@
   <v-card class="custom-card-user border-grey">                   
     <v-card-text>
       <v-row>
-        <v-col md="3" sm="12" lg="3" text-md-center>
-          <!-- <img src="@/static/avatar/user.png" class="user-profil" alt="Espace Senegal Service"> -->
-          <div class="headline">
-            <v-avatar v-if="detaildemande.avatar" tile style="border: solid 2px #d8d8d8;" size="150px">
-              <img :src="detaildemande.avatar" alt="Avatar"/>
-            </v-avatar>
-            <v-avatar size="100px" v-else>
-              <img src="@/static/avatar/default-user.png" alt="Cheikh Gueye"/>
-            </v-avatar>
-          </div>
-        </v-col>
-        <v-col md="9" sm="12" lg="9" text-md-left>
+        <v-col md="12" sm="12" lg="12" text-md-left>
           <div class="row">
-              <div class="col-md-6 border-left">
+              <div class="col-md-6">
                   <!--<p class="info-profil mb-4"><span>Prénom: </span>{{detaildemande.firstname}}</p>
                   <p class="info-profil mb-4"><span>Nom: </span>{{detaildemande.lastname}}</p>-->
                   <p class="info-profil mb-4"><span>Prénom: </span>{{detaildemande.firstname}}</p>
@@ -35,7 +24,12 @@
                     </v-chip>
                   </p>
               </div>
-              
+              <div class="col-md-6">
+                  <!--<p class="info-profil mb-4"><span>Prénom: </span>{{detaildemande.firstname}}</p>
+                  <p class="info-profil mb-4"><span>Nom: </span>{{detaildemande.lastname}}</p>-->
+                  <p class="info-profil mb-4"><span>Message : </span>{{detaildemande.message}}</p>
+                  
+              </div>
           </div>
         </v-col>
       </v-row>
@@ -66,7 +60,7 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       getDetail(id){
           this.progress=true
-          this.$msasApi.$get('/users/'+id)
+          this.$msasApi.$get('/demandes/'+id)
         .then(async (response) => {
             console.log('Detail ++++++++++',response)
             this.$store.dispatch('demandes/getDetail',response.data)

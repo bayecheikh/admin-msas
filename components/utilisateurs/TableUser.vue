@@ -15,7 +15,7 @@
     <v-data-table
      v-model="selected"
       :headers="headers"
-      :items="tab=='tout'?listUsers : listUsers.filter(user => user.status === tab)"
+      :items="tab=='tout'?listUsers.filter(user => user.roles[0] && user.roles[0].name != 'super_admin') : listUsers.filter(user => user.status === tab)"
       :single-select="singleSelect"
       item-key="id"
       :items-per-page="perpage"

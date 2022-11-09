@@ -10,10 +10,10 @@
       >
         <v-tabs-slider></v-tabs-slider>
 
-        <v-tab href="#tab-1">
+        <!--<v-tab href="#tab-1">
           Statistiques
           <v-icon>mdi-view-dashboard</v-icon>
-        </v-tab>
+        </v-tab>-->
 
         <v-tab href="#tab-2">
           Pièces jointes
@@ -26,7 +26,7 @@
         </v-tab>
       </v-tabs>
 
-      <v-tabs-items v-model="tab" class="pt-5">
+      <!--<v-tabs-items v-model="tab" class="pt-5">
         <v-tab-item
           value="tab-1"
         >
@@ -74,7 +74,7 @@
             </v-col>
           </v-row>
         </v-tab-item>
-      </v-tabs-items>
+      </v-tabs-items>-->
 
       <v-tabs-items v-model="tab">
         <v-tab-item
