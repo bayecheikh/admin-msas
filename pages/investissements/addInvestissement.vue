@@ -50,7 +50,7 @@ import FormAddInvestissement from '@/components/investissements/FormAddInvestiss
           exact: true
         },
         {
-          text: 'Nouvelle investissement',
+          text: 'Nouveau financement',
           disabled: false,
           to: '/investissements/addinvestissement',
           exact: true

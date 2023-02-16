@@ -37,7 +37,7 @@ import TableStructure from '@/components/structures/TableStructure'
     data: () => ({
       tab: null,
       tabItems: [
-        {title:'Tout',value:'tout'}, {title:'Actifs',value:true}, {title:'Inactifs',value:false},
+        {title:'Tout',value:'tout'}
       ],
       selected: []
     }),

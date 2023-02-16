@@ -179,11 +179,11 @@
             <v-col lg="6" md="6" sm="12" v-if="natureStructure=='Receveur' || natureStructure=='Mixte'">
               <v-autocomplete
                 v-model="selectedStructureSources0"
-                :items="liststructures"
+                :items="liststructures.filter(structure => (structure.donneur_receveur_mixte=='Donneur' || structure.donneur_receveur_mixte=='Mixte' || structure.id==idStructure))"
                 :rules="rules.textfieldRules"
                 outlined
                 dense
-                label="Bailleur"
+                label="Bailleurs"
                 item-text="nom_structure"
                 item-value="id"
                 return-object
@@ -194,11 +194,11 @@
             <v-col lg="6" md="6" sm="12" v-if="natureStructure=='Donneur' || natureStructure=='Mixte'">
               <v-autocomplete
                 v-model="selectedStructureBeneficiaires0"
-                :items="liststructures"
+                :items="liststructures.filter(structure => (structure.donneur_receveur_mixte=='Receveur' || structure.donneur_receveur_mixte=='Mixte' ))"
                 :rules="rules.textfieldRules"
                 outlined
                 dense
-                label="Bénéficiaire"
+                label="Bénéficiaires"
                 item-text="nom_structure"
                 item-value="id"
                 return-object
@@ -336,9 +336,7 @@
             </v-col>
           </v-row>
         </div>
-        <template>
           <v-simple-table class="custom-ligne-bloc-2">
-            <template v-slot:default>
               <thead>
                 <tr>
                   <th class="text-left" >
@@ -400,10 +398,7 @@
                   
                 </tr>
               </tbody>
-            </template>
-          </v-simple-table>
-        </template>
-        
+          </v-simple-table>       
       </v-card>
       <h2 class="mb-5">Fichiers</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
@@ -477,6 +472,7 @@ import { mapMutations, mapGetters } from 'vuex'
     data: () => ({
       loggedInUser:'',
       natureStructure:'',
+      idStructure:'',
       inputfichiers:[],
       libelle_fichiers:[],
       fichiers:[],
@@ -624,6 +620,7 @@ import { mapMutations, mapGetters } from 'vuex'
         .then(async (response) => {
             console.log('Detail user++++++++++',response.data)
             this.$store.dispatch('utilisateurs/getDetail',response.data)
+            this.idStructure = response.data?.structures[0]?.id
             this.natureStructure = response.data?.structures[0]?.donneur_receveur_mixte
         }).catch((error) => {
              this.$toast.error(error?.response?.data?.message).goAway(3000)
@@ -768,56 +765,63 @@ import { mapMutations, mapGetters } from 'vuex'
         });
       },
       submitLigne () {
-        this.counterrow += 1;
-
-        if(this.natureStructure=='Donneur'){
-          this.selectedStructureSources0 = this.detailUtilisateur?.structures[0]
-          this.selectedstructuresources.push(this.detailUtilisateur?.structures[0])
+        if(this.montantBienServiceExecutes0>this.montantBienServiceMobilises0 || this.montantInvestissementExecutes0>this.montantInvestissementMobilises0)
+        {
+          alert('Le montant exécuté doit etre inférieur ou égal au montant mobilisé')
         }
-              
-        if(this.natureStructure=='Receveur'){
-          console.log('Detail Struct +++ ',this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
-          this.selectedStructureBeneficiaires0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)
-          this.selectedstructurebeneficiaires.push(this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
-          this.selectedRegions0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)?.regions[0]
-          this.selectedregions.push(this.findStructureName(this.detailUtilisateur?.structures[0]?.id)?.regions[0])
+        else{
+          this.counterrow += 1;
+
+          if(this.natureStructure=='Donneur'){
+            this.selectedStructureSources0 = this.detailUtilisateur?.structures[0]
+            this.selectedstructuresources.push(this.detailUtilisateur?.structures[0])
+          }
+                
+          if(this.natureStructure=='Receveur'){
+            console.log('Detail Struct +++ ',this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
+            this.selectedStructureBeneficiaires0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)
+            this.selectedstructurebeneficiaires.push(this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
+            this.selectedRegions0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)?.regions[0]
+            this.selectedregions.push(this.findStructureName(this.detailUtilisateur?.structures[0]?.id)?.regions[0])
+          }
+          
+          if(this.natureStructure=='Mixte' || this.natureStructure=='Receveur'){
+            this.selectedstructuresources.push(this.selectedStructureSources0)
+          }
+          
+          if(this.natureStructure=='Mixte' || this.natureStructure=='Donneur'){
+            this.selectedstructurebeneficiaires.push(this.selectedStructureBeneficiaires0)
+            this.selectedregions.push(this.selectedRegions0)
+          }
+          
+
+          this.selectedPiliers.push(this.selectedPiliers0)
+          this.selectedAxes.push(this.selectedAxes0)
+          this.montantBienServicePrevus.push(this.montantBienServicePrevus0)
+          this.montantBienServiceMobilises.push(this.montantBienServiceMobilises0)
+          this.montantBienServiceExecutes.push(this.montantBienServiceExecutes0)
+          this.montantInvestissementPrevus.push(this.montantInvestissementPrevus0)
+          this.montantInvestissementMobilises.push(this.montantInvestissementMobilises0)
+          this.montantInvestissementExecutes.push(this.montantInvestissementExecutes0)
+
+          this.LigneFinancementInputs.push({
+            id:this.counterrow,
+            structuresource:this.selectedStructureSources0,
+            structurebeneficiaire:this.selectedStructureBeneficiaires0,
+            region:this.selectedRegions0,
+            pilier:this.selectedPiliers0,
+            axe:this.selectedAxes0,
+            montantBienServicePrevus:this.montantBienServicePrevus0,
+            montantBienServiceMobilises:this.montantBienServiceMobilises0,
+            montantBienServiceExecutes:this.montantBienServiceExecutes0,
+            montantInvestissementPrevus:this.montantInvestissementPrevus0,
+            montantInvestissementMobilises:this.montantInvestissementMobilises0,
+            montantInvestissementExecutes:this.montantInvestissementExecutes0
+          })
+          this.resetLigneFinancement()
+          console.log('Donées LigneFinancementInputs ++++++: ',this.LigneFinancementInputs)
         }
         
-        if(this.natureStructure=='Mixte' || this.natureStructure=='Receveur'){
-          this.selectedstructuresources.push(this.selectedStructureSources0)
-        }
-        
-        if(this.natureStructure=='Mixte' || this.natureStructure=='Donneur'){
-          this.selectedstructurebeneficiaires.push(this.selectedStructureBeneficiaires0)
-          this.selectedregions.push(this.selectedRegions0)
-        }
-        
-
-        this.selectedPiliers.push(this.selectedPiliers0)
-        this.selectedAxes.push(this.selectedAxes0)
-        this.montantBienServicePrevus.push(this.montantBienServicePrevus0)
-        this.montantBienServiceMobilises.push(this.montantBienServiceMobilises0)
-        this.montantBienServiceExecutes.push(this.montantBienServiceExecutes0)
-        this.montantInvestissementPrevus.push(this.montantInvestissementPrevus0)
-        this.montantInvestissementMobilises.push(this.montantInvestissementMobilises0)
-        this.montantInvestissementExecutes.push(this.montantInvestissementExecutes0)
-
-        this.LigneFinancementInputs.push({
-          id:this.counterrow,
-          structuresource:this.selectedStructureSources0,
-          structurebeneficiaire:this.selectedStructureBeneficiaires0,
-          region:this.selectedRegions0,
-          pilier:this.selectedPiliers0,
-          axe:this.selectedAxes0,
-          montantBienServicePrevus:this.montantBienServicePrevus0,
-          montantBienServiceMobilises:this.montantBienServiceMobilises0,
-          montantBienServiceExecutes:this.montantBienServiceExecutes0,
-          montantInvestissementPrevus:this.montantInvestissementPrevus0,
-          montantInvestissementMobilises:this.montantInvestissementMobilises0,
-          montantInvestissementExecutes:this.montantInvestissementExecutes0
-        })
-        this.resetLigneFinancement()
-        console.log('Donées LigneFinancementInputs ++++++: ',this.LigneFinancementInputs)
       },
       resetLigneFinancement () {
         this.selectedStructureSources0 = ''

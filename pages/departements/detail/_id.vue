@@ -45,13 +45,13 @@ import ActionsDepartement from '@/components/departements/detail/ActionsDepartem
         ],
         headerItems: [
         {
-          text: 'Departements',
+          text: 'Districts',
           disabled: false,
           to: '/departements',
           exact: true
         },
         {
-          text: 'Detail departement',
+          text: 'Detail district',
           disabled: true,
           to: '/departements/94',
           exact: true

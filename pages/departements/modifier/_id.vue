@@ -34,13 +34,13 @@ import FormUpdateDepartement from '@/components/departements/modifier/FormUpdate
         ],
         headerItems: [
         {
-          text: 'Departements',
+          text: 'Districts',
           disabled: false,
           to: '/departements',
           exact: true
         },
         {
-          text: 'Detail departement',
+          text: 'Modification',
           disabled: true,
           to: '/departements/94',
           exact: true

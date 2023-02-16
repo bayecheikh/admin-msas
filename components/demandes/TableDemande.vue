@@ -205,7 +205,7 @@ import RechercheDemande from '@/components/demandes/RechercheDemande';
         this.$msasApi.$get('/active_demande/'+id)
         .then(async (response) => {   
           console.log('------------- reponse active',response)          
-            this.$store.dispatch('toast/getMessage',{type:'success',text:response.data.message || 'Désactivation réussie'})
+            this.$store.dispatch('toast/getMessage',{type:'success',text:'Opération réussie!' })
             }).catch((error) => {
               this.$store.dispatch('toast/getMessage',{type:'error',text:error || 'Opération échoué'})
               console.log('Code error ++++++: ',error)

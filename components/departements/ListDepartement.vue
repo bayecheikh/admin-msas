@@ -16,7 +16,7 @@
           <v-icon left>
             mdi-plus
           </v-icon>
-          Nouveau departement
+          Nouveau district
         </v-btn>
       </div>
     </div>

@@ -29,19 +29,19 @@ import FormAddDepartement from '@/components/departements/FormAddDepartement';
       return {
         leftmenuItems: [
           { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
-          { text: 'departements', icon: 'mdi-lock',link:'/departements',position:2  }
+          { text: 'Districts', icon: 'mdi-lock',link:'/departements',position:2  }
         ],
         headerItems: [
         {
-          text: 'departements',
+          text: 'Districts',
           disabled: false,
           to: '/departements',
           exact: true
         },
         {
-          text: 'Nouveau departement',
-          disabled: false,
-          to: '/departements/adddepartement',
+          text: 'Nouveau district',
+          disabled:true,
+          to: '/departements/addDepartement',
           exact: true
         }
         

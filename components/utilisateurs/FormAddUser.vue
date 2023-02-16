@@ -116,7 +116,7 @@
       >
         <v-autocomplete
             v-model="model.roles"
-            :items="listroles"
+            :items="listroles.filter(item => (item && item.name != 'super_admin'))"
             :rules="rules.rolesRules"
             outlined
             dense

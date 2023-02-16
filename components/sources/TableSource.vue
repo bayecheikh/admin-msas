@@ -12,12 +12,12 @@
       ></v-text-field>
 </v-card-title>
 <v-data-table
-  v-model="selected"
+ 
   :headers="headers"
   :items="tab=='tout'?listsources : listsources.filter(source => source.status === tab)"
-  :single-select="singleSelect"
+  
   item-key="id"
-  show-select
+
   class="flat pt-4"
   :loading="listsources.length?false:true" 
   loading-text="Loading... Please wait"
@@ -34,13 +34,13 @@
               mdi-square-edit-outline
             </v-icon>
             <span class="font-small">Modifier</span>
-          </v-btn>  -->
+          </v-btn>  
           <v-btn icon class="col-3" v-on:click="supprimer()">
             <v-icon left class="font-small">
               mdi-trash-can-outline
             </v-icon>
             <span class="font-small">Supprimer</span>
-          </v-btn>   
+          </v-btn>  --> 
         </div>
       </v-col>
       <v-col md="6" sm="12" lg="6" class="pt-0 pb-2">  
