@@ -5,7 +5,7 @@
     {
       "icon": "mdi-account-lock-outline",
       "href": "/roles",
-      "title": "Role",
+      "title": "Rôles",
       "name": "gerer-roles"
     },
     {
@@ -23,7 +23,7 @@
     {
       "icon": "mdi-cog-outline",
       "href": "/regions",
-      "title": "Regions",
+      "title": "Régions",
       "name": "gerer-regions"
     },
     {
@@ -47,7 +47,7 @@
     {
       "icon": "mdi-cog-outline",
       "href": "/typesources",
-      "title": "Sous Type de structure",
+      "title": "Sous-Type de structure",
       "name": "gerer-type-sources"
     },
     {

@@ -62,7 +62,7 @@ import { mapMutations, mapGetters } from 'vuex'
           this.progress=true
           this.$msasApi.$get('/demandes/'+id)
         .then(async (response) => {
-            console.log('Detail ++++++++++',response)
+            console.log('Détail ++++++++++',response)
             this.$store.dispatch('demandes/getDetail',response.data)
         }).catch((error) => {
              this.$toast.error(error?.response?.data?.message).goAway(3000)

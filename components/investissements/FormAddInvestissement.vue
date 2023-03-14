@@ -278,7 +278,7 @@
                     </v-col>
                     <v-col md="4" lg="4" sm="12">
                       <v-text-field
-                        label="Montant Executé"
+                        label="Montant Exécuté"
                         outlined
                         dense
                         v-model="montantBienServiceExecutes0"
@@ -314,7 +314,7 @@
                     </v-col>
                     <v-col md="4" lg="4" sm="12">
                       <v-text-field
-                        label="Montant Executé"
+                        label="Montant Exécuté"
                         outlined
                         dense
                         v-model="montantInvestissementExecutes0"
@@ -362,7 +362,7 @@
                     Montant Biens et services mobilisé
                   </th>
                   <th class="text-left">
-                    Montant Biens et services executé
+                    Montant Biens et services exécuté
                   </th>
                   <th class="text-left">
                     Montant Investissement prévu
@@ -371,7 +371,7 @@
                     Montant Investissement mobilisé
                   </th>
                   <th class="text-left">
-                    Montant Investissement executé
+                    Montant Investissement exécuté
                   </th>
                   <th class="text-left">
                     -
@@ -446,6 +446,7 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex'
   export default {
+    
     components: {
     },
     mounted: function() {
@@ -618,7 +619,7 @@ import { mapMutations, mapGetters } from 'vuex'
           this.progress=true
           this.$msasApi.$get('/users/'+id)
         .then(async (response) => {
-            console.log('Detail user++++++++++',response.data)
+            console.log('Détail user++++++++++',response.data)
             this.$store.dispatch('utilisateurs/getDetail',response.data)
             this.idStructure = response.data?.structures[0]?.id
             this.natureStructure = response.data?.structures[0]?.donneur_receveur_mixte
@@ -778,7 +779,7 @@ import { mapMutations, mapGetters } from 'vuex'
           }
                 
           if(this.natureStructure=='Receveur'){
-            console.log('Detail Struct +++ ',this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
+            console.log('Détail Struct +++ ',this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
             this.selectedStructureBeneficiaires0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)
             this.selectedstructurebeneficiaires.push(this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
             this.selectedRegions0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)?.regions[0]

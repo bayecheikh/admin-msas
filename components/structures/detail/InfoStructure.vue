@@ -61,7 +61,7 @@ import { mapMutations, mapGetters } from 'vuex'
           this.progress=true
           this.$msasApi.$get('/structures/'+id)
         .then(async (response) => {
-            console.log('Detail ++++++++++',response)
+            console.log('Détail ++++++++++',response)
             this.$store.dispatch('structures/getDetail',response.data)
             this.changeSource_financement(response.data?.source)
         }).catch((error) => {

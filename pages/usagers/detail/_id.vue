@@ -56,7 +56,7 @@ import HistoriqueUsager from '@/components/usagers/detail/HistoriqueUsager';
           exact: true
         },
         {
-          text: 'Detail',
+          text: 'Détail',
           disabled: true,
           to: '/usagers/addUsager',
           exact: true

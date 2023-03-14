@@ -21,7 +21,7 @@
       </v-col>
       <v-col md="6" lg="6" sm="12">
         <v-text-field
-          label="Adresse Email"
+          label="Adresse e-mail"
           outlined dense
           v-model="model.email"
           :rules="rules.emailRules"
@@ -222,11 +222,11 @@ import { mapMutations, mapGetters } from 'vuex'
           v => (v && v.length <= 10) || 'Nom doit etre inférieur à 10 caratères',
         ],
         rolesRules: [
-          v => (v && !!v.length) || 'Rôle est obligatoire',
+          v => (v && !!v.length) || 'Le rôle est obligatoire',
         ],
         telephoneRules: [
-        (v) => !!v || 'Le numéro de téléphone est obligatoire',
-        (v) => /^[0-9]+$/.test(v) || "Le numéro de téléphone ne doit contenir que des chiffres",
+        v => !!v || 'Le numéro de téléphone est obligatoire',
+        (v) => /^[0-9+ ]+$/.test(v) || "Le numéro de téléphone ne doit contenir que des chiffres, des espaces et des +",
         (v) => (v && v.length >= 8 && v.length <= 20) || "Le numéro de téléphone doit contenir entre 8 et 20 chiffres"
         ],
         country_codeRules: [
@@ -353,7 +353,7 @@ import { mapMutations, mapGetters } from 'vuex'
       async changeRole(role) {
 
         let checkRole = this.model.roles.filter(item => (item && item.name === 'point_focal' || item && item.name === 'admin_structure' || item && item.name === 'DGES' || item && item.name === 'directeur_eps')).length;
-        if(checkRole==1)
+        if(checkRole>=1)
         this.showFournisseur=true
         else
         this.showFournisseur=false

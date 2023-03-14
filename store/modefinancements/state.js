@@ -9,7 +9,7 @@ export default () => ({
             value: 'libelle',
         },
         { text: 'Slug', value: 'slug' },
-        /* { text: 'Status', value: 'status' }, */
+        /* { text: 'Statut', value: 'status' }, */
         { text: 'Actions', value: 'actions', sortable: false },
     ],
     detailmodefinancement :{}

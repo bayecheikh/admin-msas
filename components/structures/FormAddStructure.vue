@@ -204,7 +204,7 @@
           </v-col>
           <v-col md="4" lg="4" sm="12">
             <v-text-field
-              label="Email structure"
+              label="E-mail structure"
               outlined
               dense
               v-model="model.email_structure"
@@ -283,7 +283,7 @@
         <v-row>
           <v-col md="4" lg="4" sm="12">
             <v-text-field
-              label="Fonction responsable"
+              label="Fonction du responsable"
               outlined
               dense
               v-model="model.fonction_responsable"
@@ -292,7 +292,7 @@
           </v-col>
           <v-col md="4" lg="4" sm="12">
             <v-text-field
-              label="Prénom responsable"
+              label="Prénom du responsable"
               outlined
               dense
               v-model="model.firstname_responsable"
@@ -301,7 +301,7 @@
           </v-col>
           <v-col md="4" lg="4" sm="12">
             <v-text-field
-              label="Nom responsable"
+              label="Nom du responsable"
               outlined
               dense
               v-model="model.lastname_responsable"
@@ -310,7 +310,7 @@
           </v-col>
           <v-col md="4" lg="4" sm="12">
             <v-text-field
-              label="Adresse e-mail responsable"
+              label="Adresse e-mail du responsable"
               outlined
               dense
               v-model="model.email_responsable"
@@ -319,7 +319,7 @@
           </v-col>
           <v-col md="4" lg="4" sm="12">
             <v-text-field
-              label="Téléphone responsable"
+              label="Téléphone du responsable"
               outlined
               dense
               v-model="model.telephone_responsable"
@@ -492,8 +492,8 @@ import { validationMixin } from 'vuelidate';
         v => !!v || 'Le numéro d\'autorisation est obligatoire',
         ],
         telephoneRules: [
-          v => !!v || 'Le numéro de téléphone est obligatoire',
-          (v) => /^[0-9]+$/.test(v) || "Le numéro de téléphone ne doit contenir que des chiffres",
+        v => !!v || 'Le numéro de téléphone est obligatoire',
+        (v) => /^[0-9+ ]+$/.test(v) || "Le numéro de téléphone ne doit contenir que des chiffres, des espaces et des +",
         (v) => (v && v.length >= 8 && v.length <= 20) || "Le numéro de téléphone doit contenir entre 8 et 20 chiffres"
         ],
         country_codeRules: [

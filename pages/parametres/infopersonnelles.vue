@@ -40,7 +40,7 @@
                   </v-col>
                   <v-col cols="6">
                     <v-text-field
-                      label="Adresse Email"
+                      label="Adresse e-mail"
                       outlined
                     ></v-text-field>
                   </v-col>

@@ -23,7 +23,7 @@
           outlined dense
           v-model="model.dataSearch"
           :rules="rules.dataSearchRules"
-          placeholder="Email, Prénom, Nom"
+          placeholder="E-mail, Prénom, Nom"
           clearable
           :clear-icon-cb="onClearClicked"
           rounded
@@ -40,7 +40,7 @@
       </v-col>
       <v-col md="6" lg="6" sm="12">
         <v-text-field
-          label="Adresse Email"
+          label="Adresse e-mail"
           outlined dense
           v-model="model.email"
           :rules="rules.emailRules"

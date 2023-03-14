@@ -192,7 +192,7 @@
           </v-col>
           <v-col md="4" lg="4" sm="12">
             <v-text-field
-              label="Email structure"
+              label="E-mail structure"
               outlined
               dense
               v-model="model.email_structure"
@@ -306,7 +306,7 @@
           </v-col>
           <v-col md="4" lg="4" sm="12">
             <v-text-field
-              label="Adresse Email responsable"
+              label="Adresse e-mail responsable"
               outlined
               dense
               v-model="model.email_responsable"
@@ -477,8 +477,8 @@ import { validationMixin } from 'vuelidate';
         ],
         telephoneRules: [
         v => !!v || 'Le numéro de téléphone est obligatoire',
-  (v) => /^[0-9+ ]+$/.test(v) || "Le numéro de téléphone ne doit contenir que des chiffres, des espaces et des +",
-  (v) => (v && v.length >= 8 && v.length <= 20) || "Le numéro de téléphone doit contenir entre 8 et 20 chiffres"
+        (v) => /^[0-9+ ]+$/.test(v) || "Le numéro de téléphone ne doit contenir que des chiffres, des espaces et des +",
+        (v) => (v && v.length >= 8 && v.length <= 20) || "Le numéro de téléphone doit contenir entre 8 et 20 chiffres"
         ],
         country_codeRules: [
           v => !!v || 'L\'indicatif du pays est obligatoire',
@@ -528,7 +528,7 @@ import { validationMixin } from 'vuelidate';
           this.progress=true
           this.$msasApi.$get('/structures/'+id)
         .then(async (response) => {
-            console.log('Detail structure ++++++++++',response.data)
+            console.log('Détail structure ++++++++++',response.data)
             this.$store.dispatch('structures/getDetail',response.data)
             this.model.id= response.data.id
             this.model.nom_structure= response.data.nom_structure

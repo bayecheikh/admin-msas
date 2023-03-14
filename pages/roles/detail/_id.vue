@@ -41,7 +41,7 @@ import ActionsRole from '@/components/roles/detail/ActionsRole';
     data () {
       return {
         leftmenuItems: [
-          { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
+          { text: 'Rôles', icon: 'mdi-lock',link:'/roles',position:1  },
           { text: 'Permissions', icon: 'mdi-lock',link:'/permissions',position:2  }
         ],
         headerItems: [
@@ -52,7 +52,7 @@ import ActionsRole from '@/components/roles/detail/ActionsRole';
           exact: true
         },
         {
-          text: 'Detail Role',
+          text: 'Détail Role',
           disabled: true,
           to: '/roles/94',
           exact: true
