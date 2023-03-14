@@ -15,25 +15,25 @@
       "name": "gerer-utilisateurs"
     },
     {
-      "icon": "mdi-home-city-outline",
+      "icon": "mdi-vector-polyline",
       "href": "/structures",
       "title": "Structures",
       "name": "gerer-structures"
     },
     {
-      "icon": "mdi-home-city-outline",
+      "icon": "mdi-cash-multiple",
       "href": "/investissements",
       "title": "Financements",
       "name": "gerer-investissements"
     },
     {
-      "icon": "mdi-home-city-outline",
+      "icon": "mdi-chart-line",
       "href": "/investissements/traitement",
       "title": "Traitement de données",
       "name": "gerer-investissements"
     },
     {
-      "icon": "mdi-file-document-outline",
+      "icon": "mdi-folder-download-outline",
       "href": "/demandes",
       "title": "Demandes",
       "name":"gerer-demandes"
