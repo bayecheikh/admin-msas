@@ -14,9 +14,9 @@
           </v-col>
           <v-col lg="4" md="4" sm="12">
             <v-autocomplete
-              v-model="selectedSource_financements"
+              v-model="SelectedSource_financements"
               :items="listsources"
-              :rules="rules.fournisseur_services_idRules"
+              :rules="rules.typeStructureRules"
               outlined
               dense
               label="Type de structure"
@@ -29,12 +29,12 @@
           </v-col>
           <v-col lg="4" md="4" sm="12">
             <v-autocomplete
-              v-model="selectedType_sources"
+              
               :items="model.listtypesources"
-              :rules="showTypeSource==true?rules.fournisseur_services_idRules:null"
+              :rules="showTypeSource?rules.sousTypeRules:null"
               outlined
               dense
-              label="Sous type"
+              label="Sous-type"
               item-text="libelle_type_source"
               item-value="id"
               return-object
@@ -45,11 +45,11 @@
           </v-col>
           <v-col lg="4" md="4" sm="12" v-if="showRegionMedical">
             <v-autocomplete
-              :rules="rules.selectRules"
+               :rules="showRegionMedical?rules.regionRules:null"
               :items="listregions"
               outlined
               dense
-              label="Region"
+              label="Région"
               item-text="nom_region"
               item-value="id"
            
@@ -60,8 +60,8 @@
           </v-col>
           <v-col lg="4" md="4" sm="12" v-if="showDistrict">
             <v-autocomplete
-              v-model="selectedDepartements"
-              :rules="rules.selectRules"
+              v-model="SelectedDepartements"
+              :rules="showDistrict?rules.districtRules:null"
               :items="listDepartements"
               outlined
               dense
@@ -77,7 +77,7 @@
               outlined
               dense
               v-model="model.numero_autorisation"
-              :rules="rules.firstnameRules"
+             :rules="showNumAutorisation?rules.autorisationRules:null"
             ></v-text-field>
           </v-col>
           <v-col md="6" lg="6" sm="12" v-if="showNumAgrement">
@@ -86,7 +86,7 @@
               outlined
               dense
               v-model="model.numero_agrement"
-              :rules="rules.firstnameRules"
+             :rules="showNumAgrement?rules.agrementRules:null"
             ></v-text-field>
           </v-col>
           <v-col md="6" lg="6" sm="12" v-if="showAccordSiege">
@@ -123,7 +123,8 @@
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
                   v-model="model.debut_intervention"
-                  label="Dèbut de l'intervention"
+                  label="Début de l'intervention"
+                  :rules="showDebutIntervention?rules.debutInterventionRules:null"
                   append-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
@@ -151,6 +152,7 @@
                 <v-text-field
                   v-model="model.fin_intervention"
                   label="Fin de l'intervention"
+                    :rules="showFinIntervention?rules.finInterventionRules:null"
                   append-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
@@ -176,7 +178,7 @@
               outlined
               dense
               v-model="model.adresse_structure"
-              :rules="rules.firstnameRules"
+                :rules="showAdresseStructure?rules.adresseRules:null"
             ></v-text-field>
           </v-col>
           <v-col md="4" lg="4" sm="12">
@@ -205,7 +207,7 @@
           <v-col md="12" lg="12" sm="12">
             <v-radio-group
               :v-model="selectedType_zone_interventions"
-              :rules="rules.sexeRules"
+               :rules="showZoneIntervention?rules.zoneInterventionRules:null"
               @change="changeType_zone_intervention"
               row
             >
@@ -246,6 +248,9 @@
             </v-expansion-panels>
           </v-col>
         </v-row>
+            <div v-if="selectedType_zone_interventions && selectedType_zone_interventions === 2 && !$v.selectedRegions.required">
+          <span class="errorcustom">La région est obligatoire</span>
+        </div>
       </v-card>
       <h2 class="mb-5 primary custom-title-h2">Dimensions</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
@@ -259,11 +264,15 @@
           >
             <v-checkbox
               v-model="selectedDimensions"
+              :rules="rules.dimensionsRules"
               :label="item.libelle_dimension"
               :value="item.id"
             ></v-checkbox>
           </v-col>
         </v-row>
+        <div v-if="$v.selectedDimensions.$error">
+          <span class="errorcustom">La dimension est obligatoire</span>
+        </div>
       </v-card>
       <!--<h2 class="mb-5">Personne responsable</h2>
       <v-card class="mx-auto mb-5 pl-10 pt-10 pr-10 pb-5">
@@ -324,8 +333,12 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
+import { required } from 'vuelidate/lib/validators';
+import { validationMixin } from 'vuelidate';
+
   export default {
+      mixins: [validationMixin],
     components: {
     },
     mounted: function() {
@@ -340,6 +353,21 @@ import { mapMutations, mapGetters } from 'vuex'
       listdepartements: 'departements/listdepartements',
       listdimensions: 'dimensions/listdimensions',
     }),
+    validations: {
+      selectedRegions: {
+    required: function(value) {
+      if (this.selectedType_zone_interventions === 2) {
+        return required(value)
+      } else {
+        return true
+      }
+    }
+  },
+    selectedDimensions: {
+      required,
+    },
+   
+  },
     data: () => ({
       id : '',
       filename : '',
@@ -383,41 +411,87 @@ import { mapMutations, mapGetters } from 'vuex'
         listtypesources:[],
         type_zone_value:''
       },
-      rules:{
+     rules:{
+        debutInterventionRules: [
+          v => !!v || 'La date de début de l\'intervention est obligatoire'
+        ],
+       
+        finInterventionRules: [
+          v => !!v || 'La date de fin de l\'intervention est obligatoire'
+        ],
+        zoneInterventionRules: [
+        v => !!v || 'La zone d\'intervention est obligatoire'
+        ],
+        dimensionsRules: [
+        v => !!v || 'La dimension est dobligatoire'
+        ],
         nom_structureRules: [
-          v => !!v || 'Dénomination est obligatoire'
+          v => !!v || 'La dénomination est obligatoire',
+          (v) => (v && v.length <= 100) || "La dénomination ne doit pas dépasser 100 caractères",
+          (v) => (v && v.length >= 2) || "La dénomination doit contenir au moins 2 caractères"
         ],
-        nameRules: [
-          v => !!v || 'Champ obligatoire'
+        typeStructureRules : [
+        v => !!v || 'Le type de structure est obligatoire'
         ],
-        firstnameRules: [
-          v => !!v || 'Champ obligatoire'
+        nature_structureRules : [
+        v => (v && !!v.length)|| 'La nature de la structure est obligatoire'
         ],
-        lastnameRules: [
-          v => !!v || 'Champ obligatoire'
+        sousTypeRules: [
+        v => !!v || 'Le sous-type est obligatoire'
+        ],
+        agrementRules: [
+          v => !!v || 'Le numéro d\'agrément est obligatoire'
+        ],
+        firstnameResponsableRules: [
+          (v) => !!v || 'Le prénom du responsable est obligatoire',
+          (v) => /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/.test(v) || "Le prénom ne doit contenir que des caractères alphabétiques et des caractères spéciaux tels que des espaces, des tirets et des apostrophes",
+          (v) => (v && v.length <= 50) || "Le prénom ne doit pas dépasser 50 caractères",
+          (v) => (v && v.length >= 2) || "Le prénom doit contenir au moins 2 caractères"
+        ],
+        lastnameResponsableRules: [
+          (v) => !!v || 'Le nom du responsable est obligatoire',
+          (v) => /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/.test(v) || "Le nom ne doit contenir que des caractères alphabétiques et des caractères spéciaux tels que des espaces, des tirets et des apostrophes",
+          (v) => (v && v.length <= 50) || "Le nom ne doit pas dépasser 50 caractères",
+          (v) => (v && v.length >= 2) || "Le nom doit contenir au moins 2 caractères"
+        ],
+        fonctionResponsableRules: [
+          (v) => !!v || 'La fonction du responsable est obligatoire',
+          (v) => (v && v.length >= 2) || "La fonction doit contenir au moins 2 caractères"
         ],
         emailRules: [
-          v => !!v || 'l\'E-mail est obligatoire',
-          v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
+          v => !!v || 'L\'adresse e-mail est obligatoire',
+          v => /.+@.+\..+/.test(v) || 'L\'adresse e-mail doit être valide',
         ],
         rolesRules: [
           v => (v && !!v.length) || 'Role est obligatoire',
         ],
+     
+        districtRules: [
+        v => !!v || 'Le district est obligatoire',
+        ],
+        regionRules: [
+        v => !!v || 'La région est obligatoire',
+        ],
+        autorisationRules: [
+        (v) => !!v || 'Le numéro d\'autorisation est obligatoire',
+        ],
         telephoneRules: [
-          v => !!v || 'Téléphone est obligatoire',
+        v => !!v || 'Le numéro de téléphone est obligatoire',
+  (v) => /^[0-9+ ]+$/.test(v) || "Le numéro de téléphone ne doit contenir que des chiffres, des espaces et des +",
+  (v) => (v && v.length >= 8 && v.length <= 20) || "Le numéro de téléphone doit contenir entre 8 et 20 chiffres"
         ],
         country_codeRules: [
           v => !!v || 'L\'indicatif du pays est obligatoire',
         ],
-        fournisseur_services_idRules: [
-          v => (!!v) || 'Fournisseur est obligatoire',
+        Structure_services_idRules: [
+          v => (!!v) || 'Structure est obligatoire',
         ],
         structure_idRules: [
           v => (!!v) || 'Structure est obligatoire',
         ],
         adresseRules: [
-          v => !!v || 'Adresse est obligatoire',
-          v => (v && v.length <= 100) || 'Adresse doit etre inférieur à 50 caratères',
+          v => !!v || 'L\'adresse est obligatoire',
+          v => (v && v.length <= 100) || 'L\'adresse doit etre inférieure à 100 caratères',
         ],
         nationalityRules: [
           v => !!v || 'Nationalité est obligatoire',
@@ -556,8 +630,8 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('FormData ++++++ : ',formData)
 
 
-
-       validation && this.$msasFileApi.post('/structures/'+this.model.id,formData)
+         this.$v.$touch();
+      !this.$v.$invalid &&  validation && this.$msasFileApi.post('/structures/'+this.model.id,formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
@@ -591,6 +665,7 @@ import { mapMutations, mapGetters } from 'vuex'
         this.showTypeSource=true
         this.selectedSource_financements = source
         this.model.listtypesources = source.type_sources
+          this.selectedType_sources = []
 
         switch(source.libelle_source){
           case 'EPS' : {
@@ -720,3 +795,10 @@ import { mapMutations, mapGetters } from 'vuex'
     }
   }
 </script>
+
+<style >
+.errorcustom{
+  color:#dd2c00 !important;
+  background-color: white !important;
+}
+</style>

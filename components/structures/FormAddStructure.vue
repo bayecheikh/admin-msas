@@ -337,10 +337,10 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { required } from 'vuelidate/lib/validators';
 import { validationMixin } from 'vuelidate';
-import { withParams } from 'vuelidate/lib/validators'
+
   export default {
     mixins: [validationMixin],
     components: {
@@ -489,7 +489,7 @@ import { withParams } from 'vuelidate/lib/validators'
         v => !!v || 'La région est obligatoire',
         ],
         autorisationRules: [
-        (v) => !!v || 'Le numéro d\'autorisation est obligatoire',
+        v => !!v || 'Le numéro d\'autorisation est obligatoire',
         ],
         telephoneRules: [
           v => !!v || 'Le numéro de téléphone est obligatoire',
@@ -613,7 +613,7 @@ import { withParams } from 'vuelidate/lib/validators'
      
         this.$v.$touch();
      
-      !this.$v.$invalid && validation && this.$msasFileApi.post('/strudctures',formData)
+      !this.$v.$invalid && validation && this.$msasFileApi.post('/structures',formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message})
@@ -781,8 +781,6 @@ import { withParams } from 'vuelidate/lib/validators'
 
 <style scoped>
 .errorcustom{
-  margin-top: 0px;
-  
   color:#dd2c00 !important;
   background-color: white !important;
 }

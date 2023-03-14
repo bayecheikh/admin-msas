@@ -76,7 +76,7 @@
         </v-col>-->
         <v-col md="6" lg="6" sm="12">
           <v-text-field
-            label="Adresse Email"
+            label="Adresse e-mail"
             outlined dense
             v-model="model.email"
             :rules="rules.emailRules"
@@ -185,7 +185,7 @@
               dense
               multiple
               small-chips
-              label="Role"
+              label="Rôle"
               item-text="description"
               item-value="id"
               clearable
@@ -269,23 +269,25 @@
         },
         rules:{
           firstnameRules: [
-            v => !!v || 'Prénom est obligatoire',
-            v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
+            v => !!v || 'Le prénom et le nom sont obligatoires',
+            (v) => /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/.test(v) || "Le prénom et le nom ne doivent contenir que des caractères alphabétiques et des caractères spéciaux tels que des espaces, des tirets et des apostrophes",
+          (v) => (v && v.length <= 100) || "Le prénom et le nom ne doivent pas dépasser 100 caractères",
+          (v) => (v && v.length >= 2) || "Le prénom et le nom doivent contenir au moins 2 caractères"
           ],
           lastnameRules: [
             v => !!v || 'Nom est obligatoire',
             v => (v && v.length <= 50) || 'Nom doit etre inférieur à 10 caratères',
           ],
           emailRules: [
-            v => !!v || 'E-mail est obligatoire',
-            v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
+          v => !!v || 'L\'adresse e-mail est obligatoire',
+          v => /.+@.+\..+/.test(v) || 'L\'adresse e-mail doit être valide',
           ],
           usernameRules: [
             v => !!v || 'Login est obligatoire',
             v => (v && v.length <= 10) || 'Nom doit etre inférieur à 10 caratères',
           ],
           rolesRules: [
-            v => (v && !!v.length) || 'Role est obligatoire',
+            v => (v && !!v.length) || 'Le rôle est obligatoire',
           ],
           telephoneRules: [
             v => !!v || 'Téléphone est obligatoire',
@@ -294,7 +296,7 @@
             v => !!v || 'L\'indicatif du pays est obligatoire',
           ],
           fournisseur_services_idRules: [
-            v => (!!v) || 'Fournisseur est obligatoire',
+            v => (!!v) || 'La structure est obligatoire',
           ],
           structure_idRules: [
             v => (!!v) || 'Structure est obligatoire',
