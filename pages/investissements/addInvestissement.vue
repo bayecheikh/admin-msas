@@ -23,7 +23,7 @@ import FormAddInvestissement from '@/components/investissements/FormAddInvestiss
       FormAddInvestissement
     },
     middleware: function ({redirect,$hasPermission}) {
-      if($hasPermission('ajouter_investissement')){
+      if(!$hasPermission('ajouter_investissement')){
         return redirect('/')
       }
     },
