@@ -68,7 +68,7 @@
                   tile
                 >
                   <v-btn text  deprmsased @click="goToProfile" class="customTopNav pop-user-button flex text-sm-center">
-                    Parametres
+                    Paramètres
                   </v-btn> 
                 </v-card>
               </div>
