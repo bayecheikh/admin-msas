@@ -23,7 +23,7 @@
         <v-col md="3" sm="12" lg="3" class="">
           <div class="bg-marron pl-4 pr-5 pt-5 pb-5 text-sm-center">
             <h4 class="color-yellow">NOMBRE TOTAL DE FINANCEMENT EXECUTÉ</h4>
-            <h1 class="color-yellow">{{montantBienServiceExecutes.toLocaleString()}}</h1>
+            <h1 class="color-yellow">{{nombreFinancement}}</h1>
           </div>
         </v-col>
       </v-row>  
@@ -58,6 +58,8 @@ import StatBox from '@/components/dashboard/admin/StatBox';
         montantInvestissementExecutes:0,
         montantInvestissementMobilises:0,
         montantInvestissementPrevus:0,
+        montantInvestissementPrevus:0,
+        nombreFinancement:0,
         leftmenuItems: [
           { text: 'Accueil', icon: 'mdi-home-outline',link:'/dashboard',name:'voir_dashboard' },
           { text: 'Mon activite', icon: 'mdi-clock-outline',link:'/dashboard/monactivite',name:'voir_mon_activite' }
@@ -73,6 +75,7 @@ import StatBox from '@/components/dashboard/admin/StatBox';
           var result = [];
 
         
+          this.nombreFinancement = response.data.data?.length
 
           //Montant bien et service executé
           let total1 = 0
