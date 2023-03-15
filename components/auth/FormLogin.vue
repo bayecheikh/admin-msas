@@ -19,7 +19,7 @@
                       <v-checkbox dense v-model="checkbox" rounded class="pl-3 pt-0 mt-0">
                         <template v-slot:label>
                             <div class="caption pt-0 mt-0">
-                            Restez connecter
+                            Restez connecté
                             </div>                                 
                         </template>
                       </v-checkbox>
@@ -74,12 +74,12 @@ import layoutchargeclientel from '@/static/data/layoutchargeclientel'
       },
        rules:{
         passwordRules: [
-          v => !!v || 'Mot de passe est obligatoire',
-          v => (v && v.length >= 4) || 'Mot de passe doit etre superieur a 3 caracteres',
+          v => !!v || 'Le mot de passe est obligatoire',
+          //v => (v && v.length >= 4) || 'Mot de passe doit etre superieur a 3 caracteres',
         ],
         emailRules: [
-          v => !!v || 'E-mail est obligatoire',
-          v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
+          v => !!v || 'L\'adresse e-mail est obligatoire',
+          v => /.+@.+\..+/.test(v) || 'L\'adresse e-mail doit etre valide',
         ]
       },
     }),

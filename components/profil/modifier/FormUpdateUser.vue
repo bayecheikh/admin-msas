@@ -269,16 +269,18 @@
         },
         rules:{
           firstnameRules: [
-            v => !!v || 'Prénom est obligatoire',
-            v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
+            v => !!v || 'Le prénom et le nom sont obligatoires',
+            (v) => /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/.test(v) || "Le prénom et le nom ne doivent contenir que des caractères alphabétiques et des caractères spéciaux tels que des espaces, des tirets et des apostrophes",
+          (v) => (v && v.length <= 100) || "Le prénom et le nom ne doivent pas dépasser 100 caractères",
+          (v) => (v && v.length >= 2) || "Le prénom et le nom doivent contenir au moins 2 caractères"
           ],
           lastnameRules: [
             v => !!v || 'Nom est obligatoire',
             v => (v && v.length <= 50) || 'Nom doit etre inférieur à 10 caratères',
           ],
           emailRules: [
-            v => !!v || 'E-mail est obligatoire',
-            v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
+          v => !!v || 'L\'adresse e-mail est obligatoire',
+          v => /.+@.+\..+/.test(v) || 'L\'adresse e-mail doit être valide',
           ],
           usernameRules: [
             v => !!v || 'Login est obligatoire',
