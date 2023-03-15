@@ -22,7 +22,7 @@
         </v-col>
         <v-col md="3" sm="12" lg="3" class="">
           <div class="bg-marron pl-4 pr-5 pt-5 pb-5 text-sm-center">
-            <h4 class="color-yellow">NOMBRE TOTAL DE FINANCEMENT EXECUTÉ</h4>
+            <h4 class="color-yellow">NOMBRE TOTAL DE FINANCEMENT</h4>
             <h1 class="color-yellow">{{nombreFinancement}}</h1>
           </div>
         </v-col>
@@ -127,7 +127,7 @@ import StatBox from '@/components/dashboard/admin/StatBox';
         }).finally(() => {
           console.log('Requette envoyé ')
         });
-      },
+        },
       getDashboardData(){
         this.$essApi.$get('/dashboard-employee')
         .then(async (response) => { 
