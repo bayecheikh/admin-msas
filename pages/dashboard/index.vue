@@ -5,25 +5,25 @@
         <v-col md="3" sm="12" lg="3" class="">
           <div class="bg-marron mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
             <h4 class="">MONTANT TOTAL DE FINANCEMENT PRÉVU</h4>
-            <h1 class="">14.000.000 F</h1>
+            <h1 class="">{{(montantBienServicePrevus+montantInvestissementPrevus).toLocaleString()}}</h1>
           </div>
         </v-col>
         <v-col md="3" sm="12" lg="3" class="">
           <div class="bg-marron mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
             <h4 class="">MONTANT TOTAL DE FINANCEMENT MOBILISÉ</h4>
-            <h1 class="">13.000.000 F</h1>
+            <h1 class="">{{(montantBienServiceMobilises+montantInvestissementMobilises).toLocaleString()}}</h1>
           </div>
         </v-col>
         <v-col md="3" sm="12" lg="3" class="">
           <div class="bg-marron mr-3 pl-4 pr-5 pt-5 pb-5 text-sm-center">
             <h4 class="">MONTANT TOTAL DE FINANCEMENT EXECUTÉ</h4>
-            <h1 class="">12.000.000 F</h1>
+            <h1 class="">{{(montantBienServiceExecutes+montantInvestissementExecutes).toLocaleString()}}</h1>
           </div>
         </v-col>
         <v-col md="3" sm="12" lg="3" class="">
           <div class="bg-marron pl-4 pr-5 pt-5 pb-5 text-sm-center">
             <h4 class="color-yellow">NOMBRE TOTAL DE FINANCEMENT EXECUTÉ</h4>
-            <h1 class="color-yellow">174</h1>
+            <h1 class="color-yellow">{{montantBienServiceExecutes.toLocaleString()}}</h1>
           </div>
         </v-col>
       </v-row>  
@@ -47,10 +47,17 @@ import StatBox from '@/components/dashboard/admin/StatBox';
       ListChart
     },
     mounted: function() {
+      this.getFinancement()
       //!this.$hasRole('admin') && this.getDashboardData()
     },
     data () {
       return {
+        montantBienServiceExecutes:0,
+        montantBienServiceMobilises:0,
+        montantBienServicePrevus:0,
+        montantInvestissementExecutes:0,
+        montantInvestissementMobilises:0,
+        montantInvestissementPrevus:0,
         leftmenuItems: [
           { text: 'Accueil', icon: 'mdi-home-outline',link:'/dashboard',name:'voir_dashboard' },
           { text: 'Mon activite', icon: 'mdi-clock-outline',link:'/dashboard/monactivite',name:'voir_mon_activite' }
@@ -58,6 +65,66 @@ import StatBox from '@/components/dashboard/admin/StatBox';
       }
     },
     methods:{
+       getFinancement(){
+        this.$msasApi.$get('/all_ligne_financements')
+        .then(async (response) => { 
+
+          console.log('Données reçu financement par activité  +++++++++++',response.data)
+          var result = [];
+
+        
+
+          //Montant bien et service executé
+          let total1 = 0
+          response.data.data.map((item)=>{              
+              total1+=parseInt(item.montantBienServicePrevus)
+          })
+          this.montantBienServicePrevus = total1
+
+          //Montant bien et service mobilisé
+          let total2 = 0
+          response.data.data.map((item)=>{              
+              total2+=parseInt(item.montantBienServiceMobilises)
+          })
+          this.montantBienServiceMobilises = total2
+
+          //Montant bien et service executé
+          let total3 = 0
+          response.data.data.map((item)=>{              
+              total3+=parseInt(item.montantBienServiceExecutes)
+          })
+          this.montantBienServiceExecutes = total3
+
+          //Montant bien et service executé
+          let total4 = 0
+          response.data.data.map((item)=>{              
+              total4+=parseInt(item.montantInvestissementPrevus)
+          })
+          this.montantInvestissementPrevus = total4
+
+          //Montant bien et service executé
+          let total5 = 0
+          response.data.data.map((item)=>{              
+              total5+=parseInt(item.montantInvestissementExecutes)
+          })
+          this.montantInvestissementExecutes = total5
+
+          //Montant bien et service executé
+          let total6 = 0
+          response.data.data.map((item)=>{              
+              total6+=parseInt(item.montantInvestissementMobilises)
+          })
+          this.montantInvestissementMobilises = total6
+          
+       
+
+        }).catch((error) => {
+            console.log('Code error ++++++: ', error?.response?.data?.message)
+            this.$toast.error(error?.response?.data?.message).goAway(3000)
+        }).finally(() => {
+          console.log('Requette envoyé ')
+        });
+      },
       getDashboardData(){
         this.$essApi.$get('/dashboard-employee')
         .then(async (response) => { 
