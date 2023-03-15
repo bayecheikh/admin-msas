@@ -3,7 +3,7 @@ export default () => ({
 
     headertypesources : [
         {
-            text: 'Libelle',
+            text: 'Libellé',
             align: 'start',
             sortable: true,
             value: 'libelle_type_source',

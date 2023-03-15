@@ -3,7 +3,7 @@ export default () => ({
 
     headeraxes : [
         {
-            text: 'Libelle',
+            text: 'Libellé',
             align: 'start',
             sortable: true,
             value: 'nom_axe',

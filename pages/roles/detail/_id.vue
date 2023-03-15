@@ -46,13 +46,13 @@ import ActionsRole from '@/components/roles/detail/ActionsRole';
         ],
         headerItems: [
         {
-          text: 'Roles',
+          text: 'Rôles',
           disabled: false,
           to: '/roles',
           exact: true
         },
         {
-          text: 'Détail Role',
+          text: 'Détail rôle',
           disabled: true,
           to: '/roles/94',
           exact: true

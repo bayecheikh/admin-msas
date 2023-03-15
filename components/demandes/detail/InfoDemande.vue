@@ -10,7 +10,7 @@
                   <p class="info-profil mb-4"><span>Prénom: </span>{{detaildemande.firstname}}</p>
                   <p class="info-profil mb-4"><span>Nom: </span>{{detaildemande.lastname}}</p>
                   
-                  <p class="info-profil mb-4"><span>Email : </span>{{detaildemande.email}}</p>
+                  <p class="info-profil mb-4"><span>E-mail : </span>{{detaildemande.email}}</p>
                   <p class="info-profil mb-4"><span>Téléphone : </span>{{detaildemande.telephone}}</p>
                   <p class="info-profil mb-4"><span>Profil : </span>
                     <v-chip

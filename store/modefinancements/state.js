@@ -3,7 +3,7 @@ export default () => ({
 
     headermodefinancements : [
         {
-            text: 'Libelle',
+            text: 'Libellé',
             align: 'start',
             sortable: true,
             value: 'libelle',

@@ -113,7 +113,7 @@
                 dense
               >
                 <template slot="prepend-inner">
-                  <div>{{selectedModeFinancementsLibelle[i]}}</div>
+                  <div>{{selectedModeFinancementsLibellé[i]}}</div>
                 </template>
                 <template slot="append">
                   <div>{{devise}}</div>
@@ -241,7 +241,7 @@
             <v-col lg="12" md="12" sm="12">
               <v-row>
                 <v-col md="3" lg="3" sm="12">
-                    Bien et Services
+                    Biens et Services
                 </v-col>
                 <v-col md="9" lg="9" sm="12">
                   <v-row>
@@ -526,7 +526,7 @@ import { mapMutations, mapGetters } from 'vuex'
       selectedDimension: [],
       selectedRegions: [],
       selectedModeFinancements: [],
-      selectedModeFinancementsLibelle: [],
+      selectedModeFinancementsLibellé: [],
 
       model: {
         id : '',
@@ -555,7 +555,7 @@ import { mapMutations, mapGetters } from 'vuex'
           v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
         ],
         rolesRules: [
-          v => (v && !!v.length) || 'Role est obligatoire',
+          v => (v && !!v.length) || 'Le rôle est obligatoire',
         ],
         telephoneRules: [
           v => !!v || 'Téléphone est obligatoire',
@@ -640,7 +640,7 @@ import { mapMutations, mapGetters } from 'vuex'
             for(let i=0;i<=response.data.mode_financements.length;i++){
               this.counterrow_mode2 += 1;
               this.selectedModeFinancements.push(response.data.mode_financements[i].montant)
-              this.selectedModeFinancementsLibelle.push(response.data.mode_financements[i].libelle)
+              this.selectedModeFinancementsLibellé.push(response.data.mode_financements[i].libelle)
               this.modes2.push({id:this.counterrow_mode2})
             }
           
@@ -701,7 +701,7 @@ import { mapMutations, mapGetters } from 'vuex'
         let dimension = this.selectedDimension
 
         let montantModeFinancements = this.selectedModeFinancements
-        let libelleModeFinancements = this.selectedModeFinancementsLibelle
+        let libelleModeFinancements = this.selectedModeFinancementsLibellé
         let libAutreModeFinance = this.model.libAutreModeFinance
         let montantAutreModeFinance = this.model.montantAutreModeFinance
         let autreMode = this.modes
@@ -977,7 +977,7 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('Index---- ',index);
         this.modes2.splice(index,1);
         this.selectedModeFinancements.splice(index,1);
-        this.selectedModeFinancementsLibelle.splice(index,1);
+        this.selectedModeFinancementsLibellé.splice(index,1);
 
       },
       submitLigneFichier () {

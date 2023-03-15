@@ -32,13 +32,13 @@ import FormUpdateRegion from '@/components/regions/modifier/FormUpdateRegion';
       return {
         headerItems: [
         {
-          text: 'Regions',
+          text: 'Régions',
           disabled: false,
           to: '/regions',
           exact: true
         },
         {
-          text: 'Nouveau region',
+          text: 'Modification',
           disabled: false,
           to: '/regions/addregion',
           exact: true

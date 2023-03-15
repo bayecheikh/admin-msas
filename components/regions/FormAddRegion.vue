@@ -50,7 +50,7 @@
             <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
-              label="Rechercher une departement"
+              label="Rechercher un département"
               outlined
               dense
               hide-details
@@ -126,11 +126,34 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       rules:{
         nom_regionRules: [
-          v => !!v || 'Libelle est obligatoire',
-          v => (v && v.length <= 50) || 'Nom doit etre inférieur à 20 caratères',
+        (v) => !!v || 'Le nom est obligatoire',
+        (v) => (v && v.length <= 100) || "Le nom ne doit pas dépasser 100 caractères",
+        (v) => (v && v.length >= 2) || "Le nom doit contenir au moins 2 caractères"
         ],
         slugRules: [
-          v => !!v || 'Slug est obligatoire'
+          v => !!v || 'Le slug est obligatoire',
+          (v) => (v && v.length >= 2) || "Le slug doit contenir au moins 2 caractères",
+          (v) => (v && v.length <= 100) || "Le slug ne doit pas dépasser 100 caractères",
+        ],
+        latitudeRules: [
+            v => !v || (
+              /^-?\d+(\.\d+)?$/.test(v) &&
+              parseFloat(v) >= -90 &&
+              parseFloat(v) <= 90
+              ) || 'La latitude doit être un decimal (écrit avec ".") entre -90 et 90'
+        ],
+        longitudeRules: [
+            v => !v || (
+            /^-?\d+(\.\d+)?$/.test(v) &&
+            parseFloat(v) >= -180 &&
+            parseFloat(v) <= 180
+            ) || 'La longitude doit être un decimal (écrit avec ".") entre -180 et 180'
+        ],
+        svgRules: [
+          value => !value || (
+            /^<svg[\s\S]*<\/svg>$/.test(value.trim()) &&
+            value.includes('xmlns="http://www.w3.org/2000/svg"')
+          ) || 'Le champ doit contenir un code SVG valide'
         ],
       },
     }),

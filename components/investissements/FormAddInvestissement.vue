@@ -254,7 +254,7 @@
             <v-col lg="12" md="12" sm="12">
               <v-row>
                 <v-col md="3" lg="3" sm="12">
-                    Bien et Services
+                    Biens et Services
                 </v-col>
                 <v-col md="9" lg="9" sm="12">
                   <v-row>
@@ -565,7 +565,7 @@ import { mapMutations, mapGetters } from 'vuex'
         },
         ],
         rolesRules: [
-          v => (v && !!v.length) || 'Role est obligatoire',
+          v => (v && !!v.length) || 'Le rôle est obligatoire',
         ],
         telephoneRules: [
           v => !!v || 'Téléphone est obligatoire',

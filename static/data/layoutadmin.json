@@ -3,7 +3,7 @@
   "homePage":"/dashboard",
   "menuItems":[
     {
-      "icon": "mdi-account-settings",
+      "icon": "mdi-account-key-outline",
       "href": "/roles",
       "title": "Rôles",
       "name": "gerer-roles"
@@ -27,7 +27,7 @@
       "name": "gerer-regions"
     },
     {
-      "icon": "mdi-view-dashboard",
+      "icon": "mdi-view-dashboard-outline",
       "href": "/dimensions",
       "title": "Dimensions",
       "name": "gerer-dimensions"
@@ -39,21 +39,21 @@
       "name": "gerer-modefinancements"
     },
     {
-      "icon": "mdi-label-outline",
+      "icon": "mdi-tag-outline",
       "href": "/type-zones",
-      "title": "Type Zone",
+      "title": "Types de zone d'intervention",
       "name": "gerer-type-zones"
     },
     {
-      "icon": "mdi-menu-down-outline",
+      "icon": "mdi-home-modern",
       "href": "/typesources",
-      "title": "Sous-Type de structure",
+      "title": "Sous-Types de structure",
       "name": "gerer-type-sources"
     },
     {
-      "icon": "mdi-hospital-building",
+      "icon": "mdi-home-assistant",
       "href": "/sources",
-      "title": "Type de structure",
+      "title": "Types de structure",
       "name": "gerer-source-financement"
     },
     {
@@ -69,7 +69,7 @@
       "name": "gerer-piliers"
     },
     {
-      "icon": "mdi-ray-end-arrow",
+      "icon": "mdi-arrow-expand-all",
       "href": "/axes",
       "title": "Axes",
       "name": "gerer-axes"
@@ -81,7 +81,7 @@
       "name": "gerer-typelignes"
     },
     {
-      "icon": "mdi-calendar",
+      "icon": "mdi-calendar-outline",
       "href": "/annees",
       "title": "Années",
       "name": "gerer-annees"

@@ -46,7 +46,7 @@ import ActionsAxe from '@/components/axes/detail/ActionsAxe';
         ],
         headerItems: [
         {
-          text: 'axes',
+          text: 'Axes',
           disabled: false,
           to: '/axes',
           exact: true

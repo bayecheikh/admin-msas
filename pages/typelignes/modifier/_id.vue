@@ -30,13 +30,13 @@ import FormUpdateTypeLigne from '@/components/typelignes/modifier/FormUpdateType
       return {
         headerItems: [
         {
-          text: 'typelignes',
+          text: 'Types de ligne',
           disabled: false,
           to: '/typelignes',
           exact: true
         },
         {
-          text: 'Détail type ligne',
+          text: 'Détail type de ligne',
           disabled: true,
           to: '/typelignes/94',
           exact: true

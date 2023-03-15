@@ -3,7 +3,7 @@ export default () => ({
 
     headertypezones : [
         {
-            text: 'Libelle',
+            text: 'Libellé',
             align: 'start',
             sortable: true,
             value: 'libelle_zone',

@@ -479,7 +479,7 @@ import { validationMixin } from 'vuelidate';
           v => /.+@.+\..+/.test(v) || 'L\'adresse e-mail doit être valide',
         ],
         rolesRules: [
-          v => (v && !!v.length) || 'Role est obligatoire',
+          v => (v && !!v.length) || 'Le rôle est obligatoire',
         ],
      
         districtRules: [
@@ -678,47 +678,54 @@ import { validationMixin } from 'vuelidate';
           }
           break;
           case 'SPS' : {
-            this.showNumAutorisation=true
+            this.showNumAgrement=false
+     
             this.showAdresseStructure=true
             this.showZoneIntervention=true
 
-            this.showNumAgrement=false
+          
             this.showAccordSiege=false
             this.showDebutIntervention=false
+            this.showNumAutorisation=true
           }
           break;
           case 'PTF' : {
-            this.showNumAgrement=true
+            this.showNumAutorisation=false
+           
             this.showAccordSiege=true
             this.showZoneIntervention=true
-            this.showNumAutorisation=false
+           
             this.showDebutIntervention=true
             this.showFinIntervention=true
             this.showAdresseStructure=true
 
             this.showRegionMedical=false
             this.showDistrict=false
+            this.showNumAgrement=true
           }
           break;
           case 'ONG' : {
-            this.showNumAgrement=true
+            this.showNumAutorisation=false
+            
             this.showAdresseStructure=true
             this.showZoneIntervention=true
 
-            this.showNumAutorisation=false
+     
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
             this.showRegionMedical=false
             this.showDistrict=false
+            this.showNumAgrement=true
           }
           break;
           case 'RSE' : {
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
             this.showAdresseStructure=true
             this.showZoneIntervention=true
 
-            this.showNumAutorisation=false
-            this.showNumAgrement=false
+           
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
@@ -727,11 +734,12 @@ import { validationMixin } from 'vuelidate';
           }
           break;
           case 'CT' : {
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
             this.showAdresseStructure=false
             this.showZoneIntervention=true
 
-            this.showNumAutorisation=false
-            this.showNumAgrement=false
+           
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false

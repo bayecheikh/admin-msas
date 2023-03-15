@@ -4,7 +4,7 @@
       <v-row>
         <v-col md="4" lg="4" sm="12">
           <v-text-field
-            label="Libelle"
+            label="Libellé"
             outlined dense
             v-model="model.libelle"
             :rules="rules.libelleRules"
@@ -70,11 +70,14 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       rules:{
         libelleRules: [
-          v => !!v || 'Prénom est obligatoire',
-          v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
+        (v) => !!v || 'Le libellé est obligatoire',
+        (v) => (v && v.length <= 100) || "Le libellé ne doit pas dépasser 100 caractères",
+        (v) => (v && v.length >= 2) || "Le libellé doit contenir au moins 2 caractères"
         ],
         slugRules: [
-          v => !!v || 'Nom est obligatoire'
+          v => !!v || 'Le slug est obligatoire',
+          (v) => (v && v.length >= 2) || "Le slug doit contenir au moins 2 caractères",
+          (v) => (v && v.length <= 100) || "Le slug ne doit pas dépasser 100 caractères",
         ],
       },
     }),

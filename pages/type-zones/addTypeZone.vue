@@ -30,13 +30,13 @@ import FormAddTypeZone from '@/components/type-zones/FormAddTypeZone';
       return {
         headerItems: [
         {
-          text: 'type-zones',
+          text: 'Types de zone d\'intervention',
           disabled: false,
           to: '/type-zones',
           exact: true
         },
         {
-          text: 'Nouveau de type zone d\'intervention',
+          text: 'Nouveau type de zone d\'intervention',
           disabled: false,
           to: '/type-zones/addTypeZone',
           exact: true

@@ -44,7 +44,7 @@ import ActionsDimension from '@/components/dimensions/detail/ActionsDimension';
         ],
         headerItems: [
         {
-          text: 'dimensions',
+          text: 'Dimensions',
           disabled: false,
           to: '/dimensions',
           exact: true

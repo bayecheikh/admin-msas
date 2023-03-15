@@ -4,10 +4,10 @@
       <v-row>
         <v-col md="6" lg="6" sm="12">
           <v-text-field
-            label="Nom"
+            label="Année"
             outlined dense
             v-model="model.libelle"
-            :rules="rules.libelleRules"
+            :rules="rules.anneeRules"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -41,9 +41,13 @@ import Notification from '@/components/Notification'
         libelle: ''
       },
       rules:{
-        libelleRules: [
-          v => !!v || 'Libelle est obligatoire',
-          v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
+        anneeRules: [
+        v => !!v || 'L\'année est obligatoire',
+          v => !!v && (
+          /^\d{4}$/.test(v.trim()) &&
+          parseInt(v) >= 1900 &&
+          parseInt(v) <= 9999
+        ) || 'Le champ doit contenir une année valide'
         ],
         descriptionRules: [
           v => !!v || 'Description est obligatoire'

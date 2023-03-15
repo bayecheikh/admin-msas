@@ -16,7 +16,7 @@ export default () => ({
         { text: 'Type', value: 'type_sources'},
         { text: 'Téléphone', value: 'telephone_structure'},
         { text: 'E-mail', value: 'email_structure'},
-        /* { text: 'Telephone', value: 'telephone' }, */
+        /* { text: 'Téléphone', value: 'telephone' }, */
         { text: 'Actions', value: 'actions', sortable: false },
     ],
     detailstructure :{},

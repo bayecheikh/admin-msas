@@ -35,7 +35,7 @@ import ListTypeLigne from '@/components/typelignes/ListTypeLigne'
         selectedItem: 0,
         headerItems: [
           {
-            text: 'Liste des typelignes',
+            text: 'Liste des types de ligne',
             disabled: true,
             to: '/typelignes',
             exact: true

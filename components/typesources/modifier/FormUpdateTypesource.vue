@@ -4,7 +4,7 @@
       <v-row>
         <v-col md="6" lg="6" sm="12">
           <v-text-field
-            label="Nom"
+            label="Libellé"
             outlined dense
             v-model="model.libelle_type_source"
             :rules="rules.libelle_type_sourceRules"
@@ -53,8 +53,9 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       rules:{
         libelle_type_sourceRules: [
-          v => !!v || 'Libelle est obligatoire',
-          v => (v && v.length <= 50) || 'Libelle doit etre inférieur à 20 caratères',
+        (v) => !!v || 'Le libellé est obligatoire',
+        (v) => (v && v.length <= 100) || "Le libellé ne doit pas dépasser 100 caractères",
+        (v) => (v && v.length >= 2) || "Le libellé doit contenir au moins 2 caractères"
         ],
         descriptionRules: [
           v => !!v || 'Nom est obligatoire'

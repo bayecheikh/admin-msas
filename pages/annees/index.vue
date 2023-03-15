@@ -39,7 +39,7 @@ import ListAnnee from '@/components/annees/ListAnnee'
         ],
         headerItems: [
           {
-            text: 'Liste des annees',
+            text: 'Liste des années',
             disabled: true,
             to: '/annees',
             exact: true

@@ -30,7 +30,7 @@ import FormAddBailleur from '@/components/bailleurs/FormAddBailleur';
       return {
         headerItems: [
         {
-          text: 'bailleurs',
+          text: 'Bailleurs',
           disabled: false,
           to: '/bailleurs',
           exact: true

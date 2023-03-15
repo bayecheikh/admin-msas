@@ -185,7 +185,7 @@
               dense
               multiple
               small-chips
-              label="Role"
+              label="Rôle"
               item-text="description"
               item-value="id"
               clearable
@@ -285,7 +285,7 @@
             v => (v && v.length <= 10) || 'Nom doit etre inférieur à 10 caratères',
           ],
           rolesRules: [
-            v => (v && !!v.length) || 'Role est obligatoire',
+            v => (v && !!v.length) || 'Le rôle est obligatoire',
           ],
           telephoneRules: [
             v => !!v || 'Téléphone est obligatoire',

@@ -45,13 +45,13 @@ import ActionsRegion from '@/components/regions/detail/ActionsRegion';
         ],
         headerItems: [
         {
-          text: 'regions',
+          text: 'Régions',
           disabled: false,
           to: '/regions',
           exact: true
         },
         {
-          text: 'Détail region',
+          text: 'Détail région',
           disabled: true,
           to: '/regions/94',
           exact: true

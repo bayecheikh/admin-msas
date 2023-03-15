@@ -463,7 +463,7 @@ import { validationMixin } from 'vuelidate';
           v => /.+@.+\..+/.test(v) || 'L\'adresse e-mail doit être valide',
         ],
         rolesRules: [
-          v => (v && !!v.length) || 'Role est obligatoire',
+          v => (v && !!v.length) || 'Le rôle est obligatoire',
         ],
      
         districtRules: [

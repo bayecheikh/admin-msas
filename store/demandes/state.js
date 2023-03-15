@@ -6,7 +6,7 @@ export default () => ({
         { text: 'Nom', value: 'lastname' },
         /* { text: 'Profil', value: 'profil' }, */
         { text: 'E-mail', value: 'email' },
-        { text: 'Telephone', value: 'telephone' },
+        { text: 'Téléphone', value: 'telephone' },
         { text: 'Sujet', value: 'subject' },
         { text: 'Message', value: 'message' },
         { text: 'Statut', value: 'status' },

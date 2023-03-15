@@ -30,13 +30,13 @@ import FormAddAnnee from '@/components/annees/FormAddAnnee';
       return {
         headerItems: [
         {
-          text: 'annees',
+          text: 'Années',
           disabled: false,
           to: '/annees',
           exact: true
         },
         {
-          text: 'Nouvelle annee',
+          text: 'Nouvelle année',
           disabled: false,
           to: '/annees/addAnnee',
           exact: true

@@ -16,7 +16,7 @@
           <v-icon left>
             mdi-plus
           </v-icon>
-          Nouveau Axe
+          Nouvel Axe
         </v-btn>
       </div>
     </div>

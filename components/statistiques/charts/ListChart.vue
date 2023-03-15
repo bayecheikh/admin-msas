@@ -157,7 +157,7 @@ import BarChart from "@/components/statistiques/charts/BarChart";
                 dimensionData: {
                   labels:['Mobilisation de ressources','Mise en commun de ressources','Achat de services'],
                     datasets: [{
-                        label: 'Montant total des financements',
+                        label: 'Montant total des financements ',
                         borderWidth: 1,
                         backgroundColor: '#097fb5ac',
                         data: [20000000, 15000000, 17000000]
@@ -167,7 +167,7 @@ import BarChart from "@/components/statistiques/charts/BarChart";
                 regionData: {
                     labels:['DAKAR','THIES','LOUGA','FATICK','SAINT-LOUIS'],
                     datasets: [{
-                        label: 'Montant total des financements',
+                        label: 'Montant total des financements ',
                         borderWidth: 1,
                         backgroundColor: '#047586c1',
                         data: [20000000, 13000000, 10000000,11000000,9000000]

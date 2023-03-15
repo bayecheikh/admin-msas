@@ -27,7 +27,7 @@
                   <p class="info-profil"><span>Téléphone : </span>{{detailinvestissement.telephone_investissement}}</p>
               </div>
               <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.email_investissement">
-                  <p class="info-profil"><span>Email : </span>{{detailinvestissement.email_investissement}}</p>
+                  <p class="info-profil"><span>E-mail : </span>{{detailinvestissement.email_investissement}}</p>
               </div>
               <div class="col-md-4 my-0 py-0" v-if="detailinvestissement.type_zone_interventions && detailinvestissement.type_zone_interventions[0]">
                   <p class="info-profil"><span>Zone d'intervention : </span>{{detailinvestissement.type_zone_interventions[0].libelle_zone}}</p>

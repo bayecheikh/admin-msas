@@ -31,13 +31,13 @@ import FormUpdateTypeZone from '@/components/type-zones/modifier/FormUpdateTypeZ
       return {
         headerItems: [
         {
-          text: 'type-zones',
+          text: 'Types de zone d\'intervention',
           disabled: false,
           to: '/type-zones',
           exact: true
         },
         {
-          text: 'Détail type-zone',
+          text: 'Modification',
           disabled: true,
           to: '/type-zones/94',
           exact: true

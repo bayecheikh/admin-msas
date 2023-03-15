@@ -29,13 +29,13 @@ import FormAddModeFinancement from '@/components/modefinancements/FormAddModeFin
       return {
         headerItems: [
         {
-          text: 'modefinancements',
+          text: 'Modes de financement',
           disabled: false,
           to: '/modefinancements',
           exact: true
         },
         {
-          text: 'Nouvelle modefinancement',
+          text: 'Nouveau mode de financement',
           disabled: false,
           to: '/modefinancements/addModeFinancement',
           exact: true

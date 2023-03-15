@@ -37,7 +37,7 @@ import FormAddPilier from '@/components/piliers/FormAddPilier';
         ],
         headerItems: [
         {
-          text: 'piliers',
+          text: 'Piliers',
           disabled: false,
           to: '/piliers',
           exact: true

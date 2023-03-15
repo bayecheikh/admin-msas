@@ -91,7 +91,7 @@
           value="tab-3"
         >
           <v-card flat>
-            <v-card-text>Fiancements</v-card-text>
+            <v-card-text>Financements :</v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs-items>

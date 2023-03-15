@@ -29,7 +29,7 @@ import FormAddMonnaie from '@/components/monnaies/FormAddMonnaie';
       return {
         headerItems: [
         {
-          text: 'monnaies',
+          text: 'Monnaies',
           disabled: false,
           to: '/monnaies',
           exact: true

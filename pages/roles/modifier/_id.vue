@@ -39,7 +39,7 @@ import FormUpdateRole from '@/components/roles/modifier/FormUpdateRole';
         ],
         headerItems: [
         {
-          text: 'Roles',
+          text: 'Rôles',
           disabled: false,
           to: '/roles',
           exact: true

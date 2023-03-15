@@ -46,13 +46,13 @@ import ActionsTypeLigne from '@/components/typelignes/detail/ActionsTypeLigne';
         ],
         headerItems: [
         {
-          text: 'typelignes',
+          text: 'Types de ligne',
           disabled: false,
           to: '/typelignes',
           exact: true
         },
         {
-          text: 'Détail typeligne',
+          text: 'Détail type de ligne',
           disabled: true,
           to: '/typelignes/94',
           exact: true

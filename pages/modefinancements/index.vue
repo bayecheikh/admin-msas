@@ -39,7 +39,7 @@ import ListModeFinancement from '@/components/modefinancements/ListModeFinanceme
         ],
         headerItems: [
           {
-            text: 'Liste des modefinancements',
+            text: 'Liste des modes de financement',
             disabled: true,
             to: '/modefinancements',
             exact: true

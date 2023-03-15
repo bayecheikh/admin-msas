@@ -12,7 +12,7 @@ export default () => ({
         { text: 'Prénom', value: 'firstname' },
         { text: 'Nom', value: 'lastname' },
         { text: 'E-mail', value: 'email' },
-        { text: 'Telephone', value: 'telephone' },
+        { text: 'Téléphone', value: 'telephone' },
 /*         { text: 'Statut', value: 'status' }, */
         { text: 'Actions', value: 'actions', sortable: false }
     ],

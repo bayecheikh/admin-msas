@@ -46,7 +46,7 @@ import FormUpdateUsager from '@/components/usagers/modifier/FormUpdateUsager';
           exact: true
         },
         {
-          text: 'Détail',
+          text: 'Détail usager',
           disabled: true,
           to: '/usagers/addUsager',
           exact: true

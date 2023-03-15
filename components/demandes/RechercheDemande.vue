@@ -23,7 +23,7 @@
           outlined dense
           v-model="model.dataSearch"
           :rules="rules.dataSearchRules"
-          placeholder="Prénom,Nom, Email, Profil, etc."
+          placeholder="Prénom,Nom, E-mail, Profil, etc."
           clearable
           :clear-icon-cb="onClearClicked"
           rounded

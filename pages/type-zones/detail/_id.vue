@@ -43,7 +43,7 @@ import ActionsTypeZone from '@/components/type-zones/detail/ActionsTypeZone';
         ],
         headerItems: [
         {
-          text: 'dimensions',
+          text: 'Dimensions',
           disabled: false,
           to: '/dimensions',
           exact: true
