@@ -741,6 +741,7 @@ import { mapMutations, mapGetters } from 'vuex'
             this.showDebutIntervention=false
             this.showFinIntervention=false
             this.showZoneIntervention=false
+            this.showDistrict=false
             //this.showTypeSource=false
           }
           break;
