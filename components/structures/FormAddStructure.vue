@@ -729,6 +729,21 @@ import { mapMutations, mapGetters } from 'vuex'
             this.showTypeSource=false
           }
           break;
+          case 'PROTECTION SOCIALE' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            //this.showTypeSource=false
+          }
+          break;
         }
         /* let checkSource = this.model.source_financements.filter(item => item.libelle_source === 'EPS').length;
         if(checkRole==1){

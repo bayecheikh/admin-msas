@@ -35,7 +35,7 @@ import FormUpdateSource from '@/components/sources/modifier/FormUpdateSource';
       return {
         headerItems: [
         {
-          text: 'sources',
+          text: 'Types de structure',
           disabled: false,
           to: '/sources',
           exact: true

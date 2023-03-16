@@ -43,13 +43,13 @@ import ActionsSource from '@/components/sources/detail/ActionsSource';
       return {
         headerItems: [
         {
-          text: 'sources',
+          text: 'Types de structure',
           disabled: false,
           to: '/sources',
           exact: true
         },
         {
-          text: 'Detail source',
+          text: 'Detail type de structure',
           disabled: true,
           to: '/sources/94',
           exact: true

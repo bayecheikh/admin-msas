@@ -45,6 +45,7 @@
           </v-col>
           <v-col lg="4" md="4" sm="12" v-if="showRegionMedical">
             <v-autocomplete
+              :v-model="selectedRegions"
               :rules="rules.selectRules"
               :items="listregions"
               outlined
@@ -381,7 +382,9 @@ import { mapMutations, mapGetters } from 'vuex'
         telephone_responsable:'',
         fonction_responsable:'',
         listtypesources:[],
-        type_zone_value:''
+        type_zone_value:'',
+        region:'',
+        departement:''
       },
       rules:{
         nom_structureRules: [
@@ -472,6 +475,7 @@ import { mapMutations, mapGetters } from 'vuex'
             this.model.type_zone_value = response.data.type_zone_interventions[0]
             this.changeType_zone_intervention(response.data.type_zone_interventions[0])
             this.selectedRegions= response.data.regions.map((item)=>{return item.id})
+            this.model.region=response.data.regions[0].id
             this.selectedDepartements= response.data.departements.map((item)=>{return item.id})
             this.selectedDimensions= response.data.dimensions.map((item)=>{return item.id})
             //this.SelectedSource_financements= response.data.source_financements[0]
