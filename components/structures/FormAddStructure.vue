@@ -364,7 +364,7 @@ import { mapMutations, mapGetters } from 'vuex'
       listdimensions: 'dimensions/listdimensions',
     })},
     data: () => ({
-      itemsNatureStructure:[{id:'Donneur',libelle:'Bailleur'},{id:'Receveur',libelle:'Récipiendaire'},{id:'Mixte',libelle:'Mixte'}],
+      itemsNatureStructure:[{id:'Donneur',libelle:'Pourvoyeur de ressource'},{id:'Receveur',libelle:'Récipiendaire'},{id:'Mixte',libelle:'Mixte'}],
       listDepartements:[],
       filename : '',
       loading: false,

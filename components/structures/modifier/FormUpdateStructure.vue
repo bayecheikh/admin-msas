@@ -12,6 +12,18 @@
               :rules="rules.nom_structureRules"
             ></v-text-field>
           </v-col>
+          <v-col md="4" lg="4" sm="12">
+            <v-select
+              :items="itemsNatureStructure"
+              v-model="model.donneur_receveur_mixte"
+              :rules="rules.nom_structureRules"
+              label="Nature structure"
+              item-text="libelle"
+              item-value="id"
+              outlined
+              dense
+            ></v-select>
+          </v-col>
           <v-col lg="4" md="4" sm="12">
             <v-autocomplete
               v-model="selectedSource_financements"
@@ -365,9 +377,11 @@ import { mapMutations, mapGetters } from 'vuex'
       selectedDepartements: [],
       selectedDimensions: [],
       selectedType_zone_interventions: [],
+      itemsNatureStructure:[{id:'Donneur',libelle:'Pourvoyeur de ressource'},{id:'Receveur',libelle:'Récipiendaire'},{id:'Mixte',libelle:'Mixte'}],
       model: {
         id : '',
         nom_structure:'',
+        donneur_receveur_mixte:[],
         numero_autorisation:'',
         accord_siege:'',
         numero_agrement:'',
@@ -461,6 +475,7 @@ import { mapMutations, mapGetters } from 'vuex'
             this.$store.dispatch('structures/getDetail',response.data)
             this.model.id= response.data.id
             this.model.nom_structure= response.data.nom_structure
+            this.model.donneur_receveur_mixte = response.data.donneur_receveur_mixte
             this.selectedSource_financements= response.data.source_financements[0]
             this.changeSource_financement(response.data.source_financements[0])
             this.selectedType_sources = response.data.type_sources[0]

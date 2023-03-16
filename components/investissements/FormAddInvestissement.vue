@@ -183,7 +183,7 @@
                 :rules="rules.textfieldRules"
                 outlined
                 dense
-                label="Bailleurs"
+                label="Pourvoyeur de fonds"
                 item-text="nom_structure"
                 item-value="id"
                 return-object
@@ -346,7 +346,7 @@
                     Bénéficiaire
                   </th>
                   <th class="text-left" >
-                    Bailleur
+                    Pourvoyeur de fond
                   </th>
                                    
                   <th class="text-left">
