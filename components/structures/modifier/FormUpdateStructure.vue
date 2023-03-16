@@ -538,6 +538,7 @@ import { mapMutations, mapGetters } from 'vuex'
         formData.append("id", this.model.id);
         formData.append("_method", "put");
         formData.append("nom_structure", this.model.nom_structure);
+        formData.append("donneur_receveur_mixte", this.model.donneur_receveur_mixte);
         formData.append("numero_autorisation",this.model.numero_autorisation);
         formData.append("accord_siege",this.model.accord_siege);
         formData.append("numero_agrement",this.model.numero_agrement);
