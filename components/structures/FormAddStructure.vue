@@ -39,7 +39,7 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col lg="4" md="4" sm="12">
+          <v-col lg="4" md="4" sm="12" v-if="showTypeSource">
             <v-autocomplete
               v-model="selectedType_sources"
               :items="selectedType_sources"
@@ -51,7 +51,7 @@
               item-value="id"
               return-object
               @change="changeType_source"
-              v-if="showTypeSource"
+              
             >
             </v-autocomplete>
           </v-col>
@@ -667,6 +667,66 @@ import { mapMutations, mapGetters } from 'vuex'
             this.showFinIntervention=false
             this.showRegionMedical=false
             this.showDistrict=false
+          }
+          break;
+          case 'RM' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            //this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            this.showTypeSource=false
+          }
+          break;
+          case 'DISTRICT' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            //this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            this.showTypeSource=false
+          }
+          break;
+          case 'POSTE DE SANTE' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            this.showTypeSource=false
+          }
+          break;
+          case 'CENTRE DE SANTE' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            this.showTypeSource=false
           }
           break;
         }
