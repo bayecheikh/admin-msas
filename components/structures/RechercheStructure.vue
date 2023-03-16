@@ -211,7 +211,7 @@
         >
           Rechercher
         </v-btn>
-        <v-btn text @click="onClearClicked" rounded color="red">Recharger la liste</v-btn>
+        <v-btn text @click="onClearClicked" rounded color="red">Retour</v-btn>
       </v-col>    
   </v-form>
 </template>

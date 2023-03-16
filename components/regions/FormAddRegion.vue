@@ -50,7 +50,7 @@
             <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
-              label="Rechercher une departement"
+              label="Rechercher un district"
               outlined
               dense
               hide-details
