@@ -749,7 +749,7 @@ import { mapMutations, mapGetters } from 'vuex'
             console.log('************',this.showNumAutorisation)
             this.showAdresseStructure=true
             this.showRegionMedical=true
-            //this.showDistrict=true
+            this.showDistrict=true
 
             this.showNumAutorisation=false
             this.showNumAgrement=false
