@@ -42,7 +42,7 @@
           <v-col lg="4" md="4" sm="12" v-if="showTypeSource">
             <v-autocomplete
               v-model="selectedType_sources"
-              :items="selectedType_sources"
+              :items="listType_sources"
               :rules="this.showTypeSource==true?rules.Structure_services_idRules:null"
               outlined
               dense
@@ -384,6 +384,7 @@ import { mapMutations, mapGetters } from 'vuex'
       message:null,
       selectedSource_financements: [],
       selectedType_sources: [],
+      listType_sources: [],
       selectedRegions: [],
       selectedDepartements: [],
       selectedDimensions: [],
@@ -590,7 +591,7 @@ import { mapMutations, mapGetters } from 'vuex'
       async changeSource_financement(source) {
         this.showTypeSource=true
         this.selectedSource_financements = source
-        this.selectedType_sources = source.type_sources
+        this.listType_sources = source.type_sources
 
         switch(source.libelle_source){
           case 'EPS' : {
@@ -618,7 +619,7 @@ import { mapMutations, mapGetters } from 'vuex'
           }
           break;
           case 'PTF' : {
-            this.showNumAgrement=true
+            //this.showNumAgrement=true
             this.showAccordSiege=true
             this.showZoneIntervention=true
             this.showNumAutorisation=false
@@ -628,6 +629,7 @@ import { mapMutations, mapGetters } from 'vuex'
 
             this.showRegionMedical=false
             this.showDistrict=false
+            this.showNumAgrement=false
           }
           break;
           case 'ONG' : {
