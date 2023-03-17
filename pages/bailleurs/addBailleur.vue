@@ -30,13 +30,13 @@ import FormAddBailleur from '@/components/bailleurs/FormAddBailleur';
       return {
         headerItems: [
         {
-          text: 'bailleurs',
+          text: 'Domaines',
           disabled: false,
           to: '/bailleurs',
           exact: true
         },
         {
-          text: 'Nouveau bailleur',
+          text: 'Nouveau domaine',
           disabled: false,
           to: '/bailleurs/addBailleur',
           exact: true

@@ -30,13 +30,13 @@ import FormUpdateBailleur from '@/components/bailleurs/modifier/FormUpdateBaille
       return {
         headerItems: [
         {
-          text: 'Bailleurs',
+          text: 'Domaines',
           disabled: false,
           to: '/bailleurs',
           exact: true
         },
         {
-          text: 'Detail bailleur',
+          text: 'Detail domaine',
           disabled: true,
           to: '/bailleurs/94',
           exact: true
