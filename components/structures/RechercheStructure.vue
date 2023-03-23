@@ -211,7 +211,7 @@
         >
           Rechercher
         </v-btn>
-        <v-btn text @click="onClearClicked" rounded color="red">Réinitialiser</v-btn>
+        <v-btn text @click="onClearClicked" rounded color="red">Retour</v-btn>
       </v-col>    
   </v-form>
 </template>

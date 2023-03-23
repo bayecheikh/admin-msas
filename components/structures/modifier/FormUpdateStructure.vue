@@ -12,6 +12,18 @@
               :rules="rules.nom_structureRules"
             ></v-text-field>
           </v-col>
+          <v-col md="4" lg="4" sm="12">
+            <v-select
+              :items="itemsNatureStructure"
+              v-model="model.donneur_receveur_mixte"
+              :rules="rules.nom_structureRules"
+              label="Nature structure"
+              item-text="libelle"
+              item-value="id"
+              outlined
+              dense
+            ></v-select>
+          </v-col>
           <v-col lg="4" md="4" sm="12">
             <v-autocomplete
               v-model="SelectedSource_financements"
@@ -29,7 +41,7 @@
           </v-col>
           <v-col lg="4" md="4" sm="12">
             <v-autocomplete
-              
+
               :items="model.listtypesources"
               :rules="showTypeSource?rules.sousTypeRules:null"
               outlined
@@ -45,14 +57,15 @@
           </v-col>
           <v-col lg="4" md="4" sm="12" v-if="showRegionMedical">
             <v-autocomplete
-               :rules="showRegionMedical?rules.regionRules:null"
+              :v-model="selectedRegions"
+              :rules="rules.selectRules"
               :items="listregions"
               outlined
               dense
               label="Région"
               item-text="nom_region"
               item-value="id"
-           
+
               return-object
               @change="changeRegion"
             >
@@ -344,7 +357,7 @@ import { validationMixin } from 'vuelidate';
     mounted: function() {
       this.getDetail(this.$nuxt._route.params.id)
     },
-    computed: 
+    computed:
       mapGetters({
       detailstructure:'structures/detailstructure',
       listtypezones: 'type-zones/listtypezones',
@@ -366,7 +379,7 @@ import { validationMixin } from 'vuelidate';
     selectedDimensions: {
       required,
     },
-   
+
   },
     data: () => ({
       id : '',
@@ -392,9 +405,11 @@ import { validationMixin } from 'vuelidate';
       selectedDepartements: [],
       selectedDimensions: [],
       selectedType_zone_interventions: [],
+      itemsNatureStructure:[{id:'Donneur',libelle:'Pourvoyeur de ressource'},{id:'Receveur',libelle:'Récipiendaire'},{id:'Mixte',libelle:'Mixte'}],
       model: {
         id : '',
         nom_structure:'',
+        donneur_receveur_mixte:[],
         numero_autorisation:'',
         accord_siege:'',
         numero_agrement:'',
@@ -409,13 +424,15 @@ import { validationMixin } from 'vuelidate';
         telephone_responsable:'',
         fonction_responsable:'',
         listtypesources:[],
-        type_zone_value:''
+        type_zone_value:'',
+        region:'',
+        departement:''
       },
      rules:{
         debutInterventionRules: [
           v => !!v || 'La date de début de l\'intervention est obligatoire'
         ],
-       
+
         finInterventionRules: [
           v => !!v || 'La date de fin de l\'intervention est obligatoire'
         ],
@@ -465,7 +482,7 @@ import { validationMixin } from 'vuelidate';
         rolesRules: [
           v => (v && !!v.length) || 'Le rôle est obligatoire',
         ],
-     
+
         districtRules: [
         v => !!v || 'Le district est obligatoire',
         ],
@@ -532,6 +549,7 @@ import { validationMixin } from 'vuelidate';
             this.$store.dispatch('structures/getDetail',response.data)
             this.model.id= response.data.id
             this.model.nom_structure= response.data.nom_structure
+            this.model.donneur_receveur_mixte = response.data.donneur_receveur_mixte
             this.selectedSource_financements= response.data.source_financements[0]
             this.changeSource_financement(response.data.source_financements[0])
             this.selectedType_sources = response.data.type_sources[0]
@@ -546,6 +564,7 @@ import { validationMixin } from 'vuelidate';
             this.model.type_zone_value = response.data.type_zone_interventions[0]
             this.changeType_zone_intervention(response.data.type_zone_interventions[0])
             this.selectedRegions= response.data.regions.map((item)=>{return item.id})
+            this.model.region=response.data.regions[0].id
             this.selectedDepartements= response.data.departements.map((item)=>{return item.id})
             this.selectedDimensions= response.data.dimensions.map((item)=>{return item.id})
             //this.SelectedSource_financements= response.data.source_financements[0]
@@ -593,6 +612,7 @@ import { validationMixin } from 'vuelidate';
         formData.append("id", this.model.id);
         formData.append("_method", "put");
         formData.append("nom_structure", this.model.nom_structure);
+        formData.append("donneur_receveur_mixte", this.model.donneur_receveur_mixte);
         formData.append("numero_autorisation",this.model.numero_autorisation);
         formData.append("accord_siege",this.model.accord_siege);
         formData.append("numero_agrement",this.model.numero_agrement);
@@ -768,7 +788,7 @@ import { validationMixin } from 'vuelidate';
         this.listDepartements = value?.departements
         this.selectedRegions=[value.id]
         //this.selectedRegions.push(value.id)
-        
+
       },
       async changeType_zone_intervention(e) {
         console.log('************',this.showZoneIntervention)

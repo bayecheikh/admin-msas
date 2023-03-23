@@ -39,7 +39,7 @@ import ListBailleur from '@/components/bailleurs/ListBailleur'
         ],
         headerItems: [
           {
-            text: 'Liste des bailleurs',
+            text: 'Liste des domaines',
             disabled: true,
             to: '/bailleurs',
             exact: true

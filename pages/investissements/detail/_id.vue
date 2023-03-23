@@ -53,6 +53,7 @@ import HistoriqueInvestissement from '@/components/investissements/detail/Histor
       this.$store.dispatch('bailleurs/getList')
       this.$store.dispatch('piliers/getList')
       this.$store.dispatch('sources/getList')
+      this.$store.dispatch('bailleurs/getList')
       
     },
     data () {

@@ -10,6 +10,14 @@
           :rules="rules.libelle_sourceRules"
         ></v-text-field>
       </v-col>
+      <!-- <v-col md="6" lg="6" sm="12">
+        <v-text-field
+          label="Rang (Sur la liste)"
+          outlined dense
+          v-model="model.status"
+          :rules="rules.libelle_sourceRules"
+        ></v-text-field>
+      </v-col> -->
     </v-row>
     <v-row class="my-0">
       <v-col md="12" lg="12" sm="12" class="my-0 py-0">
@@ -85,7 +93,8 @@ import { mapMutations, mapGetters } from 'vuex'
       valid: true,
       model: {
         libelle_source: '',
-        description: ''
+        description: '',
+        status:''
       },
       rules:{
         libelle_sourceRules: [

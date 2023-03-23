@@ -34,13 +34,13 @@ import FormAddSource from '@/components/sources/FormAddSource';
       return {
         headerItems: [
         {
-          text: 'Sources',
+          text: 'Types de structure',
           disabled: false,
           to: '/sources',
           exact: true
         },
         {
-          text: 'Nouvelle source',
+          text: 'Nouveau type de structure',
           disabled: false,
           to: '/sources/addSource',
           exact: true

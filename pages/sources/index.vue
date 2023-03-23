@@ -35,7 +35,7 @@ import ListSource from '@/components/sources/ListSource'
         selectedItem: 0,
         headerItems: [
           {
-            text: 'Liste des sources',
+            text: 'Liste des types de structure',
             disabled: true,
             to: '/sources',
             exact: true

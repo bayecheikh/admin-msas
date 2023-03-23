@@ -1,14 +1,14 @@
 <template>
-  
+
    <div>
   <div class="custom-container bg-title-grey">
-      <page-header :items="headerItems" class=""></page-header>  
-  </div> 
+      <page-header :items="headerItems" class=""></page-header>
+  </div>
   <div class="custom-container mt-5">
-    <v-card class="container pl-10 pt-10 pb-10 pr-10" flat>  
+    <v-card class="container pl-10 pt-10 pb-10 pr-10" flat>
     <form-update-bailleur></form-update-bailleur>
     </v-card>
-  </div> 
+  </div>
 </div>
 </template>
 
@@ -30,18 +30,18 @@ import FormUpdateBailleur from '@/components/bailleurs/modifier/FormUpdateBaille
       return {
         headerItems: [
         {
-          text: 'Bailleurs',
+          text: 'Domaines',
           disabled: false,
           to: '/bailleurs',
           exact: true
         },
         {
-          text: 'Modification',
+          text: 'Detail domaine',
           disabled: true,
           to: '/bailleurs/94',
           exact: true
         }
-        
+
         ]
 
       }

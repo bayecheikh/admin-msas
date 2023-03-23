@@ -39,11 +39,11 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col lg="4" md="4" sm="12">
+          <v-col lg="4" md="4" sm="12" v-if="showTypeSource">
             <v-autocomplete
-            
-              :items="listTypesSources"
-              :rules="showTypeSource?rules.sousTypeRules:null"
+              v-model="selectedType_sources"
+              :items="listType_sources"
+              :rules="this.showTypeSource==true?rules.Structure_services_idRules:null"
               outlined
               dense
               label="Sous-type"
@@ -51,10 +51,10 @@
               item-value="id"
               return-object
               @change="changeType_source"
-              v-if="showTypeSource"
+
             >
             </v-autocomplete>
-           
+
           </v-col>
           <v-col lg="4" md="4" sm="12" v-if="showRegionMedical">
             <v-autocomplete
@@ -64,7 +64,7 @@
               dense
               label="Région"
               item-text="nom_region"
-              item-value="id"          
+              item-value="id"
               return-object
               @change="changeRegion"
             >
@@ -254,7 +254,7 @@
         <div v-if="selectedType_zone_interventions && selectedType_zone_interventions === 2 && !$v.selectedRegions.required">
           <span class="errorcustom">La région est obligatoire</span>
         </div>
-    
+
       </v-card>
       <h2 class="mb-5 primary custom-title-h2">Dimensions</h2>
       <v-card flat class="mx-auto mb-5 pl-10 pt-5 pr-10 pb-5">
@@ -382,10 +382,10 @@ import { validationMixin } from 'vuelidate';
     selectedDimensions: {
       required,
     },
-   
+
   },
     data: () => ({
-      itemsNatureStructure:[{id:'Donneur',libelle:'Bailleur'},{id:'Receveur',libelle:'Récipiendaire'},{id:'Mixte',libelle:'Mixte'}],
+      itemsNatureStructure:[{id:'Donneur',libelle:'Pourvoyeur de ressource'},{id:'Receveur',libelle:'Récipiendaire'},{id:'Mixte',libelle:'Mixte'}],
       listDepartements:[],
       filename : '',
       loading: false,
@@ -405,6 +405,7 @@ import { validationMixin } from 'vuelidate';
       message:null,
       selectedSource_financements: [],
       selectedType_sources: [],
+      listType_sources: [],
       selectedRegions: [],
       selectedDepartements: [],
       selectedDimensions: [],
@@ -426,12 +427,12 @@ import { validationMixin } from 'vuelidate';
         telephone_responsable:'',
         fonction_responsable:'',
       },
-      
+
       rules:{
         debutInterventionRules: [
           v => !!v || 'La date de début de l\'intervention est obligatoire'
         ],
-       
+
         finInterventionRules: [
           v => !!v || 'La date de fin de l\'intervention est obligatoire'
         ],
@@ -481,7 +482,7 @@ import { validationMixin } from 'vuelidate';
         rolesRules: [
           v => (v && !!v.length) || 'Le rôle est obligatoire',
         ],
-     
+
         districtRules: [
         v => !!v || 'Le district est obligatoire',
         ],
@@ -610,9 +611,9 @@ import { validationMixin } from 'vuelidate';
         console.log('Donées formulaire source financements ++++++: ',data)
 
         console.log('FormData ++++++ : ',formData)
-     
+
         this.$v.$touch();
-     
+
       !this.$v.$invalid && validation && this.$msasFileApi.post('/structures',formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
@@ -650,17 +651,16 @@ import { validationMixin } from 'vuelidate';
         this.listDepartements = value?.departements
         this.selectedRegions=[value.id]
         //this.selectedRegions.push(value.id)
-        
+
       },
       async changeDepartement(value) {
-        
-        
+
+
       },
       async changeSource_financement(source) {
         this.showTypeSource=true
         this.selectedSource_financements = source
-        this.listTypesSources = source.type_sources
-        this.selectedType_sources = []
+        this.listType_sources = source.type_sources
 
         switch(source.libelle_source){
           case 'EPS' : {
@@ -679,38 +679,37 @@ import { validationMixin } from 'vuelidate';
           break;
           case 'SPS' : {
             this.showNumAgrement=false
-     
+
             this.showAdresseStructure=true
             this.showZoneIntervention=true
 
-          
+
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showNumAutorisation=true
           }
           break;
           case 'PTF' : {
-            this.showNumAutorisation=false
-           
+            //this.showNumAgrement=true
             this.showAccordSiege=true
             this.showZoneIntervention=true
-           
+
             this.showDebutIntervention=true
             this.showFinIntervention=true
             this.showAdresseStructure=true
 
             this.showRegionMedical=false
             this.showDistrict=false
-            this.showNumAgrement=true
+            this.showNumAgrement=false
           }
           break;
           case 'ONG' : {
             this.showNumAutorisation=false
-            
+
             this.showAdresseStructure=true
             this.showZoneIntervention=true
 
-     
+
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
@@ -725,7 +724,7 @@ import { validationMixin } from 'vuelidate';
             this.showAdresseStructure=true
             this.showZoneIntervention=true
 
-           
+
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
@@ -739,12 +738,119 @@ import { validationMixin } from 'vuelidate';
             this.showAdresseStructure=false
             this.showZoneIntervention=true
 
-           
+
             this.showAccordSiege=false
             this.showDebutIntervention=false
             this.showFinIntervention=false
             this.showRegionMedical=false
             this.showDistrict=false
+          }
+          break;
+          case 'RM' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            //this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            this.showTypeSource=false
+          }
+          break;
+          case 'DISTRICT' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            //this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            this.showTypeSource=false
+          }
+          break;
+          case 'POSTE DE SANTE' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            this.showTypeSource=false
+          }
+          break;
+          case 'CENTRE DE SANTE' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            this.showTypeSource=false
+          }
+          break;
+          case 'PROTECTION SOCIALE' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            //this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            this.showDistrict=false
+            //this.showTypeSource=false
+          }
+          break;
+          case 'SERVICE' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            //this.showTypeSource=false
+            //this.showTypeSource=false
+          }
+          break;
+          case 'DIRECTION' : {
+            console.log('************',this.showNumAutorisation)
+            this.showAdresseStructure=true
+            this.showRegionMedical=true
+            //this.showDistrict=true
+
+            this.showNumAutorisation=false
+            this.showNumAgrement=false
+            this.showAccordSiege=false
+            this.showDebutIntervention=false
+            this.showFinIntervention=false
+            this.showZoneIntervention=false
+            //this.showTypeSource=false
           }
           break;
         }

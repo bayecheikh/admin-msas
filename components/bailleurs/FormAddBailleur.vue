@@ -4,7 +4,7 @@
       <v-row>
         <v-col md="6" lg="6" sm="12">
           <v-text-field
-            label="Nom"
+            label="Libelle"
             outlined dense
             v-model="model.libelle"
             :rules="rules.libelleRules"

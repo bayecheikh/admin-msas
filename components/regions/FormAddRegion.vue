@@ -50,7 +50,7 @@
             <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
-              label="Rechercher un département"
+              label="Rechercher un district"
               outlined
               dense
               hide-details
@@ -61,7 +61,7 @@
             v-model="selected"
             :headers="headers"
             :items="listdepartements"
-            :loading="listdepartements.length?false:true" 
+            :loading="listdepartements.length?false:true"
             loading-text="Loading... Please wait"
             :single-select="singleSelect"
             item-key="nom_departement"
@@ -163,9 +163,9 @@ import { mapMutations, mapGetters } from 'vuex'
         let validation = this.$refs.form.validate()
         let selecteddepartements = this.selected.map((item)=>{return item.id})
         console.log('Donées formulaire ++++++ : ',{...this.model,departements:selecteddepartements})
-        
+
         validation && this.$msasApi.post('/regions', {...this.model,departements:selecteddepartements})
-          .then((res) => {    
+          .then((res) => {
             this.$store.dispatch('toast/getMessage',{type:'success',text:res.data.message || 'Ajout réussi'})
             this.$router.push('/regions');
           })
