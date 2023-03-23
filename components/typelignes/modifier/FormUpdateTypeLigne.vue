@@ -50,7 +50,7 @@ import { mapMutations, mapGetters } from 'vuex'
       rules:{
         libelleRules: [
           v => !!v || 'Nom est obligatoire',
-          v => (v && v.length <= 50) || 'Nom doit etre inférieur à 20 caratères',
+          v => (v && v.length <= 50) || 'Nom doit etre inférieur à 20 caractères',
         ],
         slugRules: [
           v => !!v || 'Le slug est obligatoire',

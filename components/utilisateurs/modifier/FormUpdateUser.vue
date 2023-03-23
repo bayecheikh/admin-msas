@@ -276,7 +276,7 @@
           ],
           lastnameRules: [
             v => !!v || 'Nom est obligatoire',
-            v => (v && v.length <= 50) || 'Nom doit etre inférieur à 10 caratères',
+            v => (v && v.length <= 50) || 'Nom doit etre inférieur à 10 caractères',
           ],
           emailRules: [
           v => !!v || 'L\'adresse e-mail est obligatoire',
@@ -284,7 +284,7 @@
           ],
           usernameRules: [
             v => !!v || 'Login est obligatoire',
-            v => (v && v.length <= 10) || 'Nom doit etre inférieur à 10 caratères',
+            v => (v && v.length <= 10) || 'Nom doit etre inférieur à 10 caractères',
           ],
           rolesRules: [
             v => (v && !!v.length) || 'Le rôle est obligatoire',
@@ -305,18 +305,18 @@
           ],
           adresseRules: [
             v => !!v || 'Adresse est obligatoire',
-            v => (v && v.length <= 100) || 'Adresse doit etre inférieur à 50 caratères',
+            v => (v && v.length <= 100) || 'Adresse doit etre inférieur à 50 caractères',
           ],
           nationalityRules: [
             v => !!v || 'Nationalité est obligatoire',
-            v => (v && v.length <= 50) || 'Nationalité doit etre inférieur à 15 caratères',
+            v => (v && v.length <= 50) || 'Nationalité doit etre inférieur à 15 caractères',
           ],
           date_of_birthRules: [
             v => !!v || 'Date de naissance est obligatoire',
           ],
           place_of_birthRules: [
             v => !!v || 'Lieu de naissance est obligatoire',
-            v => (v && v.length <= 50) || 'Lieu de naissance doit etre inférieur à 20 caratères',
+            v => (v && v.length <= 50) || 'Lieu de naissance doit etre inférieur à 20 caractères',
           ],
           /* sexeRules: [
             v => !!v || 'Civilité est obligatoire',

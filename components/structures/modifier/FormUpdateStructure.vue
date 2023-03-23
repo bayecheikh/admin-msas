@@ -491,18 +491,18 @@ import { validationMixin } from 'vuelidate';
         ],
         adresseRules: [
           v => !!v || 'L\'adresse est obligatoire',
-          v => (v && v.length <= 100) || 'L\'adresse doit etre inférieure à 100 caratères',
+          v => (v && v.length <= 100) || 'L\'adresse doit etre inférieure à 100 caractères',
         ],
         nationalityRules: [
           v => !!v || 'Nationalité est obligatoire',
-          v => (v && v.length <= 50) || 'Nationalité doit etre inférieur à 15 caratères',
+          v => (v && v.length <= 50) || 'Nationalité doit etre inférieur à 15 caractères',
         ],
         date_of_birthRules: [
           v => !!v || 'Date de naissance est obligatoire',
         ],
         place_of_birthRules: [
           v => !!v || 'Lieu de naissance est obligatoire',
-          v => (v && v.length <= 50) || 'Lieu de naissance doit etre inférieur à 20 caratères',
+          v => (v && v.length <= 50) || 'Lieu de naissance doit etre inférieur à 20 caractères',
         ],
         /* sexeRules: [
           v => !!v || 'Civilité est obligatoire',

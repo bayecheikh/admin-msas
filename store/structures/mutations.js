@@ -1,4 +1,19 @@
 export default {
+    updateFormDataCoordonneesSiege(state, { field, value }) {
+        state.formDataCoordonneesSiege[field] = value
+    },
+    updateFormDataDimensions(state, { field, value }) {
+        state.formDataDimensions[field] = value
+    },
+    updateFormDataInfosGenerales(state, { field, value }) {
+        state.formDataInfosGenerales[field] = value
+    },
+    updateFormDataPersonneResponsable(state, { field, value }) {
+        state.formDataPersonneResponsable[field] = value
+    },
+    updateFormDataZoneIntervention(state, { field, value }) {
+        state.formDataZoneIntervention[field] = value
+    },
     initlist(state, newlist) {
         state.liststructures = newlist
     },
@@ -26,5 +41,20 @@ export default {
     removeItem(state,payload) {
         console.log('item to delete ++++++++ ',payload)
         state.liststructures = state.liststructures.filter(item => item.id != payload)
+    },
+    setShowZoneIntervention(state, value) {
+        state.showzoneintervention = value
+    },
+    setShowAdresseStructure(state, value) {
+        state.showadressestructure = value
+    },
+    setformdata(state, formData) {
+        state.formData = formData;
+    },
+    setFormStatus(state, formStatus) {
+    state.formStatus = formStatus;
+    },
+    setvalidation(state, payload) {
+        state.validation = payload
     }
 }
