@@ -871,7 +871,7 @@ import { mapMutations, mapGetters } from 'vuex'
         });
       },
       submitLigne () {
-        if(this.montantBienServiceExecutes0>this.montantBienServiceMobilises0 || this.montantInvestissementExecutes0>this.montantInvestissementMobilises0)
+        if(parseInt(this.montantBienServiceExecutes0)>parseInt(this.montantBienServiceMobilises0) || parseInt(this.montantInvestissementExecutes0)>parseInt(this.montantInvestissementMobilises0))
         {
           alert('Le montant exécuté doit etre inférieur ou égal au montant mobilisé')
         }
