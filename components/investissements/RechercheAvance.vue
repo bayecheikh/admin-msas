@@ -56,7 +56,7 @@
                 
                 outlined
                 dense
-                label="Piliers"
+                label="Pilier"
                 item-text="nom_pilier"
                 item-value="id"
                 multiple

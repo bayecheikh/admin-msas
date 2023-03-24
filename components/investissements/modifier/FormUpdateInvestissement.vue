@@ -230,7 +230,7 @@
                 :rules="showAxes==true?rules.textfieldRules:null"
                 outlined
                 dense
-                label="Axe"
+                label="Axes"
                 item-text="nom_axe"
                 item-value="id"
                 return-object
@@ -338,10 +338,10 @@
                     Bailleur
                   </th>
                   <th class="text-left">
-                    Pilier
+                    Piliers
                   </th>
                   <th class="text-left">
-                    Axe
+                    Axes
                   </th>
                   <th class="text-left">
                     Montant Biens et services prévu

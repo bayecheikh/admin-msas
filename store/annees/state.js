@@ -3,7 +3,7 @@ export default () => ({
 
     headerannees : [
         {
-            text: 'Année',
+            text: 'Années',
             align: 'start',
             sortable: true,
             value: 'libelle',

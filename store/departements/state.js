@@ -8,7 +8,7 @@ export default () => ({
             sortable: true,
             value: 'nom_departement',
         },
-        { text: 'Slug', value: 'slug' },
+     
         { text: 'Latitude', value: 'latitude' },
         { text: 'Longitude', value: 'longitude' },
         /* { text: 'Statut', value: 'status' }, */

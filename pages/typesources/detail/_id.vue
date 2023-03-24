@@ -41,13 +41,13 @@ import ActionsTypesource from '@/components/typesources/detail/ActionsTypesource
       return {
         headerItems: [
         {
-          text: 'Types de source',
+          text: 'Sous-types de structure',
           disabled: false,
           to: '/typesources',
           exact: true
         },
         {
-          text: 'Détail type de source',
+          text: 'Détail sous-type de structure',
           disabled: true,
           to: '/typesources/94',
           exact: true

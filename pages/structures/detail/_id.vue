@@ -15,16 +15,7 @@
             </v-col>
           </v-row>  
     </v-card>
-    <v-card flat class="mx-auto my-6">  
-      <v-container pl-10 pt-10 pb-10 pr-10>
-          <v-row align="center"
-            justify="center">
-            <v-col cols="12" md="12" lg="12" sm="12">
-              <historique-structure></historique-structure>
-            </v-col>
-          </v-row>
-      </v-container>        
-    </v-card>
+
   </div> 
 </div>
   
@@ -34,14 +25,14 @@
 import PageHeader from '@/components/PageHeader';
 import InfoStructure from '@/components/structures/detail/InfoStructure';
 import ActionsStructure from '@/components/structures/detail/ActionsStructure';
-import HistoriqueStructure from '@/components/structures/detail/HistoriqueStructure';
+
   export default {
     layout: "dashboard",
     components: {
       PageHeader,
       InfoStructure,
       ActionsStructure,
-      HistoriqueStructure,
+
     },
     middleware: function ({redirect,$hasPermission}) {
       if(!$hasPermission('gerer-structures')){

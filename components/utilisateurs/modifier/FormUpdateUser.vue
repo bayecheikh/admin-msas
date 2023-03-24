@@ -52,10 +52,18 @@
         </v-col>-->
         <v-col md="6" lg="6" sm="12">
           <v-text-field
-            label="Prénom et Nom"
+            label="Prénom"
             outlined dense
-            v-model="model.name"
+            v-model="model.firstname"
             :rules="rules.firstnameRules"
+          ></v-text-field>
+        </v-col>
+        <v-col md="6" lg="6" sm="12">
+          <v-text-field
+            label="Nom"
+            outlined dense
+            v-model="model.lastname"
+            :rules="rules.lastnameRules"
           ></v-text-field>
         </v-col>
         <!--<v-col md="6" lg="6" sm="12">
@@ -163,7 +171,7 @@
             v-model="model.country_code"
             :rules="rules.country_codeRules"
           ></v-text-field>
-        </v-col>
+        </v-col>-->
         <v-col md="4" lg="4" sm="12">
           <v-text-field
             label="Téléphone"
@@ -171,7 +179,7 @@
             v-model="model.telephone"
             :rules="rules.telephoneRules"
           ></v-text-field>
-        </v-col>-->
+        </v-col>
         <v-col
           lg="6"
           md="6"
@@ -255,7 +263,6 @@
         model: {
           id:null,
           avatar:'',
-          name: '',
           firstname: '',
           lastname: '',
           email: '',
@@ -269,14 +276,16 @@
         },
         rules:{
           firstnameRules: [
-            v => !!v || 'Le prénom et le nom sont obligatoires',
-            (v) => /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/.test(v) || "Le prénom et le nom ne doivent contenir que des caractères alphabétiques et des caractères spéciaux tels que des espaces, des tirets et des apostrophes",
-          (v) => (v && v.length <= 100) || "Le prénom et le nom ne doivent pas dépasser 100 caractères",
-          (v) => (v && v.length >= 2) || "Le prénom et le nom doivent contenir au moins 2 caractères"
+            v => !!v || 'Le prénom est obligatoire',
+            (v) => /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/.test(v) || "Le prénom ne doit contenir que des caractères alphabétiques et des caractères spéciaux tels que des espaces, des tirets et des apostrophes",
+          (v) => (v && v.length <= 50) || "Le prénom ne doit pas dépasser 50 caractères",
+          (v) => (v && v.length >= 2) || "Le prénom doit contenir au moins 2 caractères"
           ],
           lastnameRules: [
-            v => !!v || 'Nom est obligatoire',
-            v => (v && v.length <= 50) || 'Nom doit etre inférieur à 10 caractères',
+            v => !!v || 'Le nom est obligatoire',
+            (v) => /^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/.test(v) || "Le nom ne doit contenir que des caractères alphabétiques et des caractères spéciaux tels que des espaces, des tirets et des apostrophes",
+          (v) => (v && v.length <= 50) || "Le nom ne doit pas dépasser 50 caractères",
+          (v) => (v && v.length >= 2) || "Le nom doit contenir au moins 2 caractères"
           ],
           emailRules: [
           v => !!v || 'L\'adresse e-mail est obligatoire',
@@ -342,13 +351,18 @@
             console.log('Détail ++++++++++',response)
             this.$store.dispatch('utilisateurs/getDetail',response.data)
             this.model.id = response.data.id
+            let name = response.data.name
+            let nameLenght = name.split(" ").length
             /* this.imageData = this.detailutilisateur.avatar, */
-            this.model.name= response.data.name
-            /* this.model.firstname= this.detailutilisateur.firstname,
-            this.model.lastname= this.detailutilisateur.lastname, */
+            this.model.lastname= name.split(" ").pop()
+           
+            console.log("aaaaaaaaaaaaa",name.split(" ").slice(0, nameLenght-1).join(" "))
+            this.model.firstname= name.split(" ").slice(0, nameLenght-1).join(" ")
+            this.model.telephone= response.data.telephone
             this.model.email= response.data.email
             this.model.roles= response.data.roles
             this.model.structure_id = response.data.structures[0]?.id
+            console.log("gfdjhjfdgh", response.data)
             await this.changeRole()
         }).catch((error) => {
              this.$toast.error(error?.response?.data?.message).goAway(3000)

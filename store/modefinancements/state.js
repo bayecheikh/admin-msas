@@ -3,12 +3,12 @@ export default () => ({
 
     headermodefinancements : [
         {
-            text: 'Libellé',
+            text: 'Modes de financement',
             align: 'start',
             sortable: true,
             value: 'libelle',
         },
-        { text: 'Slug', value: 'slug' },
+     
         /* { text: 'Statut', value: 'status' }, */
         { text: 'Actions', value: 'actions', sortable: false },
     ],

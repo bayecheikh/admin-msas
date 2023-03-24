@@ -21,6 +21,13 @@
                   <p class="info-profil mb-4"><span>Prénom et Nom : </span>{{detailUtilisateur.name}}</p>
                   
                   <p class="info-profil mb-4"><span>E-mail : </span>{{detailUtilisateur.email}}</p>
+                  <p class="info-profil mb-4"><span>Téléphone : </span>{{detailUtilisateur.telephone}}</p>
+                  
+              </div>
+              <div class="col-md-6 border-left">
+                  <p class="info-profil mb-4" v-if="detailUtilisateur.fonction"><span>Profession :
+                      </span>{{ detailUtilisateur.fonction}}
+                  </p>
                   <p class="info-profil mb-4"><span>Rôles : </span>
                     <v-chip
                       color="primary"
@@ -32,12 +39,7 @@
                       {{ role.description }}
                     </v-chip>
                   </p>
-              </div>
-              <div class="col-md-6 border-left">
-                  <p class="info-profil mb-4" v-if="detailUtilisateur.fonction"><span>Profession :
-                      </span>{{ detailUtilisateur.fonction}}
-                  </p>
-                  <p class="info-profil mb-4" v-if="detailUtilisateur.structures && detailUtilisateur.structures.length"><span>Structure: </span>{{ detailUtilisateur.structures[0] && detailUtilisateur.structures[0].nom_structure}}</p>  
+                  <p class="info-profil mb-4" v-if="detailUtilisateur.structures && detailUtilisateur.structures.length"><span>Structure : </span>{{ detailUtilisateur.structures[0] && detailUtilisateur.structures[0].nom_structure}}</p>  
               </div>
           </div>
         </v-col>

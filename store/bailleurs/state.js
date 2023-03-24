@@ -3,7 +3,7 @@ export default () => ({
 
     headerbailleurs : [
         {
-            text: 'Bailleur',
+            text: 'Bailleurs',
             align: 'start',
             sortable: true,
             value: 'libelle',

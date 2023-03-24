@@ -71,8 +71,8 @@ export default () => ({
         /* { text: 'Prénom', value: 'firstname' },
         { text: 'Nom', value: 'lastname' }, */
         { text: 'Nom', value: 'nom_structure' },
-        { text: 'Source de financement', value: 'source_financements'},
-        { text: 'Type', value: 'type_sources'},
+        { text: 'Type de structure', value: 'source_financements'},
+        { text: 'Sous-type de structure', value: 'type_sources'},
         { text: 'Téléphone', value: 'telephone_structure'},
         { text: 'E-mail', value: 'email_structure'},
         /* { text: 'Téléphone', value: 'telephone' }, */

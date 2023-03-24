@@ -3,15 +3,12 @@ export default () => ({
 
     headerregions : [
         {
-            text: 'Nom',
+            text: 'Régions',
             align: 'start',
             sortable: true,
             value: 'nom_region',
         },
-        { text: 'Slug', value: 'slug' },
-        { text: 'Latitude', value: 'latitude' },
-        { text: 'Longitude', value: 'longitude' },
-        /* { text: 'Statut', value: 'status' }, */
+      
         { text: 'Actions', value: 'actions', sortable: false },
     ],
     detailregion :{}

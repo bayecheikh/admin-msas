@@ -7,7 +7,7 @@ export default () => ({
         /* { text: 'Région', value: 'region'}, */
         { text: 'Dimension', value: 'dimension'},
         { text: 'Structure', value: 'structure'},
-        { text: 'Source de financement', value: 'source'},
+        { text: 'Type de structure', value: 'source'},
         { text: 'Statut', value: 'status'},
         { text: 'Actions', value: 'actions', sortable: false },
     ],
@@ -17,9 +17,9 @@ export default () => ({
         /* { text: 'Région', value: 'region'}, */
         { text: 'Dimension', value: 'dimension'},
         { text: 'Structure', value: 'structure'},
-        { text: 'Source de financement', value: 'source'},
+        { text: 'Type de structure', value: 'source'},
         { text: 'Dimension', value: 'dimension'},
-        { text: 'Pilier', value: 'piliers'},
+        { text: 'Piliers', value: 'piliers'},
         { text: 'Actions', value: 'actions', sortable: false },
     ],
     detailinvestissement :{},

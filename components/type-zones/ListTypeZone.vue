@@ -16,7 +16,7 @@
           <v-icon left>
             mdi-plus
           </v-icon>
-          Nouveau type-zone
+          Nouveau type de zone d'intervention
         </v-btn>
       </div>
     </div>

@@ -16,7 +16,7 @@
           <v-icon left>
             mdi-plus
           </v-icon>
-          Nouveau  type de source
+          Nouveau sous-type de structure
         </v-btn>
       </div>
     </div>

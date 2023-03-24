@@ -30,8 +30,8 @@ import ActionsTypeZone from '@/components/type-zones/detail/ActionsTypeZone';
       InfoTypeZone,
       ActionsTypeZone
     },
-    middleware: function ({redirect,$hasermission}) {
-      if(!$hasermission('gerer-dimensions')){
+    middleware: function ({redirect,$hasPermission}) {
+      if(!$hasPermission('gerer-dimensions')){
         return redirect('/')
       }
     },

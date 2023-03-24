@@ -18,7 +18,7 @@
             <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
-              label="Rechercher un type de source"
+              label="Rechercher un sous-type de structure"
               outlined
               dense
               hide-details
@@ -76,7 +76,7 @@ import { mapMutations, mapGetters } from 'vuex'
       selectedItem: 0,
       headers : [
         {
-            text: 'Type source',
+            text: 'Sous-types de structure',
             align: 'start',
             sortable: true,
             value: 'libelle_type_source',

@@ -3,7 +3,7 @@ export default () => ({
 
     headerpiliers : [
         {
-            text: 'Libellé',
+            text: 'Piliers',
             align: 'start',
             sortable: true,
             value: 'nom_pilier',

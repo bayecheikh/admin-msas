@@ -31,8 +31,8 @@ import ActionsDimension from '@/components/dimensions/detail/ActionsDimension';
       InfoDimension,
       ActionsDimension
     },
-    middleware: function ({redirect,$hasermission}) {
-      if(!$hasermission('gerer-dimensions')){
+    middleware: function ({redirect,$hasPermission}) {
+      if(!$hasPermission('gerer-dimensions')){
         return redirect('/')
       }
     },

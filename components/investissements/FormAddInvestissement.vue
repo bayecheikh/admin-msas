@@ -147,7 +147,7 @@
             </v-col>
         </v-row>
         <v-btn
-          color="success"
+          color="#009696"
           class="white--text mb-5"
           @click="submitLigneMode"
           depressed
@@ -243,7 +243,7 @@
                 :rules="showAxes==true?rules.textfieldRules:null"
                 outlined
                 dense
-                label="Axe"
+                label="Axes"
                 item-text="nom_axe"
                 item-value="id"
                 return-object
@@ -325,7 +325,7 @@
                 </v-col>
               </v-row>
               <v-btn
-                color="success"
+                color="#009696"
                 class="white--text"
                 @click="submitLigne"
                 depressed
@@ -350,10 +350,10 @@
                   </th>
                                    
                   <th class="text-left">
-                    Pilier
+                    Piliers
                   </th>
                   <th class="text-left">
-                    Axe
+                    Axes
                   </th>
                   <th class="text-left">
                     Montant Biens et services prévu
@@ -427,7 +427,7 @@
 
         </v-row>
         <v-btn
-          color="success"
+          color="#009696"
           class="white--text mb-5"
           @click="submitLigneFichier"
           depressed

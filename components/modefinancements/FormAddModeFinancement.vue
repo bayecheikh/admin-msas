@@ -22,6 +22,7 @@
           <v-checkbox
             v-model="model.predefini"
             label="Champ prédéfini"
+            class="custom-checkbox"
             :value="true"
           ></v-checkbox>
         </v-col>
@@ -99,3 +100,11 @@ import Notification from '@/components/Notification'
     }
   }
 </script>
+
+<style>
+
+.custom-checkbox{
+  margin-top: 4px;
+  margin-bottom: 0px
+}
+</style>

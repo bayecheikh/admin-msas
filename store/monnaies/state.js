@@ -3,7 +3,7 @@ export default () => ({
 
     headermonnaies : [
         {
-            text: 'Monnaie',
+            text: 'Monnaies',
             align: 'start',
             sortable: true,
             value: 'libelle',

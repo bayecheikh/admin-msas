@@ -171,12 +171,19 @@
                   v-on="on"
                   outlined
                   dense
-                ></v-text-field>
+                >  </v-text-field>
+            
               </template>
               <v-date-picker
                 v-model="model.fin_intervention"
                 @input="menu2 = false"
+                :locale="{
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric'
+                }"
               ></v-date-picker>
+            
             </v-menu>
           </v-col>
         </v-row>
@@ -341,6 +348,7 @@ import { mapGetters } from 'vuex'
 import { required } from 'vuelidate/lib/validators';
 import { validationMixin } from 'vuelidate';
 
+
   export default {
     mixins: [validationMixin],
     components: {
@@ -357,6 +365,7 @@ import { validationMixin } from 'vuelidate';
       this.model.regions = this.listregions
       this.model.departements = this.listdepartements
     },
+    
     computed: {
       ...mapGetters({
       /* listroles: 'roles/selectlistroles', */
@@ -368,7 +377,10 @@ import { validationMixin } from 'vuelidate';
       listregions: 'regions/listregions',
       listdepartements: 'departements/listdepartements',
       listdimensions: 'dimensions/listdimensions',
-    })},
+    }),
+
+   
+},
     validations: {
       selectedRegions: {
     required: function(value) {
@@ -382,9 +394,12 @@ import { validationMixin } from 'vuelidate';
     selectedDimensions: {
       required,
     },
+ 
+    
    
   },
     data: () => ({
+      
       itemsNatureStructure:[{id:'Donneur',libelle:'Bailleur'},{id:'Receveur',libelle:'Récipiendaire'},{id:'Mixte',libelle:'Mixte'}],
       listDepartements:[],
       filename : '',
@@ -409,6 +424,7 @@ import { validationMixin } from 'vuelidate';
       selectedDepartements: [],
       selectedDimensions: [],
       selectedType_zone_interventions: [],
+   
       model: {
         nom_structure:'',
         donneur_receveur_mixte:[],
@@ -540,6 +556,8 @@ import { validationMixin } from 'vuelidate';
       imageData:null,
     }),
     methods: {
+      
+
       handleFileUpload(e){
         //Recupère le fichier
         const input = this.$refs.file
@@ -560,6 +578,7 @@ import { validationMixin } from 'vuelidate';
         }
       },
       submitForm () {
+      
         this.loading = true
 
         let validation = this.$refs.form.validate()
@@ -612,7 +631,7 @@ import { validationMixin } from 'vuelidate';
         console.log('FormData ++++++ : ',formData)
      
         this.$v.$touch();
-     
+     console.log("ETTTTTTTTTTTT", this.$v)
       !this.$v.$invalid && validation && this.$msasFileApi.post('/structures',formData)
           .then((res) => {
             console.log('Donées reçus ++++++: ',res)
@@ -785,6 +804,11 @@ import { validationMixin } from 'vuelidate';
       }
     }
   }
+  function parseDate(dateString) {
+  const [year, month, day] = dateString.split('-').map(Number);
+  return new Date(Date.UTC(year, month - 1, day));
+}
+
 </script>
 
 <style scoped>

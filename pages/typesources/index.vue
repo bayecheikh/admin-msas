@@ -36,7 +36,7 @@ import ListTypesource from '@/components/typesources/ListTypesource'
         selectedItem: 0,
         headerItems: [
           {
-            text: 'Liste des types de source',
+            text: 'Liste des sous-types de structure',
             disabled: true,
             to: '/typesources',
             exact: true
