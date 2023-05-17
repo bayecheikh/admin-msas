@@ -13,7 +13,7 @@
             :filter="() => true"
             outlined
             small-chips
-            label="Usager (Email ou Téléphone)"
+            label="Usager (E-mail ou Téléphone)"
             item-text="firstname"
             item-value="id"
             return-object

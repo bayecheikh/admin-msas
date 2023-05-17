@@ -94,8 +94,9 @@ import { mapMutations, mapGetters } from 'vuex'
       },
       rules:{
         libelle_dimensionRules: [
-          v => !!v || 'Libellé est obligatoire',
-          v => (v && v.length <= 50) || 'Libelle doit etre inférieur à 20 caratères',
+          v => !!v || 'Le nom est obligatoire',
+          (v) => (v && v.length <= 100) || "Le nom ne doit pas dépasser 100 caractères",
+        (v) => (v && v.length >= 2) || "Le nom doit contenir au moins 2 caractères"
         ]
       },
     }),

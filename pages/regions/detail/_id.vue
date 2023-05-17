@@ -40,18 +40,18 @@ import ActionsRegion from '@/components/regions/detail/ActionsRegion';
     data () {
       return {
         leftmenuItems: [
-          { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
+          { text: 'Rôles', icon: 'mdi-lock',link:'/roles',position:1  },
           { text: 'regions', icon: 'mdi-lock',link:'/regions',position:2  }
         ],
         headerItems: [
         {
-          text: 'regions',
+          text: 'Régions',
           disabled: false,
           to: '/regions',
           exact: true
         },
         {
-          text: 'Detail region',
+          text: 'Détail région',
           disabled: true,
           to: '/regions/94',
           exact: true

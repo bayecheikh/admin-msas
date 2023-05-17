@@ -22,13 +22,13 @@
                   </p>
                   <p class="info-profil mb-4"><span>Adresse : </span>{{detailUsager.user_details && detailUsager.user_details.address}}</p>
                   <p class="info-profil mb-4"><span>Téléphone : </span>{{detailUsager.telephone}}</p>
-                  <p class="info-profil mb-4"><span>Email : </span>{{detailUsager.email}}</p>
+                  <p class="info-profil mb-4"><span>E-mail : </span>{{detailUsager.email}}</p>
               </div>
               <div class="col-md-6">
                   <p class="info-profil mb-4"><span>Profession :
                       </span>{{detailUsager.user_details && detailUsager.user_details.fonction}}
                   </p>
-                  <p class="info-profil mb-4"><span>Nationnalité : </span>{{detailUsager.user_details && detailUsager.user_details.nationality}}</p>
+                  <p class="info-profil mb-4"><span>Nationalité : </span>{{detailUsager.user_details && detailUsager.user_details.nationality}}</p>
                   <p class="info-profil mb-4"><span>Lieu de naissance : </span>{{detailUsager.user_details && detailUsager.user_details.place_of_birth}}</p>
                   <p class="info-profil mb-4"><span>Type de pièce : </span>{{detailUsager.user_details && detailUsager.user_details.type_identification}}</p>
                   <p class="info-profil mb-4"><span>Numéro de pièce : </span>{{detailUsager.user_details && detailUsager.user_details.numero_identification}}</p>

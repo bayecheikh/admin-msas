@@ -23,7 +23,7 @@
           outlined dense
           v-model="model.dataSearch"
           :rules="rules.dataSearchRules"
-          placeholder="Prénom,Nom, Email, Profil, etc."
+          placeholder="Prénom,Nom, E-mail, Profil, etc."
           clearable
           :clear-icon-cb="onClearClicked"
           rounded
@@ -40,7 +40,7 @@
       </v-col>
       <v-col md="6" lg="6" sm="12">
         <v-text-field
-          label="Adresse Email"
+          label="Adresse e-mail"
           outlined dense
           v-model="model.email"
           :rules="rules.emailRules"
@@ -177,7 +177,7 @@
           v-model="value"
           :items="roles"
           
-          label="Roles"
+          label="Rôles"
           outlined dense
         ></v-select>
       </v-col> -->
@@ -211,7 +211,7 @@
         >
           Rechercher
         </v-btn>
-        <v-btn text @click="onClearClicked" rounded color="red">Réinitialiser</v-btn>
+        <v-btn text @click="onClearClicked" rounded color="red">Retour</v-btn>
       </v-col>    
   </v-form>
 </template>
@@ -290,7 +290,7 @@ import { mapMutations, mapGetters } from 'vuex'
         ],
         emailRules: [
           v => !!v || 'E-mail est obligatoire',
-          v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
+          v => /.+@.+\..+/.test(v) || 'E-mail doit etre valide',
         ],
         demandenameRules: [
           v => !!v || 'Login est obligatoire',

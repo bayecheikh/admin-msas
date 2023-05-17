@@ -33,7 +33,7 @@ import ListRegion from '@/components/regions/ListRegion'
         selectedItem: 0,
         headerItems: [
           {
-            text: 'Liste des regions',
+            text: 'Liste des régions',
             disabled: true,
             to: '/regions',
             exact: true

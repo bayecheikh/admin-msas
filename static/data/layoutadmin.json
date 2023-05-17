@@ -3,9 +3,9 @@
   "homePage":"/dashboard",
   "menuItems":[
     {
-      "icon": "mdi-account-lock-outline",
+      "icon": "mdi-account-key-outline",
       "href": "/roles",
-      "title": "Role",
+      "title": "Rôles",
       "name": "gerer-roles"
     },
     {
@@ -15,79 +15,79 @@
       "name": "gerer-permissions"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-home-map-marker",
       "href": "/departements",
       "title": "Districts",
       "name": "gerer-departements"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-crosshairs-gps",
       "href": "/regions",
-      "title": "Regions",
+      "title": "Régions",
       "name": "gerer-regions"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-view-dashboard-outline",
       "href": "/dimensions",
       "title": "Dimensions",
       "name": "gerer-dimensions"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-cash-multiple",
       "href": "/modefinancements",
       "title": "Modes de financement",
       "name": "gerer-modefinancements"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-tag-outline",
       "href": "/type-zones",
-      "title": "Type Zone",
+      "title": "Types de zone d'intervention",
       "name": "gerer-type-zones"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-home-modern",
       "href": "/typesources",
-      "title": "Sous Type de structure",
+      "title": "Sous-Types de structure",
       "name": "gerer-type-sources"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-home-assistant",
       "href": "/sources",
-      "title": "Type de structure",
+      "title": "Types de structure",
       "name": "gerer-source-financement"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-inbox-arrow-down",
       "href": "/bailleurs",
-      "title": "Bailleurs",
+      "title": "Domaines",
       "name": "gerer-bailleurs"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-switch",
       "href": "/piliers",
       "title": "Piliers",
       "name": "gerer-piliers"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-arrow-expand-all",
       "href": "/axes",
       "title": "Axes",
       "name": "gerer-axes"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-tag-outline",
       "href": "/typelignes",
       "title": "Type Ligne",
       "name": "gerer-typelignes"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-calendar-outline",
       "href": "/annees",
       "title": "Années",
       "name": "gerer-annees"
     },
     {
-      "icon": "mdi-cog-outline",
+      "icon": "mdi-cash",
       "href": "/monnaies",
       "title": "Monnaies",
       "name": "gerer-monnaies"

@@ -18,10 +18,10 @@
               <div class="col-md-6 border-left">
                   <!--<p class="info-profil mb-4"><span>Prénom: </span>{{detailUtilisateur.firstname}}</p>
                   <p class="info-profil mb-4"><span>Nom: </span>{{detailUtilisateur.lastname}}</p>-->
-                  <p class="info-profil mb-4"><span>Prénom et Nom: </span>{{detailUtilisateur.name}}</p>
+                  <p class="info-profil mb-4"><span>Prénom et Nom : </span>{{detailUtilisateur.name}}</p>
                   
-                  <p class="info-profil mb-4"><span>Email : </span>{{detailUtilisateur.email}}</p>
-                  <p class="info-profil mb-4"><span>Roles : </span>
+                  <p class="info-profil mb-4"><span>E-mail : </span>{{detailUtilisateur.email}}</p>
+                  <p class="info-profil mb-4"><span>Rôles : </span>
                     <v-chip
                       color="primary"
                       small
@@ -71,7 +71,7 @@ import { mapMutations, mapGetters } from 'vuex'
           this.progress=true
           this.$msasApi.$get('/users/'+id)
         .then(async (response) => {
-            console.log('Detail ++++++++++',response)
+            console.log('Détail ++++++++++',response)
             this.$store.dispatch('utilisateurs/getDetail',response.data)
         }).catch((error) => {
              this.$toast.error(error?.response?.data?.message).goAway(3000)

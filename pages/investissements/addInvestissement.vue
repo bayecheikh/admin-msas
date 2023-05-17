@@ -23,7 +23,7 @@ import FormAddInvestissement from '@/components/investissements/FormAddInvestiss
       FormAddInvestissement
     },
     middleware: function ({redirect,$hasPermission}) {
-      if(!$hasPermission('gerer-investissements')){
+      if($hasPermission('gerer-investissements')){
         return redirect('/')
       }
     },
@@ -39,6 +39,7 @@ import FormAddInvestissement from '@/components/investissements/FormAddInvestiss
       this.$store.dispatch('modefinancements/getList')
       this.$store.dispatch('bailleurs/getList')
       this.$store.dispatch('piliers/getList')
+      //this.$store.dispatch('bailleurs/getList')
     },
     data () {
       return {

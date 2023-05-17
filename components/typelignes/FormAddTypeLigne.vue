@@ -42,11 +42,13 @@ import Notification from '@/components/Notification'
       },
       rules:{
         libelleRules: [
-          v => !!v || 'Libelle est obligatoire',
+          v => !!v || 'Libellé est obligatoire',
           v => (v && v.length <= 50) || 'Nom doit etre inférieur à 20 caratères',
         ],
         slugRules: [
-          v => !!v || 'Slug est obligatoire'
+          v => !!v || 'Le slug est obligatoire',
+          (v) => (v && v.length >= 2) || "Le slug doit contenir au moins 2 caractères",
+          (v) => (v && v.length <= 100) || "Le slug ne doit pas dépasser 100 caractères",
         ],
       },
     }),

@@ -2,10 +2,10 @@
 
   <div>
   <div class="custom-container bg-title-grey">
-      <page-header :items="headerItems" class=""></page-header>  
-  </div> 
+      <page-header :items="headerItems" class=""></page-header>
+  </div>
   <div class="custom-container mt-5">
-    <v-card class="container pl-10 pt-10 pb-10 pr-10" flat>  
+    <v-card class="container pl-10 pt-10 pb-10 pr-10" flat>
      <v-row align="center"
             justify="center">
             <v-col cols="12" md="12" lg="12" sm="12">
@@ -14,11 +14,11 @@
             <v-col cols="12" md="12" lg="12" sm="12">
               <actions-source></actions-source>
             </v-col>
-          </v-row> 
+          </v-row>
     </v-card>
-  </div> 
+  </div>
 </div>
-  
+
 </template>
 
 <script>
@@ -43,18 +43,18 @@ import ActionsSource from '@/components/sources/detail/ActionsSource';
       return {
         headerItems: [
         {
-          text: 'sources',
+          text: 'Types de structure',
           disabled: false,
           to: '/sources',
           exact: true
         },
         {
-          text: 'Detail source',
+          text: 'Detail type de structure',
           disabled: true,
           to: '/sources/94',
           exact: true
         }
-        
+
         ]
 
       }

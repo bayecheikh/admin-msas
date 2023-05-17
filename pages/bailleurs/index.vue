@@ -34,12 +34,12 @@ import ListBailleur from '@/components/bailleurs/ListBailleur'
       return {
         selectedItem: 0,
         leftmenuItems: [
-          { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
+          { text: 'Rôles', icon: 'mdi-lock',link:'/roles',position:1  },
           { text: 'bailleurs', icon: 'mdi-lock',link:'/bailleurs',position:2  }
         ],
         headerItems: [
           {
-            text: 'Liste des bailleurs',
+            text: 'Liste des domaines',
             disabled: true,
             to: '/bailleurs',
             exact: true

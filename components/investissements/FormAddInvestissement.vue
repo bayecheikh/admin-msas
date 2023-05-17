@@ -183,7 +183,7 @@
                 :rules="rules.textfieldRules"
                 outlined
                 dense
-                label="Bailleurs"
+                label="Pourvoyeur de fonds"
                 item-text="nom_structure"
                 item-value="id"
                 return-object
@@ -223,6 +223,21 @@
             </v-col>
             <v-col lg="6" md="6" sm="12">
               <v-autocomplete
+                v-model="selectedDomaines0"
+                :items="listdomaines"
+                :rules="rules.textfieldRules"
+                outlined
+                dense
+                label="Domaines"
+                item-text="libelle"
+                item-value="id"
+                return-object
+                @change="(event) => changeDomaine(event)"
+              >
+              </v-autocomplete>
+            </v-col>
+            <v-col lg="6" md="6" sm="12">
+              <v-autocomplete
                 v-model="selectedPiliers0"
                 :items="listpiliers"
                 :rules="rules.textfieldRules"
@@ -254,7 +269,7 @@
             <v-col lg="12" md="12" sm="12">
               <v-row>
                 <v-col md="3" lg="3" sm="12">
-                    Bien et Services
+                    Biens et Services
                 </v-col>
                 <v-col md="9" lg="9" sm="12">
                   <v-row>
@@ -278,7 +293,7 @@
                     </v-col>
                     <v-col md="4" lg="4" sm="12">
                       <v-text-field
-                        label="Montant Executé"
+                        label="Montant Exécuté"
                         outlined
                         dense
                         v-model="montantBienServiceExecutes0"
@@ -314,7 +329,7 @@
                     </v-col>
                     <v-col md="4" lg="4" sm="12">
                       <v-text-field
-                        label="Montant Executé"
+                        label="Montant Exécuté"
                         outlined
                         dense
                         v-model="montantInvestissementExecutes0"
@@ -340,13 +355,16 @@
               <thead>
                 <tr>
                   <th class="text-left" >
+                    Domaine
+                  </th>
+                  <th class="text-left" >
                     Région
                   </th>
                   <th class="text-left" >
                     Bénéficiaire
                   </th>
                   <th class="text-left" >
-                    Bailleur
+                    Pourvoyeur de fond
                   </th>
                                    
                   <th class="text-left">
@@ -362,7 +380,7 @@
                     Montant Biens et services mobilisé
                   </th>
                   <th class="text-left">
-                    Montant Biens et services executé
+                    Montant Biens et services exécuté
                   </th>
                   <th class="text-left">
                     Montant Investissement prévu
@@ -371,7 +389,7 @@
                     Montant Investissement mobilisé
                   </th>
                   <th class="text-left">
-                    Montant Investissement executé
+                    Montant Investissement exécuté
                   </th>
                   <th class="text-left">
                     -
@@ -383,6 +401,7 @@
                   v-for="(item,i) in LigneFinancementInputs"
                   :key="item.id"
                 >
+                <td >{{item.domaine && item.domaine.libelle}}</td>
                 <td >{{item.region && item.region.nom_region}}</td>
                   <td >{{item.structurebeneficiaire && item.structurebeneficiaire.nom_structure}}</td>
                   <td >{{item.structuresource && item.structuresource.nom_structure}}</td>  
@@ -446,6 +465,7 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex'
   export default {
+    
     components: {
     },
     mounted: function() {
@@ -466,6 +486,7 @@ import { mapMutations, mapGetters } from 'vuex'
       listmodefinancements: 'modefinancements/listmodefinancements',
       listpiliers: 'piliers/listpiliers',
       listaxes: 'axes/listaxes',
+      listdomaines: 'bailleurs/listbailleurs',
       
       
     })},
@@ -496,6 +517,7 @@ import { mapMutations, mapGetters } from 'vuex'
       message:null,
       autreMode:false,
       devise:'',
+      listDomaines:[],
       listPiliers:[],
       listStructures:[],
       listAxes:[],
@@ -508,6 +530,7 @@ import { mapMutations, mapGetters } from 'vuex'
       selectedStructureSources0:[],
       selectedStructureBeneficiaires0:[],
       selectedRegions0:[],
+      selectedDomaines0:[],
       selectedPiliers0:[],
       selectedAxes0:[],
       montantBienServicePrevus0:'',
@@ -520,6 +543,7 @@ import { mapMutations, mapGetters } from 'vuex'
       selectedstructuresources:[],
       selectedstructurebeneficiaires:[],
       selectedregions:[],
+      selectedDomaines:[],
       selectedPiliers:[],
       selectedAxes:[],
       montantBienServicePrevus:[],
@@ -554,7 +578,7 @@ import { mapMutations, mapGetters } from 'vuex'
         ],
         emailRules: [
           v => !!v || 'l\'E-mail est obligatoire',
-          v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
+          v => /.+@.+\..+/.test(v) || 'E-mail doit etre valide',
         ],
         numberRules: [
         v  => {
@@ -564,7 +588,7 @@ import { mapMutations, mapGetters } from 'vuex'
         },
         ],
         rolesRules: [
-          v => (v && !!v.length) || 'Role est obligatoire',
+          v => (v && !!v.length) || 'Le rôle est obligatoire',
         ],
         telephoneRules: [
           v => !!v || 'Téléphone est obligatoire',
@@ -618,7 +642,7 @@ import { mapMutations, mapGetters } from 'vuex'
           this.progress=true
           this.$msasApi.$get('/users/'+id)
         .then(async (response) => {
-            console.log('Detail user++++++++++',response.data)
+            console.log('Détail user++++++++++',response.data)
             this.$store.dispatch('utilisateurs/getDetail',response.data)
             this.idStructure = response.data?.structures[0]?.id
             this.natureStructure = response.data?.structures[0]?.donneur_receveur_mixte
@@ -765,7 +789,11 @@ import { mapMutations, mapGetters } from 'vuex'
         });
       },
       submitLigne () {
-        if(this.montantBienServiceExecutes0>this.montantBienServiceMobilises0 || this.montantInvestissementExecutes0>this.montantInvestissementMobilises0)
+        console.log(this.montantBienServiceExecutes0)
+        console.log(this.montantBienServiceMobilises0)
+        console.log(this.montantInvestissementExecutes0)
+        console.log(this.montantInvestissementMobilises0)
+        if(parseInt(this.montantBienServiceExecutes0)>parseInt(this.montantBienServiceMobilises0) || parseInt(this.montantInvestissementExecutes0)>parseInt(this.montantInvestissementMobilises0))
         {
           alert('Le montant exécuté doit etre inférieur ou égal au montant mobilisé')
         }
@@ -778,7 +806,7 @@ import { mapMutations, mapGetters } from 'vuex'
           }
                 
           if(this.natureStructure=='Receveur'){
-            console.log('Detail Struct +++ ',this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
+            console.log('Détail Struct +++ ',this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
             this.selectedStructureBeneficiaires0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)
             this.selectedstructurebeneficiaires.push(this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
             this.selectedRegions0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)?.regions[0]
@@ -795,6 +823,7 @@ import { mapMutations, mapGetters } from 'vuex'
           }
           
 
+          this.selectedDomaines.push(this.selectedDomaines0)
           this.selectedPiliers.push(this.selectedPiliers0)
           this.selectedAxes.push(this.selectedAxes0)
           this.montantBienServicePrevus.push(this.montantBienServicePrevus0)
@@ -809,6 +838,7 @@ import { mapMutations, mapGetters } from 'vuex'
             structuresource:this.selectedStructureSources0,
             structurebeneficiaire:this.selectedStructureBeneficiaires0,
             region:this.selectedRegions0,
+            domaine:this.selectedDomaines0,
             pilier:this.selectedPiliers0,
             axe:this.selectedAxes0,
             montantBienServicePrevus:this.montantBienServicePrevus0,
@@ -828,6 +858,7 @@ import { mapMutations, mapGetters } from 'vuex'
         this.selectedStructureBeneficiaires0 = ''
         this.selectedRegions0 = ''
         this.selectedPiliers0 = ''
+        this.selectedDomaines0 = ''
         this.selectedAxes0 = ''
         this.montantBienServicePrevus0 = ''
         this.montantBienServiceMobilises0 = ''
@@ -843,6 +874,7 @@ import { mapMutations, mapGetters } from 'vuex'
         this.selectedstructuresources.splice(index,1);
         this.selectedregions.splice(index,1);
         this.selectedPiliers.splice(index,1);
+        this.selectedDomaines.splice(index,1);
         this.selectedAxes.splice(index,1);
         this.montantBienServicePrevus.splice(index,1);
         this.montantBienServiceExecutes.splice(index,1);
@@ -940,6 +972,10 @@ import { mapMutations, mapGetters } from 'vuex'
       async changeRegion2(value) {
         this.selectedRegions0= value        
         console.log('************',value)
+        //console.log('************',i)
+      },
+      async changeDomaine(value) {
+        this.selectedDomaines0= value
         //console.log('************',i)
       },
       async changePilier(value) {

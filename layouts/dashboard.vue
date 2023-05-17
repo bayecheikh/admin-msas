@@ -86,7 +86,7 @@
                   tile
                 >
                   <v-btn text deprmsased @click="goToProfile" class="customTopNav pop-user-button flex text-sm-center">
-                    Parametres
+                    Paramètres
                   </v-btn> 
                 </v-card>
               </div>
@@ -119,7 +119,7 @@
     <v-footer height="auto" class="white pa-3">
       <span class="caption">&copy; {{ new Date().getFullYear() }}</span>
       <v-spacer></v-spacer>
-      <span class="caption mr-1">&copy; {{ new Date().getFullYear() }} Ministrère de la santé et de l'action sociale, Tous droits réservés</span>
+      <span class="caption mr-1">&copy; {{ new Date().getFullYear() }} Ministère de la Santé et de l'Action Sociale, Tous droits réservés</span>
     </v-footer>
   </v-app>
 </template>

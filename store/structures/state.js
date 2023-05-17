@@ -15,8 +15,8 @@ export default () => ({
         { text: 'Source de financement', value: 'source_financements'},
         { text: 'Type', value: 'type_sources'},
         { text: 'Téléphone', value: 'telephone_structure'},
-        { text: 'Email', value: 'email_structure'},
-        /* { text: 'Telephone', value: 'telephone' }, */
+        { text: 'E-mail', value: 'email_structure'},
+        /* { text: 'Téléphone', value: 'telephone' }, */
         { text: 'Actions', value: 'actions', sortable: false },
     ],
     detailstructure :{},

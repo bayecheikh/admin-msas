@@ -30,13 +30,13 @@ import FormUpdateAnnee from '@/components/annees/modifier/FormUpdateAnnee';
       return {
         headerItems: [
         {
-          text: 'annees',
+          text: 'Années',
           disabled: false,
           to: '/annees',
           exact: true
         },
         {
-          text: 'Detail annee',
+          text: 'Modification',
           disabled: true,
           to: '/annees/94',
           exact: true

@@ -26,7 +26,7 @@
                   <p class="info-profil"><span>Téléphone : </span>{{detailstructure.telephone_structure}}</p>
               </div>
               <div class="col-md-4 my-0 py-0" v-if="detailstructure.email_structure">
-                  <p class="info-profil"><span>Email : </span>{{detailstructure.email_structure}}</p>
+                  <p class="info-profil"><span>E-mail : </span>{{detailstructure.email_structure}}</p>
               </div>
           </div>
         </v-col>
@@ -61,7 +61,7 @@ import { mapMutations, mapGetters } from 'vuex'
           this.progress=true
           this.$msasApi.$get('/structures/'+id)
         .then(async (response) => {
-            console.log('Detail ++++++++++',response)
+            console.log('Détail ++++++++++',response)
             this.$store.dispatch('structures/getDetail',response.data)
             this.changeSource_financement(response.data?.source)
         }).catch((error) => {

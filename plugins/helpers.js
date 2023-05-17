@@ -47,7 +47,8 @@ export default function ({store ,redirect}, inject) {
     }
     //Cette fonction permet de créer le menu a partir des permisions de l'utilisateur connecté
     const getParametreMenu = (array) => {
-        let layoutPrincipal = layoutadmin.menuItems
+        let layoutPrincipal = layoutadmin.menuItems.sort((a, b) => a.title.localeCompare(b.title));
+        console.log("aaaaaaaaaaaaaaa", layoutPrincipal)
         let menu = []
         layoutPrincipal?.map((item)=>{
             if(hasPermission(item.name))

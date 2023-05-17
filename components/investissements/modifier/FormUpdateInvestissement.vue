@@ -113,7 +113,7 @@
                 dense
               >
                 <template slot="prepend-inner">
-                  <div>{{selectedModeFinancementsLibelle[i]}}</div>
+                  <div>{{selectedModeFinancementsLibellé[i]}}</div>
                 </template>
                 <template slot="append">
                   <div>{{devise}}</div>
@@ -170,7 +170,7 @@
                 :rules="rules.textfieldRules"
                 outlined
                 dense
-                label="Bailleur"
+                label="Pourvoyeur de fond"
                 item-text="nom_structure"
                 item-value="id"
                 return-object
@@ -241,7 +241,7 @@
             <v-col lg="12" md="12" sm="12">
               <v-row>
                 <v-col md="3" lg="3" sm="12">
-                    Bien et Services
+                    Biens et Services
                 </v-col>
                 <v-col md="9" lg="9" sm="12">
                   <v-row>
@@ -265,7 +265,7 @@
                     </v-col>
                     <v-col md="4" lg="4" sm="12">
                       <v-text-field
-                        label="Montant Executé"
+                        label="Montant Exécuté"
                         outlined
                         dense
                         v-model="montantBienServiceExecutes0"
@@ -301,7 +301,7 @@
                     </v-col>
                     <v-col md="4" lg="4" sm="12">
                       <v-text-field
-                        label="Montant Executé"
+                        label="Montant Exécuté"
                         outlined
                         dense
                         v-model="montantInvestissementExecutes0"
@@ -335,7 +335,7 @@
                     Bénéficiaire
                   </th>
                   <th class="text-left" >
-                    Bailleur
+                    Pourvoyeur de fond
                   </th>
                   <th class="text-left">
                     Pilier
@@ -350,7 +350,7 @@
                     Montant Biens et services mobilisé
                   </th>
                   <th class="text-left">
-                    Montant Biens et services executé
+                    Montant Biens et services exécuté
                   </th>
                   <th class="text-left">
                     Montant Investissement prévu
@@ -359,7 +359,7 @@
                     Montant Investissement mobilisé
                   </th>
                   <th class="text-left">
-                    Montant Investissement executé
+                    Montant Investissement exécuté
                   </th>
                   <th class="text-left">
                     -
@@ -526,7 +526,7 @@ import { mapMutations, mapGetters } from 'vuex'
       selectedDimension: [],
       selectedRegions: [],
       selectedModeFinancements: [],
-      selectedModeFinancementsLibelle: [],
+      selectedModeFinancementsLibellé: [],
 
       model: {
         id : '',
@@ -552,10 +552,10 @@ import { mapMutations, mapGetters } from 'vuex'
         ],
         emailRules: [
           v => !!v || 'l\'E-mail est obligatoire',
-          v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
+          v => /.+@.+\..+/.test(v) || 'E-mail doit etre valide',
         ],
         rolesRules: [
-          v => (v && !!v.length) || 'Role est obligatoire',
+          v => (v && !!v.length) || 'Le rôle est obligatoire',
         ],
         telephoneRules: [
           v => !!v || 'Téléphone est obligatoire',
@@ -609,7 +609,7 @@ import { mapMutations, mapGetters } from 'vuex'
           this.progress=true
           this.$msasApi.$get('/users/'+id)
         .then(async (response) => {
-            console.log('Detail user++++++++++',response.data)
+            console.log('Détail user++++++++++',response.data)
             this.$store.dispatch('utilisateurs/getDetail',response.data)
             this.idStructure = response.data?.structures[0]?.id
             this.natureStructure = response.data?.structures[0]?.donneur_receveur_mixte
@@ -626,7 +626,7 @@ import { mapMutations, mapGetters } from 'vuex'
           this.$msasApi.$get('/investissements/'+id)
         .then(async (response) => {
           this.LigneFinancementInputs = JSON.parse(JSON.stringify(response.data.ligne_financements))
-            console.log('Detail investissement ++++++++++',response.data)
+            console.log('Détail investissement ++++++++++',response.data)
             this.$store.dispatch('investissements/getDetail',response.data)
             this.model.id= response.data.id
             this.selectedAnnee = response.data.annee[0]?response.data.annee[0]:''
@@ -640,7 +640,7 @@ import { mapMutations, mapGetters } from 'vuex'
             for(let i=0;i<=response.data.mode_financements.length;i++){
               this.counterrow_mode2 += 1;
               this.selectedModeFinancements.push(response.data.mode_financements[i].montant)
-              this.selectedModeFinancementsLibelle.push(response.data.mode_financements[i].libelle)
+              this.selectedModeFinancementsLibellé.push(response.data.mode_financements[i].libelle)
               this.modes2.push({id:this.counterrow_mode2})
             }
           
@@ -701,7 +701,7 @@ import { mapMutations, mapGetters } from 'vuex'
         let dimension = this.selectedDimension
 
         let montantModeFinancements = this.selectedModeFinancements
-        let libelleModeFinancements = this.selectedModeFinancementsLibelle
+        let libelleModeFinancements = this.selectedModeFinancementsLibellé
         let libAutreModeFinance = this.model.libAutreModeFinance
         let montantAutreModeFinance = this.model.montantAutreModeFinance
         let autreMode = this.modes
@@ -871,7 +871,7 @@ import { mapMutations, mapGetters } from 'vuex'
         });
       },
       submitLigne () {
-        if(this.montantBienServiceExecutes0>this.montantBienServiceMobilises0 || this.montantInvestissementExecutes0>this.montantInvestissementMobilises0)
+        if(parseInt(this.montantBienServiceExecutes0)>parseInt(this.montantBienServiceMobilises0) || parseInt(this.montantInvestissementExecutes0)>parseInt(this.montantInvestissementMobilises0))
         {
           alert('Le montant exécuté doit etre inférieur ou égal au montant mobilisé')
         }
@@ -884,7 +884,7 @@ import { mapMutations, mapGetters } from 'vuex'
           }
                 
           if(this.natureStructure=='Receveur'){
-            console.log('Detail Struct +++ ',this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
+            console.log('Détail Struct +++ ',this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
             this.selectedStructureBeneficiaires0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)
             this.selectedstructurebeneficiaires.push(this.findStructureName(this.detailUtilisateur?.structures[0]?.id))
             this.selectedRegions0 = this.findStructureName(this.detailUtilisateur?.structures[0]?.id)?.regions[0]
@@ -977,7 +977,7 @@ import { mapMutations, mapGetters } from 'vuex'
         console.log('Index---- ',index);
         this.modes2.splice(index,1);
         this.selectedModeFinancements.splice(index,1);
-        this.selectedModeFinancementsLibelle.splice(index,1);
+        this.selectedModeFinancementsLibellé.splice(index,1);
 
       },
       submitLigneFichier () {

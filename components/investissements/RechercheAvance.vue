@@ -146,7 +146,7 @@
               :items="liststructures"
               outlined
               dense
-              label="Structure Bénéficiaires"
+              label="Structure Bénéficiaire"
               item-text="nom_structure"
               item-value="id"
               multiple
@@ -237,10 +237,10 @@ import { mapMutations, mapGetters } from 'vuex'
         ],
         emailRules: [
           v => !!v || 'l\'E-mail est obligatoire',
-          v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
+          v => /.+@.+\..+/.test(v) || 'E-mail doit etre valide',
         ],
         rolesRules: [
-          v => (v && !!v.length) || 'Role est obligatoire',
+          v => (v && !!v.length) || 'Le rôle est obligatoire',
         ],
         telephoneRules: [
           v => !!v || 'Téléphone est obligatoire',

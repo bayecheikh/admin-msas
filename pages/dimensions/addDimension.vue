@@ -32,7 +32,7 @@ import FormAddDimension from '@/components/dimensions/FormAddDimension';
       return {
         headerItems: [
         {
-          text: 'dimensions',
+          text: 'Dimensions',
           disabled: false,
           to: '/dimensions',
           exact: true

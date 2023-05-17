@@ -16,7 +16,7 @@
           <v-icon left>
             mdi-plus
           </v-icon>
-          Nouvelle annee
+          Nouvelle année
         </v-btn>
       </div>
     </div>

@@ -44,7 +44,7 @@ import FormUpdateStructure from '@/components/structures/modifier/FormUpdateStru
           exact: true
         },
         {
-          text: 'Detail structure',
+          text: 'Modification',
           disabled: true,
           to: '/structures/94',
           exact: true

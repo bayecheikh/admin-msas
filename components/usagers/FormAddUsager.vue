@@ -67,7 +67,7 @@
       </v-col>
       <v-col md="6" lg="6" sm="12">
         <v-text-field
-          label="Adresse Email"
+          label="Adresse e-mail"
           outlined dense
           v-model="model.email"
           :rules="rules.emailRules"
@@ -204,7 +204,7 @@
           v-model="value"
           :items="roles"
           
-          label="Roles"
+          label="Rôles"
           outlined dense
         ></v-select>
       </v-col> -->
@@ -305,7 +305,7 @@ import { mapMutations, mapGetters } from 'vuex'
         ],
         emailRules: [
           v => !!v || 'E-mail est obligatoire',
-          v => /.+@.+\..+/.test(v) || 'E-mail mdoit etre valide',
+          v => /.+@.+\..+/.test(v) || 'E-mail doit etre valide',
         ],
         usernameRules: [
           v => !!v || 'Login est obligatoire',

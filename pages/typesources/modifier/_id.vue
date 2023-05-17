@@ -32,13 +32,13 @@ import FormUpdateTypesource from '@/components/typesources/modifier/FormUpdateTy
       return {
         headerItems: [
         {
-          text: 'Type sources',
+          text: 'Types de source',
           disabled: false,
           to: '/typesources',
           exact: true
         },
         {
-          text: 'Detail type source',
+          text: 'Modification',
           disabled: true,
           to: '/typesources/94',
           exact: true

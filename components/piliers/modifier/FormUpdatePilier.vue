@@ -18,7 +18,7 @@
             <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
-              label="Rechercher une axe"
+              label="Rechercher un axe"
               outlined
               dense
               hide-details
@@ -100,9 +100,10 @@ import { mapMutations, mapGetters } from 'vuex'
         description: ''
       },
       rules:{
-        nameRules: [
-          v => !!v || 'Prénom est obligatoire',
-          v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
+        nom_pilierRules: [
+        (v) => !!v || 'Le nom est obligatoire',
+        (v) => (v && v.length <= 100) || "Le nom ne doit pas dépasser 100 caractères",
+        (v) => (v && v.length >= 2) || "Le nom doit contenir au moins 2 caractères"
         ],
         descriptionRules: [
           v => !!v || 'Nom est obligatoire'

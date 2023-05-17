@@ -91,7 +91,7 @@
           value="tab-3"
         >
           <v-card flat>
-            <v-card-text>Fiancements</v-card-text>
+            <v-card-text>Financements : </v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -123,7 +123,7 @@ import StatBox from '@/components/dashboard/admin/StatBox';
           this.progress=true
           this.$msasApi.$get('/structures/'+id)
         .then(async (response) => {
-            console.log('Detail ++++++++++',response)
+            console.log('Détail ++++++++++',response)
             this.$store.dispatch('structures/getDetail',response.data)
         }).catch((error) => {
              this.$toast.error(error?.response?.data?.message).goAway(3000)

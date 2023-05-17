@@ -33,13 +33,13 @@ import FormUpdateDimension from '@/components/dimensions/modifier/FormUpdateDime
       return {
         headerItems: [
         {
-          text: 'dimensions',
+          text: 'Dimensions',
           disabled: false,
           to: '/dimensions',
           exact: true
         },
         {
-          text: 'Detail dimension',
+          text: 'Modification',
           disabled: true,
           to: '/dimensions/94',
           exact: true

@@ -29,13 +29,13 @@ import FormUpdateMonnaie from '@/components/monnaies/modifier/FormUpdateMonnaie'
       return {
         headerItems: [
         {
-          text: 'monnaies',
+          text: 'Monnaies',
           disabled: false,
           to: '/monnaies',
           exact: true
         },
         {
-          text: 'Detail monnaie',
+          text: 'Modification',
           disabled: true,
           to: '/monnaies/94',
           exact: true

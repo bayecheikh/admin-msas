@@ -16,7 +16,7 @@
           <v-icon left>
             mdi-plus
           </v-icon>
-          Nouvelle region
+          Nouvelle région
         </v-btn>
       </div>
     </div>

@@ -2,83 +2,6 @@
   <v-container pl-0>
     <v-row>
       <v-col md="12" lg="12" sm="12" class="">
-          <v-row class="d-flex align-items-center mb-6 bg-marron pl-6 py-6 pr-6 pb-0">
-            
-            
-            <v-col lg="5" sm="12" md="5" class="d-flex">
-              <h3 class="mt-1 mr-2 card-title custom-font">Période du </h3>
-              <v-menu
-                v-model="menu1"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="model.debut"
-                    label=""
-                    append-icon="mdi-calendar"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                    outlined dense
-                    @keydown.enter.prevent="updateStat"
-                  ></v-text-field>
-                </template>
-                <v-date-picker
-                  v-model="model.debut"
-                  @input="menu1 = false"
-                  @change="updateStat"
-                ></v-date-picker>
-              </v-menu>
-            </v-col>
-            
-            <v-col lg="5" sm="12" md="5" class="d-flex">
-              <h3 class="mt-1 mr-2 card-title custom-font">au </h3>
-              <v-menu
-                v-model="menu2"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="model.fin"
-                    label=""
-                    append-icon="mdi-calendar"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                    outlined dense  
-                    @keydown.enter.prevent="updateStat"
-                  ></v-text-field>
-                </template>
-                <v-date-picker
-                  v-model="model.fin"
-                  @input="menu2 = false"
-                  @change="updateStat"
-                ></v-date-picker>
-              </v-menu>
-            </v-col> 
-            <v-col lg="2" sm="12" md="2" class="d-flex">
-              <v-btn
-              :loading="loading"
-              color="primary"
-                v-bind="attrs"
-                v-on="on"
-                depressed
-                @click="updateStat"
-                
-              >
-              Filtrer
-              </v-btn> 
-              <v-btn text @click="onClearClicked" rounded color="red">Réinitialiser</v-btn> 
-            </v-col>
-          </v-row>
           <v-row class="d-flex align-items-center mb-6 bg-marron pl-6 py-6 pr-6">
             <v-col md="6" lg="6" sm="12" class="border-right-chart">
                 <h4 class="card-title custom-font">Répartition par dimension</h4 class="card-title custom-font">
@@ -164,7 +87,7 @@ import { mapMutations, mapGetters } from 'vuex'
                 dimensionData: {
                   labels:['Mobilisation de ressources','Mise en commun de ressources','Achat de services'],
                     datasets: [{
-                        label: 'Montant total des financements',
+                        label: 'Montant total des financements ',
                         borderWidth: 1,
                         backgroundColor: '#097fb5ac',
                         data: [20000000, 15000000, 17000000]
@@ -174,7 +97,7 @@ import { mapMutations, mapGetters } from 'vuex'
                 regionData: {
                     labels:['DAKAR','THIES','LOUGA','FATICK','SAINT-LOUIS'],
                     datasets: [{
-                        label: 'Montant total des financements',
+                        label: 'Montant total des financements ',
                         borderWidth: 1,
                         backgroundColor: '#047586c1',
                         data: [20000000, 13000000, 10000000,11000000,9000000]

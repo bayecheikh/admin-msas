@@ -46,13 +46,13 @@ import ActionsAxe from '@/components/axes/detail/ActionsAxe';
         ],
         headerItems: [
         {
-          text: 'axes',
+          text: 'Axes',
           disabled: false,
           to: '/axes',
           exact: true
         },
         {
-          text: 'Detail axe',
+          text: 'Détail axe',
           disabled: true,
           to: '/axes/94',
           exact: true

@@ -4,13 +4,13 @@ export default () => ({
 
     headersources : [
         {
-            text: 'Libelle',
+            text: 'Libellé',
             align: 'start',
             sortable: true,
             value: 'libelle_source',
         },
-        { text: 'Types sources', value: 'type_sources',sortable: false },
-        /* { text: 'Status', value: 'status' }, */
+        { text: 'Types de source', value: 'type_sources',sortable: false },
+        /* { text: 'Statut', value: 'status' }, */
         { text: 'Actions', value: 'actions', sortable: false },
     ],
     detailsource :{}

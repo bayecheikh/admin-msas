@@ -4,7 +4,7 @@
       <v-row>
         <v-col md="6" lg="6" sm="12">
           <v-text-field
-            label="Nom"
+            label="Libelle"
             outlined dense
             v-model="model.libelle"
             :rules="rules.libelleRules"
@@ -42,8 +42,9 @@ import Notification from '@/components/Notification'
       },
       rules:{
         libelleRules: [
-          v => !!v || 'Libelle est obligatoire',
-          v => (v && v.length <= 50) || 'Prénom doit etre inférieur à 20 caratères',
+        (v) => !!v || 'Le nom est obligatoire',
+        (v) => (v && v.length <= 100) || "Le nom ne doit pas dépasser 100 caractères",
+        (v) => (v && v.length >= 2) || "Le nom doit contenir au moins 2 caractères"
         ],
         descriptionRules: [
           v => !!v || 'Description est obligatoire'

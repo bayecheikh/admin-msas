@@ -34,13 +34,13 @@ import FormUpdateAxe from '@/components/axes/modifier/FormUpdateAxe';
         ],
         headerItems: [
         {
-          text: 'axes',
+          text: 'Axes',
           disabled: false,
           to: '/axes',
           exact: true
         },
         {
-          text: 'Detail axe',
+          text: 'Modification',
           disabled: true,
           to: '/axes/94',
           exact: true

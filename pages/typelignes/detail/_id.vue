@@ -41,18 +41,18 @@ import ActionsTypeLigne from '@/components/typelignes/detail/ActionsTypeLigne';
     data () {
       return {
         leftmenuItems: [
-          { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
+          { text: 'Rôles', icon: 'mdi-lock',link:'/roles',position:1  },
           { text: 'typelignes', icon: 'mdi-lock',link:'/typelignes',position:2  }
         ],
         headerItems: [
         {
-          text: 'typelignes',
+          text: 'Types de ligne',
           disabled: false,
           to: '/typelignes',
           exact: true
         },
         {
-          text: 'Detail typeligne',
+          text: 'Détail type de ligne',
           disabled: true,
           to: '/typelignes/94',
           exact: true

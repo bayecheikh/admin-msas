@@ -31,13 +31,13 @@ import FormAddTypesource from '@/components/typesources/FormAddTypesource';
       return {
         headerItems: [
           {
-            text: 'Type sources',
+            text: 'Types de source',
             disabled: false,
             to: '/typesources',
             exact: true
           },
           {
-            text: 'Nouveau type source',
+            text: 'Nouveau type de source',
             disabled: false,
             to: '/typesources/addTypesource',
             exact: true

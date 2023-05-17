@@ -34,12 +34,12 @@ import ListAnnee from '@/components/annees/ListAnnee'
       return {
         selectedItem: 0,
         leftmenuItems: [
-          { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
+          { text: 'Rôles', icon: 'mdi-lock',link:'/roles',position:1  },
           { text: 'annees', icon: 'mdi-lock',link:'/annees',position:2  }
         ],
         headerItems: [
           {
-            text: 'Liste des annees',
+            text: 'Liste des années',
             disabled: true,
             to: '/annees',
             exact: true

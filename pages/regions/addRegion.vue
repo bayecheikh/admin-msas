@@ -32,13 +32,13 @@ import FormAddRegion from '@/components/regions/FormAddRegion';
       return {
         headerItems: [
         {
-          text: 'Regions',
+          text: 'Régions',
           disabled: false,
           to: '/regions',
           exact: true
         },
         {
-          text: 'Nouveau region',
+          text: 'Nouvelle région',
           disabled: false,
           to: '/regions/addregion',
           exact: true

@@ -37,13 +37,13 @@ import FormUpdatePilier from '@/components/piliers/modifier/FormUpdatePilier';
         ],
         headerItems: [
         {
-          text: 'piliers',
+          text: 'Piliers',
           disabled: false,
           to: '/piliers',
           exact: true
         },
         {
-          text: 'Detail pilier',
+          text: 'Modification',
           disabled: true,
           to: '/piliers/94',
           exact: true

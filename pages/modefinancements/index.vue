@@ -34,12 +34,12 @@ import ListModeFinancement from '@/components/modefinancements/ListModeFinanceme
       return {
         selectedItem: 0,
         leftmenuItems: [
-          { text: 'Roles', icon: 'mdi-lock',link:'/roles',position:1  },
+          { text: 'Rôles', icon: 'mdi-lock',link:'/roles',position:1  },
           { text: 'modefinancements', icon: 'mdi-lock',link:'/modefinancements',position:2  }
         ],
         headerItems: [
           {
-            text: 'Liste des modefinancements',
+            text: 'Liste des modes de financement',
             disabled: true,
             to: '/modefinancements',
             exact: true

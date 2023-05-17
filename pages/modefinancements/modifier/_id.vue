@@ -30,13 +30,13 @@ import FormUpdateModeFinancement from '@/components/modefinancements/modifier/Fo
       return {
         headerItems: [
         {
-          text: 'modefinancements',
+          text: 'Modes de financement',
           disabled: false,
           to: '/modefinancements',
           exact: true
         },
         {
-          text: 'Detail modefinancement',
+          text: 'Modification',
           disabled: true,
           to: '/modefinancements/94',
           exact: true

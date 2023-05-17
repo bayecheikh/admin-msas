@@ -16,7 +16,7 @@
           <v-icon left>
             mdi-plus
           </v-icon>
-          Nouveau bailleur
+          Nouveau domaine
         </v-btn>
       </div>
     </div>

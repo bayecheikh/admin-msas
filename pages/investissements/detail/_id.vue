@@ -53,6 +53,7 @@ import HistoriqueInvestissement from '@/components/investissements/detail/Histor
       this.$store.dispatch('bailleurs/getList')
       this.$store.dispatch('piliers/getList')
       this.$store.dispatch('sources/getList')
+      this.$store.dispatch('bailleurs/getList')
       
     },
     data () {
@@ -66,7 +67,7 @@ import HistoriqueInvestissement from '@/components/investissements/detail/Histor
           exact: true
         },
         {
-          text: 'Detail investissement',
+          text: 'Détail financement',
           disabled: true,
           to: '/investissements/94',
           exact: true

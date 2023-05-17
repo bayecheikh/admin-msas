@@ -33,13 +33,13 @@ import FormAddAxe from '@/components/axes/FormAddAxe';
         ],
         headerItems: [
         {
-          text: 'axes',
+          text: 'Axes',
           disabled: false,
           to: '/axes',
           exact: true
         },
         {
-          text: 'Nouveau axe',
+          text: 'Nouvel axe',
           disabled: false,
           to: '/axes/addaxe',
           exact: true

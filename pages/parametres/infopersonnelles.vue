@@ -40,7 +40,7 @@
                   </v-col>
                   <v-col cols="6">
                     <v-text-field
-                      label="Adresse Email"
+                      label="Adresse e-mail"
                       outlined
                     ></v-text-field>
                   </v-col>
@@ -66,7 +66,7 @@
                   <v-col cols="12">
                     <v-select
                       :items="items"                
-                      label="Roles"
+                      label="Rôles"
                       outlined
                     ></v-select>
                   </v-col>
