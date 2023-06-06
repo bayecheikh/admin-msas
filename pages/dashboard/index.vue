@@ -202,42 +202,42 @@ export default {
           //Montant bien et service executé
           let total1 = 0;
           newlist.map((item) => {
-            total1 += parseInt(item.montantBienServicePrevus);
+            total1 += parseInt(item.montantBienServicePrevus || 0);
           });
           this.montantBienServicePrevus = total1;
 
           //Montant bien et service mobilisé
           let total2 = 0;
           newlist.map((item) => {
-            total2 += parseInt(item.montantBienServiceMobilises);
+            total2 += parseInt(item.montantBienServiceMobilises || 0);
           });
           this.montantBienServiceMobilises = total2;
 
           //Montant bien et service executé
           let total3 = 0;
           newlist.map((item) => {
-            total3 += parseInt(item.montantBienServiceExecutes);
+            total3 += parseInt(item.montantBienServiceExecutes || 0);
           });
           this.montantBienServiceExecutes = total3;
 
           //Montant bien et service executé
           let total4 = 0;
           newlist.map((item) => {
-            total4 += parseInt(item.montantInvestissementPrevus);
+            total4 += parseInt(item.montantInvestissementPrevus || 0);
           });
           this.montantInvestissementPrevus = total4;
 
           //Montant bien et service executé
           let total5 = 0;
           newlist.map((item) => {
-            total5 += parseInt(item.montantInvestissementExecutes);
+            total5 += parseInt(item.montantInvestissementExecutes || 0);
           });
           this.montantInvestissementExecutes = total5;
 
           //Montant bien et service executé
           let total6 = 0;
           newlist.map((item) => {
-            total6 += parseInt(item.montantInvestissementMobilises);
+            total6 += parseInt(item.montantInvestissementMobilises || 0);
           });
           this.montantInvestissementMobilises = total6;
     },
