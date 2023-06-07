@@ -21,7 +21,7 @@
                 <v-col md="6" sm="12" lg="6" class="pb-0 pt-4">
                   <div class="row">
                     
-                    <v-btn class="col-md-3 col-lg-3 col-sm-12 ml-6" v-on:click="exporterCSV()">
+                    <v-btn class="col-md-6 col-lg-6 col-sm-12 ml-6" v-on:click="exporterCSV()">
                       <v-icon left class="font-small">
                         mdi-file-export-outline
                       </v-icon>
@@ -208,26 +208,6 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
       datasearch: 'ligneinvestissements/datasearch',
     }),
     methods: {
-      getList(page){
-          this.progress=true
-          this.$msasApi.$get('/recherche_avance_investissements?page='+page)
-        .then(async (response) => {
-          console.log('Données reçus++++++++++++',response.data.data.data)
-            await this.$store.dispatch('ligneinvestissements/getList',response.data.data.data)
-            let totalPages = Math.ceil(response.data.data.total / response.data.data.per_page)
-            this.$store.dispatch('ligneinvestissements/getTotalPage',totalPages)
-            this.$store.dispatch('ligneinvestissements/getPerPage',response.data.data.per_page)
-            
-        }).catch((error) => {
-            /* this.$toast.global.my_error().goAway(1500) */ //Using custom toast
-             this.$toast.error(error?.response?.data?.message).goAway(3000)
-            console.log('Code error ++++++: ', error?.response?.data?.message)
-        }).finally(() => {
-            console.log('Requette envoyé ')
-            this.progress=false
-        });
-        //console.log('total items++++++++++',this.paginationinvestissement)
-      },
        getResult(param){
         this.progress=true  
         let formData = new FormData();
@@ -246,7 +226,7 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
 
 
          console.log('données recherche ligne financements',param)    
-         this.$msasFileApi.post('/recherche_ligne_financements',formData)
+         this.$msasFileApi.post('/recherche_ligne_financements?page='+param.page,formData)
           .then(async (response) => {
             console.log('Données lignes reçus++++++++++++',response)
             await this.$store.dispatch('ligneinvestissements/getList',response.data.data.data)

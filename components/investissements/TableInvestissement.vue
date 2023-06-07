@@ -3,7 +3,7 @@
     <div class="d-flex border-bottom-solid">
       <div>
         <v-tabs v-model="tab">
-          <v-tab class="text-normal" v-for="(item,i) in tabItems" :key="i">
+          <v-tab class="text-normal" v-for="(item,i) in tabItems" :key="i" @click="changeTab(item.value)">
             {{item.title}}</v-tab
           >
         </v-tabs>
@@ -215,7 +215,8 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
           source: null         
         }
         this.$store.commit('investissements/initdatasearch',data)
-      this.getList(1)
+        this.status = this.tabItems[0]?.value
+      this.getList(this.tabItems[0]?.value,1)
     },
     computed: mapGetters({
       listinvestissements: 'investissements/listinvestissements',
@@ -225,9 +226,9 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
       datasearch: 'ligneinvestissements/datasearch',
     }),
     methods: {
-      getList(page){
+      getList(status,page){
           this.progress=true
-          this.$msasApi.$get('/investissements?page='+page)
+          this.$msasApi.$get('/financementByStatus/'+status+'?page='+page)
         .then(async (response) => {
             console.log('list investissement ++++++++++',response)
             let totalPages = Math.ceil(response.data.total / response.data.per_page)
@@ -268,11 +269,16 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
       },
       handlePageChange(value){
         console.log('-------------datasearch est',this.datasearch)
-        if(this.datasearch ==null)
-        this.getList(value)
+        this.getList(this.status,value)
+       /*  if(this.datasearch ==null)
+        this.getList(this.status,value)
         else
-        this.getResult(value,this.datasearch)
+        this.getResult(value,this.datasearch) */
 
+      },
+      changeTab (item) {
+        this.status = item
+        this.getList(item,1)
       },
       visualiserItem (item) {
         this.$store.dispatch('investissements/getDetail',item)
@@ -353,7 +359,8 @@ import RechercheAvance from '@/components/investissements/RechercheAvance';
       totalItems:0,
       options: {},
       selectedItem:0,
-      activeItem:{}
+      activeItem:{},
+      status:''
     })
   }
 </script>
