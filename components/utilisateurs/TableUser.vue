@@ -93,7 +93,7 @@
           color="success"
           hide-details
           @change="actveDesactiveUser(item.id)"
-          v-if="$hasRole('super_admin')"
+          v-if="$hasPermission('activer-utilisateur')"
         ></v-switch>
         <div v-else>{{item.status=='actif'?'Actif':'Inactif'}}</div>
       </template>
